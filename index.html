@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Struggle Style — Apparel Sourcing &amp; Manufacturing</title>
+<meta name="description" content="Responsible apparel sourcing and manufacturing for lingerie, denim, sweater, woven and knit — from brief to shipment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1B3A30;
+    --green-2:#24483C;
+    --green-3:#2E5547;
+    --footer:#172E26;
+    --ink:#1B2B24;
+    --muted:#5F6A64;
+    --cream:#F5F3EE;
+    --card:#F4F2EC;
+    --white:#FFFFFF;
+    --line:#E2DCCF;
+    --mint:#E4EAE3;
+    --r:22px;
+    --max:1312px;
+    --sans:"Inter",system-ui,sans-serif;
+    --serif:"Lora",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased}
+  img,video{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{cursor:pointer;background:none;border:0}
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 64px}
+  section{padding:80px 0}
+  .bg-cream{background:var(--cream)}
+  .bg-green{background:var(--green);color:#fff}
+
+  /* Type */
+  .kicker{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .bg-green .kicker{color:rgba(255,255,255,.85)}
+  h1,h2,h3,h4{font-weight:600;letter-spacing:-.025em;line-height:1.05}
+  h2{font-size:clamp(34px,4.2vw,54px);margin:10px 0 14px;max-width:16ch;color:var(--green)}
+  .bg-green h2{color:#fff}
+  .intro{font-size:17px;color:var(--muted);max-width:56ch}
+  .bg-green .intro{color:rgba(255,255,255,.82)}
+  .shead{margin-bottom:36px}
+  .shead.row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;gap:12px;height:48px;padding:0 20px;border-radius:999px;font-size:14px;font-weight:600;white-space:nowrap;transition:background .2s,transform .2s,border-color .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn svg{width:15px;height:15px;flex-shrink:0}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green-3)}
+  .btn-white{background:#fff;color:var(--green);border:1px solid var(--line)}
+  .btn-white:hover{border-color:var(--green)}
+  .btn-cream{background:var(--card);color:var(--green);border:1px solid var(--line)}
+  .btn-cream:hover{border-color:var(--green)}
+  .btn-sm{height:38px;padding:0 16px;font-size:13.5px}
+  .tag{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;background:#fff;color:var(--green)}
+  .tag.glass{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid var(--line)}
+  .nav{height:96px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-size:22px;font-weight:700;letter-spacing:.01em;color:var(--green)}
+  .nav ul{display:flex;align-items:center;gap:32px;list-style:none;font-size:14px;font-weight:500}
+  .nav ul a:hover{color:var(--green-3);text-decoration:underline;text-underline-offset:6px}
+  .burger{display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff}
+  .burger span{display:block;width:18px;height:2px;background:var(--green);margin:4px auto}
+  .mnav{display:none}
+
+  /* Hero */
+  .hero{position:relative;height:760px;max-height:88vh;min-height:620px;color:#fff;overflow:hidden;padding:0;background:#22231F}
+  .hero-media,.hero-media video,.hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,18,15,.82) 0%,rgba(14,18,15,.55) 45%,rgba(14,18,15,.15) 100%),linear-gradient(0deg,rgba(14,18,15,.4),transparent 40%)}
+  .hero .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding-top:48px;padding-bottom:48px}
+  .hero-top{display:flex;justify-content:space-between}
+  .hero h1{font-size:clamp(44px,5.2vw,68px);max-width:12.5ch;margin-top:44px;letter-spacing:-.03em;line-height:1.02}
+  .hero p{font-size:17px;margin:28px 0 26px;color:rgba(255,255,255,.9);max-width:60ch}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-ctrl{margin-top:auto;display:flex;justify-content:flex-end;align-items:center;gap:12px}
+  .play{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;margin-right:46px}
+  .play svg{width:20px;height:20px}
+  .hero-ctrl .tag{cursor:pointer}
+
+  /* Stat cards */
+  .stats{display:grid;gap:24px}
+  .stats.c3{grid-template-columns:repeat(3,1fr)}
+  .stats.c4{grid-template-columns:repeat(4,1fr)}
+  .stat{border:1px solid var(--line);border-radius:var(--r);padding:28px 24px 30px;background:var(--card)}
+  .bg-cream .stat{background:#fff}
+  .stat .kicker{color:var(--ink);opacity:.8}
+  .stat strong{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;margin:4px 0 8px;color:var(--ink)}
+  .stat p{font-size:14.5px;color:var(--muted)}
+
+  /* Categories */
+  .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+  .cat .img{position:relative;aspect-ratio:243/320;border-radius:var(--r);overflow:hidden;background:#E9E4D8}
+  .cat .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .cat:hover .img img{transform:scale(1.05)}
+  .cat .tag{position:absolute;top:18px;left:18px;font-size:10.5px;height:32px;padding:0 14px}
+  .cat h3{font-size:28px;margin:20px 0 8px}
+  .cat p{font-size:14px;color:var(--muted)}
+
+  /* Manufacturing */
+  .mfg{display:grid;grid-template-columns:560px 1fr;gap:48px;align-items:start;margin-top:48px}
+  .photo{position:relative;border-radius:var(--r);overflow:hidden;background:#3A3A32}
+  .photo img{width:100%;height:100%;object-fit:cover}
+  .photo .cap{position:absolute;left:24px;bottom:24px;height:36px;padding:0 16px;border-radius:999px;background:#fff;color:var(--green);font-size:11.5px;font-weight:600;text-transform:uppercase;display:flex;align-items:center}
+  .mfg .photo{height:600px}
+  .steps{display:grid;gap:16px;margin-top:68px}
+  .step{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 20px}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--mint);display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--green);flex-shrink:0}
+  .step h4{font-size:18px;letter-spacing:-.01em}
+  .step p{font-size:14.5px;color:var(--muted);margin-top:4px}
+  .steps .btn{margin-top:12px;justify-self:start}
+  .sublabel{margin:56px 0 16px}
+  .chips{display:flex;flex-wrap:wrap;gap:12px}
+  .chip{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:500;display:inline-flex;align-items:center;background:var(--cream)}
+
+  /* Sustainability */
+  .sus{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .sus h2{font-size:clamp(38px,4.4vw,56px);margin:28px 0 30px;max-width:13ch}
+  .sus .intro{margin-bottom:26px}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+  .pillar{border:1px solid rgba(255,255,255,.14);background:var(--green-2);border-radius:18px;padding:18px 18px 20px}
+  .pillar small{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:rgba(255,255,255,.8);display:block;margin-bottom:6px}
+  .pillar b{font-size:15.5px;font-weight:600;line-height:1.2;display:block}
+  .sus .photo{height:560px}
+  .sus .photo .cap{text-transform:none;font-size:12px}
+  .sus-note{font-size:12px;color:rgba(255,255,255,.8);margin-top:20px}
+
+  /* Markets */
+  .markets{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
+  .mkt{grid-column:span 2;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px 26px}
+  .mkt:nth-child(4),.mkt:nth-child(5){grid-column:span 3}
+  .mkt .top{display:flex;gap:12px;align-items:center;margin-bottom:22px}
+  .mkt .flag{width:56px;height:56px;border:1px solid var(--line);border-radius:4px;display:grid;place-items:center;overflow:hidden;flex-shrink:0;background:#fff}
+  .mkt .flag img{width:100%;height:auto}
+  .mkt .flag.globe{border-radius:12px;background:var(--card)}
+  .mkt h3{font-size:28px;letter-spacing:-.02em;margin-top:2px}
+  .mkt p{font-size:14.5px;color:var(--muted)}
+
+  /* Certifications */
+  .certs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:start}
+  .cert{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 24px 22px}
+  .cert h3{font-size:18px;letter-spacing:-.01em;line-height:1.22;margin:12px 0 12px}
+  .cert p{font-size:14px;color:var(--muted);margin-bottom:16px}
+  .cert .btn{background:#fff;border:1px solid var(--line);color:var(--green);height:36px;padding:0 14px;font-size:13px}
+
+  /* Testimonials */
+  .testis{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+  .testi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 32px 30px}
+  .testi q{display:block;font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.12;color:var(--ink);margin:22px 0 18px}
+  .testi .note{font-size:14px;color:var(--muted)}
+  .who{display:flex;gap:12px;align-items:center;margin-top:20px;font-size:13px;font-weight:600;color:var(--green);line-height:1.3}
+  .who i{width:48px;height:48px;border-radius:50%;background:var(--mint);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;font-weight:700;font-size:14px;flex-shrink:0}
+
+  /* News */
+  .news{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .post .img{aspect-ratio:421/240;border-radius:var(--r);overflow:hidden;background:#E9E4D8;margin-bottom:22px}
+  .post .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .post:hover .img img{transform:scale(1.04)}
+  .post h3{font-size:28px;letter-spacing:-.02em;line-height:1.1;margin:16px 0 8px}
+  .post .date{font-size:14px;color:var(--muted);margin-bottom:18px}
+
+  /* CLO preview */
+  .clo{display:grid;grid-template-columns:1fr 704px;gap:48px;align-items:center}
+  .clo h2{font-size:clamp(36px,4vw,52px);max-width:13ch}
+  .clo .intro{margin:24px 0 32px}
+  .clo .fine{font-size:14.5px;color:var(--muted);margin-bottom:28px;max-width:58ch}
+  .stage{position:relative;height:620px;border-radius:var(--r);overflow:hidden;background:radial-gradient(70% 60% at 55% 40%,#9B958C,#77736C 70%,#6A665F)}
+  .stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .stage .fig{position:absolute;left:50%;top:6%;height:86%;transform:translateX(-50%)}
+  .stage .floor{position:absolute;left:50%;bottom:4%;width:40%;height:30px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(0,0,0,.25),transparent)}
+  .stage .tl{position:absolute;top:24px;left:24px}
+  .stage .bl{position:absolute;left:24px;bottom:24px;display:flex;gap:12px;align-items:center}
+  .stage .br{position:absolute;right:24px;bottom:24px}
+  .stage .play{margin:0}
+  .stage .bl .btn{background:#fff;color:var(--ink);height:36px;font-size:13.5px}
+
+  /* Estimator */
+  .est{display:grid;grid-template-columns:560px 1fr;gap:24px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+  .panel > .kicker{display:block;margin-bottom:22px}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-size:12px;font-weight:600;margin-bottom:8px;color:var(--ink)}
+  .input{width:100%;height:54px;border-radius:14px;border:1px solid var(--line);background:#fff;padding:0 16px;font-size:14px;outline:none;transition:border-color .2s}
+  .input:focus{border-color:var(--green)}
+  select.input{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B2B24' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 18px center/16px no-repeat;padding-right:44px}
+  textarea.input{height:140px;padding:14px 16px;resize:vertical}
+  .rows{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 20px}
+  .rows div{display:flex;justify-content:space-between;padding:6px 0;font-size:14px}
+  .rows dt{color:var(--muted)}
+  .rows dd{font-weight:600}
+  .disclaimer{background:var(--mint);border-radius:14px;padding:16px;font-size:14px;margin:20px 0}
+  .warn{color:#A0521D}
+
+  /* RFQ */
+  .rfq{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+  .rfq .input{background:var(--cream)}
+  .rfq select.input{background-color:var(--cream)}
+  .file{position:relative}
+  .file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .file .input{display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
+  .rfq-foot{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:4px;flex-wrap:wrap}
+  .rfq-foot p{font-size:13.5px;color:var(--muted);max-width:58ch}
+  .ok{display:none;margin-top:20px;background:var(--mint);border-radius:14px;padding:16px;font-size:14.5px}
+  .ok.show{display:block}
+
+  /* CTA band */
+  .cta h2{max-width:none;font-size:clamp(34px,4vw,52px)}
+  .cta h2 span{display:block}
+  .cta .intro{max-width:62ch}
+  .cta-btns{display:flex;gap:24px;flex-wrap:wrap;margin-top:32px}
+  .cta .btn{background:var(--cream);color:var(--green)}
+  .cta .btn:hover{background:#fff}
+
+  /* Footer */
+  footer{background:var(--footer);color:#fff}
+  .f-cta{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;padding:56px 0 46px;border-bottom:1px solid rgba(255,255,255,.14);flex-wrap:wrap}
+  .f-cta h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;color:#fff;max-width:none;font-size:clamp(34px,3.8vw,50px);margin:12px 0 18px}
+  .f-cta p{color:rgba(255,255,255,.8);font-size:15.5px}
+  .f-cta .right{text-align:right}
+  .f-cta .sq{display:inline-flex;justify-content:space-between;align-items:center;gap:56px;height:52px;padding:0 24px;background:var(--cream);color:var(--green);font-weight:600;font-size:14.5px;margin-bottom:12px}
+  .f-cta .right small{display:block;font-size:13px;color:rgba(255,255,255,.75)}
+  .f-main{display:grid;grid-template-columns:504px 284px 224px 1fr;padding:46px 0 46px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .f-main .logo{color:#fff;font-size:26px;display:block;margin-bottom:22px}
+  .f-main p{color:rgba(255,255,255,.8);font-size:15px;line-height:1.6}
+  .f-main h5{font-size:11.5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:22px}
+  .f-main ul{list-style:none;display:grid;gap:14px;font-size:15.5px}
+  .f-main a:hover{text-decoration:underline;text-underline-offset:4px}
+  .f-main .mail{font-size:16px}
+  .f-main .muted{font-size:12.5px;color:rgba(255,255,255,.65);margin:6px 0 22px}
+  .f-main .li{display:inline-flex;align-items:center;gap:10px;font-size:15.5px}
+  .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0 24px;font-size:13.5px;color:rgba(255,255,255,.85);flex-wrap:wrap}
+  .f-bot nav{display:flex;gap:24px}
+
+  /* Responsive */
+  @media (max-width:1200px){
+    .wrap{padding:0 40px}
+    .mfg,.clo,.est{grid-template-columns:1fr 1fr}
+    .f-main{grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:24px}
+  }
+  @media (max-width:1024px){
+    .nav ul{display:none}
+    .burger{display:block}
+    .mnav.open{display:block;position:fixed;inset:97px 0 0;background:var(--cream);z-index:49;padding:24px 40px}
+    .mnav ul{list-style:none}
+    .mnav a{display:block;font-size:26px;font-weight:600;color:var(--green);padding:14px 0;border-bottom:1px solid var(--line)}
+    .cats{grid-template-columns:repeat(3,1fr)}
+    .stats.c4,.certs{grid-template-columns:repeat(2,1fr)}
+    .sus,.mfg,.clo,.est{grid-template-columns:1fr}
+    .mfg .photo{height:440px}
+    .steps{margin-top:0}
+    .testis,.news{grid-template-columns:1fr 1fr}
+    .grid3{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 20px}
+    section{padding:64px 0}
+    .nav{height:76px}
+    .mnav.open{inset:77px 0 0;padding:20px}
+    .nav-cta{display:none}
+    .hero{height:auto;min-height:640px;max-height:none}
+    .hero .wrap{padding-top:28px;padding-bottom:28px}
+    .hero h1{margin-top:28px}
+    .hero-top .tag:last-child{display:none}
+    .play{margin-right:auto}
+    .stats.c3,.stats.c4,.cats,.certs,.testis,.news,.pillars,.grid3,.grid2{grid-template-columns:1fr}
+    .cats{grid-template-columns:1fr 1fr}
+    .markets{grid-template-columns:1fr}
+    .mkt,.mkt:nth-child(4),.mkt:nth-child(5){grid-column:auto}
+    .sus .photo,.stage{height:440px}
+    .panel,.rfq{padding:22px}
+    .f-main{grid-template-columns:1fr 1fr;gap:36px}
+    .f-main > :first-child{grid-column:1/-1}
+    .f-cta .right{text-align:left}
+  }
+  @media (max-width:420px){ .cats{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">STRUGGLE STYLE</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#manufacturing">Manufacturing</a></li>
+        <li><a href="#sustainability">Sustainability</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li class="nav-cta"><a href="#rfq" class="btn btn-green" style="text-decoration:none">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mnav" id="mnav">
+  <ul>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#manufacturing">Manufacturing</a></li>
+    <li><a href="#sustainability">Sustainability</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#rfq">Get a Quote →</a></li>
+  </ul>
+</div>
+
+<main>
+<!-- ============ HERO / SUSTAINABILITY FILM ============ -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero-media">
+    <!-- Poster image (replace with sewing-close-up frame from the film) -->
+    <img src="images/hero.jpg" onerror="this.onerror=null;this.src='https://www.strugglestyle.net/images/about-us-1.png'" alt="" aria-hidden="true">
+    <!-- Sustainability film: MP4 + WebM, muted loop, ≤4 MB desktop / ≤2 MB mobile -->
+    <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true">
+      <source src="media/hero-sustainability.webm" type="video/webm">
+      <source src="media/hero-sustainability.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="tag glass">Sustainability film</span>
+      <span class="tag glass">Video preview</span>
+    </div>
+    <h1>Modern sourcing for brands that value craft and evidence.</h1>
+    <p>Responsible sourcing, considered materials and clear approvals—from brief to shipment.</p>
+    <div class="hero-ctas">
+      <a href="#estimate" class="btn btn-green">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#sustainability" class="btn btn-white">Our Sustainability <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </div>
+    <div class="hero-ctrl">
+      <button class="play" id="heroPlay" aria-label="Play video"><svg id="heroIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4.5l12 7.5-12 7.5z"/></svg></button>
+      <button class="tag glass" id="heroToggle">Play / Pause</button>
+      <button class="tag glass" id="heroFull">Fullscreen</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 PROOF ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">01 / Proof</span>
+      <h2>Sourcing performance at a glance.</h2>
+      <p class="intro">Sample figures — to be replaced with client-verified capacity, export and certification data.</p>
+    </div>
+    <div class="stats c3">
+      <div class="stat"><span class="kicker">Monthly capacity</span><strong>45,000 units</strong><p>Across knit and woven production lines.</p></div>
+      <div class="stat"><span class="kicker">Export countries</span><strong>18 countries</strong><p>Buyers across North America, Europe and beyond.</p></div>
+      <div class="stat"><span class="kicker">Certifications</span><strong>12 documents</strong><p>Audits and licenses with issuer and validity on record.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 CATEGORIES ============ -->
+<section id="products" style="padding-top:0">
+  <div class="wrap">
+    <div class="shead row">
+      <div>
+        <span class="kicker">02 / Featured categories</span>
+        <h2>Five product categories, each with its own craft focus.</h2>
+        <p class="intro">Dedicated lines, materials and specialists for every category — presented for sourcing teams and brand owners.</p>
+      </div>
+      <a href="#" class="btn btn-cream">Explore all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </div>
+    <div class="cats">
+      <a href="#" class="cat"><div class="img"><img src="https://i.ibb.co/0Mbmm3g/img4.webp" alt="Lingerie" loading="lazy"><span class="tag">Lingerie</span></div><h3>Lingerie</h3><p>Precision, comfort and considered construction.</p></a>
+      <a href="#" class="cat"><div class="img"><img src="https://i.ibb.co/DVh8xJ1/img19.webp" alt="Denim" loading="lazy"><span class="tag">Denim</span></div><h3>Denim</h3><p>Character in every stitch and wash.</p></a>
+      <a href="#" class="cat"><div class="img"><img src="https://i.ibb.co/1skNSMn/img7.jpg" alt="Sweater" loading="lazy"><span class="tag">Sweater</span></div><h3>Sweater</h3><p>Texture, warmth and seasonal knit quality.</p></a>
+      <a href="#" class="cat"><div class="img"><img src="https://i.ibb.co/BrzdZJb/img6.webp" alt="Woven" loading="lazy"><span class="tag">Woven</span></div><h3>Woven</h3><p>Structure, ease and considered fabric choice.</p></a>
+      <a href="#" class="cat"><div class="img"><img src="https://i.ibb.co/YjKx5XD/img23.webp" alt="Knit" loading="lazy"><span class="tag">Knit</span></div><h3>Knit</h3><p>Everyday versatility with a premium finish.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 MANUFACTURING ============ -->
+<section class="bg-cream" id="manufacturing">
+  <div class="wrap">
+    <span class="kicker">03 / Manufacturing story</span>
+    <h2>From brief to delivery, a clear path for every garment.</h2>
+    <p class="intro" style="max-width:66ch">We organize the journey into readable phases so sourcing teams can understand where decisions are made, where approvals happen and what evidence is available before production starts.</p>
+
+    <div class="mfg">
+      <div class="photo">
+        <img src="images/manufacturing.jpg" onerror="this.onerror=null;this.src='https://www.strugglestyle.net/images/about-us2.png'" alt="Sewing on the production floor" loading="lazy">
+        <span class="cap">The details make the difference.</span>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><div><h4>Align on the brief</h4><p>Share your tech pack, reference samples and sourcing priorities.</p></div></div>
+        <div class="step"><span class="n">02</span><div><h4>Develop &amp; refine</h4><p>Review materials, construction and fit before production decisions.</p></div></div>
+        <div class="step"><span class="n">03</span><div><h4>Make &amp; review</h4><p>Agree production checkpoints, quality expectations and approvals.</p></div></div>
+        <div class="step"><span class="n">04</span><div><h4>Prepare for delivery</h4><p>Coordinate finishing, packing and export documentation.</p></div></div>
+        <a href="#" class="btn btn-green">Inside our manufacturing approach <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+
+    <p class="kicker sublabel">Factory strengths</p>
+    <div class="stats c4">
+      <div class="stat"><span class="kicker">Lines</span><strong>12 lines</strong><p>Production lines across knit and woven.</p></div>
+      <div class="stat"><span class="kicker">Machines</span><strong>86 units</strong><p>Specialised sewing and finishing machines.</p></div>
+      <div class="stat"><span class="kicker">People</span><strong>128 staff</strong><p>Skilled operators, QC and merchandisers.</p></div>
+      <div class="stat"><span class="kicker">Monthly output</span><strong>38,000 units</strong><p>Average finished garments per month.</p></div>
+    </div>
+
+    <p class="kicker sublabel">Nine-step procurement path</p>
+    <div class="chips">
+      <span class="chip">Merchandising</span><span class="chip">Design</span><span class="chip">Sourcing</span><span class="chip">Sampling</span><span class="chip">Production</span><span class="chip">Cutting</span><span class="chip">Sewing</span><span class="chip">Finishing</span><span class="chip">Shipping</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 SUSTAINABILITY ============ -->
+<section class="bg-green" id="sustainability">
+  <div class="wrap sus">
+    <div>
+      <span class="kicker">04 / Sustainability</span>
+      <h2>Less assumption. More evidence.</h2>
+      <p class="intro">Better sourcing starts with better questions. We work with your team to evaluate material options, product longevity and the documentation behind each decision.</p>
+      <div class="pillars">
+        <div class="pillar"><small>Material choices</small><b>Traceable sourcing and substantiated options</b></div>
+        <div class="pillar"><small>Lasting construction</small><b>Built for longevity and quality review</b></div>
+        <div class="pillar"><small>Evidence-led sourcing</small><b>Reports, certifications and documentation access</b></div>
+      </div>
+      <a href="#" class="btn btn-white" style="border:0">Explore our sustainability approach <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </div>
+    <div>
+      <div class="photo">
+        <img src="images/sustainability.jpg" onerror="this.onerror=null;this.src='https://i.ibb.co/YjKx5XD/img23.webp'" alt="Fabric and thread on a work table" loading="lazy">
+        <span class="cap">A closer look at what goes into a garment.</span>
+      </div>
+      <p class="sus-note">Material options and supporting evidence are reviewed for each brief.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 BUYER MARKETS ============ -->
+<section class="bg-cream">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">05 / Buyer markets</span>
+      <h2>Serving buyers across key sourcing markets.</h2>
+      <p class="intro">Sample regions — to be confirmed with the client's current export markets.</p>
+    </div>
+    <div class="markets">
+      <div class="mkt"><div class="top"><span class="flag"><img src="https://flagcdn.com/w160/us.png" alt=""></span><div><span class="kicker">North America</span><h3>United States</h3></div></div><p>Programs for brands and retailers.</p></div>
+      <div class="mkt"><div class="top"><span class="flag"><img src="https://flagcdn.com/w160/ca.png" alt=""></span><div><span class="kicker">North America</span><h3>Canada</h3></div></div><p>Programs for brands and retailers.</p></div>
+      <div class="mkt"><div class="top"><span class="flag"><img src="https://flagcdn.com/w160/gb.png" alt=""></span><div><span class="kicker">Europe</span><h3>United Kingdom</h3></div></div><p>Programs for brands and retailers.</p></div>
+      <div class="mkt"><div class="top"><span class="flag"><img src="https://flagcdn.com/w160/eu.png" alt=""></span><div><span class="kicker">Europe</span><h3>European Union</h3></div></div><p>Programs for brands and retailers.</p></div>
+      <div class="mkt"><div class="top"><span class="flag globe"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B2B24" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><span class="kicker">Americas</span><h3>Latin America</h3></div></div><p>Programs for brands and retailers.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 CERTIFICATIONS ============ -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">06 / Certifications</span>
+      <h2>A credential library you can review.</h2>
+      <p class="intro">Sample entries — each card will hold the real certificate name, issuer, validity dates and a click-to-enlarge preview.</p>
+    </div>
+    <div class="certs" id="certs"></div>
+  </div>
+</section>
+
+<!-- ============ 07 TESTIMONIALS ============ -->
+<section class="bg-cream">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">07 / Testimonials</span>
+      <h2>What buyers say about working with us.</h2>
+      <p class="intro">Sample testimonials — to be replaced with verified buyer feedback.</p>
+    </div>
+    <div class="testis">
+      <div class="testi"><span class="kicker">Buyer 01</span><q>The team moved quickly from brief to sample and gave us a clear view of the approvals we needed.</q><p class="note">Sample testimonial for review flow only.</p><div class="who"><i>MC</i>Sample Buyer: Maya Chen • Sample Company: Northwind Apparel</div></div>
+      <div class="testi"><span class="kicker">Buyer 02</span><q>We appreciated the structured process and the evidence shared at each development checkpoint.</q><p class="note">Sample testimonial for review flow only.</p><div class="who"><i>DB</i>Sample Buyer: Daniel Brooks • Sample Company: Meridian Studio</div></div>
+      <div class="testi"><span class="kicker">Buyer 03</span><q>The sample data and production plan gave our team confidence before we placed the order.</q><p class="note">Sample testimonial for review flow only.</p><div class="who"><i>SP</i>Sample Buyer: Sofia Patel • Sample Company: Harbor Collective</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 NEWS ============ -->
+<section id="news">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">08 / Latest news</span>
+      <h2>Sourcing insights from our team.</h2>
+      <p class="intro">Practical notes on fit, materials and approvals for sourcing teams.</p>
+    </div>
+    <div class="news">
+      <a href="#" class="post"><div class="img"><img src="https://i.ibb.co/8XS7ynp/img1.jpg" alt="" loading="lazy"></div><span class="kicker">Sourcing insight</span><h3>How to align fit intent before the first sample</h3><p class="date">12 Mar 2026 • Sourcing guidance</p><span class="btn btn-cream btn-sm">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a href="#" class="post"><div class="img"><img src="https://i.ibb.co/sFT1BCJ/img2.jpg" alt="" loading="lazy"></div><span class="kicker">Material considerations</span><h3>Choosing the right knit weight for a spring basics collection</h3><p class="date">28 Feb 2026 • Material considerations</p><span class="btn btn-cream btn-sm">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+      <a href="#" class="post"><div class="img"><img src="https://i.ibb.co/fHtLbmj/img3.jpg" alt="" loading="lazy"></div><span class="kicker">Sourcing guidance</span><h3>A checklist for reviewing first-fit samples and approvals</h3><p class="date">09 Jan 2026 • Sourcing guidance</p><span class="btn btn-cream btn-sm">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 CLO PREVIEW ============ -->
+<section class="bg-cream">
+  <div class="wrap clo">
+    <div>
+      <span class="kicker">09 / CLO preview</span>
+      <h2>A clearer view before the sample.</h2>
+      <p class="intro">Explore a pre-rendered CLO avatar garment preview. See silhouette, proportion and design details in motion, then discuss the next development step with our team.</p>
+      <p class="fine">A visual development aid. Physical samples remain essential for fit, handfeel and final approval.</p>
+      <a href="#rfq" class="btn btn-green">Discuss digital sampling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </div>
+    <div class="stage">
+      <!-- Replace with CLO-rendered clip: <video src="media/clo-preview.mp4" poster="..."> -->
+      <svg class="fig" viewBox="0 0 160 400" aria-hidden="true">
+        <ellipse cx="80" cy="34" rx="20" ry="26" fill="#D9D2C6"/>
+        <rect x="72" y="56" width="16" height="16" fill="#D9D2C6"/>
+        <path d="M44 74q36-10 72 0l10 40-6 66q-40 8-80 0l-6-66z" fill="#EAE2D3"/>
+        <path d="M44 76l-16 104 10 4 16-80zM116 76l16 104-10 4-16-80z" fill="#E2D9C8"/>
+        <path d="M80 72v104" stroke="#D3C8B4"/>
+        <path d="M44 176h72l10 214h-36l-10-170-10 170H34z" fill="#5E6B47"/>
+        <path d="M80 190v30" stroke="#4C5739"/>
+        <ellipse cx="50" cy="392" rx="12" ry="5" fill="#C9C0B1"/><ellipse cx="110" cy="392" rx="12" ry="5" fill="#C9C0B1"/>
+      </svg>
+      <div class="floor"></div>
+      <span class="tag tl">CLO / Garment preview film</span>
+      <div class="bl">
+        <button class="play" aria-label="Play garment preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4.5l12 7.5-12 7.5z"/></svg></button>
+        <span class="btn">Play garment preview</span>
+      </div>
+      <span class="tag br">Pre-rendered video</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 INSTANT ESTIMATE ============ -->
+<section id="estimate">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">10 / Instant estimate</span>
+      <h2>Start with a clear estimate, then move to a tailored RFQ.</h2>
+      <p class="intro">A few details to start the conversation. Explore an indicative price estimate, then send your brief for a tailored quotation.</p>
+    </div>
+    <div class="est">
+      <form class="panel" id="estForm">
+        <span class="kicker">Estimator inputs</span>
+        <div class="field"><label for="eCat">Product category</label>
+          <select class="input" id="eCat"><option>Knit</option><option>Denim</option><option>Woven</option><option>Sweater</option><option>Lingerie</option></select></div>
+        <div class="field"><label for="eStyle">Product style</label><input class="input" id="eStyle" value="T-shirt"></div>
+        <div class="field"><label for="eFab">Fabric</label>
+          <select class="input" id="eFab"><option value="1">Cotton jersey</option><option value="1.12">Organic cotton jersey</option><option value="1.08">Recycled poly blend</option><option value="1.2">Cotton-modal blend</option></select></div>
+        <div class="field"><label for="eGsm">GSM</label><input class="input" id="eGsm" type="number" value="160" min="80" max="600"></div>
+        <div class="field"><label for="eQty">Quantity (pieces)</label><input class="input" id="eQty" type="number" value="5000" min="100" step="100"></div>
+        <div class="field"><label for="eSize">Size mix</label><input class="input" id="eSize" value="XS–XL"></div>
+        <div class="field"><label for="eCol">Color count</label><input class="input" id="eCol" type="number" value="2" min="1" max="20"></div>
+        <div class="field"><label for="eCust">Customization</label>
+          <select class="input" id="eCust"><option value="0.35">Labels, packaging</option><option value="0">None</option><option value="0.6">Print</option><option value="0.85">Embroidery</option><option value="1.1">Print + embroidery</option></select></div>
+        <div class="field"><label for="eCur">Currency</label>
+          <select class="input" id="eCur"><option>USD</option><option>EUR</option><option>GBP</option><option>CAD</option></select></div>
+        <button class="btn btn-green" type="submit">Get indicative estimate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </form>
+      <div class="panel">
+        <span class="kicker">Estimate preview</span>
+        <dl class="rows">
+          <div><dt>Unit estimate</dt><dd id="oUnit">—</dd></div>
+          <div><dt>Total estimate</dt><dd id="oTotal">—</dd></div>
+          <div><dt>MOQ status</dt><dd id="oMoq">—</dd></div>
+        </dl>
+        <p class="disclaimer">Estimate only. Non-binding. Final pricing, minimum quantities and lead times are subject to specification review and sales approval.</p>
+        <a href="#rfq" class="btn btn-white" id="toRfq">Have a tech pack? Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 RFQ CTA ============ -->
+<section class="bg-green cta">
+  <div class="wrap">
+    <span class="kicker">11 / Ready to source</span>
+    <h2><span>Ready to source? Get an</span><span>instant price estimate.</span></h2>
+    <p class="intro">Start with a clear estimate, then move to a tailored RFQ. Useful to share: product category, quantity, materials, target timeline and tech pack.</p>
+    <div class="cta-btns">
+      <a href="#estimate" class="btn">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="https://wa.me/12675368321" class="btn">WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      <a href="mailto:info@strugglestyle.net" class="btn">Email <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 RFQ FORM ============ -->
+<section class="bg-cream" id="rfq">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker">12 / RFQ</span>
+      <h2>Tell us about your next collection.</h2>
+      <p class="intro">Share the details below and our team will prepare a tailored quotation based on your product, material, quantity and target price.</p>
+    </div>
+    <form class="rfq" id="rfqForm">
+      <div class="grid3">
+        <div class="field"><label for="rCo">Company</label><input class="input" id="rCo" required placeholder="Your company"></div>
+        <div class="field"><label for="rName">Contact person</label><input class="input" id="rName" required placeholder="Full name"></div>
+        <div class="field"><label for="rMail">Email</label><input class="input" id="rMail" type="email" required placeholder="sourcing@yourbrand.com"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="rTel">Telephone</label><input class="input" id="rTel" type="tel" placeholder="+1 (555) 000-0000"></div>
+        <div class="field"><label for="rDest">Destination</label><input class="input" id="rDest" placeholder="Country / port"></div>
+      </div>
+      <div class="grid3">
+        <div class="field"><label for="rCat">Product category</label>
+          <select class="input" id="rCat"><option>Knit</option><option>Denim</option><option>Woven</option><option>Sweater</option><option>Lingerie</option></select></div>
+        <div class="field"><label for="rStyle">Product style</label><input class="input" id="rStyle" placeholder="e.g. T-shirt"></div>
+        <div class="field"><label for="rFab">Fabric</label>
+          <select class="input" id="rFab"><option>Cotton jersey</option><option>Organic cotton jersey</option><option>Recycled poly blend</option><option>Cotton-modal blend</option></select></div>
+        <div class="field"><label for="rQty">Quantity</label><input class="input" id="rQty" placeholder="e.g. 5,000 pieces"></div>
+        <div class="field"><label for="rPrice">Target price</label><input class="input" id="rPrice" placeholder="e.g. $8.40 USD"></div>
+        <div class="field"><label for="rFile">Tech pack upload</label>
+          <div class="file"><input type="file" id="rFile" accept=".pdf,.ai,.zip,.jpg,.png,.xlsx"><span class="input" id="rFileName">Upload tech pack <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2B24" stroke-width="2.2"><path d="M12 15V4M7 9l5-5 5 5M5 15v5h14v-5"/></svg></span></div></div>
+      </div>
+      <div class="field"><label for="rNotes">Specifications / comments</label><textarea class="input" id="rNotes" placeholder="Fit, materials, packaging, timeline…"></textarea></div>
+      <div class="rfq-foot">
+        <p>By submitting this form, you agree that Struggle Style may contact you about your request and related sourcing information.</p>
+        <button class="btn btn-green" type="submit">Request a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="ok" id="rfqOk" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-cta">
+      <div>
+        <span class="kicker" style="color:rgba(255,255,255,.8)">Your next collection</span>
+        <h2>Good things start with a brief.</h2>
+        <p>Share your ideas, materials and timeline. Let's talk about what comes next.</p>
+      </div>
+      <div class="right">
+        <a href="#rfq" class="sq">Get a quote <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <small>A new collection. A considered beginning.</small>
+      </div>
+    </div>
+    <div class="f-main">
+      <div><a href="#" class="logo">STRUGGLE STYLE</a><p>Apparel sourcing &amp; manufacturing.<br>Considered from the first conversation.</p></div>
+      <div><h5>Capabilities</h5><ul><li><a href="#products">Products</a></li><li><a href="#manufacturing">Manufacturing</a></li><li><a href="#sustainability">Sustainability</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#about">About</a></li><li><a href="#news">News</a></li><li><a href="#faq">FAQ</a></li><li><a href="#rfq">Contact</a></li></ul></div>
+      <div><h5>Let's connect</h5>
+        <a href="mailto:info@strugglestyle.net" class="mail">info@strugglestyle.net</a>
+        <p class="muted">+1 (267) 536-8321</p>
+        <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" class="li">LinkedIn <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 18L18 6M8 6h10v10"/></svg></a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 STRUGGLE STYLE. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a></nav>
+      <span>Language: English</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Mobile menu
+  $('burger').onclick = () => { const o = $('mnav').classList.toggle('open'); $('burger').setAttribute('aria-expanded', o); };
+  document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => $('mnav').classList.remove('open'));
+
+  // Hero video — user-controlled; autoplays unless reduced motion / data saver
+  const vid = $('heroVideo');
+  const PLAY = '<path d="M7 4.5l12 7.5-12 7.5z"/>', PAUSE = '<path d="M8 5v14M16 5v14"/>';
+  const setIcon = playing => { $('heroIco').innerHTML = playing ? PAUSE : PLAY; $('heroPlay').setAttribute('aria-label', playing ? 'Pause video' : 'Play video'); };
+  const toggle = () => { vid.paused ? vid.play().catch(() => {}) : vid.pause(); };
+  vid.addEventListener('playing', () => setIcon(true)); vid.addEventListener('pause', () => setIcon(false));
+  $('heroPlay').onclick = toggle; $('heroToggle').onclick = toggle;
+  $('heroFull').onclick = () => (vid.requestFullscreen ? vid.requestFullscreen() : null)?.catch?.(() => {});
+  const skip = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData);
+  if (!skip) { vid.load(); vid.play().catch(() => {}); }
+
+  // Certification cards (sample slots — replace with CMS data)
+  const certs = [
+    ['Social Responsibility Audit','Atlas Compliance','01 Jan 2026 – 31 Dec 2026'],
+    ['Environmental Management Review','Northwind Review','15 Mar 2026 – 14 Mar 2027'],
+    ['Health & Safety Assessment','Harbor Audit Group','22 Jun 2026 – 21 Jun 2027'],
+    ['Supply Chain Transparency Report','Meridian Review','08 Sep 2026 – 07 Sep 2027'],
+    ['Labor Standards Verification','Beacon Compliance','12 Nov 2025 – 11 Nov 2026'],
+    ['Chemical Safety Declaration','Ridge Review','04 Feb 2026 – 03 Feb 2027'],
+    ['Packaging Waste Reduction Plan','Lumen Review','19 Jul 2026 – 18 Jul 2027'],
+    ['Fair Wage Verification','Summit Review','27 Oct 2026 – 26 Oct 2027'],
+    ['Material Traceability Report','Field Review','10 Apr 2026 – 09 Apr 2027'],
+    ['Energy Efficiency Audit','Coast Review','28 Jan 2026 – 27 Jan 2027'],
+    ['Water Stewardship Review','Brook Review','17 Aug 2026 – 16 Aug 2027'],
+    ['Community Engagement Report','Valley Review','05 May 2026 – 04 May 2027']
+  ];
+  $('certs').innerHTML = certs.map((c, i) => `
+    <div class="cert">
+      <span class="kicker">Sample slot ${String(i + 1).padStart(2, '0')}</span>
+      <h3>${c[0]}</h3>
+      <p>Issuer: ${c[1]} • Validity: ${c[2]}</p>
+      <button class="btn">Preview pending</button>
+    </div>`).join('');
+
+  // Demo estimator — real rates are server-side and admin-configured
+  const BASE = { Knit:{p:3.1, moq:1000}, Denim:{p:8.2, moq:1000}, Woven:{p:6.6, moq:1000}, Sweater:{p:9.4, moq:600}, Lingerie:{p:4.6, moq:1500} };
+  const FX = { USD:1, EUR:.92, GBP:.79, CAD:1.37 };
+  function estimate() {
+    const cat = $('eCat').value, b = BASE[cat], cur = $('eCur').value;
+    const qty = Math.max(0, +$('eQty').value || 0), gsm = +$('eGsm').value || 160, cols = +$('eCol').value || 1;
+    const tier = qty >= 10000 ? .88 : qty >= 5000 ? .94 : qty >= 1000 ? 1 : 1.2;
+    const unit = (b.p * (+$('eFab').value) * (gsm / 160) ** .5 + +$('eCust').value + (cols - 1) * .08) * tier * FX[cur];
+    const fmt = n => n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' ' + cur;
+    $('oUnit').textContent = fmt(unit);
+    $('oTotal').textContent = Math.round(unit * qty).toLocaleString('en-US') + ' ' + cur;
+    const ok = qty >= b.moq;
+    $('oMoq').textContent = ok ? `Meets MOQ (${b.moq.toLocaleString()} units)` : `Below MOQ (${b.moq.toLocaleString()} units)`;
+    $('oMoq').className = ok ? '' : 'warn';
+    return { unit: fmt(unit), qty };
+  }
+  $('estForm').onsubmit = e => { e.preventDefault(); estimate(); };
+  $('estForm').addEventListener('input', estimate);
+  estimate();
+
+  // Prefill RFQ from estimator
+  $('toRfq').onclick = () => {
+    const r = estimate();
+    $('rCat').value = $('eCat').value;
+    $('rStyle').value = $('eStyle').value;
+    $('rFab').value = $('eFab').selectedOptions[0].text;
+    $('rQty').value = r.qty.toLocaleString() + ' pieces';
+    $('rPrice').value = r.unit;
+    $('rNotes').value = `GSM: ${$('eGsm').value} · Size mix: ${$('eSize').value} · Colors: ${$('eCol').value} · Customization: ${$('eCust').selectedOptions[0].text}`;
+  };
+
+  // RFQ
+  $('rFile').onchange = e => { const f = e.target.files[0]; if (f) $('rFileName').firstChild.textContent = f.name + ' '; };
+  $('rfqForm').onsubmit = e => {
+    e.preventDefault();
+    const ref = 'SS-RFQ-' + Date.now().toString().slice(-6);
+    $('rfqOk').textContent = `Thank you — your request has been received. Reference: ${ref}. Our sales team will reply within one business day.`;
+    $('rfqOk').classList.add('show');
+  };
+</script>
+</body>
+</html>
