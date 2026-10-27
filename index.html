@@ -242,27 +242,27 @@
   .media-cap b{display:block;font-family:var(--head);font-size:20px;font-weight:600;text-align:right}
   .media-cap span{display:block;font-size:13.5px;color:rgba(255,255,255,.8);text-align:right}
 
-  /* 6. Sustainability */
-  .sus{background:var(--green-800);color:#fff}
+  /* 6. Sustainability — full-width photo background */
+  .sus{position:relative;color:#fff;padding:140px 0 72px;overflow:hidden;isolation:isolate}
+  .sus-bg{position:absolute;inset:-8% 0;z-index:-2}
+  .sus-bg img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+  .sus::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(12,36,27,.94) 0%,rgba(12,36,27,.8) 42%,rgba(12,36,27,.35) 75%,rgba(12,36,27,.2) 100%),linear-gradient(0deg,rgba(12,36,27,.92) 0%,rgba(12,36,27,0) 45%)}
   .sus h2,.sus h4{color:#fff}
-  .sus .tag{background:rgba(156,196,143,.16);color:var(--leaf)}
-  .sus .tag::before{background:var(--leaf)}
-  .sus .lead{color:rgba(255,255,255,.75)}
-  .sus-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:stretch}
-  .sus h2{margin:0 0 16px}
-  .measures{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0 36px}
-  .measure{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:22px;transition:background .3s}
-  .measure:hover{background:rgba(255,255,255,.1)}
-  .measure .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-  .measure .ico{width:44px;height:44px;border-radius:12px;background:rgba(156,196,143,.16);color:var(--leaf);display:grid;place-items:center}
+  .sus .lead{color:rgba(255,255,255,.8)}
+  .sus-intro{max-width:600px}
+  .sus-intro h2{margin:0 0 18px;font-size:clamp(36px,4.2vw,56px)}
+  .sus-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .measures{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:120px}
+  .measure{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:var(--r);padding:24px;transition:background .3s,transform .35s var(--ease)}
+  .measure:hover{background:rgba(255,255,255,.14);transform:translateY(-4px)}
+  .measure .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+  .measure .ico{width:46px;height:46px;border-radius:50% 50% 50% 10px;background:var(--leaf);color:var(--green-900);display:grid;place-items:center}
   .measure .ico svg{width:22px;height:22px}
-  .status{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(156,196,143,.18);color:var(--leaf)}
-  .status.pending{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
-  .measure h4{font-size:17px;margin-bottom:6px}
-  .measure p{font-size:14px;color:rgba(255,255,255,.68)}
-  .sus-photo{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:520px}
-  .sus-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .sus-photo .cap{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(10,26,20,.6);backdrop-filter:blur(10px);border-radius:var(--r-sm);padding:14px 18px;font-size:14px;color:rgba(255,255,255,.9)}
+  .status{font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(156,196,143,.22);color:#CDE6C4}
+  .status.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.75)}
+  .measure h4{font-size:18px;margin-bottom:8px}
+  .measure p{font-size:14px;line-height:1.55;color:rgba(255,255,255,.72)}
+  .sus-note{margin-top:22px;font-size:12.5px;color:rgba(255,255,255,.55)}
 
   /* 7. Markets & brand logos (marquee) */
   .reach{overflow:hidden}
@@ -432,7 +432,9 @@
     .stats{grid-template-columns:1fr;gap:24px}
     .stat,.stat:first-child{padding:0}
     .stat + .stat{border-left:0;border-top:1px solid rgba(45,99,80,.18);padding-top:24px}
-    .sus-grid,.rfq-card{grid-template-columns:1fr}
+    .rfq-card{grid-template-columns:1fr}
+    .measures{grid-template-columns:1fr 1fr;margin-top:72px}
+    .sus{padding:96px 0 56px}
     .mfg-split{grid-template-columns:1fr;gap:48px}
     .mfg-visual{max-width:620px}
     .posts{grid-template-columns:1fr 1fr}
@@ -658,22 +660,23 @@
 
 <!-- ===== 6. Sustainability ===== -->
 <section class="sus" id="sustainability">
-  <div class="wrap sus-grid">
-    <div class="rv">
+  <div class="sus-bg" aria-hidden="true"><img src="images/cotton-field.jpg" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="sus-intro rv">
       <h2>Responsible by practice, transparent by default</h2>
-      <p class="lead">We share what is in place today and what is still in progress — so every claim you make to your customers can be backed by evidence.</p>
-      <div class="measures">
+      <p class="lead">Every garment starts with a material choice. We share what is in place today and what is still in progress — so every claim you make to your customers is backed by evidence.</p>
+      <div class="sus-ctas">
+        <a href="sustainability.html" class="btn btn-white">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#" class="btn btn-glass">Download compliance PDF</a>
+      </div>
+    </div>
+    <div class="measures rv">
         <div class="measure"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21V11M12 11c0-4 3-7 8-7 0 5-3 8-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><span class="status">Available</span></div><h4>Responsible materials</h4><p>Organic and recycled cotton options for every program.</p></div>
         <div class="measure"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11a3 3 0 100-6M21 20c0-2.6-1.7-4.8-4-5.6"/></svg></span><span class="status">In place</span></div><h4>Safe workplaces</h4><p>Clean, well-lit production floors and fair working hours.</p></div>
         <div class="measure"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c4.5 5.5 7 9 7 12a7 7 0 01-14 0c0-3 2.5-6.5 7-12z"/></svg></span><span class="status pending">In progress</span></div><h4>Water care</h4><p>Low-water washing and effluent treatment for finishing.</p></div>
         <div class="measure"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span class="status pending">In progress</span></div><h4>Energy efficiency</h4><p>Efficient machinery and renewable energy planning.</p></div>
-      </div>
-      <a href="#" class="btn btn-white">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-    <div class="sus-photo rv" style="--d:.1s">
-      <img src="images/cotton-field.jpg" alt="Cotton field ready for harvest" loading="lazy">
-      <p class="cap">Every garment starts with a material choice. We help you choose the responsible one.</p>
-    </div>
+    <p class="sus-note">Status of each measure to be confirmed by Struggle Style before launch.</p>
   </div>
 </section>
 
