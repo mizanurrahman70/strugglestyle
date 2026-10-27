@@ -130,46 +130,51 @@
   .pp{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--green-900);display:grid;place-items:center}
   .pp svg{width:14px;height:14px}
 
-  /* 3. Proof */
-  .proof{padding:48px 0 0}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .stat{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow)}
-  .stat .ico{width:56px;height:56px;border-radius:16px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;flex-shrink:0}
-  .stat .ico svg{width:26px;height:26px}
-  .stat strong{display:block;font-family:var(--head);font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.05}
-  .stat span{font-size:14.5px;color:var(--muted)}
+  /* 3. Proof — soft sage band with leaf accents */
+  .proof{position:relative;padding:64px 0 56px;background:linear-gradient(180deg,#EDF3E8 0%,#F5F8F1 100%);overflow:hidden}
+  .proof .leaf{position:absolute;color:var(--green-600);opacity:.09;pointer-events:none}
+  .proof .leaf.l1{left:-40px;top:-30px;width:260px;transform:rotate(-20deg)}
+  .proof .leaf.l2{right:-30px;bottom:-60px;width:300px;transform:rotate(150deg)}
+  .stats{position:relative;display:grid;grid-template-columns:repeat(3,1fr)}
+  .stat{display:flex;align-items:center;gap:20px;padding:8px 40px}
+  .stat:first-child{padding-left:0}
+  .stat + .stat{border-left:1px solid rgba(45,99,80,.18)}
+  .stat .ico{width:60px;height:60px;border-radius:50% 50% 50% 8px;background:#fff;color:var(--green-600);display:grid;place-items:center;flex-shrink:0;box-shadow:0 8px 20px -12px rgba(20,53,42,.35)}
+  .stat .ico svg{width:28px;height:28px}
+  .stat strong{display:block;font-family:var(--head);font-size:clamp(28px,2.6vw,36px);font-weight:600;letter-spacing:-.03em;line-height:1.05;color:var(--green-800)}
+  .stat span{display:block;font-size:14.5px;color:var(--muted);margin-top:4px}
+  .proof .note{position:relative;text-align:center;margin-top:36px}
   .note{font-size:13px;color:var(--muted);margin-top:14px}
 
-  /* 4. Categories (cards) */
-  /* Bento gallery: one feature card + four supporting cards */
-  .cats{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,330px);gap:16px}
-  .cat{position:relative;border-radius:var(--r-lg);overflow:hidden;color:#fff;isolation:isolate;background:var(--green-900)}
-  .cat.feature{grid-column:span 2;grid-row:span 2}
-  .cat .media,.cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .cat .media{z-index:-2}
-  .cat .media img{transition:transform 1.2s var(--ease),filter .6s}
-  .cat:hover .media img{transform:scale(1.07)}
+  /* 4. Categories — staggered portrait cards (photo first) */
+  .cats-head{text-align:center;max-width:720px;margin:0 auto 64px}
+  .cats-head h2{margin:16px 0 14px;text-wrap:balance}
+  .cats-head .lead{margin:0 auto}
+  .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:start}
+  .cat{display:block;color:var(--text)}
+  .cat:nth-child(even){margin-top:64px}
+  .cat .media{position:relative;aspect-ratio:3/4;border-radius:var(--r);overflow:hidden;background:var(--soft)}
+  .cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .cat .media img{object-position:center top;transition:transform 1.2s var(--ease)}
+  .cat:hover .media img{transform:scale(1.06)}
   .cat .media video{opacity:0;transition:opacity .5s}
   .cat.playing .media video{opacity:1}
-  .cat::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,26,20,.25) 0%,rgba(10,26,20,0) 30%,rgba(10,26,20,.15) 55%,rgba(10,26,20,.88) 100%);transition:opacity .5s}
-  .cat-top{position:absolute;top:20px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center}
-  .num{font-size:13px;font-weight:600;letter-spacing:.08em;opacity:.9}
-  .chip{height:30px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(10px);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
-  .chip svg{width:11px;height:11px}
-  .cat-body{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
-  .cat h3{color:#fff;font-size:28px;letter-spacing:-.02em}
-  .cat.feature h3{font-size:clamp(36px,3.4vw,48px)}
-  .cat .desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
-  .cat .desc > p{overflow:hidden;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.82);max-width:340px}
-  .cat .desc > p span{display:block;padding-top:8px}
-  .cat:hover .desc,.cat.feature .desc{grid-template-rows:1fr}
-  .cat .meta-line{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-  .cat .meta-line span{font-size:12px;font-weight:500;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
-  .cat .arrow{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--green-800);display:grid;place-items:center;flex-shrink:0;transition:transform .4s var(--ease),background .3s,color .3s}
-  .cat .arrow svg{width:18px;height:18px}
-  .cat:hover .arrow{transform:rotate(-45deg);background:var(--leaf);color:var(--green-900)}
-  .cat.feature .arrow{width:56px;height:56px}
-  .cats-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+  .cat .media::after{content:"";position:absolute;inset:0;background:rgba(10,26,20,0);transition:background .5s}
+  .cat:hover .media::after{background:rgba(10,26,20,.12)}
+  .cat.playing .media::after{background:transparent}
+  .play-hint{position:absolute;left:50%;top:50%;z-index:2;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(8px);display:grid;place-items:center;opacity:0;transform:scale(.8);transition:opacity .4s,transform .4s var(--ease)}
+  .play-hint svg{width:20px;height:20px;margin-left:3px}
+  .cat:hover .play-hint{opacity:1;transform:none}
+  .cat.playing .play-hint{opacity:0}
+  .clip-tag{position:absolute;left:12px;bottom:12px;z-index:2;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;color:var(--green-800);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease)}
+  .clip-tag i{width:6px;height:6px;border-radius:50%;background:var(--green-600)}
+  .cat:hover .clip-tag{opacity:1;transform:none}
+  .cat-info{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px 0}
+  .cat-info h3{font-size:22px}
+  .cat-info p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
+  .cat-info .go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+  .cat-info .go svg{width:15px;height:15px}
+  .cat:hover .cat-info .go{background:var(--green-800);border-color:var(--green-800);color:#fff;transform:rotate(-45deg)}
 
   /* 5. Manufacturing — image left, content right */
   .mfg{background:var(--soft)}
@@ -410,8 +415,9 @@
 
   /* Responsive */
   @media (max-width:1180px){
-    .cats{grid-template-columns:repeat(2,1fr);grid-template-rows:440px repeat(2,300px)}
-    .cat.feature{grid-column:1/-1;grid-row:auto}
+    .cats{grid-template-columns:repeat(3,1fr);row-gap:40px}
+    .cat:nth-child(even){margin-top:0}
+    .cat:nth-child(3n+2){margin-top:48px}
     .cert-track{grid-auto-columns:calc((100% - 32px)/3)}
     .flow-body{grid-template-columns:1fr}
     .step-media{min-height:360px;order:-1}
@@ -423,7 +429,9 @@
     .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
     .hero-content{padding:84px var(--edge) 96px}
-    .stats{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr;gap:24px}
+    .stat,.stat:first-child{padding:0}
+    .stat + .stat{border-left:0;border-top:1px solid rgba(45,99,80,.18);padding-top:24px}
     .sus-grid,.rfq-card{grid-template-columns:1fr}
     .mfg-split{grid-template-columns:1fr;gap:48px}
     .mfg-visual{max-width:620px}
@@ -442,10 +450,9 @@
     .hero-ctrl{bottom:24px}
     .hero-ctrl .lbl{display:none}
     .hero-ctas .btn{flex:1}
-    .cats{grid-template-columns:none;grid-template-rows:440px;grid-auto-flow:column;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
-    .cat,.cat.feature{grid-column:auto;grid-row:auto;scroll-snap-align:start}
-    .cat .desc{grid-template-rows:1fr}
-    .cat.feature h3{font-size:34px}
+    .cats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
+    .cat,.cat:nth-child(n){margin-top:0;scroll-snap-align:start}
+    .clip-tag{opacity:1;transform:none}
     .posts,.measures{grid-template-columns:1fr}
     .review{width:300px;padding:22px}
     .review p{font-size:15px}
@@ -534,63 +541,48 @@
 
 <!-- ===== 3. Proof stats ===== -->
 <section class="proof" id="about">
+  <span class="leaf l1"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span><span class="leaf l2"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span>
   <div class="wrap">
     <div class="stats">
-      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M5 21V9l5 3V9l5 3V6l4 2v13"/></svg></span><div><strong>100,000+</strong><span>Pieces monthly production capacity</span></div></div>
-      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>5 regions</strong><span>US, Canada, UK, EU &amp; Latin America</span></div></div>
-      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11a3 3 0 100-6M21 20c0-2.6-1.7-4.8-4-5.6"/></svg></span><div><strong>40+ people</strong><span>Skilled operators, QC &amp; merchandisers</span></div></div>
+      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><div><strong>100,000+</strong><span>Pieces produced every month</span></div></div>
+      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>5 markets</strong><span>US, Canada, UK, EU &amp; Latin America</span></div></div>
+      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-2.5-8-6-8-10.5A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.5c0 4.5-3.5 8-8 10.5z"/></svg></span><div><strong>40+ people</strong><span>Skilled, safe and fairly employed</span></div></div>
     </div>
     <p class="note">Figures based on the current company profile and to be confirmed by Struggle Style before launch.</p>
   </div>
 </section>
 
 <!-- ===== 4. Categories ===== -->
+<!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover (desktop) -->
 <section id="products">
   <div class="wrap">
-    <div class="s-head rv">
-      <div>
-        <span class="tag">Our Products</span>
-        <h2>What we make</h2>
-        <p class="lead">Dedicated production teams, responsible material choices and consistent quality checks — from the first sample to the final shipment.</p>
-      </div>
-      <a href="#" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="cats-head rv">
+      <span class="tag">Our Products</span>
+      <h2>Offering a diverse range of products</h2>
+      <p class="lead">Dedicated production teams, responsible material choices and consistent quality checks — from the first sample to the final shipment.</p>
     </div>
-    <!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover (desktop) -->
     <div class="cats">
-      <a href="products/denim.html" class="cat feature rv" data-clip="">
-        <div class="media"><img src="images/denim-folded.jpg" alt="Folded denim jeans" loading="lazy"></div>
-        <div class="cat-top"><span class="num">01</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D avatar preview</span></div>
-        <div class="cat-body">
-          <div>
-            <h3>Denim</h3>
-            <div class="desc"><p><span>Jeans, jackets, chinos and cargos — rigid and stretch fabrics with eco-wash, enzyme and stone finishes.</span></p></div>
-            <div class="meta-line"><span>8–14 oz denim</span><span>Eco-wash</span><span>Organic cotton</span></div>
-          </div>
-          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
+      <a href="products/lingerie.html" class="cat rv" style="--d:0.00s" data-clip="">
+        <div class="media"><img src="images/cat-lingerie.jpg" alt="Model wearing a lilac silk sleepwear set" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
+        <div class="cat-info"><div><h3>Lingerie</h3><p>Sleepwear, bras &amp; briefs</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/lingerie.html" class="cat rv" style="--d:.06s" data-clip="">
-        <div class="media"><img src="images/lingerie.jpg" alt="Lace lingerie" loading="lazy" style="object-position:68% center"></div>
-        <div class="cat-top"><span class="num">02</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
-        <div class="cat-body"><div><h3>Lingerie</h3><div class="desc"><p><span>Bras, briefs, boxers and sleepwear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="">
+        <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
+        <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/sweater.html" class="cat rv" style="--d:.12s" data-clip="">
-        <div class="media"><img src="images/sweater-scissors.jpg" alt="Knitted sweater close-up" loading="lazy"></div>
-        <div class="cat-top"><span class="num">03</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
-        <div class="cat-body"><div><h3>Sweater</h3><div class="desc"><p><span>Pullovers and cardigans in cable and jacquard knits.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <a href="products/sweater.html" class="cat rv" style="--d:0.12s" data-clip="">
+        <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
+        <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/woven.html" class="cat rv" style="--d:.18s" data-clip="">
-        <div class="media"><img src="images/shirts-flannel.jpg" alt="Folded woven shirts" loading="lazy"></div>
-        <div class="cat-top"><span class="num">04</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
-        <div class="cat-body"><div><h3>Woven</h3><div class="desc"><p><span>Shirts, trousers and light outerwear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="">
+        <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
+        <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/knit.html" class="cat rv" style="--d:.24s" data-clip="">
-        <div class="media"><img src="images/shirts-wood.jpg" alt="Folded cotton t-shirts" loading="lazy" style="object-position:center 30%"></div>
-        <div class="cat-top"><span class="num">05</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
-        <div class="cat-body"><div><h3>Knit</h3><div class="desc"><p><span>T-shirts, polos, fleece and activewear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <a href="products/knit.html" class="cat rv" style="--d:0.24s" data-clip="">
+        <div class="media"><img src="images/cat-knit.jpg" alt="Model wearing a knit sports bra" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
+        <div class="cat-info"><div><h3>Knit</h3><p>Activewear, tees &amp; polos</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
     </div>
-    <div class="cats-foot"><span>Hover a category to preview its 3D avatar clip. Select one to see the full product list.</span></div>
   </div>
 </section>
 
