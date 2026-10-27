@@ -274,24 +274,46 @@
   .brand img{max-width:66%;max-height:58%;object-fit:contain}
   .reach-note{text-align:center;font-size:13px;color:var(--muted);margin-top:28px}
 
-  /* 8. Certifications */
-  .certs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  .cert{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:18px;display:flex;gap:16px;align-items:center;text-align:left;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
-  .cert:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--green-100)}
-  .cert .seal{width:56px;height:56px;border-radius:14px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;flex-shrink:0}
-  .cert .seal svg{width:28px;height:28px}
-  .cert b{display:block;font-size:15px;font-weight:600}
-  .cert span{display:block;font-size:13px;color:var(--muted)}
+  /* 8. Certifications (carousel of certificate cards) */
+  .certs-sec{background:var(--soft)}
+  .cert-nav{display:flex;align-items:center;gap:8px}
+  .cert-nav button{width:48px;height:48px;border-radius:50%;background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s,opacity .2s}
+  .cert-nav button:hover{background:var(--green-800);border-color:var(--green-800);color:#fff}
+  .cert-nav button:disabled{opacity:.35;pointer-events:none}
+  .cert-nav svg{width:18px;height:18px}
+  .cert-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 48px)/4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 20px;scrollbar-width:none}
+  .cert-track::-webkit-scrollbar{display:none}
+  .cert{scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-align:left;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+  .cert:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .cert-img{position:relative;aspect-ratio:4/3;background:linear-gradient(145deg,var(--c2),var(--c1));display:grid;place-items:center;overflow:hidden}
+  .cert-img::before{content:"";position:absolute;width:70%;height:70%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.35),transparent);top:-20%;right:-15%}
+  .cert-img svg{width:70%;height:auto;filter:drop-shadow(0 14px 18px rgba(10,26,20,.22));transform:rotate(-4deg);transition:transform .5s var(--ease)}
+  .cert:hover .cert-img svg{transform:rotate(0) scale(1.05)}
+  .cert-cat{position:absolute;left:14px;top:14px;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.9);color:var(--green-800)}
+  .cert-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .cert-body b{font-family:var(--head);font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+  .cert-body .iss{font-size:13.5px;color:var(--muted);margin:4px 0 16px;flex:1}
+  .cert-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border);font-size:13px}
+  .cert-foot .valid{color:var(--muted)}
+  .cert-foot .valid strong{color:var(--text);font-weight:600}
+  .cstat{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green-700)}
+  .cstat::before{content:"";width:7px;height:7px;border-radius:50%;background:#3FA36B}
+  .cstat.renew{color:#9A6A12}
+  .cstat.renew::before{background:#E0A526}
+  .certs-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
   .modal{position:fixed;inset:0;z-index:80;background:rgba(10,26,20,.6);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
   .modal.open{opacity:1;pointer-events:auto}
-  .modal-card{background:#fff;border-radius:var(--r-lg);max-width:520px;width:100%;padding:28px;transform:translateY(16px);transition:transform .35s var(--ease)}
+  .modal-card{background:#fff;border-radius:var(--r-lg);max-width:760px;width:100%;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transform:translateY(16px);transition:transform .35s var(--ease)}
   .modal.open .modal-card{transform:none}
-  .modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-  .modal-top button{width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:20px}
-  .doc{aspect-ratio:4/3;border-radius:var(--r-sm);background:var(--soft);border:1px dashed var(--border);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;padding:20px;margin-bottom:18px}
-  .modal dl{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:14.5px}
+  .modal-img{background:linear-gradient(145deg,var(--c2),var(--c1));display:grid;place-items:center;padding:32px}
+  .modal-img svg{width:100%;height:auto;filter:drop-shadow(0 18px 24px rgba(10,26,20,.25))}
+  .modal-info{padding:28px;display:flex;flex-direction:column}
+  .modal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}
+  .modal-top button{width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:20px;flex-shrink:0}
+  .modal dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:14.5px;margin-bottom:24px}
   .modal dt{color:var(--muted)}
   .modal dd{font-weight:600}
+  .modal-info .btn{margin-top:auto;align-self:flex-start}
 
   /* 9. Testimonials */
   .testis{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -359,7 +381,7 @@
   @media (max-width:1180px){
     .cats{grid-template-columns:repeat(2,1fr);grid-template-rows:440px repeat(2,300px)}
     .cat.feature{grid-column:1/-1;grid-row:auto}
-    .certs{grid-template-columns:repeat(3,1fr)}
+    .cert-track{grid-auto-columns:calc((100% - 32px)/3)}
     .flow-body{grid-template-columns:1fr}
     .step-media{min-height:360px;order:-1}
   }
@@ -397,7 +419,10 @@
     .cat,.cat.feature{grid-column:auto;grid-row:auto;scroll-snap-align:start}
     .cat .desc{grid-template-rows:1fr}
     .cat.feature h3{font-size:34px}
-    .certs,.testis,.posts,.measures{grid-template-columns:1fr}
+    .testis,.posts,.measures{grid-template-columns:1fr}
+    .cert-track{grid-auto-columns:82%}
+    .modal-card{grid-template-columns:1fr}
+    .modal-img{padding:24px 40px}
     .show-top{flex-direction:column;left:20px;right:20px;top:20px}
     .cap-strip > div{padding:18px}
     .step-media{min-height:260px}
@@ -657,25 +682,35 @@
   <p class="reach-note">Brands &amp; licenses we have produced for · Logos shown with permission</p>
 </section>
 
-<!-- ===== 8. Certifications ===== -->
-<section style="padding-top:0">
+<!-- ===== 8. Certifications (DEMO DATA — replace with the client's real certificates) ===== -->
+<section class="certs-sec" id="certifications">
   <div class="wrap">
     <div class="s-head rv">
       <div>
         <span class="tag">Certifications</span>
         <h2>Compliance you can verify</h2>
-        <p class="lead">Each certificate is listed with its issuer and validity date. Select one to view the full document.</p>
+        <p class="lead">Every certificate is listed with its issuer and validity date. Select one to view the details.</p>
       </div>
-      <a href="#" class="btn btn-outline">All certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="cert-nav">
+        <button id="cPrev" aria-label="Previous certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button id="cNext" aria-label="Next certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
-    <div class="certs" id="certs"></div>
+    <div class="cert-track rv" id="certs"></div>
+    <div class="certs-foot">
+      <span>Demo data — certificate names, issuers and dates to be replaced with the client's verified documents.</span>
+      <a href="certifications.html" class="link">View all certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
   </div>
 </section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mName">
-  <div class="modal-card">
-    <div class="modal-top"><h3 id="mName" style="font-size:22px"></h3><button id="mClose" aria-label="Close">×</button></div>
-    <div class="doc">Certificate document preview<br>(uploaded through the CMS)</div>
-    <dl><dt>Issuer</dt><dd id="mIssuer"></dd><dt>Valid until</dt><dd id="mValid"></dd></dl>
+  <div class="modal-card" id="mCard">
+    <div class="modal-img" id="mImg"></div>
+    <div class="modal-info">
+      <div class="modal-top"><div><span class="cert-cat" id="mCat" style="position:static;background:var(--green-100)"></span><h3 id="mName" style="font-size:24px;margin-top:12px"></h3></div><button id="mClose" aria-label="Close">×</button></div>
+      <dl><dt>Issuer</dt><dd id="mIssuer"></dd><dt>Certificate no.</dt><dd id="mNo"></dd><dt>Valid until</dt><dd id="mValid"></dd><dt>Status</dt><dd id="mStatus"></dd></dl>
+      <a href="#" class="btn btn-primary btn-sm">Download PDF <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg></a>
+    </div>
   </div>
 </div>
 
@@ -876,17 +911,62 @@
   $('#mqA').innerHTML = rowA + `<div style="display:contents" aria-hidden="true">${rowA}</div>`;
   $('#mqB').innerHTML = rowB + `<div style="display:contents" aria-hidden="true">${rowB}</div>`;
 
-  // Certifications — names, issuers and dates are managed in the CMS
-  const SEAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="6"/><path d="M9.5 9l1.8 1.8L14.8 7.5M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7"/></svg>';
-  const certs = Array.from({length: 12}, (_, i) => ({name: `Certificate ${String(i + 1).padStart(2, '0')}`, issuer: 'Issuer to be confirmed', valid: 'To be confirmed'}));
-  $('#certs').innerHTML = certs.map((x, i) => `
-    <button class="cert rv" style="--d:${(i % 4) * .05}s" data-i="${i}"><span class="seal">${SEAL}</span>
-    <span><b>${x.name}</b><span>${x.issuer}</span><span>Valid until: ${x.valid}</span></span></button>`).join('');
-  $$('#certs .rv').forEach(el => io.observe(el));
+  // Certifications — DEMO DATA. Replace with the client's certificates from the CMS.
+  const CERTS = [
+    {name: 'OEKO-TEX® Standard 100', short: 'OEKO-TEX', issuer: 'OEKO-TEX Association', cat: 'Product safety', valid: '14 Mar 2027', c: ['#2F6B5A', '#7FB59E']},
+    {name: 'Global Organic Textile Standard', short: 'GOTS', issuer: 'Global Standard gGmbH', cat: 'Organic materials', valid: '30 Jun 2027', c: ['#3C6B2F', '#9CC48F']},
+    {name: 'Global Recycled Standard', short: 'GRS', issuer: 'Textile Exchange', cat: 'Recycled materials', valid: '21 Jan 2027', c: ['#2E5E6B', '#8EC1CB']},
+    {name: 'Organic Content Standard', short: 'OCS', issuer: 'Textile Exchange', cat: 'Organic materials', valid: '09 Sep 2027', c: ['#4E6B2F', '#B5CE8F']},
+    {name: 'amfori BSCI Audit', short: 'BSCI', issuer: 'amfori', cat: 'Social compliance', valid: '18 Nov 2026', c: ['#1F4A3A', '#6FA38D'], renew: true},
+    {name: 'WRAP Certification', short: 'WRAP', issuer: 'Worldwide Responsible Accredited Production', cat: 'Social compliance', valid: '02 May 2027', c: ['#2D4F6B', '#8FB0CB']},
+    {name: 'Sedex SMETA Audit', short: 'SMETA', issuer: 'Sedex', cat: 'Ethical trade', valid: '27 Feb 2027', c: ['#5A3F6B', '#B9A0CB']},
+    {name: 'ISO 9001:2015', short: 'ISO 9001', issuer: 'Bureau Veritas', cat: 'Quality management', valid: '12 Aug 2028', c: ['#2B3F5C', '#8C9FBF']},
+    {name: 'ISO 14001:2015', short: 'ISO 14001', issuer: 'Bureau Veritas', cat: 'Environment', valid: '05 Apr 2028', c: ['#2F6B4E', '#93C9A9']},
+    {name: 'Higg Facility Environmental Module', short: 'Higg FEM', issuer: 'Cascale', cat: 'Environment', valid: '31 Dec 2026', c: ['#3F6B2F', '#A7CB8F'], renew: true},
+    {name: 'Better Cotton Membership', short: 'Better Cotton', issuer: 'Better Cotton', cat: 'Responsible cotton', valid: '15 Oct 2027', c: ['#6B5A2F', '#CBB98F']},
+    {name: 'RSC Building Safety', short: 'RSC', issuer: 'RMG Sustainability Council', cat: 'Workplace safety', valid: '20 Jul 2027', c: ['#6B3A2F', '#CB9A8F']}
+  ];
+  // Certificate-style document image, drawn in SVG so it stays crisp at any size
+  const certSVG = (x, i) => `
+    <svg viewBox="0 0 300 220" role="img" aria-label="${x.name} certificate">
+      <rect x="4" y="4" width="292" height="212" rx="6" fill="#FFFDF8"/>
+      <rect x="14" y="14" width="272" height="192" rx="3" fill="none" stroke="${x.c[0]}" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <rect x="4" y="4" width="292" height="38" rx="6" fill="${x.c[0]}"/><rect x="4" y="30" width="292" height="12" fill="${x.c[0]}"/>
+      <text x="150" y="29" text-anchor="middle" font-family="Inter Tight,Arial" font-size="13" font-weight="700" letter-spacing="3" fill="#fff">CERTIFICATE</text>
+      <text x="150" y="80" text-anchor="middle" font-family="Inter Tight,Arial" font-size="${x.short.length > 9 ? 22 : 28}" font-weight="700" fill="#14352A">${x.short}</text>
+      <text x="150" y="100" text-anchor="middle" font-family="Inter,Arial" font-size="9.5" fill="#5B6660">This is to certify that</text>
+      <text x="150" y="117" text-anchor="middle" font-family="Inter Tight,Arial" font-size="12" font-weight="600" fill="#14352A">STRUGGLE STYLE INC.</text>
+      <rect x="70" y="130" width="160" height="3" rx="1.5" fill="#E5E1D6"/><rect x="95" y="139" width="110" height="3" rx="1.5" fill="#E5E1D6"/>
+      <path d="M40 185 q10 -12 20 0 t20 -2" fill="none" stroke="#5B6660" stroke-width="1.2"/><rect x="34" y="190" width="60" height="1.5" fill="#BFB9AA"/>
+      <rect x="206" y="190" width="60" height="1.5" fill="#BFB9AA"/><text x="236" y="186" text-anchor="middle" font-family="Inter,Arial" font-size="8" fill="#5B6660">${x.valid}</text>
+      <circle cx="150" cy="178" r="20" fill="${x.c[1]}" opacity=".35"/><circle cx="150" cy="178" r="15" fill="${x.c[0]}"/>
+      <path d="M143 178l5 5 9-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="150" y="160" text-anchor="middle" font-family="Inter,Arial" font-size="7" fill="#9AA29E">No. SS-${2026}${String(i + 1).padStart(3, '0')}</text>
+    </svg>`;
+  $('#certs').innerHTML = CERTS.map((x, i) => `
+    <button class="cert" data-i="${i}" style="--c1:${x.c[0]};--c2:${x.c[1]}">
+      <span class="cert-img"><span class="cert-cat">${x.cat}</span>${certSVG(x, i)}</span>
+      <span class="cert-body"><b>${x.name}</b><span class="iss">${x.issuer}</span>
+        <span class="cert-foot"><span class="valid">Valid until <strong>${x.valid}</strong></span><span class="cstat${x.renew ? ' renew' : ''}">${x.renew ? 'Renewal due' : 'Valid'}</span></span></span>
+    </button>`).join('');
+
+  // Carousel arrows
+  const ct = $('#certs');
+  const page = () => ct.clientWidth + 16;
+  const syncNav = () => { $('#cPrev').disabled = ct.scrollLeft < 8; $('#cNext').disabled = ct.scrollLeft + ct.clientWidth > ct.scrollWidth - 8; };
+  $('#cPrev').onclick = () => ct.scrollBy({left: -page()});
+  $('#cNext').onclick = () => ct.scrollBy({left: page()});
+  ct.addEventListener('scroll', () => requestAnimationFrame(syncNav), {passive: true}); syncNav();
+
+  // Certificate detail modal
   const modal = $('#modal');
   $$('.cert').forEach(b => b.onclick = () => {
-    const x = certs[b.dataset.i];
-    $('#mName').textContent = x.name; $('#mIssuer').textContent = x.issuer; $('#mValid').textContent = x.valid;
+    const i = +b.dataset.i, x = CERTS[i];
+    $('#mCard').style.cssText = `--c1:${x.c[0]};--c2:${x.c[1]}`;
+    $('#mImg').innerHTML = certSVG(x, i);
+    $('#mCat').textContent = x.cat; $('#mName').textContent = x.name; $('#mIssuer').textContent = x.issuer;
+    $('#mNo').textContent = `SS-2026${String(i + 1).padStart(3, '0')} (demo)`; $('#mValid').textContent = x.valid;
+    $('#mStatus').textContent = x.renew ? 'Renewal due' : 'Valid';
     modal.classList.add('open'); $('#mClose').focus();
   });
   const close = () => modal.classList.remove('open');
