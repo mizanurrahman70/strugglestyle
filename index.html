@@ -205,42 +205,16 @@
   .cap strong{display:block;font-family:var(--head);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
   .cap span.l{display:block;font-size:14px;color:var(--muted);margin-top:8px}
 
-  /* Process: step list (left) + step image (right) */
-  .process-sec{background:#fff;padding:112px 0}
-  .flow{position:relative}
-  .flow-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
-  .flow-top h2{margin:16px 0 12px}
-  .flow-top p{font-size:18px;color:var(--muted)}
-  .flow-nav{display:flex;gap:8px}
-  .flow-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;transition:background .2s,border-color .2s,color .2s}
-  .flow-nav button:hover{background:var(--green-800);border-color:var(--green-800);color:#fff}
-  .flow-nav svg{width:16px;height:16px}
-  .flow-body{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:stretch}
-  .step-list{list-style:none;border-top:1px solid var(--border)}
-  .step{border-bottom:1px solid var(--border);position:relative}
-  .step button{width:100%;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:8px;padding:15px 4px;text-align:left}
-  .step .no{font-size:13px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;transition:color .3s}
-  .step .tt{font-family:var(--head);font-size:17px;font-weight:600;color:#7A847F;transition:color .3s,font-size .3s}
-  .step .when{font-size:12px;font-weight:600;color:var(--green-700);background:var(--green-100);padding:4px 10px;border-radius:999px;opacity:0;transition:opacity .3s}
-  .step .desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
-  .step .desc p{overflow:hidden;font-size:14.5px;color:var(--muted);padding-left:52px;padding-right:12px}
-  .step .desc p span{display:block;padding-bottom:18px}
-  .step .prog{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--green-600);transform:scaleX(0);transform-origin:left}
-  .step.on .no{color:var(--green-600)}
-  .step.on .tt{color:var(--text);font-size:20px}
-  .step.on .when{opacity:1}
-  .step.on .desc{grid-template-rows:1fr}
-  .step button:hover .tt{color:var(--text)}
-  .flow.running .step.on .prog{animation:prog var(--dur) linear forwards}
-  @keyframes prog{to{transform:scaleX(1)}}
-  .step-media{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:560px;background:var(--soft)}
-  .step-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .8s ease,transform 1.6s var(--ease)}
-  .step-media img.on{opacity:1;transform:scale(1)}
-  .step-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,26,20,.7))}
-  .media-cap{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;color:#fff}
-  .media-cap .big{font-family:var(--head);font-size:56px;font-weight:600;line-height:.9;letter-spacing:-.04em}
-  .media-cap b{display:block;font-family:var(--head);font-size:20px;font-weight:600;text-align:right}
-  .media-cap span{display:block;font-size:13.5px;color:rgba(255,255,255,.8);text-align:right}
+  /* Process — simple numbered list */
+  .process-sec{padding:112px 0}
+  .proc-head{max-width:640px;margin-bottom:56px}
+  .proc-head h2{margin:0 0 12px}
+  .proc-head p{font-size:18px;color:var(--muted)}
+  .proc-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);column-gap:48px}
+  .proc-list li{display:grid;grid-template-columns:44px 1fr;align-content:start;gap:4px 12px;padding:24px 0;border-top:1px solid var(--border)}
+  .proc-list .n{grid-row:span 2;font-family:var(--head);font-size:15px;font-weight:600;color:var(--green-600);padding-top:2px}
+  .proc-list h3{font-size:19px;font-weight:600}
+  .proc-list p{font-size:15px;line-height:1.6;color:var(--muted)}
 
   /* 6. Sustainability — full-width photo background */
   .sus{position:relative;color:#fff;padding:140px 0 72px;overflow:hidden;isolation:isolate}
@@ -419,8 +393,8 @@
     .cat:nth-child(even){margin-top:0}
     .cat:nth-child(3n+2){margin-top:48px}
     .cert-track{grid-auto-columns:calc((100% - 32px)/3)}
-    .flow-body{grid-template-columns:1fr}
-    .step-media{min-height:360px;order:-1}
+    .proc-list{grid-template-columns:1fr 1fr}
+    .process-sec{padding:88px 0}
   }
   @media (max-width:960px){
     .nav ul,.nav .btn{display:none}
@@ -466,9 +440,7 @@
     .mfg-visual{padding:0 28px 40px 0}
     .mfg-badge{left:14px;bottom:56px;padding:12px 14px}
     .caps{grid-template-columns:1fr 1fr}
-    .step-media{min-height:260px}
-    .step .when{display:none}
-    .media-cap .big{font-size:40px}
+    .proc-list{grid-template-columns:1fr}
     .brand{width:160px;height:84px}
     .mpill{height:40px;font-size:13.5px}
     .mpill img,.mpill .globe{width:28px;height:28px}
@@ -618,43 +590,24 @@
   </div>
 </section>
 
-<!-- Order process (full-width band) -->
+<!-- Order process — simple numbered list -->
 <section class="process-sec" id="process">
   <div class="wrap">
-    <div class="flow rv" id="flow">
-      <div class="flow-top">
-        <div><h2 style="margin-top:0">How an order comes together</h2><p>From your first brief to delivery at your port — nine clear steps, one team.</p></div>
-        <div class="flow-nav">
-          <button id="fPrev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-          <button id="fNext" aria-label="Next step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
-      </div>
-      <div class="flow-body">
-        <ol class="step-list" id="stepList">
-          <li class="step on" data-cap="Brief &amp; costing"><button aria-expanded="true"><span class="no">01</span><span class="tt">Merchandising</span><span class="when">Day 1–3</span></button><div class="desc"><p><span>We review your brief, tech pack and target price, then confirm costing and a realistic timeline.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Tech pack &amp; 3D preview"><button aria-expanded="false"><span class="no">02</span><span class="tt">Design</span><span class="when">Week 1</span></button><div class="desc"><p><span>Patterns and tech packs are refined, and key styles can be previewed on 3D avatars.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Responsible materials"><button aria-expanded="false"><span class="no">03</span><span class="tt">Sourcing</span><span class="when">Week 1–3</span></button><div class="desc"><p><span>Fabrics, trims and accessories come from approved, traceable suppliers.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Proto to pre-production"><button aria-expanded="false"><span class="no">04</span><span class="tt">Sampling</span><span class="when">Week 2–4</span></button><div class="desc"><p><span>Proto, fit and pre-production samples are made and approved together with you.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Line planning"><button aria-expanded="false"><span class="no">05</span><span class="tt">Production</span><span class="when">Planning</span></button><div class="desc"><p><span>Lines are planned and materials in-housed against a confirmed schedule.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Low-waste cutting"><button aria-expanded="false"><span class="no">06</span><span class="tt">Cutting</span><span class="when">Bulk</span></button><div class="desc"><p><span>Optimised marker planning keeps fabric waste low before precise cutting.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Inline quality checks"><button aria-expanded="false"><span class="no">07</span><span class="tt">Sewing</span><span class="when">Bulk</span></button><div class="desc"><p><span>Garments are sewn on dedicated lines with inline quality checks.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="Inspection &amp; packing"><button aria-expanded="false"><span class="no">08</span><span class="tt">Finishing</span><span class="when">Final QC</span></button><div class="desc"><p><span>Washing, pressing, final AQL inspection and packing to your specification.</span></p></div><span class="prog"></span></li>
-          <li class="step" data-cap="FOB · CIF · DDP"><button aria-expanded="false"><span class="no">09</span><span class="tt">Shipping</span><span class="when">Delivery</span></button><div class="desc"><p><span>Export documents are prepared and goods ship FOB, CIF or DDP.</span></p></div><span class="prog"></span></li>
-        </ol>
-        <div class="step-media" id="stepMedia">
-          <img src="images/fabric-rolls.jpg" alt="Merchandising" loading="lazy" class="on">
-          <img src="images/denim-close.jpg" alt="Design" loading="lazy">
-          <img src="images/cotton-trees.jpg" alt="Sourcing" loading="lazy">
-          <img src="images/sweater-scissors.jpg" alt="Sampling" loading="lazy">
-          <img src="images/sew-line.jpg" alt="Production" loading="lazy">
-          <img src="images/shirts-flannel.jpg" alt="Cutting" loading="lazy">
-          <img src="images/sew-woman.jpg" alt="Sewing" loading="lazy">
-          <img src="images/cotton-cloths.jpg" alt="Finishing" loading="lazy">
-          <img src="images/port.jpg" alt="Shipping" loading="lazy">
-          <div class="media-cap"><span class="big" id="mNum">01</span><div><b id="mTitle">Merchandising</b><span id="mCap">Brief &amp; costing</span></div></div>
-        </div>
-      </div>
+    <div class="proc-head rv">
+      <h2>How an order comes together</h2>
+      <p>From your first brief to delivery at your port — one team guides every step.</p>
     </div>
+    <ol class="proc-list">
+      <li class="rv"><span class="n">01</span><h3>Merchandising</h3><p>We review your brief, tech pack and target price.</p></li>
+      <li class="rv"><span class="n">02</span><h3>Design</h3><p>Patterns are refined and key styles previewed in 3D.</p></li>
+      <li class="rv"><span class="n">03</span><h3>Sourcing</h3><p>Fabrics and trims from approved, traceable suppliers.</p></li>
+      <li class="rv"><span class="n">04</span><h3>Sampling</h3><p>Proto, fit and pre-production samples, approved with you.</p></li>
+      <li class="rv"><span class="n">05</span><h3>Production</h3><p>Lines planned against a confirmed schedule.</p></li>
+      <li class="rv"><span class="n">06</span><h3>Cutting</h3><p>Careful marker planning keeps fabric waste low.</p></li>
+      <li class="rv"><span class="n">07</span><h3>Sewing</h3><p>Dedicated lines with inline quality checks.</p></li>
+      <li class="rv"><span class="n">08</span><h3>Finishing</h3><p>Washing, pressing, final inspection and packing.</p></li>
+      <li class="rv"><span class="n">09</span><h3>Shipping</h3><p>Export documents ready; FOB, CIF or DDP.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -878,30 +831,7 @@
   }), {threshold: .6});
   $$('[data-count]').forEach(el => countIO.observe(el));
 
-  // Process: auto-advances while visible; clicking a step or the arrows takes over
-  const flow = $('#flow'), stepsEl = $$('#stepList .step'), shots = $$('#stepMedia img'), DUR = 4500;
-  flow.style.setProperty('--dur', DUR + 'ms');
-  let si = 0, auto = !reduce, flowTimer;
-  const setStep = i => {
-    si = (i + stepsEl.length) % stepsEl.length;
-    stepsEl.forEach((li, k) => { li.classList.toggle('on', k === si); li.querySelector('button').setAttribute('aria-expanded', k === si); });
-    shots.forEach((img, k) => img.classList.toggle('on', k === si));
-    $('#mNum').textContent = String(si + 1).padStart(2, '0');
-    $('#mTitle').textContent = stepsEl[si].querySelector('.tt').textContent;
-    $('#mCap').innerHTML = stepsEl[si].dataset.cap;
-    const bar = stepsEl[si].querySelector('.prog'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
-    if (auto && flow.classList.contains('running')) { clearTimeout(flowTimer); flowTimer = setTimeout(() => setStep(si + 1), DUR); }
-  };
-  const userStep = i => { auto = false; clearTimeout(flowTimer); flow.classList.remove('running'); setStep(i); };
-  stepsEl.forEach((li, k) => li.querySelector('button').onclick = () => userStep(k));
-  $('#fPrev').onclick = () => userStep(si - 1);
-  $('#fNext').onclick = () => userStep(si + 1);
-  setStep(0);
-  new IntersectionObserver(([e]) => {
-    if (!auto) return;
-    if (e.isIntersecting) { flow.classList.add('running'); setStep(si); }
-    else { flow.classList.remove('running'); clearTimeout(flowTimer); }
-  }, {threshold: .35}).observe(flow);
+
 
   // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
   const hoverable = matchMedia('(hover: hover)').matches;
