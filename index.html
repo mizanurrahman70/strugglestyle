@@ -18,7 +18,8 @@
     --green-600:#2D6350;
     --green-100:#E3ECE5;
     --leaf:#9CC48F;
-    --bg:#F7F5F0;
+    --bg:#FFFFFF;
+    --soft:#F5F5F1;
     --white:#FFFFFF;
     --text:#111A16;
     --muted:#5B6660;
@@ -84,7 +85,7 @@
   header .nav > .btn{background:#fff;color:var(--green-800)}
   header .burger{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
   header .burger span{background:#fff}
-  header.scrolled,header.open{background:rgba(247,245,240,.92);backdrop-filter:blur(16px) saturate(1.4);border-color:var(--border)}
+  header.scrolled,header.open{background:rgba(255,255,255,.92);backdrop-filter:blur(16px) saturate(1.4);border-color:var(--border)}
   header.scrolled .logo,header.open .logo{color:var(--green-800)}
   header.scrolled .logo small,header.open .logo small{color:var(--muted)}
   header.scrolled .nav ul a,header.open .nav ul a{color:#2A3530}
@@ -171,31 +172,67 @@
   .cats-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
 
   /* 5. Manufacturing */
-  .mfg{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-  .mfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-  .mfg-media{position:relative}
-  .mfg-media > img{width:100%;aspect-ratio:5/6;object-fit:cover;border-radius:var(--r-lg)}
-  .float{position:absolute;left:24px;right:24px;bottom:24px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-radius:var(--r);padding:18px 20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-lg)}
-  .float img{width:56px;height:56px;border-radius:12px;object-fit:cover}
-  .float b{display:block;font-family:var(--head);font-size:17px}
-  .float span{font-size:13.5px;color:var(--muted)}
-  .mfg h2{margin:16px 0 16px}
-  .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0 36px}
-  .fact{border:1px solid var(--border);border-radius:var(--r-sm);padding:20px 22px;background:var(--bg)}
-  .fact strong{display:block;font-family:var(--head);font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
-  .fact span{font-size:14px;color:var(--muted)}
-  .process{margin-top:80px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px 36px 40px}
-  .process-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}
-  .process-top h3{font-size:22px}
-  .steps{list-style:none;display:grid;grid-template-columns:repeat(9,1fr);position:relative}
-  .steps::before{content:"";position:absolute;left:20px;right:20px;top:19px;height:2px;background:var(--border)}
-  .steps::after{content:"";position:absolute;left:20px;right:20px;top:19px;height:2px;background:var(--green-600);transform:scaleX(0);transform-origin:left;transition:transform 2s var(--ease)}
-  .steps.in::after{transform:scaleX(1)}
-  .steps li{position:relative;text-align:center;padding:0 4px}
-  .steps .n{width:40px;height:40px;border-radius:50%;margin:0 auto 14px;background:#fff;border:2px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--muted);position:relative;z-index:1;transition:all .4s;transition-delay:calc(var(--i)*.2s)}
-  .steps.in .n{background:var(--green-800);border-color:var(--green-800);color:#fff}
-  .steps b{display:block;font-size:14px;font-weight:600}
-  .steps small{font-size:12.5px;color:var(--muted)}
+  .mfg{background:var(--soft)}
+  .mfg .s-head{align-items:flex-end}
+  .mfg-head-r{display:flex;flex-direction:column;align-items:flex-start;gap:22px;max-width:440px}
+  .mfg-head-r .lead{font-size:17px}
+  .showcase{position:relative;border-radius:var(--r-lg);overflow:hidden;height:600px;isolation:isolate}
+  .showcase > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.6s var(--ease)}
+  .showcase:hover > img{transform:scale(1.03)}
+  .showcase::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,26,20,.45) 0%,rgba(10,26,20,0) 28%,rgba(10,26,20,0) 50%,rgba(10,26,20,.55) 100%)}
+  .show-top{position:absolute;top:28px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;color:#fff}
+  .show-top b{display:block;font-family:var(--head);font-size:24px;font-weight:600;letter-spacing:-.015em}
+  .show-top span{font-size:14.5px;color:rgba(255,255,255,.85)}
+  .show-top .pill{flex-shrink:0;height:36px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(12px);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#fff}
+  .show-top .pill i{width:7px;height:7px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px rgba(156,196,143,.3)}
+  .cap-strip{position:absolute;left:24px;right:24px;bottom:24px;display:grid;grid-template-columns:1.2fr repeat(4,1fr);background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-radius:var(--r);box-shadow:0 20px 40px -20px rgba(10,26,20,.45)}
+  .cap-strip > div{padding:26px 28px}
+  .cap-strip > div + div{border-left:1px solid var(--border)}
+  .cap-intro{display:flex;flex-direction:column;justify-content:center}
+  .cap-intro h3{font-size:18px}
+  .cap-intro p{font-size:13.5px;color:var(--muted);margin-top:4px}
+  .cap{display:flex;flex-direction:column}
+  .cap .ci{width:36px;height:36px;border-radius:10px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;margin-bottom:14px}
+  .cap .ci svg{width:18px;height:18px}
+  .cap strong{font-family:var(--head);font-size:clamp(30px,2.6vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
+  .cap span.l{font-size:14px;color:var(--muted);margin-top:6px}
+
+  /* Process: step list (left) + step image (right) */
+  .process-sec{background:#fff;padding:112px 0}
+  .flow{position:relative}
+  .flow-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+  .flow-top h2{margin:16px 0 12px}
+  .flow-top p{font-size:18px;color:var(--muted)}
+  .flow-nav{display:flex;gap:8px}
+  .flow-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;transition:background .2s,border-color .2s,color .2s}
+  .flow-nav button:hover{background:var(--green-800);border-color:var(--green-800);color:#fff}
+  .flow-nav svg{width:16px;height:16px}
+  .flow-body{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:stretch}
+  .step-list{list-style:none;border-top:1px solid var(--border)}
+  .step{border-bottom:1px solid var(--border);position:relative}
+  .step button{width:100%;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:8px;padding:15px 4px;text-align:left}
+  .step .no{font-size:13px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;transition:color .3s}
+  .step .tt{font-family:var(--head);font-size:17px;font-weight:600;color:#7A847F;transition:color .3s,font-size .3s}
+  .step .when{font-size:12px;font-weight:600;color:var(--green-700);background:var(--green-100);padding:4px 10px;border-radius:999px;opacity:0;transition:opacity .3s}
+  .step .desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+  .step .desc p{overflow:hidden;font-size:14.5px;color:var(--muted);padding-left:52px;padding-right:12px}
+  .step .desc p span{display:block;padding-bottom:18px}
+  .step .prog{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--green-600);transform:scaleX(0);transform-origin:left}
+  .step.on .no{color:var(--green-600)}
+  .step.on .tt{color:var(--text);font-size:20px}
+  .step.on .when{opacity:1}
+  .step.on .desc{grid-template-rows:1fr}
+  .step button:hover .tt{color:var(--text)}
+  .flow.running .step.on .prog{animation:prog var(--dur) linear forwards}
+  @keyframes prog{to{transform:scaleX(1)}}
+  .step-media{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:560px;background:var(--soft)}
+  .step-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .8s ease,transform 1.6s var(--ease)}
+  .step-media img.on{opacity:1;transform:scale(1)}
+  .step-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,26,20,.7))}
+  .media-cap{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;color:#fff}
+  .media-cap .big{font-family:var(--head);font-size:56px;font-weight:600;line-height:.9;letter-spacing:-.04em}
+  .media-cap b{display:block;font-family:var(--head);font-size:20px;font-weight:600;text-align:right}
+  .media-cap span{display:block;font-size:13.5px;color:rgba(255,255,255,.8);text-align:right}
 
   /* 6. Sustainability */
   .sus{background:var(--green-800);color:#fff}
@@ -219,22 +256,23 @@
   .sus-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .sus-photo .cap{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(10,26,20,.6);backdrop-filter:blur(10px);border-radius:var(--r-sm);padding:14px 18px;font-size:14px;color:rgba(255,255,255,.9)}
 
-  /* 7. Markets & brands */
-  .markets{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-  .market{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:18px;transition:transform .3s var(--ease),box-shadow .3s}
-  .market:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-  .market img,.market .globe{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
-  .market .globe{display:grid;place-items:center;background:var(--green-100);color:var(--green-700)}
-  .market small{display:block;font-size:12.5px;color:var(--muted);margin-bottom:2px}
-  .market b{font-family:var(--head);font-size:19px;font-weight:600;letter-spacing:-.01em}
-  .brands{margin-top:20px;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:28px 32px}
-  .brands-top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
-  .brands-top h3{font-size:18px}
-  .brands-top span{font-size:13px;color:var(--muted)}
-  .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-  .logo-cell{position:relative;aspect-ratio:2/1;border-radius:12px;background:var(--bg)}
-  .logo-cell img{position:absolute;inset:22% 16%;width:68%;height:56%;object-fit:contain;filter:grayscale(1);opacity:.6;mix-blend-mode:multiply;transition:filter .3s,opacity .3s}
-  .logo-cell:hover img{filter:none;opacity:1}
+  /* 7. Markets & brand logos (marquee) */
+  .reach{overflow:hidden}
+  .reach .s-head{align-items:flex-end}
+  .market-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:520px}
+  .mpill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px 0 6px;border-radius:999px;background:#fff;border:1px solid var(--border);font-size:14.5px;font-weight:600;box-shadow:var(--shadow);transition:transform .3s var(--ease)}
+  .mpill:hover{transform:translateY(-2px)}
+  .mpill img,.mpill .globe{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
+  .mpill .globe{display:grid;place-items:center;background:var(--green-100);color:var(--green-700)}
+  .marquee{position:relative;display:grid;gap:16px;margin-top:8px;mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+  .mq-row{display:flex;width:max-content;gap:16px;animation:mq 50s linear infinite}
+  .mq-row.rev{animation-direction:reverse;animation-duration:58s}
+  .marquee:hover .mq-row{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(calc(-50% - 8px))}}
+  .brand{position:relative;flex:none;width:220px;height:112px;border-radius:var(--r);background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+  .brand:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .brand img{max-width:66%;max-height:58%;object-fit:contain}
+  .reach-note{text-align:center;font-size:13px;color:var(--muted);margin-top:28px}
 
   /* 8. Certifications */
   .certs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -249,8 +287,8 @@
   .modal-card{background:#fff;border-radius:var(--r-lg);max-width:520px;width:100%;padding:28px;transform:translateY(16px);transition:transform .35s var(--ease)}
   .modal.open .modal-card{transform:none}
   .modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-  .modal-top button{width:40px;height:40px;border-radius:50%;background:var(--bg);font-size:20px}
-  .doc{aspect-ratio:4/3;border-radius:var(--r-sm);background:var(--bg);border:1px dashed var(--border);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;padding:20px;margin-bottom:18px}
+  .modal-top button{width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:20px}
+  .doc{aspect-ratio:4/3;border-radius:var(--r-sm);background:var(--soft);border:1px dashed var(--border);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;padding:20px;margin-bottom:18px}
   .modal dl{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;font-size:14.5px}
   .modal dt{color:var(--muted)}
   .modal dd{font-weight:600}
@@ -321,10 +359,9 @@
   @media (max-width:1180px){
     .cats{grid-template-columns:repeat(2,1fr);grid-template-rows:440px repeat(2,300px)}
     .cat.feature{grid-column:1/-1;grid-row:auto}
-    .markets{grid-template-columns:repeat(3,1fr)}
     .certs{grid-template-columns:repeat(3,1fr)}
-    .steps{grid-template-columns:repeat(5,1fr);row-gap:28px}
-    .steps::before,.steps::after{display:none}
+    .flow-body{grid-template-columns:1fr}
+    .step-media{min-height:360px;order:-1}
   }
   @media (max-width:960px){
     .nav ul,.nav .btn{display:none}
@@ -334,10 +371,15 @@
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
     .hero-content{padding:84px var(--edge) 96px}
     .stats{grid-template-columns:1fr}
-    .mfg-grid,.sus-grid,.rfq-card{grid-template-columns:1fr}
-    .mfg-grid{gap:48px}
+    .sus-grid,.rfq-card{grid-template-columns:1fr}
+    .showcase{height:auto;display:flex;flex-direction:column;justify-content:flex-end;padding:300px 20px 20px}
+    .cap-strip{position:relative;inset:auto;grid-template-columns:1fr 1fr}
+    .cap-intro{grid-column:1/-1;border-bottom:1px solid var(--border)}
+    .cap-strip > div + div{border-left:0}
+    .cap-strip .cap:nth-child(odd){border-left:1px solid var(--border)}
+    .cap-strip .cap:nth-child(-n+3){border-bottom:1px solid var(--border)}
     .testis,.posts{grid-template-columns:1fr 1fr}
-    .logos{grid-template-columns:repeat(4,1fr)}
+    .market-pills{justify-content:flex-start}
     .f-grid{grid-template-columns:1fr 1fr}
     .rfq-text{padding:48px 36px}
   }
@@ -355,12 +397,15 @@
     .cat,.cat.feature{grid-column:auto;grid-row:auto;scroll-snap-align:start}
     .cat .desc{grid-template-rows:1fr}
     .cat.feature h3{font-size:34px}
-    .markets{grid-template-columns:1fr 1fr}
-    .certs,.testis,.posts,.facts,.measures{grid-template-columns:1fr}
-    .steps{grid-template-columns:repeat(3,1fr)}
-    .process{padding:24px}
-    .logos{grid-template-columns:repeat(3,1fr)}
-    .brands{padding:20px}
+    .certs,.testis,.posts,.measures{grid-template-columns:1fr}
+    .show-top{flex-direction:column;left:20px;right:20px;top:20px}
+    .cap-strip > div{padding:18px}
+    .step-media{min-height:260px}
+    .step .when{display:none}
+    .media-cap .big{font-size:40px}
+    .brand{width:160px;height:84px}
+    .mpill{height:40px;font-size:13.5px}
+    .mpill img,.mpill .globe{width:28px;height:28px}
     .checks{grid-template-columns:1fr}
     .rfq-text{padding:40px 24px}
     .rfq-img{min-height:280px}
@@ -492,47 +537,74 @@
   </div>
 </section>
 
-<!-- ===== 5. Manufacturing ===== -->
+<!-- ===== 5. Manufacturing strengths + process ===== -->
 <section class="mfg" id="manufacturing">
   <div class="wrap">
-    <div class="mfg-grid">
-      <div class="mfg-media rv">
-        <img src="images/sew-woman.jpg" alt="Operator working at an industrial sewing machine" loading="lazy">
-        <div class="float">
-          <img src="images/sew-line.jpg" alt="" loading="lazy">
-          <div><b>Holy Intimates, Bangladesh</b><span>Our lingerie production facility · Est. 2023</span></div>
-        </div>
-      </div>
-      <div class="rv" style="--d:.1s">
+    <div class="s-head rv">
+      <div>
         <span class="tag">Manufacturing</span>
-        <h2>Built for consistent quality at every order size</h2>
-        <p class="lead">Dedicated production lines, skilled operators and a single quality system — with clear updates from first sample to final shipment.</p>
-        <div class="facts">
-          <div class="fact"><strong>2</strong><span>Production lines</span></div>
-          <div class="fact"><strong>34</strong><span>Sewing machines</span></div>
-          <div class="fact"><strong>40</strong><span>Skilled team members</span></div>
-          <div class="fact"><strong>100K</strong><span>Pieces per month</span></div>
-        </div>
-        <a href="#" class="btn btn-primary">Explore our manufacturing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <h2>Built for consistent quality</h2>
+      </div>
+      <div class="mfg-head-r">
+        <p class="lead">Dedicated lines, skilled people and one quality system — with clear updates from the first sample to the final shipment.</p>
+        <a href="manufacturing.html" class="btn btn-primary">Explore our manufacturing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
-    <div class="process rv">
-      <div class="process-top">
-        <h3>From brief to delivery in nine steps</h3>
-        <a href="#" class="link">How we work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="showcase rv">
+      <img src="images/sew-line.jpg" alt="Operators working on a clean, well-lit sewing line" loading="lazy">
+      <div class="show-top">
+        <div><b>Holy Intimates, Bangladesh</b><span>Our lingerie production facility · Est. 2023</span></div>
+        <span class="pill"><i></i>Factory profile</span>
       </div>
-      <ol class="steps" id="steps">
-        <li style="--i:0"><span class="n">1</span><b>Merchandising</b><small>Brief &amp; costing</small></li>
-        <li style="--i:1"><span class="n">2</span><b>Design</b><small>Tech pack &amp; 3D</small></li>
-        <li style="--i:2"><span class="n">3</span><b>Sourcing</b><small>Fabric &amp; trims</small></li>
-        <li style="--i:3"><span class="n">4</span><b>Sampling</b><small>Proto to PP</small></li>
-        <li style="--i:4"><span class="n">5</span><b>Production</b><small>Line planning</small></li>
-        <li style="--i:5"><span class="n">6</span><b>Cutting</b><small>Optimised markers</small></li>
-        <li style="--i:6"><span class="n">7</span><b>Sewing</b><small>Inline QC</small></li>
-        <li style="--i:7"><span class="n">8</span><b>Finishing</b><small>Wash &amp; pack</small></li>
-        <li style="--i:8"><span class="n">9</span><b>Shipping</b><small>FOB · CIF · DDP</small></li>
-      </ol>
+      <div class="cap-strip">
+        <div class="cap-intro"><h3>Factory capability</h3><p>Figures from our current factory profile</p></div>
+        <div class="cap"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg></span><strong data-count="2">0</strong><span class="l">Production lines</span></div>
+        <div class="cap"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16M7 20V9h10v11M7 9l3-5h8v5"/><circle cx="12" cy="14" r="1.5"/></svg></span><strong data-count="34">0</strong><span class="l">Sewing machines</span></div>
+        <div class="cap"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11a3 3 0 100-6M21 20c0-2.6-1.7-4.8-4-5.6"/></svg></span><strong data-count="40">0</strong><span class="l">Skilled manpower</span></div>
+        <div class="cap"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/></svg></span><strong><span data-count="100">0</span>K</strong><span class="l">Monthly output (pcs)</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Order process (full-width band) -->
+<section class="process-sec" id="process">
+  <div class="wrap">
+    <div class="flow rv" id="flow">
+      <div class="flow-top">
+        <div><span class="tag">Our Process</span><h2>How an order comes together</h2><p>From your first brief to delivery at your port — nine clear steps, one team.</p></div>
+        <div class="flow-nav">
+          <button id="fPrev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button id="fNext" aria-label="Next step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="flow-body">
+        <ol class="step-list" id="stepList">
+          <li class="step on" data-cap="Brief &amp; costing"><button aria-expanded="true"><span class="no">01</span><span class="tt">Merchandising</span><span class="when">Day 1–3</span></button><div class="desc"><p><span>We review your brief, tech pack and target price, then confirm costing and a realistic timeline.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Tech pack &amp; 3D preview"><button aria-expanded="false"><span class="no">02</span><span class="tt">Design</span><span class="when">Week 1</span></button><div class="desc"><p><span>Patterns and tech packs are refined, and key styles can be previewed on 3D avatars.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Responsible materials"><button aria-expanded="false"><span class="no">03</span><span class="tt">Sourcing</span><span class="when">Week 1–3</span></button><div class="desc"><p><span>Fabrics, trims and accessories come from approved, traceable suppliers.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Proto to pre-production"><button aria-expanded="false"><span class="no">04</span><span class="tt">Sampling</span><span class="when">Week 2–4</span></button><div class="desc"><p><span>Proto, fit and pre-production samples are made and approved together with you.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Line planning"><button aria-expanded="false"><span class="no">05</span><span class="tt">Production</span><span class="when">Planning</span></button><div class="desc"><p><span>Lines are planned and materials in-housed against a confirmed schedule.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Low-waste cutting"><button aria-expanded="false"><span class="no">06</span><span class="tt">Cutting</span><span class="when">Bulk</span></button><div class="desc"><p><span>Optimised marker planning keeps fabric waste low before precise cutting.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Inline quality checks"><button aria-expanded="false"><span class="no">07</span><span class="tt">Sewing</span><span class="when">Bulk</span></button><div class="desc"><p><span>Garments are sewn on dedicated lines with inline quality checks.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="Inspection &amp; packing"><button aria-expanded="false"><span class="no">08</span><span class="tt">Finishing</span><span class="when">Final QC</span></button><div class="desc"><p><span>Washing, pressing, final AQL inspection and packing to your specification.</span></p></div><span class="prog"></span></li>
+          <li class="step" data-cap="FOB · CIF · DDP"><button aria-expanded="false"><span class="no">09</span><span class="tt">Shipping</span><span class="when">Delivery</span></button><div class="desc"><p><span>Export documents are prepared and goods ship FOB, CIF or DDP.</span></p></div><span class="prog"></span></li>
+        </ol>
+        <div class="step-media" id="stepMedia">
+          <img src="images/fabric-rolls.jpg" alt="Merchandising" loading="lazy" class="on">
+          <img src="images/denim-close.jpg" alt="Design" loading="lazy">
+          <img src="images/cotton-trees.jpg" alt="Sourcing" loading="lazy">
+          <img src="images/sweater-scissors.jpg" alt="Sampling" loading="lazy">
+          <img src="images/sew-line.jpg" alt="Production" loading="lazy">
+          <img src="images/shirts-flannel.jpg" alt="Cutting" loading="lazy">
+          <img src="images/sew-woman.jpg" alt="Sewing" loading="lazy">
+          <img src="images/cotton-cloths.jpg" alt="Finishing" loading="lazy">
+          <img src="images/port.jpg" alt="Shipping" loading="lazy">
+          <div class="media-cap"><span class="big" id="mNum">01</span><div><b id="mTitle">Merchandising</b><span id="mCap">Brief &amp; costing</span></div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -559,29 +631,30 @@
   </div>
 </section>
 
-<!-- ===== 7. Buyer markets & brands ===== -->
-<section>
+<!-- ===== 7. Buyer markets & brand logos ===== -->
+<!-- Brand logos come from the current site — display each only with that brand's written permission -->
+<section class="reach">
   <div class="wrap">
     <div class="s-head rv">
       <div>
         <span class="tag">Global Reach</span>
-        <h2>Trusted by buyers across five markets</h2>
+        <h2>Trusted by brands across five markets</h2>
         <p class="lead">We produce for brands and retailers in North America, Europe and Latin America.</p>
       </div>
-    </div>
-    <div class="markets">
-      <div class="market rv"><img src="https://flagcdn.com/w80/us.png" alt=""><div><small>North America</small><b>United States</b></div></div>
-      <div class="market rv" style="--d:.05s"><img src="https://flagcdn.com/w80/ca.png" alt=""><div><small>North America</small><b>Canada</b></div></div>
-      <div class="market rv" style="--d:.1s"><img src="https://flagcdn.com/w80/gb.png" alt=""><div><small>Europe</small><b>United Kingdom</b></div></div>
-      <div class="market rv" style="--d:.15s"><img src="https://flagcdn.com/w80/eu.png" alt=""><div><small>Europe</small><b>European Union</b></div></div>
-      <div class="market rv" style="--d:.2s"><span class="globe"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><small>Americas</small><b>Latin America</b></div></div>
-    </div>
-    <!-- Brand logos from the current site — display only with each brand's written permission -->
-    <div class="brands rv">
-      <div class="brands-top"><h3>Brands &amp; licenses</h3><span>Shown with permission</span></div>
-      <div class="logos" id="logos"></div>
+      <div class="market-pills">
+        <span class="mpill"><img src="https://flagcdn.com/w80/us.png" alt="">United States</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</span>
+        <span class="mpill"><span class="globe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span>Latin America</span>
+      </div>
     </div>
   </div>
+  <div class="marquee rv" aria-label="Brands and licenses">
+    <div class="mq-row" id="mqA"></div>
+    <div class="mq-row rev" id="mqB"></div>
+  </div>
+  <p class="reach-note">Brands &amp; licenses we have produced for · Logos shown with permission</p>
 </section>
 
 <!-- ===== 8. Certifications ===== -->
@@ -744,7 +817,40 @@
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
   $$('.rv').forEach(el => io.observe(el));
-  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { $('#steps').classList.add('in'); o.disconnect(); } }), {threshold: .5}).observe($('#steps'));
+
+  // Count-up numbers (factory capability)
+  const countIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; countIO.unobserve(e.target);
+    const el = e.target, end = +el.dataset.count, t0 = performance.now(), dur = reduce ? 0 : 1400;
+    const step = t => { const p = dur ? Math.min(1, (t - t0) / dur) : 1; el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }), {threshold: .6});
+  $$('[data-count]').forEach(el => countIO.observe(el));
+
+  // Process: auto-advances while visible; clicking a step or the arrows takes over
+  const flow = $('#flow'), stepsEl = $$('#stepList .step'), shots = $$('#stepMedia img'), DUR = 4500;
+  flow.style.setProperty('--dur', DUR + 'ms');
+  let si = 0, auto = !reduce, flowTimer;
+  const setStep = i => {
+    si = (i + stepsEl.length) % stepsEl.length;
+    stepsEl.forEach((li, k) => { li.classList.toggle('on', k === si); li.querySelector('button').setAttribute('aria-expanded', k === si); });
+    shots.forEach((img, k) => img.classList.toggle('on', k === si));
+    $('#mNum').textContent = String(si + 1).padStart(2, '0');
+    $('#mTitle').textContent = stepsEl[si].querySelector('.tt').textContent;
+    $('#mCap').innerHTML = stepsEl[si].dataset.cap;
+    const bar = stepsEl[si].querySelector('.prog'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    if (auto && flow.classList.contains('running')) { clearTimeout(flowTimer); flowTimer = setTimeout(() => setStep(si + 1), DUR); }
+  };
+  const userStep = i => { auto = false; clearTimeout(flowTimer); flow.classList.remove('running'); setStep(i); };
+  stepsEl.forEach((li, k) => li.querySelector('button').onclick = () => userStep(k));
+  $('#fPrev').onclick = () => userStep(si - 1);
+  $('#fNext').onclick = () => userStep(si + 1);
+  setStep(0);
+  new IntersectionObserver(([e]) => {
+    if (!auto) return;
+    if (e.isIntersecting) { flow.classList.add('running'); setStep(si); }
+    else { flow.classList.remove('running'); clearTimeout(flowTimer); }
+  }, {threshold: .35}).observe(flow);
 
   // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
   const hoverable = matchMedia('(hover: hover)').matches;
@@ -760,8 +866,15 @@
   });
 
   // Brand logos (from the current site)
-  $('#logos').innerHTML = Array.from({length: 12}, (_, i) =>
-    `<div class="logo-cell"><img src="https://www.strugglestyle.net/images/license/img${i + 1}.png" alt="Brand logo ${i + 1}" loading="lazy"></div>`).join('');
+  const BRANDS = [
+    ['H&M', 1], ['La Senza', 2], ['Etam', 3], ['Gisela', 4], ['ICA', 5], ["Women'secret", 6],
+    ['HEMA', 7], ['Sielei', 8], ['TenCate', 9], ['Triumph', 10], ['U.S. Polo Assn.', 11], ['Diesel', 12]
+  ];
+  const brandCard = ([name, n]) => `<div class="brand"><img src="https://www.strugglestyle.net/images/license/img${n}.png" alt="${name}" loading="lazy"></div>`;
+  const rowA = BRANDS.map(brandCard).join(''), rowB = [...BRANDS].reverse().map(brandCard).join('');
+  // Each row is duplicated so the loop is seamless; the copy is hidden from screen readers
+  $('#mqA').innerHTML = rowA + `<div style="display:contents" aria-hidden="true">${rowA}</div>`;
+  $('#mqB').innerHTML = rowB + `<div style="display:contents" aria-hidden="true">${rowB}</div>`;
 
   // Certifications — names, issuers and dates are managed in the CMS
   const SEAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="9" r="6"/><path d="M9.5 9l1.8 1.8L14.8 7.5M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7"/></svg>';
