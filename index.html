@@ -140,23 +140,35 @@
   .note{font-size:13px;color:var(--muted);margin-top:14px}
 
   /* 4. Categories (cards) */
-  .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-  .cat{background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .3s}
-  .cat:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-  .cat .media{position:relative;aspect-ratio:4/5;overflow:hidden;background:#EDE9DF;margin:8px 8px 0;border-radius:14px}
-  .cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-  .cat:hover .media img{transform:scale(1.06)}
-  .cat .media video{opacity:0;transition:opacity .4s}
-  .cat:hover .media video{opacity:1}
-  .chip{position:absolute;left:12px;top:12px;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--green-800)}
-  .chip svg{width:12px;height:12px}
-  .cat .body{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1}
-  .cat h3{font-size:22px}
-  .cat p{font-size:14px;color:var(--muted);margin:6px 0 18px;flex:1}
-  .cat .go{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;color:var(--green-700);padding-top:14px;border-top:1px solid var(--border)}
-  .cat .go i{width:32px;height:32px;border-radius:50%;background:var(--green-100);display:grid;place-items:center;transition:background .3s,color .3s}
-  .cat .go i svg{width:14px;height:14px}
-  .cat:hover .go i{background:var(--green-800);color:#fff}
+  /* Bento gallery: one feature card + four supporting cards */
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,330px);gap:16px}
+  .cat{position:relative;border-radius:var(--r-lg);overflow:hidden;color:#fff;isolation:isolate;background:var(--green-900)}
+  .cat.feature{grid-column:span 2;grid-row:span 2}
+  .cat .media,.cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .cat .media{z-index:-2}
+  .cat .media img{transition:transform 1.2s var(--ease),filter .6s}
+  .cat:hover .media img{transform:scale(1.07)}
+  .cat .media video{opacity:0;transition:opacity .5s}
+  .cat.playing .media video{opacity:1}
+  .cat::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,26,20,.25) 0%,rgba(10,26,20,0) 30%,rgba(10,26,20,.15) 55%,rgba(10,26,20,.88) 100%);transition:opacity .5s}
+  .cat-top{position:absolute;top:20px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center}
+  .num{font-size:13px;font-weight:600;letter-spacing:.08em;opacity:.9}
+  .chip{height:30px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(10px);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+  .chip svg{width:11px;height:11px}
+  .cat-body{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+  .cat h3{color:#fff;font-size:28px;letter-spacing:-.02em}
+  .cat.feature h3{font-size:clamp(36px,3.4vw,48px)}
+  .cat .desc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+  .cat .desc > p{overflow:hidden;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.82);max-width:340px}
+  .cat .desc > p span{display:block;padding-top:8px}
+  .cat:hover .desc,.cat.feature .desc{grid-template-rows:1fr}
+  .cat .meta-line{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .cat .meta-line span{font-size:12px;font-weight:500;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
+  .cat .arrow{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--green-800);display:grid;place-items:center;flex-shrink:0;transition:transform .4s var(--ease),background .3s,color .3s}
+  .cat .arrow svg{width:18px;height:18px}
+  .cat:hover .arrow{transform:rotate(-45deg);background:var(--leaf);color:var(--green-900)}
+  .cat.feature .arrow{width:56px;height:56px}
+  .cats-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px;font-size:14px;color:var(--muted);flex-wrap:wrap}
 
   /* 5. Manufacturing */
   .mfg{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -307,7 +319,8 @@
 
   /* Responsive */
   @media (max-width:1180px){
-    .cats{grid-template-columns:repeat(3,1fr)}
+    .cats{grid-template-columns:repeat(2,1fr);grid-template-rows:440px repeat(2,300px)}
+    .cat.feature{grid-column:1/-1;grid-row:auto}
     .markets{grid-template-columns:repeat(3,1fr)}
     .certs{grid-template-columns:repeat(3,1fr)}
     .steps{grid-template-columns:repeat(5,1fr);row-gap:28px}
@@ -338,8 +351,10 @@
     .hero-ctrl{bottom:24px}
     .hero-ctrl .lbl{display:none}
     .hero-ctas .btn{flex:1}
-    .cats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:76%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
-    .cat{scroll-snap-align:start}
+    .cats{grid-template-columns:none;grid-template-rows:440px;grid-auto-flow:column;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+    .cat,.cat.feature{grid-column:auto;grid-row:auto;scroll-snap-align:start}
+    .cat .desc{grid-template-rows:1fr}
+    .cat.feature h3{font-size:34px}
     .markets{grid-template-columns:1fr 1fr}
     .certs,.testis,.posts,.facts,.measures{grid-template-columns:1fr}
     .steps{grid-template-columns:repeat(3,1fr)}
@@ -433,34 +448,47 @@
     <div class="s-head rv">
       <div>
         <span class="tag">Our Products</span>
-        <h2>Five categories, one factory standard</h2>
-        <p class="lead">Every category has dedicated production expertise, responsible material options and the same quality checks from sample to shipment.</p>
+        <h2>What we make</h2>
+        <p class="lead">Dedicated production teams, responsible material choices and consistent quality checks — from the first sample to the final shipment.</p>
       </div>
       <a href="#" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-    <!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover -->
+    <!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover (desktop) -->
     <div class="cats">
-      <a href="#" class="cat rv" data-clip="">
-        <div class="media"><img src="images/lingerie.jpg" alt="Lace lingerie" loading="lazy" style="object-position:68% center"><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D preview</span></div>
-        <div class="body"><h3>Lingerie</h3><p>Bras, briefs, boxers and sleepwear in lace, microfibre and cotton.</p><span class="go">Explore <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
+      <a href="products/denim.html" class="cat feature rv" data-clip="">
+        <div class="media"><img src="images/denim-folded.jpg" alt="Folded denim jeans" loading="lazy"></div>
+        <div class="cat-top"><span class="num">01</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D avatar preview</span></div>
+        <div class="cat-body">
+          <div>
+            <h3>Denim</h3>
+            <div class="desc"><p><span>Jeans, jackets, chinos and cargos — rigid and stretch fabrics with eco-wash, enzyme and stone finishes.</span></p></div>
+            <div class="meta-line"><span>8–14 oz denim</span><span>Eco-wash</span><span>Organic cotton</span></div>
+          </div>
+          <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
       </a>
-      <a href="#" class="cat rv" style="--d:.06s" data-clip="">
-        <div class="media"><img src="images/denim-folded.jpg" alt="Folded denim jeans" loading="lazy"><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D preview</span></div>
-        <div class="body"><h3>Denim</h3><p>Jeans, jackets and chinos with eco-wash and enzyme finishes.</p><span class="go">Explore <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
+      <a href="products/lingerie.html" class="cat rv" style="--d:.06s" data-clip="">
+        <div class="media"><img src="images/lingerie.jpg" alt="Lace lingerie" loading="lazy" style="object-position:68% center"></div>
+        <div class="cat-top"><span class="num">02</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
+        <div class="cat-body"><div><h3>Lingerie</h3><div class="desc"><p><span>Bras, briefs, boxers and sleepwear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#" class="cat rv" style="--d:.12s" data-clip="">
-        <div class="media"><img src="images/sweater-scissors.jpg" alt="Knitted sweater close-up" loading="lazy"><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D preview</span></div>
-        <div class="body"><h3>Sweater</h3><p>Pullovers and cardigans with cable, jacquard and intarsia knits.</p><span class="go">Explore <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
+      <a href="products/sweater.html" class="cat rv" style="--d:.12s" data-clip="">
+        <div class="media"><img src="images/sweater-scissors.jpg" alt="Knitted sweater close-up" loading="lazy"></div>
+        <div class="cat-top"><span class="num">03</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
+        <div class="cat-body"><div><h3>Sweater</h3><div class="desc"><p><span>Pullovers and cardigans in cable and jacquard knits.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#" class="cat rv" style="--d:.18s" data-clip="">
-        <div class="media"><img src="images/shirts-flannel.jpg" alt="Folded woven shirts" loading="lazy"><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D preview</span></div>
-        <div class="body"><h3>Woven</h3><p>Shirts, trousers and light outerwear in poplin, oxford and twill.</p><span class="go">Explore <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
+      <a href="products/woven.html" class="cat rv" style="--d:.18s" data-clip="">
+        <div class="media"><img src="images/shirts-flannel.jpg" alt="Folded woven shirts" loading="lazy"></div>
+        <div class="cat-top"><span class="num">04</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
+        <div class="cat-body"><div><h3>Woven</h3><div class="desc"><p><span>Shirts, trousers and light outerwear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#" class="cat rv" style="--d:.24s" data-clip="">
-        <div class="media"><img src="images/shirts-wood.jpg" alt="Folded cotton t-shirts" loading="lazy"><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D preview</span></div>
-        <div class="body"><h3>Knit</h3><p>T-shirts, polos, fleece and activewear in organic jersey.</p><span class="go">Explore <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></span></div>
+      <a href="products/knit.html" class="cat rv" style="--d:.24s" data-clip="">
+        <div class="media"><img src="images/shirts-wood.jpg" alt="Folded cotton t-shirts" loading="lazy" style="object-position:center 30%"></div>
+        <div class="cat-top"><span class="num">05</span><span class="chip"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>3D</span></div>
+        <div class="cat-body"><div><h3>Knit</h3><div class="desc"><p><span>T-shirts, polos, fleece and activewear.</span></p></div></div><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
     </div>
+    <div class="cats-foot"><span>Hover a category to preview its 3D avatar clip. Select one to see the full product list.</span></div>
   </div>
 </section>
 
@@ -718,13 +746,17 @@
   $$('.rv').forEach(el => io.observe(el));
   new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { $('#steps').classList.add('in'); o.disconnect(); } }), {threshold: .5}).observe($('#steps'));
 
-  // Category cards: play 3D avatar clip on hover when one is supplied
-  $$('.cat').forEach(card => {
-    if (!card.dataset.clip) return;
+  // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
+  const hoverable = matchMedia('(hover: hover)').matches;
+  const clipCards = $$('.cat').filter(card => card.dataset.clip);
+  const stopAll = except => clipCards.forEach(c => { if (c !== except) { c.classList.remove('playing'); c.clip.pause(); } });
+  clipCards.forEach(card => {
     const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'none'});
-    card.querySelector('.media').append(v);
-    card.addEventListener('mouseenter', () => v.play().catch(() => {}));
-    card.addEventListener('mouseleave', () => v.pause());
+    card.querySelector('.media').append(v); card.clip = v;
+    const play = () => { stopAll(card); v.play().then(() => card.classList.add('playing')).catch(() => {}); };
+    const stop = () => { card.classList.remove('playing'); v.pause(); };
+    if (hoverable) { card.addEventListener('mouseenter', play); card.addEventListener('mouseleave', stop); }
+    else new IntersectionObserver(([e]) => e.intersectionRatio > .6 ? play() : stop(), {threshold: [0, .6]}).observe(card);
   });
 
   // Brand logos (from the current site)
