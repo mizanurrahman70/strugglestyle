@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Struggle Style Inc. mark: globe + orbit + spark. Globe uses currentColor so it adapts to light/dark. -->
+  <circle cx="22" cy="26" r="15" stroke="currentColor" stroke-width="2.4"/>
+  <path d="M7.6 21.5h28.8M7.6 30.5h28.8" stroke="currentColor" stroke-width="1.6" opacity=".55"/>
+  <ellipse cx="22" cy="26" rx="6.5" ry="15" stroke="currentColor" stroke-width="1.6" opacity=".55"/>
+  <ellipse cx="22" cy="26" rx="21" ry="6.2" transform="rotate(-18 22 26)" stroke="#F5A00F" stroke-width="2.6"/>
+  <path d="M40 2.5c.7 3.3 2.2 4.8 5.5 5.5-3.3.7-4.8 2.2-5.5 5.5-.7-3.3-2.2-4.8-5.5-5.5 3.3-.7 4.8-2.2 5.5-5.5z" fill="#2EE68A"/>
+</svg>
