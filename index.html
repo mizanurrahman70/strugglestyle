@@ -417,28 +417,28 @@
   .sw-stage{grid-area:stage;align-self:center}
   .kit{grid-area:kit;align-self:start}
 
-  /* Fabric textures: --c is the colourway, each texture layers light and shade over it */
-  .fab{background-color:var(--c)}
-  /* A real fabric photo (--img) replaces the drawn texture */
-  .fab.photo,.sw-fab.photo{background-image:var(--img);background-size:cover;background-position:center}
-  .sw-fab{position:relative;display:block;background-color:var(--c);clip-path:url(#pinked)}
-  .sw-fab::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 15% 0%,rgba(255,255,255,.22),transparent 55%),linear-gradient(160deg,transparent 55%,rgba(0,0,0,.16))}
-  .fab-sh{display:block;filter:drop-shadow(0 6px 10px rgba(15,31,23,.16))}
-  .tx-denim{background-image:repeating-linear-gradient(-60deg,rgba(255,255,255,.16) 0 1px,transparent 1px 2px,rgba(0,0,0,.22) 2px 3.5px,transparent 3.5px 4.5px),repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 3px),radial-gradient(130% 80% at 70% 30%,rgba(255,255,255,.18),transparent 60%)}
-  .tx-jersey{background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 .8px,transparent .8px 4px),repeating-linear-gradient(68deg,rgba(255,255,255,.14) 0 1px,transparent 1px 4px),repeating-linear-gradient(-68deg,rgba(0,0,0,.07) 0 1px,transparent 1px 4px)}
-  .tx-rib{background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(255,255,255,.06) 1px 4px,rgba(0,0,0,.08) 4px 5px,rgba(0,0,0,.26) 5px 8px),repeating-linear-gradient(0deg,rgba(0,0,0,.06) 0 1px,transparent 1px 3px)}
-  .tx-lace{background-color:var(--bk,#F7F1EE);background-image:radial-gradient(circle,transparent 0 2.8px,var(--c) 3.4px 4.6px,transparent 5.2px),radial-gradient(circle,var(--c) 0 1.3px,transparent 1.8px),repeating-linear-gradient(45deg,color-mix(in srgb,var(--c) 60%,transparent) 0 .7px,transparent .7px 5px),repeating-linear-gradient(-45deg,color-mix(in srgb,var(--c) 60%,transparent) 0 .7px,transparent .7px 5px);background-size:14px 14px,14px 14px,auto,auto;background-position:0 0,7px 7px,0 0,0 0}
-  .tx-terry{background-image:radial-gradient(circle,rgba(255,255,255,.22) 0 1.1px,transparent 1.6px),radial-gradient(circle,rgba(0,0,0,.18) 0 1.1px,transparent 1.6px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px);background-size:5px 5px,5px 5px,auto;background-position:0 0,2.5px 2.5px,0 0}
-  .tx-poplin{background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 .7px,transparent .7px 2px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 .7px,transparent .7px 2px),linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%)}
-  .tx-satin{background-image:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.5) 45%,transparent 58%,transparent 70%,rgba(255,255,255,.18) 80%,transparent 90%),linear-gradient(160deg,rgba(255,255,255,.1),rgba(0,0,0,.22)),repeating-linear-gradient(100deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);background-size:300% 100%,100% 100%,auto;background-position:90% 0,0 0,0 0;transition:background-position 1.4s var(--ease)}
-  .tx-satin:hover,.th:hover .tx-satin{background-position:10% 0,0 0,0 0}
-  .tx-cable{background-image:linear-gradient(135deg,rgba(0,0,0,.2) 25%,transparent 25%),linear-gradient(225deg,rgba(0,0,0,.2) 25%,transparent 25%),linear-gradient(315deg,rgba(255,255,255,.16) 25%,transparent 25%),linear-gradient(45deg,rgba(255,255,255,.16) 25%,transparent 25%),repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 3px,transparent 3px 30px);background-size:12px 12px,12px 12px,12px 12px,12px 12px,auto;background-position:-6px 0,-6px 0,0 0,0 0,0 0}
+  /* Fabric swatches: one photo per colourway (--img, from images/swatches/); --c shows while it loads */
+  .fab,.sw-fab{background-color:var(--c);background-image:var(--img);background-size:cover;background-position:center}
+  .sw-fab{position:relative;display:block;clip-path:url(#pinked)}
+  .sw-fab::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 15% 0%,rgba(255,255,255,.14),transparent 55%),linear-gradient(160deg,transparent 60%,rgba(0,0,0,.12))}
+  .fab-sh{position:relative;display:block;filter:drop-shadow(0 6px 10px rgba(15,31,23,.16));transition:transform .45s var(--ease)}
+  /* Swatch-book page: the old swatch flips up off the ring when another fabric is picked */
+  .sw-page{position:absolute;inset:0;z-index:3;transform-origin:50% 0;pointer-events:none}
+  /* Dye: the new colourway spreads across the fabric from the colour dot's side */
+  .sw-dye{position:absolute;inset:0;pointer-events:none}
 
   /* Picker */
-  .th{display:flex;flex-direction:column;gap:10px;padding:8px 8px 10px;border-radius:var(--r-sm);text-align:left;transition:background .25s,box-shadow .25s,transform .25s var(--ease)}
-  .th:hover{background:#fff;transform:translateY(-2px)}
-  .th[aria-pressed="true"]{background:#fff;box-shadow:0 0 0 2px var(--green-700),var(--shadow)}
+  .th{display:flex;flex-direction:column;gap:14px;padding:8px;border-radius:var(--r-sm);text-align:left}
   .th .sw-fab{aspect-ratio:1}
+  /* Selected: a ring around the swatch itself, with a check that springs in */
+  .th .fab-sh::before{content:"";position:absolute;inset:-5px;border:2px solid transparent;border-radius:10px;transition:border-color .25s,inset .35s var(--ease)}
+  .th[aria-pressed="true"] .fab-sh::before{inset:-7px;border-color:var(--green-600)}
+  .th .fab-sh::after{content:"";position:absolute;top:-13px;right:-13px;width:22px;height:22px;border-radius:50%;background:var(--green-600) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center/12px no-repeat;box-shadow:0 0 0 3px var(--soft);transform:scale(0);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+  .th[aria-pressed="true"] .fab-sh::after{transform:scale(1)}
+  .th[aria-pressed="true"] b{color:var(--green-800)}
+  .th:hover .fab-sh{transform:perspective(420px) rotateX(12deg) translateY(-3px)}
+  .sw-picker.in .th{animation:swDeal .7s var(--ease) both;animation-delay:calc(var(--i) * 70ms + .15s)}
+  @keyframes swDeal{from{opacity:0;transform:perspective(600px) translateY(-14px) rotateX(-70deg)}}
   .th small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--green-600)}
   .th b{display:block;font-size:13px;font-weight:600;line-height:1.3}
 
@@ -450,8 +450,6 @@
   .sw-card-top span{color:var(--muted);font-variant-numeric:tabular-nums}
   .sw-body{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
   .sw-big{aspect-ratio:1;cursor:crosshair}
-  .fab-sh.swap{animation:swIn .6s var(--ease)}
-  @keyframes swIn{from{opacity:.3;transform:translateY(12px) rotate(-4deg) scale(.96)}to{opacity:1;transform:none}}
   .sw-label{position:absolute;left:16px;bottom:16px;z-index:1;padding:5px 9px;background:#fff;border-radius:3px;font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--green-800);box-shadow:0 1px 3px rgba(0,0,0,.15)}
   .loupe{position:absolute;top:0;left:0;z-index:2;width:150px;height:150px;border-radius:50%;border:3px solid #fff;box-shadow:0 10px 30px -6px rgba(0,0,0,.45);overflow:hidden;pointer-events:none;opacity:0;transition:opacity .2s}
   .loupe div{position:absolute;top:0;left:0;transform-origin:0 0}
@@ -497,7 +495,7 @@
   @media (hover:none){.kit-slots .rm{opacity:1;transform:none}}
   #kitCta{width:100%}
   #kitCta[aria-disabled="true"]{background:var(--border);color:var(--muted);pointer-events:none;box-shadow:none}
-  .sw-fly{position:fixed;z-index:60;pointer-events:none;transform-origin:0 0}
+  .sw-fly{position:fixed;z-index:60;pointer-events:none}
   .sw-note{margin-top:40px;font-size:13px;color:var(--muted)}
 
   .ob-sec{background:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px) 0 0/24px 24px #FAFAFB}
@@ -700,6 +698,17 @@
   </div>
 </section>
 
+<!-- ===== 4c. Outfit builder (catalogue in js/outfit-config.js, renders in outfits/) ===== -->
+<section class="ob-sec" id="preview">
+  <div class="wrap">
+    <div class="ob-head rv">
+      <h2>Build the look, then request the sample</h2>
+      <p class="lead">Combine garments and fabrics on our 3D avatar. Every look comes with its style code, MOQ and lead time, ready to send to our merchandising team.</p>
+    </div>
+    <outfit-builder></outfit-builder>
+  </div>
+</section>
+
 <!-- ===== 4b. Swatch studio (SAMPLE fabric specs — confirm fabrics, weights and colourways with Struggle Style) ===== -->
 <section class="swatch-sec" id="fabrics">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><clipPath id="pinked" clipPathUnits="objectBoundingBox"><polygon id="pinkPoly"/></clipPath></svg>
@@ -739,16 +748,7 @@
   <p class="wrap sw-note">Sample fabric specifications — to be confirmed by Struggle Style before launch.</p>
 </section>
 
-<!-- ===== 4c. Outfit builder (catalogue in js/outfit-config.js, renders in outfits/) ===== -->
-<section class="ob-sec" id="preview">
-  <div class="wrap">
-    <div class="ob-head rv">
-      <h2>Build the look, then request the sample</h2>
-      <p class="lead">Combine garments and fabrics on our 3D avatar. Every look comes with its style code, MOQ and lead time, ready to send to our merchandising team.</p>
-    </div>
-    <outfit-builder></outfit-builder>
-  </div>
-</section>
+
 
 <!-- ===== 5. Manufacturing strengths ===== -->
 <section class="mfg" id="manufacturing">
@@ -1182,24 +1182,24 @@
     <span class="stars" aria-hidden="true">${STAR.repeat(5)}</span><span><b>${REVIEWS.length}+ buyers</b> across 5 markets</span>`;
   // Swatch studio — SAMPLE fabric library (confirm specs and colourways with Struggle Style)
   // colors: [name, fabric colour, optional backing colour for lace]
-  // photos (optional): a real swatch photo per colour name, shown instead of the drawn texture, e.g.
-  //   photos: {'Indigo': 'images/fabrics/ss-d01-indigo.jpg', 'Black': 'images/fabrics/ss-d01-black.jpg'}
+  // Each colourway's photo is images/swatches/{code}-{colour}.webp, e.g. ss-d01-mid-wash.webp.
+  // After changing a fabric or colour here, re-run: python images/swatches/make_swatches.py
   const SWATCHES = [
-    {code: 'SS-D01', name: 'Eco-wash denim', tx: 'denim', cat: 'Denim', comp: '98% cotton, 2% elastane', gsm: '340 GSM · 10 oz', build: '3×1 right-hand twill',
+    {code: 'SS-D01', name: 'Eco-wash denim', cat: 'Denim', comp: '98% cotton, 2% elastane', gsm: '340 GSM · 10 oz', build: '3×1 right-hand twill',
      stretch: 2, weight: 5, hand: 4, use: ['Jeans', 'Jackets', 'Vests'], colors: [['Indigo', '#2C3E63'], ['Mid wash', '#5B7AA6'], ['Black', '#26272B'], ['Ecru', '#E4D9C3']]},
-    {code: 'SS-J02', name: 'Organic jersey', tx: 'jersey', cat: 'Knit', comp: '100% organic cotton', gsm: '160 GSM', build: 'Single jersey, combed',
+    {code: 'SS-J02', name: 'Organic jersey', cat: 'Knit', comp: '100% organic cotton', gsm: '160 GSM', build: 'Single jersey, combed',
      stretch: 3, weight: 2, hand: 1, use: ['T-shirts', 'Tops', 'Loungewear'], colors: [['Off-white', '#EEEBE3'], ['Sage', '#9DB69F'], ['Terracotta', '#C9694E'], ['Navy', '#283651']]},
-    {code: 'SS-R03', name: '2×2 stretch rib', tx: 'rib', cat: 'Knit', comp: '95% cotton, 5% elastane', gsm: '230 GSM', build: '2×2 rib knit',
+    {code: 'SS-R03', name: '2×2 stretch rib', cat: 'Knit', comp: '95% cotton, 5% elastane', gsm: '230 GSM', build: '2×2 rib knit',
      stretch: 5, weight: 3, hand: 2, use: ['Bodysuits', 'Activewear', 'Trims'], colors: [['Black', '#222326'], ['Oatmeal', '#D9CCB4'], ['Forest', '#1F5A3C'], ['Dusty rose', '#C99A9A']]},
-    {code: 'SS-L04', name: 'Stretch lace', tx: 'lace', cat: 'Lingerie', comp: '88% recycled nylon, 12% elastane', gsm: '90 GSM', build: 'Raschel lace',
+    {code: 'SS-L04', name: 'Stretch lace', cat: 'Lingerie', comp: '88% recycled nylon, 12% elastane', gsm: '90 GSM', build: 'Raschel lace',
      stretch: 4, weight: 1, hand: 2, use: ['Bras', 'Briefs', 'Bodysuits'], colors: [['Blush', '#D9A79C', '#FBF4F1'], ['Black', '#1F1D21', '#EADBD5'], ['Ivory', '#F1E8D8', '#3B3036'], ['Lilac', '#A892C9', '#F7F3FA']]},
-    {code: 'SS-T05', name: 'Recycled French terry', tx: 'terry', cat: 'Knit', comp: '60% organic cotton, 40% recycled polyester', gsm: '300 GSM', build: 'Loop-back terry',
+    {code: 'SS-T05', name: 'Recycled French terry', cat: 'Knit', comp: '60% organic cotton, 40% recycled polyester', gsm: '300 GSM', build: 'Loop-back terry',
      stretch: 2, weight: 4, hand: 2, use: ['Hoodies', 'Sweatshirts', 'Joggers'], colors: [['Heather grey', '#A7A9A8'], ['Forest', '#24493A'], ['Sand', '#CDB894'], ['Black', '#26272A']]},
-    {code: 'SS-W06', name: 'Cotton poplin', tx: 'poplin', cat: 'Woven', comp: '100% cotton', gsm: '115 GSM', build: 'Plain weave, 40s × 40s',
+    {code: 'SS-W06', name: 'Cotton poplin', cat: 'Woven', comp: '100% cotton', gsm: '115 GSM', build: 'Plain weave, 40s × 40s',
      stretch: 0, weight: 1, hand: 5, use: ['Shirts', 'Dresses', 'Pyjama sets'], colors: [['White', '#F5F5F1'], ['Sky', '#B8CDE3'], ['Sage', '#B9C8AE'], ['Black', '#232427']]},
-    {code: 'SS-S07', name: 'Satin charmeuse', tx: 'satin', cat: 'Lingerie', comp: '100% recycled polyester', gsm: '95 GSM', build: 'Satin weave, fluid drape',
+    {code: 'SS-S07', name: 'Satin charmeuse', cat: 'Lingerie', comp: '100% recycled polyester', gsm: '95 GSM', build: 'Satin weave, fluid drape',
      stretch: 1, weight: 1, hand: 1, use: ['Sleepwear', 'Slips', 'Robes'], colors: [['Lilac', '#B3A0D4'], ['Champagne', '#DCC7A3'], ['Emerald', '#1E6B4A'], ['Black', '#1E1E22']]},
-    {code: 'SS-K08', name: 'Cable knit', tx: 'cable', cat: 'Sweater', comp: '80% cotton, 20% recycled wool', gsm: '7 gauge · chunky', build: 'Cable knit',
+    {code: 'SS-K08', name: 'Cable knit', cat: 'Sweater', comp: '80% cotton, 20% recycled wool', gsm: '7 gauge · chunky', build: 'Cable knit',
      stretch: 3, weight: 5, hand: 2, use: ['Pullovers', 'Cardigans', 'Knit tops'], colors: [['Cream', '#EDE5D3'], ['Camel', '#B98B5A'], ['Bottle green', '#2A4D3A'], ['Charcoal', '#45484C']]}
   ];
   const KIT_MAX = 6;
@@ -1215,14 +1215,12 @@
   }
 
   const findSw = code => SWATCHES.find(s => s.code === code);
-  const photo = (s, c) => s.photos && s.photos[s.colors[c][0]];
-  const fabStyle = (s, c) => `--c:${s.colors[c][1]}` + (s.colors[c][2] ? `;--bk:${s.colors[c][2]}` : '') + (photo(s, c) ? `;--img:url('${photo(s, c)}')` : '');
-  const fab = (s, c) => `<span class="sw-fab tx-${s.tx}${photo(s, c) ? ' photo' : ''}" style="${fabStyle(s, c)}"></span>`;
-  const paint = (el, s, c) => {
+  // Full-size photo for the card and loupe; the -sm copy for small swatches
+  const photo = (s, c, sm) => `url('images/swatches/${s.code.toLowerCase()}-${s.colors[c][0].toLowerCase().replace(/[^a-z0-9]+/g, '-')}${sm ? '-sm' : ''}.webp')`;
+  const fab = (s, c) => `<span class="sw-fab" style="--c:${s.colors[c][1]};--img:${photo(s, c, true)}"></span>`;
+  const paint = (el, s, c, sm) => {
     el.style.setProperty('--c', s.colors[c][1]);
-    s.colors[c][2] ? el.style.setProperty('--bk', s.colors[c][2]) : el.style.removeProperty('--bk');
-    photo(s, c) ? el.style.setProperty('--img', `url('${photo(s, c)}')`) : el.style.removeProperty('--img');
-    el.classList.toggle('photo', !!photo(s, c));
+    el.style.setProperty('--img', photo(s, c, sm));
   };
   const meter = (label, v) => `<div class="mt" role="img" aria-label="${label} ${v} of 5"><span>${label}</span><i>${[1, 2, 3, 4, 5].map(n => `<b class="${n <= v ? 'on' : ''}"></b>`).join('')}</i></div>`;
 
@@ -1232,7 +1230,7 @@
   kit = kit.filter(k => findSw(k.code) && findSw(k.code).colors[k.c]).slice(0, KIT_MAX);
 
   const big = $('#swBig'), loupeIn = $('#loupeIn');
-  $('#swPicker').innerHTML = SWATCHES.map((s, i) => `<button class="th" aria-pressed="false" data-i="${i}"><span class="fab-sh">${fab(s, 0)}</span><span><small>${s.code}</small><b>${s.name}</b></span></button>`).join('');
+  $('#swPicker').innerHTML = SWATCHES.map((s, i) => `<button class="th" aria-pressed="false" data-i="${i}" style="--i:${i}"><span class="fab-sh">${fab(s, 0)}</span><span><small>${s.code}</small><b>${s.name}</b></span></button>`).join('');
   const thumbs = $$('#swPicker .th');
 
   const syncAdd = () => {
@@ -1241,19 +1239,52 @@
     btn.disabled = !has && kit.length >= KIT_MAX;
     btn.textContent = has ? 'In your kit · Remove' : kit.length >= KIT_MAX ? `Kit is full (${KIT_MAX} swatches)` : 'Add to swatch kit';
   };
-  const setColour = c => {
+  // Dye: the new colourway spreads across the big swatch from the clicked dot's side
+  let settleDye = null;
+  const dye = (s, c, dot) => {
+    if (settleDye) settleDye();
+    if (reduce || !dot) return paint(big, s, c);
+    const r = big.getBoundingClientRect(), d = dot.getBoundingClientRect();
+    const clamp = v => Math.max(0, Math.min(100, v));
+    const at = `${clamp((d.left + d.width / 2 - r.left) / r.width * 100)}% ${clamp((d.top + d.height / 2 - r.top) / r.height * 100)}%`;
+    const layer = Object.assign(document.createElement('span'), {className: 'fab sw-dye'});
+    paint(layer, s, c);
+    big.prepend(layer);
+    const anim = layer.animate([{clipPath: `circle(0% at ${at})`}, {clipPath: `circle(150% at ${at})`}], {duration: 800, easing: 'cubic-bezier(.4,0,.2,1)'});
+    // A timer backs up onfinish, which can be skipped (e.g. background tabs)
+    const timer = setTimeout(() => settleDye && settleDye(), 900);
+    settleDye = () => { settleDye = null; clearTimeout(timer); anim.cancel(); layer.remove(); paint(big, s, c); };
+    anim.onfinish = settleDye;
+  };
+
+  // Page flip: the old swatch lifts off the swatch-book ring, revealing the new one beneath
+  const flip = () => {
+    const page = big.cloneNode(false);
+    page.removeAttribute('id');
+    page.className = 'sw-fab sw-page';
+    big.after(page);
+    page.animate([
+      {transform: 'perspective(900px) rotateX(0)', filter: 'brightness(1)'},
+      {transform: 'perspective(900px) rotateX(-100deg)', filter: 'brightness(.65)', opacity: 0}
+    ], {duration: 650, easing: 'cubic-bezier(.5,0,.75,0)', fill: 'forwards'});
+    setTimeout(() => page.remove(), 700);
+    big.animate([{transform: 'scale(.97)', filter: 'brightness(.88)'}, {transform: 'none', filter: 'none'}], {duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)'});
+  };
+
+  const setColour = (c, dot) => {
     const s = SWATCHES[swI];
     picked[swI] = c;
-    [big, loupeIn, thumbs[swI].querySelector('.sw-fab')].forEach(el => paint(el, s, c));
+    paint(loupeIn, s, c);
+    paint(thumbs[swI].querySelector('.sw-fab'), s, c, true);
+    dye(s, c, dot);
     $('#swColorName').textContent = s.colors[c][0];
     $('#swLabel').textContent = `${s.code} · ${s.colors[c][0]}`;
     $$('#swColors button').forEach((b, i) => b.setAttribute('aria-pressed', i === c));
     syncAdd();
   };
   const setSwatch = (i, anim) => {
+    if (anim && !reduce) flip();
     const s = SWATCHES[swI = i];
-    big.className = `sw-fab sw-big tx-${s.tx}`;
-    loupeIn.className = `fab tx-${s.tx}`;
     $('#swCode').textContent = `SWATCH ${s.code}`;
     $('#swCat').textContent = s.cat;
     $('#swName').textContent = s.name;
@@ -1265,7 +1296,6 @@
     $('#swUse').innerHTML = s.use.map(u => `<span>${u}</span>`).join('');
     thumbs.forEach((t, j) => t.setAttribute('aria-pressed', j === i));
     setColour(picked[i]);
-    if (anim && !reduce) { const sh = $('#swBigSh'); sh.classList.remove('swap'); void sh.offsetWidth; sh.classList.add('swap'); }
   };
 
   const renderKit = () => {
@@ -1283,21 +1313,26 @@
     syncAdd();
   };
 
-  // The swatch flies from the card into its kit slot
+  // The swatch arcs from the card into its kit slot, turning over once in the air
   const fly = (s, c, slot) => {
     const f = slot.querySelector('.sw-fab');
     if (reduce) return;
     const from = big.getBoundingClientRect(), to = slot.getBoundingClientRect();
-    const el = Object.assign(document.createElement('span'), {className: `sw-fab tx-${s.tx} sw-fly`});
+    const el = Object.assign(document.createElement('span'), {className: 'sw-fab sw-fly'});
     paint(el, s, c);
     Object.assign(el.style, {left: from.left + 'px', top: from.top + 'px', width: from.width + 'px', height: from.height + 'px'});
     document.body.append(el); f.style.opacity = 0;
-    el.animate([{transform: 'none'}, {transform: `translate(${to.left - from.left}px,${to.top - from.top}px) scale(${to.width / from.width}) rotate(-8deg)`}],
-      {duration: 700, easing: 'cubic-bezier(.5,0,.2,1)'}).onfinish = () => { el.remove(); f.style.opacity = ''; slot.classList.add('pop'); };
+    const dx = to.left + to.width / 2 - from.left - from.width / 2, dy = to.top + to.height / 2 - from.top - from.height / 2, k = to.width / from.width;
+    el.animate([
+      {transform: 'perspective(800px)'},
+      {transform: `perspective(800px) translate(${dx * .4}px,${dy * .4 - 80}px) scale(${(1 + k) / 2.4}) rotate(10deg) rotateY(180deg)`, offset: .5},
+      {transform: `perspective(800px) translate(${dx}px,${dy}px) scale(${k}) rotate(-4deg) rotateY(360deg)`}
+    ], {duration: 850, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards'});
+    setTimeout(() => { el.remove(); f.style.opacity = ''; slot.classList.add('pop'); }, 850);
   };
 
   $('#swPicker').onclick = e => { const t = e.target.closest('.th'); if (t && +t.dataset.i !== swI) setSwatch(+t.dataset.i, true); };
-  $('#swColors').onclick = e => { const b = e.target.closest('button'); if (b) setColour(+b.dataset.c); };
+  $('#swColors').onclick = e => { const b = e.target.closest('button'); if (b && +b.dataset.c !== picked[swI]) setColour(+b.dataset.c, b); };
   $('#kitSlots').onclick = e => { const b = e.target.closest('.rm'); if (b) { kit.splice(+b.dataset.i, 1); renderKit(); } };
   $('#swAdd').onclick = () => {
     const s = SWATCHES[swI], c = picked[swI], at = kit.findIndex(k => k.code === s.code && k.c === c);
