@@ -506,25 +506,46 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
-    <a href="#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div id="google_translate_element" style="min-width:120px"></div>
+      <a href="#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
     <a href="#products">Products</a><a href="#manufacturing">Manufacturing</a><a href="#sustainability">Sustainability</a><a href="#about">About</a><a href="#news">News</a><a href="#faq">FAQ</a>
     <a href="#quote" class="btn btn-primary">Get a Quote</a>
+    <div id="google_translate_element_mob" style="margin-top:16px"></div>
   </nav>
 </header>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,es,fr,de,it,pt,ja,zh-CN,ar',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,es,fr,de,it,pt,ja,zh-CN,ar',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element_mob');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <main>
 <!-- ===== 2. Hero ===== -->
 <section class="hero" aria-label="Introduction">
     <div class="hero-card" id="hero">
       <!-- Storyboard images; the sustainability film (media/hero.mp4) replaces them once supplied -->
-      <div class="slide on" data-label="Sustainable raw materials"><img src="images/cotton-trees.jpg" alt=""></div>
-      <div class="slide" data-label="Responsible production"><img src="images/sew-line.jpg" alt=""></div>
+      <div class="slide on" data-label="Global shipping"><img src="images/port.jpg" alt=""></div>
+      <div class="slide" data-label="Sustainable raw materials"><img src="images/cotton-trees.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Responsible production"><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Energy efficiency"><img src="images/solar.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Finished garments"><img src="images/cotton-cloths.jpg" alt="" loading="lazy" style="object-position:center 60%"></div>
-      <div class="slide" data-label="Global shipping"><img src="images/port.jpg" alt="" loading="lazy"></div>
       <video id="film" muted loop playsinline preload="none" aria-hidden="true">
         <source src="media/hero.webm" type="video/webm">
         <source src="media/hero.mp4" type="video/mp4">
