@@ -407,6 +407,99 @@
   .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
   .f-bot select option{color:var(--text)}
 
+  /* 4b. Swatch studio */
+  .swatch-sec{background:var(--soft)}
+  .sw-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-rows:auto auto 1fr;grid-template-areas:"head stage" "picker stage" "kit stage";column-gap:72px}
+  .sw-head{grid-area:head}
+  .sw-head h2{margin:0 0 16px}
+  .sw-head .lead{margin-bottom:32px}
+  .sw-picker{grid-area:picker;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+  .sw-stage{grid-area:stage;align-self:center}
+  .kit{grid-area:kit;align-self:start}
+
+  /* Fabric textures: --c is the colourway, each texture layers light and shade over it */
+  .fab{background-color:var(--c)}
+  /* A real fabric photo (--img) replaces the drawn texture */
+  .fab.photo,.sw-fab.photo{background-image:var(--img);background-size:cover;background-position:center}
+  .sw-fab{position:relative;display:block;background-color:var(--c);clip-path:url(#pinked)}
+  .sw-fab::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 15% 0%,rgba(255,255,255,.22),transparent 55%),linear-gradient(160deg,transparent 55%,rgba(0,0,0,.16))}
+  .fab-sh{display:block;filter:drop-shadow(0 6px 10px rgba(15,31,23,.16))}
+  .tx-denim{background-image:repeating-linear-gradient(-60deg,rgba(255,255,255,.16) 0 1px,transparent 1px 2px,rgba(0,0,0,.22) 2px 3.5px,transparent 3.5px 4.5px),repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 3px),radial-gradient(130% 80% at 70% 30%,rgba(255,255,255,.18),transparent 60%)}
+  .tx-jersey{background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 .8px,transparent .8px 4px),repeating-linear-gradient(68deg,rgba(255,255,255,.14) 0 1px,transparent 1px 4px),repeating-linear-gradient(-68deg,rgba(0,0,0,.07) 0 1px,transparent 1px 4px)}
+  .tx-rib{background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(255,255,255,.06) 1px 4px,rgba(0,0,0,.08) 4px 5px,rgba(0,0,0,.26) 5px 8px),repeating-linear-gradient(0deg,rgba(0,0,0,.06) 0 1px,transparent 1px 3px)}
+  .tx-lace{background-color:var(--bk,#F7F1EE);background-image:radial-gradient(circle,transparent 0 2.8px,var(--c) 3.4px 4.6px,transparent 5.2px),radial-gradient(circle,var(--c) 0 1.3px,transparent 1.8px),repeating-linear-gradient(45deg,color-mix(in srgb,var(--c) 60%,transparent) 0 .7px,transparent .7px 5px),repeating-linear-gradient(-45deg,color-mix(in srgb,var(--c) 60%,transparent) 0 .7px,transparent .7px 5px);background-size:14px 14px,14px 14px,auto,auto;background-position:0 0,7px 7px,0 0,0 0}
+  .tx-terry{background-image:radial-gradient(circle,rgba(255,255,255,.22) 0 1.1px,transparent 1.6px),radial-gradient(circle,rgba(0,0,0,.18) 0 1.1px,transparent 1.6px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px);background-size:5px 5px,5px 5px,auto;background-position:0 0,2.5px 2.5px,0 0}
+  .tx-poplin{background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 .7px,transparent .7px 2px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 .7px,transparent .7px 2px),linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%)}
+  .tx-satin{background-image:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.5) 45%,transparent 58%,transparent 70%,rgba(255,255,255,.18) 80%,transparent 90%),linear-gradient(160deg,rgba(255,255,255,.1),rgba(0,0,0,.22)),repeating-linear-gradient(100deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px);background-size:300% 100%,100% 100%,auto;background-position:90% 0,0 0,0 0;transition:background-position 1.4s var(--ease)}
+  .tx-satin:hover,.th:hover .tx-satin{background-position:10% 0,0 0,0 0}
+  .tx-cable{background-image:linear-gradient(135deg,rgba(0,0,0,.2) 25%,transparent 25%),linear-gradient(225deg,rgba(0,0,0,.2) 25%,transparent 25%),linear-gradient(315deg,rgba(255,255,255,.16) 25%,transparent 25%),linear-gradient(45deg,rgba(255,255,255,.16) 25%,transparent 25%),repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 3px,transparent 3px 30px);background-size:12px 12px,12px 12px,12px 12px,12px 12px,auto;background-position:-6px 0,-6px 0,0 0,0 0,0 0}
+
+  /* Picker */
+  .th{display:flex;flex-direction:column;gap:10px;padding:8px 8px 10px;border-radius:var(--r-sm);text-align:left;transition:background .25s,box-shadow .25s,transform .25s var(--ease)}
+  .th:hover{background:#fff;transform:translateY(-2px)}
+  .th[aria-pressed="true"]{background:#fff;box-shadow:0 0 0 2px var(--green-700),var(--shadow)}
+  .th .sw-fab{aspect-ratio:1}
+  .th small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--green-600)}
+  .th b{display:block;font-size:13px;font-weight:600;line-height:1.3}
+
+  /* Swatch card */
+  .sw-card{position:relative;background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);padding:24px 28px 28px}
+  .sw-card .hole{position:absolute;top:25px;left:28px;width:16px;height:16px;border-radius:50%;background:var(--soft);box-shadow:inset 0 1px 3px rgba(15,31,23,.25)}
+  .sw-card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 0 18px 30px;margin-bottom:24px;border-bottom:1.5px dashed var(--border);font-size:11.5px;letter-spacing:.18em;color:var(--green-800)}
+  .sw-card-top b{font-family:var(--head);font-weight:800}
+  .sw-card-top span{color:var(--muted);font-variant-numeric:tabular-nums}
+  .sw-body{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .sw-big{aspect-ratio:1;cursor:crosshair}
+  .fab-sh.swap{animation:swIn .6s var(--ease)}
+  @keyframes swIn{from{opacity:.3;transform:translateY(12px) rotate(-4deg) scale(.96)}to{opacity:1;transform:none}}
+  .sw-label{position:absolute;left:16px;bottom:16px;z-index:1;padding:5px 9px;background:#fff;border-radius:3px;font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--green-800);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .loupe{position:absolute;top:0;left:0;z-index:2;width:150px;height:150px;border-radius:50%;border:3px solid #fff;box-shadow:0 10px 30px -6px rgba(0,0,0,.45);overflow:hidden;pointer-events:none;opacity:0;transition:opacity .2s}
+  .loupe div{position:absolute;top:0;left:0;transform-origin:0 0}
+  .sw-big.zoom .loupe{opacity:1}
+  .sw-hint{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+  .sw-hint svg{width:15px;height:15px}
+  @media (hover:none){.sw-hint{display:none}}
+  .sw-cat{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-600)}
+  .sw-info h3{font-size:23px;margin:4px 0 14px}
+  .sw-specs{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px;margin-bottom:16px}
+  .sw-specs dt{color:var(--muted)}
+  .sw-specs dd{font-weight:500}
+  .mt{display:grid;grid-template-columns:58px 1fr;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .mt i{display:flex;gap:4px}
+  .mt b{flex:1;height:6px;border-radius:3px;background:var(--border);transition:background .3s}
+  .mt b.on{background:var(--green-600)}
+  .sw-colors{margin:18px 0 16px}
+  .sw-colors p{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .sw-colors p b{color:var(--text);font-weight:600}
+  .sw-dots{display:flex;gap:10px}
+  .sw-dots button{width:30px;height:30px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);transition:transform .2s var(--ease),box-shadow .2s}
+  .sw-dots button:hover{transform:scale(1.1)}
+  .sw-dots button[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--green-700)}
+  .sw-use{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+  .sw-use span{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-size:12.5px;font-weight:600}
+  #swAdd{width:100%}
+  #swAdd.added{background:var(--green-100);color:var(--green-800);box-shadow:none}
+  #swAdd:disabled{opacity:.5;cursor:not-allowed}
+
+  /* Kit tray */
+  .kit{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px 22px 22px}
+  .kit-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .kit-head h3{font-size:17px}
+  .kit-head span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .kit-slots{list-style:none;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:18px}
+  .kit-slots li{position:relative;aspect-ratio:1;border-radius:10px;border:1.5px dashed #BFD9C9}
+  .kit-slots li.full{border-color:transparent}
+  .kit-slots .sw-fab{position:absolute;inset:0;transition:opacity .2s}
+  .kit-slots li.pop{animation:pop .4s var(--ease)}
+  @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.1)}100%{transform:none}}
+  .kit-slots .rm{position:absolute;top:-8px;right:-8px;z-index:1;width:22px;height:22px;border-radius:50%;background:var(--text);color:#fff;font-size:14px;line-height:22px;opacity:0;transform:scale(.7);transition:opacity .2s,transform .2s}
+  .kit-slots li:hover .rm,.kit-slots .rm:focus-visible{opacity:1;transform:none}
+  @media (hover:none){.kit-slots .rm{opacity:1;transform:none}}
+  #kitCta{width:100%}
+  #kitCta[aria-disabled="true"]{background:var(--border);color:var(--muted);pointer-events:none;box-shadow:none}
+  .sw-fly{position:fixed;z-index:60;pointer-events:none;transform-origin:0 0}
+  .sw-note{margin-top:40px;font-size:13px;color:var(--muted)}
+
   /* Reveal */
   .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
   .rv.in{opacity:1;transform:none}
@@ -421,6 +514,8 @@
     .viewer-doc svg{height:auto;width:100%;max-width:420px}
     .proc-list{grid-template-columns:1fr 1fr}
     .process-sec{padding:88px 0}
+    .sw-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "picker" "stage" "kit"}
+    .sw-stage{margin-bottom:24px}
   }
   @media (max-width:960px){
     .nav ul,.nav .btn{display:none}
@@ -472,6 +567,12 @@
     .mfg-badge{left:14px;bottom:56px;padding:12px 14px}
     .caps{grid-template-columns:1fr 1fr}
     .proc-list{grid-template-columns:1fr}
+    .sw-picker{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:104px;overflow-x:auto;margin:0 -16px 20px;padding:4px 16px 8px;scrollbar-width:none}
+    .sw-card{padding:20px 18px 22px}
+    .sw-card .hole{top:21px;left:18px}
+    .sw-body{grid-template-columns:1fr;gap:20px}
+    .kit{padding:18px 16px}
+    .kit-slots{gap:8px}
     .brand{width:160px;height:84px}
     .mpill{height:40px;font-size:13.5px}
     .mpill img,.mpill .globe{width:28px;height:28px}
@@ -592,6 +693,45 @@
       </a>
     </div>
   </div>
+</section>
+
+<!-- ===== 4b. Swatch studio (SAMPLE fabric specs — confirm fabrics, weights and colourways with Struggle Style) ===== -->
+<section class="swatch-sec" id="fabrics">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><clipPath id="pinked" clipPathUnits="objectBoundingBox"><polygon id="pinkPoly"/></clipPath></svg>
+  <div class="wrap sw-grid">
+    <div class="sw-head rv">
+      <h2>Feel the fabric before you sample</h2>
+      <p class="lead">Browse our core fabric library, inspect the weave up close and build a free swatch kit. We send the physical swatches with your quotation.</p>
+    </div>
+    <div class="sw-picker rv" id="swPicker" role="group" aria-label="Fabric library"></div>
+    <div class="kit rv">
+      <div class="kit-head"><h3>Your swatch kit</h3><span id="kitCount" aria-live="polite"></span></div>
+      <ul class="kit-slots" id="kitSlots"></ul>
+      <a class="btn btn-primary" id="kitCta">Request swatch kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="sw-stage rv" style="--d:.1s">
+      <article class="sw-card" aria-labelledby="swName">
+        <span class="hole" aria-hidden="true"></span>
+        <div class="sw-card-top"><b>STRUGGLE STYLE</b><span id="swCode"></span></div>
+        <div class="sw-body">
+          <div>
+            <span class="fab-sh" id="swBigSh"><span class="sw-fab sw-big" id="swBig"><span class="loupe" aria-hidden="true"><div id="loupeIn"></div></span><span class="sw-label" id="swLabel"></span></span></span>
+            <span class="sw-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M11 8v6M8 11h6"/></svg>Hover to inspect the weave</span>
+          </div>
+          <div class="sw-info">
+            <span class="sw-cat" id="swCat"></span>
+            <h3 id="swName"></h3>
+            <dl class="sw-specs"><dt>Composition</dt><dd id="swComp"></dd><dt>Weight</dt><dd id="swGsm"></dd><dt>Build</dt><dd id="swBuild"></dd></dl>
+            <div id="swMeters"></div>
+            <div class="sw-colors"><p>Colour · <b id="swColorName"></b></p><div class="sw-dots" id="swColors" role="group" aria-label="Colourways"></div></div>
+            <div class="sw-use" id="swUse"></div>
+            <button class="btn btn-primary" id="swAdd"></button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <p class="wrap sw-note">Sample fabric specifications — to be confirmed by Struggle Style before launch.</p>
 </section>
 
 <!-- ===== 5. Manufacturing strengths ===== -->
@@ -1024,6 +1164,145 @@
   $('#wallB').innerHTML = wallB + `<div style="display:contents" aria-hidden="true">${wallB}</div>`;
   $('#tTrust').innerHTML = `<span class="t-faces">${REVIEWS.slice(0, 4).map(r => `<img src="images/${r.img}" alt="">`).join('')}</span>
     <span class="stars" aria-hidden="true">${STAR.repeat(5)}</span><span><b>${REVIEWS.length}+ buyers</b> across 5 markets</span>`;
+  // Swatch studio — SAMPLE fabric library (confirm specs and colourways with Struggle Style)
+  // colors: [name, fabric colour, optional backing colour for lace]
+  // photos (optional): a real swatch photo per colour name, shown instead of the drawn texture, e.g.
+  //   photos: {'Indigo': 'images/fabrics/ss-d01-indigo.jpg', 'Black': 'images/fabrics/ss-d01-black.jpg'}
+  const SWATCHES = [
+    {code: 'SS-D01', name: 'Eco-wash denim', tx: 'denim', cat: 'Denim', comp: '98% cotton, 2% elastane', gsm: '340 GSM · 10 oz', build: '3×1 right-hand twill',
+     stretch: 2, weight: 5, hand: 4, use: ['Jeans', 'Jackets', 'Vests'], colors: [['Indigo', '#2C3E63'], ['Mid wash', '#5B7AA6'], ['Black', '#26272B'], ['Ecru', '#E4D9C3']]},
+    {code: 'SS-J02', name: 'Organic jersey', tx: 'jersey', cat: 'Knit', comp: '100% organic cotton', gsm: '160 GSM', build: 'Single jersey, combed',
+     stretch: 3, weight: 2, hand: 1, use: ['T-shirts', 'Tops', 'Loungewear'], colors: [['Off-white', '#EEEBE3'], ['Sage', '#9DB69F'], ['Terracotta', '#C9694E'], ['Navy', '#283651']]},
+    {code: 'SS-R03', name: '2×2 stretch rib', tx: 'rib', cat: 'Knit', comp: '95% cotton, 5% elastane', gsm: '230 GSM', build: '2×2 rib knit',
+     stretch: 5, weight: 3, hand: 2, use: ['Bodysuits', 'Activewear', 'Trims'], colors: [['Black', '#222326'], ['Oatmeal', '#D9CCB4'], ['Forest', '#1F5A3C'], ['Dusty rose', '#C99A9A']]},
+    {code: 'SS-L04', name: 'Stretch lace', tx: 'lace', cat: 'Lingerie', comp: '88% recycled nylon, 12% elastane', gsm: '90 GSM', build: 'Raschel lace',
+     stretch: 4, weight: 1, hand: 2, use: ['Bras', 'Briefs', 'Bodysuits'], colors: [['Blush', '#D9A79C', '#FBF4F1'], ['Black', '#1F1D21', '#EADBD5'], ['Ivory', '#F1E8D8', '#3B3036'], ['Lilac', '#A892C9', '#F7F3FA']]},
+    {code: 'SS-T05', name: 'Recycled French terry', tx: 'terry', cat: 'Knit', comp: '60% organic cotton, 40% recycled polyester', gsm: '300 GSM', build: 'Loop-back terry',
+     stretch: 2, weight: 4, hand: 2, use: ['Hoodies', 'Sweatshirts', 'Joggers'], colors: [['Heather grey', '#A7A9A8'], ['Forest', '#24493A'], ['Sand', '#CDB894'], ['Black', '#26272A']]},
+    {code: 'SS-W06', name: 'Cotton poplin', tx: 'poplin', cat: 'Woven', comp: '100% cotton', gsm: '115 GSM', build: 'Plain weave, 40s × 40s',
+     stretch: 0, weight: 1, hand: 5, use: ['Shirts', 'Dresses', 'Pyjama sets'], colors: [['White', '#F5F5F1'], ['Sky', '#B8CDE3'], ['Sage', '#B9C8AE'], ['Black', '#232427']]},
+    {code: 'SS-S07', name: 'Satin charmeuse', tx: 'satin', cat: 'Lingerie', comp: '100% recycled polyester', gsm: '95 GSM', build: 'Satin weave, fluid drape',
+     stretch: 1, weight: 1, hand: 1, use: ['Sleepwear', 'Slips', 'Robes'], colors: [['Lilac', '#B3A0D4'], ['Champagne', '#DCC7A3'], ['Emerald', '#1E6B4A'], ['Black', '#1E1E22']]},
+    {code: 'SS-K08', name: 'Cable knit', tx: 'cable', cat: 'Sweater', comp: '80% cotton, 20% recycled wool', gsm: '7 gauge · chunky', build: 'Cable knit',
+     stretch: 3, weight: 5, hand: 2, use: ['Pullovers', 'Cardigans', 'Knit tops'], colors: [['Cream', '#EDE5D3'], ['Camel', '#B98B5A'], ['Bottle green', '#2A4D3A'], ['Charcoal', '#45484C']]}
+  ];
+  const KIT_MAX = 6;
+
+  // Pinked (zig-zag) edge shared by every swatch
+  {
+    const n = 18, d = .022, p = [];
+    for (let i = 0; i < n; i++) p.push([i / n, 0], [(i + .5) / n, d]);
+    for (let i = 0; i < n; i++) p.push([1, i / n], [1 - d, (i + .5) / n]);
+    for (let i = 0; i < n; i++) p.push([1 - i / n, 1], [1 - (i + .5) / n, 1 - d]);
+    for (let i = 0; i < n; i++) p.push([0, 1 - i / n], [d, 1 - (i + .5) / n]);
+    $('#pinkPoly').setAttribute('points', p.map(q => q.map(v => +v.toFixed(4)).join(',')).join(' '));
+  }
+
+  const findSw = code => SWATCHES.find(s => s.code === code);
+  const photo = (s, c) => s.photos && s.photos[s.colors[c][0]];
+  const fabStyle = (s, c) => `--c:${s.colors[c][1]}` + (s.colors[c][2] ? `;--bk:${s.colors[c][2]}` : '') + (photo(s, c) ? `;--img:url('${photo(s, c)}')` : '');
+  const fab = (s, c) => `<span class="sw-fab tx-${s.tx}${photo(s, c) ? ' photo' : ''}" style="${fabStyle(s, c)}"></span>`;
+  const paint = (el, s, c) => {
+    el.style.setProperty('--c', s.colors[c][1]);
+    s.colors[c][2] ? el.style.setProperty('--bk', s.colors[c][2]) : el.style.removeProperty('--bk');
+    photo(s, c) ? el.style.setProperty('--img', `url('${photo(s, c)}')`) : el.style.removeProperty('--img');
+    el.classList.toggle('photo', !!photo(s, c));
+  };
+  const meter = (label, v) => `<div class="mt" role="img" aria-label="${label} ${v} of 5"><span>${label}</span><i>${[1, 2, 3, 4, 5].map(n => `<b class="${n <= v ? 'on' : ''}"></b>`).join('')}</i></div>`;
+
+  const picked = SWATCHES.map(() => 0);
+  let swI = 0, kit = [];
+  try { kit = JSON.parse(localStorage.getItem('ss-kit')) || []; } catch (e) {}
+  kit = kit.filter(k => findSw(k.code) && findSw(k.code).colors[k.c]).slice(0, KIT_MAX);
+
+  const big = $('#swBig'), loupeIn = $('#loupeIn');
+  $('#swPicker').innerHTML = SWATCHES.map((s, i) => `<button class="th" aria-pressed="false" data-i="${i}"><span class="fab-sh">${fab(s, 0)}</span><span><small>${s.code}</small><b>${s.name}</b></span></button>`).join('');
+  const thumbs = $$('#swPicker .th');
+
+  const syncAdd = () => {
+    const s = SWATCHES[swI], c = picked[swI], has = kit.some(k => k.code === s.code && k.c === c), btn = $('#swAdd');
+    btn.classList.toggle('added', has);
+    btn.disabled = !has && kit.length >= KIT_MAX;
+    btn.textContent = has ? 'In your kit · Remove' : kit.length >= KIT_MAX ? `Kit is full (${KIT_MAX} swatches)` : 'Add to swatch kit';
+  };
+  const setColour = c => {
+    const s = SWATCHES[swI];
+    picked[swI] = c;
+    [big, loupeIn, thumbs[swI].querySelector('.sw-fab')].forEach(el => paint(el, s, c));
+    $('#swColorName').textContent = s.colors[c][0];
+    $('#swLabel').textContent = `${s.code} · ${s.colors[c][0]}`;
+    $$('#swColors button').forEach((b, i) => b.setAttribute('aria-pressed', i === c));
+    syncAdd();
+  };
+  const setSwatch = (i, anim) => {
+    const s = SWATCHES[swI = i];
+    big.className = `sw-fab sw-big tx-${s.tx}`;
+    loupeIn.className = `fab tx-${s.tx}`;
+    $('#swCode').textContent = `SWATCH ${s.code}`;
+    $('#swCat').textContent = s.cat;
+    $('#swName').textContent = s.name;
+    $('#swComp').textContent = s.comp;
+    $('#swGsm').textContent = s.gsm;
+    $('#swBuild').textContent = s.build;
+    $('#swMeters').innerHTML = meter('Stretch', s.stretch) + meter('Weight', s.weight) + meter('Crisp', s.hand);
+    $('#swColors').innerHTML = s.colors.map(([n, h], j) => `<button style="--c:${h}" aria-label="${n}" data-c="${j}"></button>`).join('');
+    $('#swUse').innerHTML = s.use.map(u => `<span>${u}</span>`).join('');
+    thumbs.forEach((t, j) => t.setAttribute('aria-pressed', j === i));
+    setColour(picked[i]);
+    if (anim && !reduce) { const sh = $('#swBigSh'); sh.classList.remove('swap'); void sh.offsetWidth; sh.classList.add('swap'); }
+  };
+
+  const renderKit = () => {
+    $('#kitSlots').innerHTML = Array.from({length: KIT_MAX}, (_, i) => {
+      const k = kit[i]; if (!k) return '<li></li>';
+      const s = findSw(k.code), name = `${s.name}, ${s.colors[k.c][0]}`;
+      return `<li class="full" title="${name}">${fab(s, k.c)}<button class="rm" data-i="${i}" aria-label="Remove ${name}">×</button></li>`;
+    }).join('');
+    $('#kitCount').textContent = `${kit.length} of ${KIT_MAX}`;
+    const cta = $('#kitCta');
+    cta.setAttribute('aria-disabled', !kit.length);
+    cta.tabIndex = kit.length ? 0 : -1;
+    cta.href = 'quote.html' + (kit.length ? '?swatches=' + encodeURIComponent(kit.map(k => `${k.code} ${findSw(k.code).colors[k.c][0]}`).join(', ')) : '');
+    try { localStorage.setItem('ss-kit', JSON.stringify(kit)); } catch (e) {}
+    syncAdd();
+  };
+
+  // The swatch flies from the card into its kit slot
+  const fly = (s, c, slot) => {
+    const f = slot.querySelector('.sw-fab');
+    if (reduce) return;
+    const from = big.getBoundingClientRect(), to = slot.getBoundingClientRect();
+    const el = Object.assign(document.createElement('span'), {className: `sw-fab tx-${s.tx} sw-fly`});
+    paint(el, s, c);
+    Object.assign(el.style, {left: from.left + 'px', top: from.top + 'px', width: from.width + 'px', height: from.height + 'px'});
+    document.body.append(el); f.style.opacity = 0;
+    el.animate([{transform: 'none'}, {transform: `translate(${to.left - from.left}px,${to.top - from.top}px) scale(${to.width / from.width}) rotate(-8deg)`}],
+      {duration: 700, easing: 'cubic-bezier(.5,0,.2,1)'}).onfinish = () => { el.remove(); f.style.opacity = ''; slot.classList.add('pop'); };
+  };
+
+  $('#swPicker').onclick = e => { const t = e.target.closest('.th'); if (t && +t.dataset.i !== swI) setSwatch(+t.dataset.i, true); };
+  $('#swColors').onclick = e => { const b = e.target.closest('button'); if (b) setColour(+b.dataset.c); };
+  $('#kitSlots').onclick = e => { const b = e.target.closest('.rm'); if (b) { kit.splice(+b.dataset.i, 1); renderKit(); } };
+  $('#swAdd').onclick = () => {
+    const s = SWATCHES[swI], c = picked[swI], at = kit.findIndex(k => k.code === s.code && k.c === c);
+    if (at > -1) { kit.splice(at, 1); renderKit(); return; }
+    if (kit.length >= KIT_MAX) return;
+    kit.push({code: s.code, c}); renderKit();
+    fly(s, c, $('#kitSlots').children[kit.length - 1]);
+  };
+
+  // Loupe: a 3× copy of the texture follows the mouse
+  const loupe = big.querySelector('.loupe'), Z = 3;
+  big.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = big.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, R = loupe.clientWidth / 2;
+    loupe.style.transform = `translate(${x - loupe.offsetWidth / 2}px,${y - loupe.offsetHeight / 2}px)`;
+    Object.assign(loupeIn.style, {width: r.width + 'px', height: r.height + 'px', transform: `translate(${R - x * Z}px,${R - y * Z}px) scale(${Z})`});
+    big.classList.add('zoom');
+  });
+  big.addEventListener('pointerleave', () => big.classList.remove('zoom'));
+
+  setSwatch(0); renderKit();
 </script>
 </body>
 </html>
