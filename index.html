@@ -500,6 +500,11 @@
   .sw-fly{position:fixed;z-index:60;pointer-events:none;transform-origin:0 0}
   .sw-note{margin-top:40px;font-size:13px;color:var(--muted)}
 
+  .ob-sec{background:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px) 0 0/24px 24px #FAFAFB}
+  .ob-head{max-width:640px;margin:0 auto 48px;text-align:center}
+  .ob-head h2{margin:0 0 12px}
+  .ob-head .lead{margin:0 auto}
+
   /* Reveal */
   .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
   .rv.in{opacity:1;transform:none}
@@ -732,6 +737,17 @@
     </div>
   </div>
   <p class="wrap sw-note">Sample fabric specifications — to be confirmed by Struggle Style before launch.</p>
+</section>
+
+<!-- ===== 4c. Outfit builder (catalogue in js/outfit-config.js, renders in outfits/) ===== -->
+<section class="ob-sec" id="preview">
+  <div class="wrap">
+    <div class="ob-head rv">
+      <h2>Preview a style before you sample</h2>
+      <p class="lead">Pick garments and a fabric to see the look on our mannequin.</p>
+    </div>
+    <outfit-builder></outfit-builder>
+  </div>
 </section>
 
 <!-- ===== 5. Manufacturing strengths ===== -->
@@ -1304,5 +1320,7 @@
 
   setSwatch(0); renderKit();
 </script>
+<script src="js/outfit-config.js"></script>
+<script src="js/outfit-builder.js"></script>
 </body>
 </html>
