@@ -82,7 +82,6 @@
   header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
   header .logo,header .nav ul a{color:#fff;transition:color .35s}
   header .logo small{color:rgba(255,255,255,.7)}
-  header .nav ul a:hover{background:rgba(255,255,255,.12)}
   header .nav > .btn{background:#fff;color:var(--green-800)}
   header .burger{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
   header .burger span{background:#fff}
@@ -90,14 +89,14 @@
   header.scrolled .logo,header.open .logo{color:var(--green-800)}
   header.scrolled .logo small,header.open .logo small{color:var(--muted)}
   header.scrolled .nav ul a,header.open .nav ul a{color:#2B3A30}
-  header.scrolled .nav ul a:hover{background:rgba(30,58,43,.06)}
   header.scrolled .nav > .btn,header.open .nav > .btn{background:var(--green-800);color:#fff}
   header.scrolled .burger,header.open .burger{background:#fff;border-color:var(--border)}
   header.scrolled .burger span,header.open .burger span{background:var(--text)}
   .nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   .nav ul{display:flex;gap:4px;list-style:none}
-  .nav ul a{display:block;padding:10px 16px;border-radius:999px;font-size:15px;font-weight:500;color:#2B3A30;transition:background .2s}
-  .nav ul a:hover{background:rgba(30,58,43,.06)}
+  .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:#2B3A30}
+  .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .nav ul a:hover::after,.nav ul a:focus-visible::after{transform:scaleX(1)}
   .burger{display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
   .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
   .mnav{display:none}
