@@ -1476,7 +1476,7 @@
       let best = 0, bestZ = -Infinity;
       items.forEach((el, i) => {
         const a = (i * STEP + rot) * Math.PI / 180, x = Math.sin(a) * R, z = Math.cos(a);
-        const sc = .64 + (z + 1) * .2;
+        const sc = .58 + Math.pow((z + 1) / 2, 3) * .74;  // front look is clearly larger than the rest
         el.style.transform = `translateX(${x}px) translateY(${(1 - z) * -34}px) scale(${sc})`;
         el.style.zIndex = Math.round((z + 1) * 100);
         el.style.opacity = .35 + (z + 1) * .325;
