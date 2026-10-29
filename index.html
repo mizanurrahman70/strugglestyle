@@ -191,9 +191,9 @@
 
   /* 4c. Lookbook — full-width turntable stage, drag to rotate */
   .lookbook-sec{padding:112px 0}
-  .lb-stage{display:grid;grid-template-columns:1fr 360px;height:600px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);background:radial-gradient(80% 80% at 50% 30%,#FFFFFF 0%,#F1F4F1 60%,#E4EAE5 100%);box-shadow:0 30px 60px -44px rgba(17,64,42,.4)}
+  .lb-stage{--gut:max(0px,calc((100vw - var(--max)) / 2));display:grid;grid-template-columns:minmax(0,1fr) calc(360px + var(--gut));height:620px;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:radial-gradient(80% 80% at 50% 30%,#FFFFFF 0%,#F1F4F1 60%,#E4EAE5 100%);box-shadow:0 30px 60px -44px rgba(17,64,42,.4)}
   .lb-left{position:relative;overflow:hidden;--cx:50%}
-  .lb-pad{padding:0 24px}
+  .lb-pad{padding:0 28px 0 max(28px,calc((100vw - var(--max)) / 2 + 32px))}
   .lb-head{position:absolute;top:56px;left:0;right:0;z-index:6;pointer-events:none}
   .lb-head h2{margin:0 0 10px;max-width:420px}
   .lb-head p{font-size:17px;color:var(--muted);max-width:380px}
@@ -224,7 +224,7 @@
   .ring-nav button{width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
   .ring-nav button:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
   .ring-nav svg{width:18px;height:18px}
-  .inlook{position:relative;display:flex;flex-direction:column;justify-content:center;padding:28px 28px;background:#fff;border-left:1px solid var(--border);z-index:5}
+  .inlook{position:relative;display:flex;flex-direction:column;justify-content:center;padding:28px calc(32px + var(--gut)) 28px 32px;background:#fff;border-left:1px solid var(--border);z-index:5;min-width:0}
   .il-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
   .il-no{font-family:var(--head);font-size:14px;font-weight:600;color:var(--green-700);letter-spacing:.02em}
   .inlook .count{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--green-100);color:var(--green-700)}
@@ -242,7 +242,7 @@
   .pieces em strong{display:block;font-size:13.5px;color:var(--text)}
   .inlook .btn{width:100%}
   .il-more{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
-  .lb-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+  .lb-thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:10px}
   .lb-thumbs button{aspect-ratio:3/4;border-radius:10px;overflow:hidden;outline:2px solid transparent;outline-offset:2px;opacity:.55;transition:opacity .25s,outline-color .25s}
   .lb-thumbs button:hover{opacity:.9}
   .lb-thumbs button.on{opacity:1;outline-color:var(--green-600)}
@@ -576,7 +576,7 @@
   @media (max-width:1180px){
     .lb-stage{grid-template-columns:1fr;height:auto}
     .lb-left{height:540px}
-    .inlook{border-left:0;border-top:1px solid var(--border);padding:28px}
+    .inlook{border-left:0;border-top:1px solid var(--border);padding:28px 32px}
 
     .cats{grid-template-columns:repeat(3,1fr);row-gap:40px}
     .cat:nth-child(even){margin-top:0}
@@ -822,7 +822,8 @@
 <!-- ===== 4c. Lookbook: 360° ring, drag to rotate ===== -->
 <section class="lookbook-sec" id="lookbook">
   <div class="wrap">
-  <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
+    <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
+  </div>
   <div class="lb-stage rv">
     <div class="lb-left">
     <div class="lb-word" id="lbWord" aria-hidden="true">Lingerie</div>
@@ -842,7 +843,6 @@
       <a href="#quote" class="btn btn-primary">Request a quote for this look</a>
       <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button></div></div>
     </aside>
-  </div>
   </div>
 </section>
 
