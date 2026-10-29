@@ -126,6 +126,9 @@
   .hero-badge b{background:var(--leaf);color:var(--green-900);font-size:12px;padding:4px 10px;border-radius:999px}
   .hero h1{color:#fff;font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
+    .campaign-cap{left:20px;bottom:24px}
+    .edit-tabs{gap:16px;overflow-x:auto}
+
     .ring{height:500px}
     .inlook{padding:24px 18px}
     .lb-left{height:460px}
@@ -249,6 +252,46 @@
   .lb-thumbs button:hover{opacity:.9}
   .lb-thumbs button.on{opacity:1;outline-color:var(--green-600)}
   .lb-thumbs img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+
+  /* 4d. Editorial collection — large imagery, minimal text, fabric on hover */
+  .edit{padding:112px 0 120px;background:#fff}
+  .edit-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+  .edit-head h2{margin:0 0 10px}
+  .edit-head p{font-size:17px;color:var(--muted);max-width:460px}
+  .edit-tabs{display:flex;gap:24px}
+  .edit-tabs button{font-size:14.5px;font-weight:500;color:var(--muted);padding:6px 0;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s}
+  .edit-tabs button:hover{color:var(--text)}
+  .edit-tabs button.on{color:var(--text);border-color:var(--text)}
+  /* hero row: one big campaign image + two tall products */
+  .edit-hero{display:grid;grid-template-columns:1.55fr 1fr;gap:4px;margin-bottom:4px}
+  .campaign{position:relative;height:min(88vh,860px);overflow:hidden;color:#fff;display:block}
+  .campaign img{width:100%;height:100%;object-fit:cover;object-position:center 25%;transition:transform 2.4s var(--ease)}
+  .campaign:hover img{transform:scale(1.04)}
+  .campaign::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.5))}
+  .campaign-cap{position:absolute;left:40px;bottom:36px;z-index:2;max-width:420px}
+  .campaign-cap small{display:block;font-size:13px;opacity:.85;margin-bottom:8px}
+  .campaign-cap h3{color:#fff;font-size:clamp(32px,3.4vw,52px);font-weight:600;line-height:1.02;letter-spacing:-.02em}
+  .campaign-cap span{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.7)}
+  .edit-stack{display:grid;grid-template-rows:1fr 1fr;gap:4px;height:min(88vh,860px)}
+  /* product tile */
+  .prod{position:relative;display:block;color:var(--text)}
+  .prod .ph{position:relative;overflow:hidden;background:#F2F2F0;aspect-ratio:4/5}
+  .edit-stack .prod .ph{aspect-ratio:auto;height:100%}
+  .prod .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .7s ease,transform 1.6s var(--ease)}
+  .prod .ph img.alt{opacity:0;transform:scale(1.08)}
+  .prod:hover .ph img.alt,.prod:focus-visible .ph img.alt{opacity:1;transform:none}
+  .prod:hover .ph img:not(.alt){transform:scale(1.04)}
+  .prod .tag{position:absolute;top:16px;left:16px;z-index:2;font-size:12px;font-weight:600;padding:5px 10px;background:#fff;color:var(--text)}
+  .prod .swatchdot{position:absolute;right:16px;bottom:16px;z-index:2;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .prod:hover .swatchdot{opacity:1;transform:none}
+  .prod .cap{display:flex;justify-content:space-between;gap:12px;padding:14px 4px 0;font-size:14px}
+  .prod .cap b{font-weight:500}
+  .prod .cap span{color:var(--muted);white-space:nowrap}
+  .edit-stack .prod .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 18px;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);color:#fff}
+  .edit-stack .prod .cap span{color:rgba(255,255,255,.8)}
+  /* product row */
+  .edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;row-gap:36px;margin-top:4px}
+  .edit-more{display:flex;justify-content:center;margin-top:56px}
 
   /* 5. Manufacturing — image left, content right */
   .mfg{background:var(--soft)}
@@ -576,6 +619,12 @@
 
   /* Responsive */
   @media (max-width:1180px){
+    .edit-grid{grid-template-columns:repeat(2,1fr)}
+    .edit-hero{grid-template-columns:1fr}
+    .edit-stack{grid-template-rows:none;grid-template-columns:1fr 1fr;height:auto}
+    .edit-stack .prod .ph{aspect-ratio:3/4;height:auto}
+    .campaign{height:70vh}
+
     .lb-stage{grid-template-columns:1fr;height:auto}
     .lb-left{height:540px}
     .inlook{border-left:0;border-top:1px solid var(--border);padding:28px 32px}
@@ -775,7 +824,7 @@
 </section>
 
 <!-- ===== 4b. Swatch studio (SAMPLE fabric specs — confirm fabrics, weights and colourways with Struggle Style) ===== -->
-<section class="swatch-sec" id="fabrics">
+<section class="swatch-sec" id="fabrics" hidden>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><clipPath id="pinked" clipPathUnits="objectBoundingBox"><polygon id="pinkPoly"/></clipPath></svg>
   <div class="wrap sw-grid">
     <div class="sw-head rv">
@@ -840,6 +889,21 @@
       <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
     </aside>
   </div>
+</section>
+
+<!-- ===== 4d. Editorial collection (large imagery; hover shows the fabric) ===== -->
+<section class="edit" id="collection">
+  <div class="wrap edit-head rv">
+    <div><h2>The new collection</h2><p>Pieces from our current production lines. Hover any piece to see its fabric up close.</p></div>
+    <div class="edit-tabs" role="tablist" aria-label="Filter"><button class="on" data-f="all">All</button><button data-f="Woven">Woven</button><button data-f="Sweater">Sweater</button><button data-f="Denim">Denim</button><button data-f="Lingerie">Lingerie</button></div>
+  </div>
+  <div class="edit-hero rv">
+    <a href="#lookbook" class="campaign"><img src="images/look-sweatshirt.jpg" alt="Model in a yellow sweatshirt and baggy jeans" loading="lazy">
+      <div class="campaign-cap"><small>Autumn / Winter 2026</small><h3>Made to be lived in</h3><span>Explore the lookbook</span></div></a>
+    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><b>Linen maxi dress</b><span>Woven · MOQ 800</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><b>Oversized satin shirt</b><span>Woven · MOQ 800</span></div></a></div>
+  </div>
+  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><b>Chunky rib sweater</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><b>Silk sleep set</b><span>Lingerie · MOQ 500</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><b>Cropped denim jacket</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><b>Cable knit vest</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><b>Rib denim vest</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><b>Active set</b><span>Knit · MOQ 1,000</span></div></a></div>
+  <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 </section>
 
 <!-- ===== 5. Manufacturing strengths ===== -->
@@ -1499,6 +1563,15 @@
     $$('#lbThumbs button').forEach(t => t.onclick = () => items[+t.dataset.k].click());
     render(); requestAnimationFrame(tick);
   })();
+
+  // Editorial collection: filter tiles by category
+  $$('.edit-tabs button').forEach(b => b.onclick = () => {
+    $$('.edit-tabs button').forEach(x => x.classList.toggle('on', x === b));
+    $$('#collection .prod').forEach(p => {
+      const cat = p.querySelector('.cap span').textContent.split(' · ')[0];
+      p.style.display = b.dataset.f === 'all' || cat === b.dataset.f ? '' : 'none';
+    });
+  });
 </script>
 <script src="js/outfit-config.js"></script>
 <script src="js/outfit-builder.js"></script>
