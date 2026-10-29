@@ -123,7 +123,13 @@
   .hero-badge{display:inline-flex;align-items:center;gap:10px;height:36px;padding:0 16px 0 6px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);font-size:13.5px;font-weight:500;margin-bottom:24px}
   .hero-badge b{background:var(--leaf);color:var(--green-900);font-size:12px;padding:4px 10px;border-radius:999px}
   .hero h1{color:#fff;font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
-  @media (max-width:640px){ .hero h1 br{display:none} }
+  @media (max-width:640px){
+    .ring{height:500px}
+    .inlook{padding:24px 18px}
+    .lb-left{height:460px}
+    .look{width:160px;margin-left:-80px}
+    .hint{font-size:0;gap:0}
+ .hero h1 br{display:none} }
   .hero p{font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.88);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
   .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
   .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;align-items:center;gap:14px;padding:8px 8px 8px 20px;border-radius:999px;background:rgba(12,42,27,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
@@ -182,6 +188,65 @@
   .cat-info .go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
   .cat-info .go svg{width:15px;height:15px}
   .cat:hover .cat-info .go{background:var(--green-800);border-color:var(--green-800);color:#fff;transform:rotate(-45deg)}
+
+  /* 4c. Lookbook — full-width turntable stage, drag to rotate */
+  .lookbook-sec{padding:112px 0}
+  .lb-stage{display:grid;grid-template-columns:1fr 360px;height:600px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);background:radial-gradient(80% 80% at 50% 30%,#FFFFFF 0%,#F1F4F1 60%,#E4EAE5 100%);box-shadow:0 30px 60px -44px rgba(17,64,42,.4)}
+  .lb-left{position:relative;overflow:hidden;--cx:50%}
+  .lb-pad{padding:0 24px}
+  .lb-head{position:absolute;top:56px;left:0;right:0;z-index:6;pointer-events:none}
+  .lb-head h2{margin:0 0 10px;max-width:420px}
+  .lb-head p{font-size:17px;color:var(--muted);max-width:380px}
+  .lb-word{position:absolute;left:0;right:0;top:46%;transform:translateY(-50%);z-index:0;text-align:center;font-family:var(--head);font-weight:900;font-size:clamp(90px,12vw,190px);line-height:1;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px rgba(17,64,42,.13);white-space:nowrap;pointer-events:none;transition:opacity .4s}
+  .lb-word.swap{opacity:0}
+  .ring{position:absolute;inset:0;cursor:grab;touch-action:pan-y;user-select:none;outline:none}
+  .ring.dragging{cursor:grabbing}
+  .platform{position:absolute;left:var(--cx);bottom:8%;width:88%;aspect-ratio:1/.22;transform:translateX(-50%);border-radius:50%;z-index:1;background:radial-gradient(closest-side,#FFFFFF 0%,#EEF2EE 70%,#DCE4DD 100%);box-shadow:0 30px 60px -20px rgba(17,64,42,.25),inset 0 -10px 30px rgba(17,64,42,.08)}
+  .platform::before,.platform::after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(17,64,42,.16);inset:12%}
+  .platform::after{inset:30%;border-style:solid;border-color:rgba(17,64,42,.08)}
+  .platform i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from var(--spin,0deg),transparent 0 20deg,rgba(26,127,75,.10) 30deg,transparent 60deg 200deg,rgba(26,127,75,.07) 210deg,transparent 240deg)}
+  .look{position:absolute;left:var(--cx);bottom:15%;width:210px;margin-left:-105px;transform-origin:50% 100%;will-change:transform,opacity}
+  .look .ph{position:relative;aspect-ratio:3/4.3;border-radius:26px;overflow:hidden;background:#ddd;box-shadow:0 40px 50px -30px rgba(0,0,0,.4)}
+  .look img{width:100%;height:100%;object-fit:cover;object-position:center 15%;pointer-events:none}
+  .look .lbl{position:absolute;left:14px;bottom:14px;height:32px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.92);font-size:13px;font-weight:600;display:flex;align-items:center;opacity:0;transition:opacity .3s}
+  .look.front .lbl{opacity:1}
+  .look.front .ph{outline:3px solid var(--leaf);outline-offset:5px}
+  .look .shadow{position:absolute;left:10%;right:10%;bottom:-14px;height:20px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.28),transparent);z-index:-1}
+  .ring-ui{position:absolute;left:0;right:0;bottom:20px;z-index:300}
+  .ring-ui .lb-pad{display:flex;justify-content:space-between;align-items:center}
+  .hint{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted)}
+  .hint i{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:#fff;display:grid;place-items:center;animation:nudge 2.4s ease-in-out infinite}
+  .hint i svg{width:18px;height:18px}
+  @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+  .ring-nav{display:flex;align-items:center;gap:10px}
+  .ring-nav span{font-family:var(--head);font-size:15px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+  .ring-nav span b{color:var(--text)}
+  .ring-nav button{width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
+  .ring-nav button:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
+  .ring-nav svg{width:18px;height:18px}
+  .inlook{position:relative;display:flex;flex-direction:column;justify-content:center;padding:28px 28px;background:#fff;border-left:1px solid var(--border);z-index:5}
+  .il-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .il-no{font-family:var(--head);font-size:14px;font-weight:600;color:var(--green-700);letter-spacing:.02em}
+  .inlook .count{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--green-100);color:var(--green-700)}
+  .inlook h3{font-size:28px;line-height:1.05;letter-spacing:-.02em;animation:pieceIn .45s var(--ease) both}
+  .il-cat{font-size:14px;color:var(--muted);margin:6px 0 18px}
+  .il-cat b{color:var(--text)}
+  .inlook h4{font-family:var(--body);font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .pieces{list-style:none;border-top:1px solid var(--border);margin-bottom:18px}
+  .pieces li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);animation:pieceIn .45s var(--ease) both;animation-delay:calc(var(--k) * .06s)}
+  @keyframes pieceIn{from{opacity:0;transform:translateY(8px)}}
+  .pieces img{width:44px;height:44px;border-radius:12px;object-fit:cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);background:var(--soft)}
+  .pieces b{display:block;font-size:14px;font-weight:600;line-height:1.3}
+  .pieces span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .pieces em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted);text-align:right;line-height:1.3;white-space:nowrap}
+  .pieces em strong{display:block;font-size:13.5px;color:var(--text)}
+  .inlook .btn{width:100%}
+  .il-more{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+  .lb-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+  .lb-thumbs button{aspect-ratio:3/4;border-radius:10px;overflow:hidden;outline:2px solid transparent;outline-offset:2px;opacity:.55;transition:opacity .25s,outline-color .25s}
+  .lb-thumbs button:hover{opacity:.9}
+  .lb-thumbs button.on{opacity:1;outline-color:var(--green-600)}
+  .lb-thumbs img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
 
   /* 5. Manufacturing — image left, content right */
   .mfg{background:var(--soft)}
@@ -509,6 +574,10 @@
 
   /* Responsive */
   @media (max-width:1180px){
+    .lb-stage{grid-template-columns:1fr;height:auto}
+    .lb-left{height:540px}
+    .inlook{border-left:0;border-top:1px solid var(--border);padding:28px}
+
     .cats{grid-template-columns:repeat(3,1fr);row-gap:40px}
     .cat:nth-child(even){margin-top:0}
     .cat:nth-child(3n+2){margin-top:48px}
@@ -749,6 +818,33 @@
 </section>
 
 
+
+<!-- ===== 4c. Lookbook: 360° ring, drag to rotate ===== -->
+<section class="lookbook-sec" id="lookbook">
+  <div class="wrap">
+  <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
+  <div class="lb-stage rv">
+    <div class="lb-left">
+    <div class="lb-word" id="lbWord" aria-hidden="true">Lingerie</div>
+    <div class="ring" id="ring" aria-roledescription="carousel" aria-label="Lookbook">
+      <div class="platform" aria-hidden="true"><i id="lbSpin"></i></div>
+      <div class="look" data-i="0"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" draggable="false" loading="lazy"><span class="lbl">Silk sleep set</span></div><span class="shadow"></span></div><div class="look" data-i="1"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" draggable="false" loading="lazy"><span class="lbl">Rib denim vest</span></div><span class="shadow"></span></div><div class="look" data-i="2"><div class="ph"><img src="images/cat-sweater.jpg" alt="Soft knit set" draggable="false" loading="lazy"><span class="lbl">Soft knit set</span></div><span class="shadow"></span></div><div class="look" data-i="3"><div class="ph"><img src="images/cat-woven.jpg" alt="Satin shirt suit" draggable="false" loading="lazy"><span class="lbl">Satin shirt suit</span></div><span class="shadow"></span></div><div class="look" data-i="4"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" draggable="false" loading="lazy"><span class="lbl">Active set</span></div><span class="shadow"></span></div>
+    </div>
+    <div class="ring-ui"><div class="lb-pad"><span class="hint"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></i>Drag to rotate</span>
+          <div class="ring-nav"><span id="lbCount"></span><button id="lbPrev" aria-label="Previous look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="lbNext" aria-label="Next look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div></div>
+    </div>
+    <aside class="inlook" aria-live="polite">
+      <div class="il-top"><span class="il-no" id="lbNo"></span><span class="count" id="lbPcs"></span></div>
+      <h3 id="lbName"></h3>
+      <p class="il-cat">Category · <b id="lbCat"></b></p>
+      <h4>Pieces in this look</h4>
+      <ul class="pieces" id="lbPieces"></ul>
+      <a href="#quote" class="btn btn-primary">Request a quote for this look</a>
+      <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button></div></div>
+    </aside>
+  </div>
+  </div>
+</section>
 
 <!-- ===== 5. Manufacturing strengths ===== -->
 <section class="mfg" id="manufacturing">
@@ -1354,6 +1450,65 @@
   big.addEventListener('pointerleave', () => big.classList.remove('zoom'));
 
   setSwatch(0); renderKit();
+
+  // Lookbook ring: drag/swipe to rotate, arrows step, auto-spins until touched
+  (() => {
+    const LOOKS = [{"name": "Silk sleep set", "cat": "Lingerie", "items": [["swatches/ss-s07-lilac-sm.webp", "Satin shirt top", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-s07-lilac-sm.webp", "Wide sleep trousers", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-w06-white-sm.webp", "Piped trims", "Organic cotton piping", "Included"]]}, {"name": "Rib denim vest", "cat": "Denim", "items": [["swatches/ss-d01-indigo-sm.webp", "Rib-knit denim vest", "Cotton denim, 10 oz", "1,000 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Relaxed jeans", "Cotton denim, 12 oz, eco-wash", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Denim shoulder bag", "Denim offcuts, upcycled", "1,000 pcs"]]}, {"name": "Soft knit set", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Boxy knit top", "Recycled wool blend, 7GG", "600 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Wide-leg jeans", "Cotton denim, 12 oz", "1,000 pcs"], ["swatches/ss-j02-off-white-sm.webp", "Knit care label", "Organic cotton label", "Included"]]}, {"name": "Satin shirt suit", "cat": "Woven", "items": [["swatches/ss-s07-champagne-sm.webp", "Oversized satin shirt", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-s07-champagne-sm.webp", "Straight trousers", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-w06-white-sm.webp", "Shell buttons", "Natural shell, 4-hole", "Included"]]}, {"name": "Active set", "cat": "Knit", "items": [["swatches/ss-r03-dusty-rose-sm.webp", "Sports bra", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-r03-dusty-rose-sm.webp", "High-rise leggings", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-k08-charcoal-sm.webp", "Logo waistband", "Jacquard elastic", "Included"]]}];
+    const ring = $('#ring'), items = $$('#ring .look'), N = items.length, STEP = 360 / N;
+    let rot = 0, target = 0, vel = 0, dragging = false, lastX = 0, idle = !reduce, front = -1;
+    const radius = () => Math.min(ring.clientWidth * .32, 300);
+    const setFront = i => {
+      if (i === front) return; front = i;
+      items.forEach((el, k) => el.classList.toggle('front', k === i));
+      const L = LOOKS[i];
+      $('#lbName').textContent = L.name; $('#lbCat').textContent = L.cat;
+      const w = $('#lbWord'); w.classList.add('swap'); setTimeout(() => { w.textContent = L.cat; w.classList.remove('swap'); }, 220);
+      $('#lbCount').innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b> / ${String(N).padStart(2, '0')}`;
+      $('#lbPieces').innerHTML = L.items.map(([img, n, d, moq], k) =>
+        `<li style="--k:${k}"><img src="images/${img}" alt=""><div><b>${n}</b><span>${d}</span></div><em>MOQ<strong>${moq.replace(' pcs', '')}</strong></em></li>`).join('');
+      $('#lbPcs').textContent = `${L.items.length} pieces`;
+      $('#lbNo').textContent = `Look ${String(i + 1).padStart(2, '0')} of ${String(N).padStart(2, '0')}`;
+      const h = $('#lbName'); h.style.animation = 'none'; void h.offsetWidth; h.style.animation = '';
+      $$('#lbThumbs button').forEach((t, k) => t.classList.toggle('on', k === i));
+    };
+    const render = () => {
+      const R = radius();
+      let best = 0, bestZ = -Infinity;
+      items.forEach((el, i) => {
+        const a = (i * STEP + rot) * Math.PI / 180, x = Math.sin(a) * R, z = Math.cos(a);
+        const sc = .64 + (z + 1) * .2;
+        el.style.transform = `translateX(${x}px) translateY(${(1 - z) * -34}px) scale(${sc})`;
+        el.style.zIndex = Math.round((z + 1) * 100);
+        el.style.opacity = .35 + (z + 1) * .325;
+        el.style.filter = z < .6 ? `blur(${(1 - z) * 1.4}px) saturate(${.6 + z * .4})` : 'none';
+        if (z > bestZ) { bestZ = z; best = i; }
+      });
+      setFront(best);
+      $('#lbSpin').style.setProperty('--spin', `${-rot}deg`);
+    };
+    const snap = () => { target = Math.round(rot / STEP) * STEP; };
+    const tick = () => {
+      if (!dragging) {
+        if (idle) target -= .08;
+        if (Math.abs(vel) > .05) { target += vel; vel *= .92; if (Math.abs(vel) <= .05) snap(); }
+        rot += (target - rot) * .1;
+      }
+      render(); requestAnimationFrame(tick);
+    };
+    const stopIdle = () => { idle = false; };
+    ring.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; dragging = true; stopIdle(); lastX = e.clientX; vel = 0; ring.classList.add('dragging'); ring.setPointerCapture(e.pointerId); });
+    ring.addEventListener('pointermove', e => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; rot += dx * .25; target = rot; vel = dx * .25; });
+    const end = () => { if (!dragging) return; dragging = false; ring.classList.remove('dragging'); if (Math.abs(vel) <= .05) snap(); };
+    ring.addEventListener('pointerup', end); ring.addEventListener('pointercancel', end);
+    const go = d => { stopIdle(); vel = 0; target = Math.round(target / STEP) * STEP + d * STEP; };
+    $('#lbPrev').onclick = () => go(1);
+    $('#lbNext').onclick = () => go(-1);
+    items.forEach((el, i) => el.addEventListener('click', () => { if (i !== front && !dragging) { stopIdle(); vel = 0; const cur = Math.round(target / STEP); let d = (-i - cur) % N; if (d > N / 2) d -= N; if (d < -N / 2) d += N; target = (cur + d) * STEP; } }));
+    ring.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1); });
+    ring.tabIndex = 0;
+    $$('#lbThumbs button').forEach(t => t.onclick = () => items[+t.dataset.k].click());
+    render(); requestAnimationFrame(tick);
+  })();
 </script>
 <script src="js/outfit-config.js"></script>
 <script src="js/outfit-builder.js"></script>
