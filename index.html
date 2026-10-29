@@ -108,7 +108,7 @@
   .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
   .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
   .nav ul a:hover::after,.nav ul a:focus-visible::after{transform:scaleX(1)}
-  .burger{display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
+  .burger{flex:none;display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
   .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
   .mnav{display:none}
 
@@ -680,8 +680,10 @@
     section{padding:80px 0}
     .nav{height:72px}
     .hero{--edge:16px}
-    .hero-card{height:auto;min-height:640px}
-    .hero-content{padding:96px 16px 100px}
+    .hero-card{height:auto;min-height:100svh}
+    .hero-content{position:relative;inset:auto;min-height:100svh;padding:100px 16px 112px}
+    .hero-badge{height:auto;min-height:34px;padding:4px 14px 4px 4px;font-size:12.5px;line-height:1.35;text-align:left;margin-bottom:20px}
+    .hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.1}
     .hero-ctrl{bottom:24px}
     .hero-ctrl .lbl{display:none}
     .hero-ctas .btn{flex:1}
