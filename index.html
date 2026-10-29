@@ -620,6 +620,9 @@
   .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
   .rv.in{opacity:1;transform:none}
 
+  /* Guard: nothing may push the page sideways on small screens */
+  html,body{overflow-x:clip}
+
   /* Responsive */
   @media (max-width:1180px){
     .edit-grid{grid-template-columns:repeat(2,1fr)}
@@ -643,12 +646,14 @@
     .sw-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "picker" "stage" "kit"}
     .sw-stage{margin-bottom:24px}
   }
-  @media (max-width:960px){
+  @media (max-width:1100px){
     .nav ul,.nav .btn{display:none}
     .burger{display:block}
     .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
     .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
+  }
+  @media (max-width:960px){
     .hero-content{padding:84px var(--edge) 96px}
     .stats{grid-template-columns:1fr;gap:24px}
     .stat,.stat:first-child{padding:0}
@@ -664,6 +669,14 @@
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
+    .prod .ph::after{background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.6))}
+    .prod .cap{left:14px;right:12px;bottom:14px}
+    .prod .cap small{font-size:11px;margin-bottom:4px}
+    .prod .cap b{font-size:17px}
+    .prod .cap span{display:none}
+    .prod .tag,.prod .swatchdot{top:10px;font-size:11px;padding:4px 8px}
+    .prod .tag{left:10px}
+    .prod .swatchdot{right:10px}
     section{padding:80px 0}
     .nav{height:72px}
     .hero{--edge:16px}

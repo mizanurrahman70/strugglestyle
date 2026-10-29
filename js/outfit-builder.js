@@ -75,11 +75,11 @@
     .ob-bars i{width:1.5px;background:var(--ob-dark)}
     .ob-bars i:nth-child(3n){width:3px}
 
-    @media (max-width:960px){
+    @media (max-width:1180px){
       outfit-builder{flex-direction:column;gap:20px}
       .ob-view{order:-1;margin-right:0;display:flex;flex-direction:column;align-items:center}
       .ob-stage{width:300px;height:460px}
-      .ob-tagwrap{position:relative;left:auto;top:auto;width:min(300px,100%);margin-top:-8px}
+      .ob-tagwrap{position:relative;left:auto;top:auto;width:min(300px,100%);margin-top:-8px;transform:translateY(-24px)}
       .ob-card{width:100%;max-width:540px;transform:translateY(24px)}
     }
     @media (prefers-reduced-motion:reduce){
