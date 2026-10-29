@@ -276,7 +276,7 @@
   .campaign-cap span{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.7)}
   .edit-stack{display:grid;grid-template-rows:1fr 1fr;gap:4px;height:min(88vh,860px)}
   /* product tile */
-  .prod{position:relative;display:block;color:var(--text)}
+  .prod{position:relative;display:block;color:#fff}
   .prod .ph{position:relative;overflow:hidden;background:#F2F2F0;aspect-ratio:4/5}
   .edit-stack .prod .ph{aspect-ratio:auto;height:100%}
   .prod .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .7s ease,transform 1.6s var(--ease)}
@@ -284,15 +284,16 @@
   .prod:hover .ph img.alt,.prod:focus-visible .ph img.alt{opacity:1;transform:none}
   .prod:hover .ph img:not(.alt){transform:scale(1.04)}
   .prod .tag{position:absolute;top:16px;left:16px;z-index:2;font-size:12px;font-weight:600;padding:5px 10px;background:#fff;color:var(--text)}
-  .prod .swatchdot{position:absolute;right:16px;bottom:16px;z-index:2;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .prod .ph::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.55));pointer-events:none}
+  .prod .swatchdot{position:absolute;right:16px;top:16px;z-index:2;font-size:12px;font-weight:600;padding:5px 10px;background:rgba(255,255,255,.92);color:var(--text);opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s var(--ease)}
   .prod:hover .swatchdot{opacity:1;transform:none}
-  .prod .cap{display:flex;justify-content:space-between;gap:12px;padding:14px 4px 0;font-size:14px}
-  .prod .cap b{font-weight:500}
-  .prod .cap span{color:var(--muted);white-space:nowrap}
-  .edit-stack .prod .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 18px;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);color:#fff}
-  .edit-stack .prod .cap span{color:rgba(255,255,255,.8)}
+  .prod .cap{position:absolute;left:28px;right:28px;bottom:26px;z-index:2;color:#fff}
+  .prod .cap small{display:block;font-size:12.5px;opacity:.85;margin-bottom:6px}
+  .prod .cap b{display:block;font-family:var(--head);font-size:clamp(22px,1.9vw,30px);font-weight:600;line-height:1.08;letter-spacing:-.02em}
+  .prod .cap span{display:inline-block;margin-top:12px;font-size:13px;font-weight:600;padding-bottom:3px;border-bottom:1px solid rgba(255,255,255,.7);transition:border-color .3s}
+  .prod:hover .cap span{border-color:#fff}
   /* product row */
-  .edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;row-gap:36px;margin-top:4px}
+  .edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
   .edit-more{display:flex;justify-content:center;margin-top:56px}
 
   /* 5. Manufacturing — image left, content right */
@@ -823,9 +824,9 @@
   <div class="edit-hero rv">
     <a href="#lookbook" class="campaign"><img src="images/look-sweatshirt.jpg" alt="Model in a yellow sweatshirt and baggy jeans" loading="lazy">
       <div class="campaign-cap"><small>Autumn / Winter 2026</small><h3>Made to be lived in</h3><span>Explore the lookbook</span></div></a>
-    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><b>Linen maxi dress</b><span>Woven · MOQ 800</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><b>Oversized satin shirt</b><span>Woven · MOQ 800</span></div></a></div>
+    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><small>Woven · MOQ 800</small><b>Linen maxi dress</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><small>Woven · MOQ 800</small><b>Oversized satin shirt</b><span>View the piece</span></div></a></div>
   </div>
-  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><b>Chunky rib sweater</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><b>Silk sleep set</b><span>Lingerie · MOQ 500</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><b>Cropped denim jacket</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><b>Cable knit vest</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><b>Rib denim vest</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><b>Active set</b><span>Knit · MOQ 1,000</span></div></a></div>
+  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Chunky rib sweater</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><small>Lingerie · MOQ 500</small><b>Silk sleep set</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Cropped denim jacket</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Cable knit vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Rib denim vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><small>Knit · MOQ 1,000</small><b>Active set</b><span>View the piece</span></div></a></div>
   <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 </section>
 
@@ -1569,7 +1570,7 @@
   $$('.edit-tabs button').forEach(b => b.onclick = () => {
     $$('.edit-tabs button').forEach(x => x.classList.toggle('on', x === b));
     $$('#collection .prod').forEach(p => {
-      const cat = p.querySelector('.cap span').textContent.split(' · ')[0];
+      const cat = p.querySelector('.cap small').textContent.split(' · ')[0];
       p.style.display = b.dataset.f === 'all' || cat === b.dataset.f ? '' : 'none';
     });
   });
