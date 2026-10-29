@@ -108,7 +108,7 @@
   .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
   .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
   .nav ul a:hover::after,.nav ul a:focus-visible::after{transform:scaleX(1)}
-  .burger{display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
+  .burger{flex:none;display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
   .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
   .mnav{display:none}
 
@@ -269,14 +269,14 @@
   .campaign{position:relative;height:min(88vh,860px);overflow:hidden;color:#fff;display:block}
   .campaign img{width:100%;height:100%;object-fit:cover;object-position:center 25%;transition:transform 2.4s var(--ease)}
   .campaign:hover img{transform:scale(1.04)}
-  .campaign::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.5))}
-  .campaign-cap{position:absolute;left:40px;bottom:36px;z-index:2;max-width:420px}
-  .campaign-cap small{display:block;font-size:13px;opacity:.85;margin-bottom:8px}
-  .campaign-cap h3{color:#fff;font-size:clamp(32px,3.4vw,52px);font-weight:600;line-height:1.02;letter-spacing:-.02em}
-  .campaign-cap span{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.7)}
+  .campaign::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 72%,rgba(0,0,0,.32))}
+  .campaign-cap{position:absolute;left:32px;bottom:28px;z-index:2;max-width:360px}
+  .campaign-cap small{display:block;font-size:12px;opacity:.8;margin-bottom:6px}
+  .campaign-cap h3{color:#fff;font-size:clamp(20px,1.7vw,26px);font-weight:500;line-height:1.15;letter-spacing:-.01em}
+  .campaign-cap span{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:500;padding-bottom:2px;border-bottom:1px solid rgba(255,255,255,.6)}
   .edit-stack{display:grid;grid-template-rows:1fr 1fr;gap:4px;height:min(88vh,860px)}
   /* product tile */
-  .prod{position:relative;display:block;color:var(--text)}
+  .prod{position:relative;display:block;color:#fff}
   .prod .ph{position:relative;overflow:hidden;background:#F2F2F0;aspect-ratio:4/5}
   .edit-stack .prod .ph{aspect-ratio:auto;height:100%}
   .prod .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .7s ease,transform 1.6s var(--ease)}
@@ -284,15 +284,19 @@
   .prod:hover .ph img.alt,.prod:focus-visible .ph img.alt{opacity:1;transform:none}
   .prod:hover .ph img:not(.alt){transform:scale(1.04)}
   .prod .tag{position:absolute;top:16px;left:16px;z-index:2;font-size:12px;font-weight:600;padding:5px 10px;background:#fff;color:var(--text)}
-  .prod .swatchdot{position:absolute;right:16px;bottom:16px;z-index:2;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .prod .ph::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.5));opacity:.75;transition:opacity .5s;pointer-events:none}
+  .prod:hover .ph::after{opacity:1}
+  .prod .swatchdot{position:absolute;right:16px;top:16px;z-index:2;font-size:12px;font-weight:600;padding:5px 10px;background:rgba(255,255,255,.92);color:var(--text);opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s var(--ease)}
   .prod:hover .swatchdot{opacity:1;transform:none}
-  .prod .cap{display:flex;justify-content:space-between;gap:12px;padding:14px 4px 0;font-size:14px}
-  .prod .cap b{font-weight:500}
-  .prod .cap span{color:var(--muted);white-space:nowrap}
-  .edit-stack .prod .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 18px;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);color:#fff}
-  .edit-stack .prod .cap span{color:rgba(255,255,255,.8)}
+  .prod .cap{position:absolute;left:20px;right:20px;bottom:18px;z-index:2;display:flex;flex-direction:column;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.25)}
+  .prod .cap small,.prod .cap span{max-height:0;opacity:0;overflow:hidden;transition:max-height .45s var(--ease),opacity .35s,margin .45s var(--ease)}
+  .prod .cap small{order:2;font-size:12px}
+  .prod:hover .cap small{max-height:20px;opacity:.85;margin-top:4px}
+  .prod .cap b{display:block;font-size:15px;font-weight:500;line-height:1.3}
+  .prod .cap span{order:3;align-self:flex-start;font-size:12.5px;font-weight:500;border-bottom:1px solid rgba(255,255,255,.7)}
+  .prod:hover .cap span{max-height:24px;opacity:1;margin-top:8px}
   /* product row */
-  .edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;row-gap:36px;margin-top:4px}
+  .edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
   .edit-more{display:flex;justify-content:center;margin-top:56px}
 
   /* 5. Manufacturing — image left, content right */
@@ -375,8 +379,10 @@
   .market-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:520px}
   .mpill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px 0 6px;border-radius:999px;background:#fff;border:1px solid var(--border);font-size:14.5px;font-weight:600;box-shadow:var(--shadow);transition:transform .3s var(--ease)}
   .mpill:hover{transform:translateY(-2px)}
-  .mpill img,.mpill .globe{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
-  .mpill .globe{display:grid;place-items:center;background:var(--green-100);color:var(--green-700)}
+  .mpill img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
+  .mpill .flagstack{display:flex}
+  .mpill .flagstack img{border:2px solid #fff;box-shadow:0 0 0 1px var(--border)}
+  .mpill .flagstack img + img{margin-left:-9px}
   .marquee{position:relative;display:grid;gap:16px;margin-top:8px;mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
   .mq-row{display:flex;width:max-content;gap:16px;animation:mq 50s linear infinite}
   .mq-row.rev{animation-direction:reverse;animation-duration:58s}
@@ -619,6 +625,9 @@
   .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
   .rv.in{opacity:1;transform:none}
 
+  /* Guard: nothing may push the page sideways on small screens */
+  html,body{overflow-x:clip}
+
   /* Responsive */
   @media (max-width:1180px){
     .edit-grid{grid-template-columns:repeat(2,1fr)}
@@ -642,12 +651,14 @@
     .sw-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "picker" "stage" "kit"}
     .sw-stage{margin-bottom:24px}
   }
-  @media (max-width:960px){
+  @media (max-width:1100px){
     .nav ul,.nav .btn{display:none}
     .burger{display:block}
     .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
     .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
+  }
+  @media (max-width:960px){
     .hero-content{padding:84px var(--edge) 96px}
     .stats{grid-template-columns:1fr;gap:24px}
     .stat,.stat:first-child{padding:0}
@@ -663,11 +674,19 @@
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
+    .prod .cap{left:12px;right:10px;bottom:12px}
+    .prod .cap b{font-size:13px}
+    .prod .cap span{display:none}
+    .prod .tag,.prod .swatchdot{top:10px;font-size:11px;padding:4px 8px}
+    .prod .tag{left:10px}
+    .prod .swatchdot{right:10px}
     section{padding:80px 0}
     .nav{height:72px}
     .hero{--edge:16px}
-    .hero-card{height:auto;min-height:640px}
-    .hero-content{padding:96px 16px 100px}
+    .hero-card{height:auto;min-height:100svh}
+    .hero-content{position:relative;inset:auto;min-height:100svh;padding:100px 16px 112px}
+    .hero-badge{height:auto;min-height:34px;padding:4px 14px 4px 4px;font-size:12.5px;line-height:1.35;text-align:left;margin-bottom:20px}
+    .hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.1}
     .hero-ctrl{bottom:24px}
     .hero-ctrl .lbl{display:none}
     .hero-ctas .btn{flex:1}
@@ -700,7 +719,7 @@
     .kit-slots{gap:8px}
     .brand{width:160px;height:84px}
     .mpill{height:40px;font-size:13.5px}
-    .mpill img,.mpill .globe{width:28px;height:28px}
+    .mpill img{width:28px;height:28px}
     .rfq{padding:80px 0}
     .f-grid{grid-template-columns:1fr}
   }
@@ -823,9 +842,9 @@
   <div class="edit-hero rv">
     <a href="#lookbook" class="campaign"><img src="images/look-sweatshirt.jpg" alt="Model in a yellow sweatshirt and baggy jeans" loading="lazy">
       <div class="campaign-cap"><small>Autumn / Winter 2026</small><h3>Made to be lived in</h3><span>Explore the lookbook</span></div></a>
-    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><b>Linen maxi dress</b><span>Woven · MOQ 800</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><b>Oversized satin shirt</b><span>Woven · MOQ 800</span></div></a></div>
+    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><small>Woven · MOQ 800</small><b>Linen maxi dress</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><small>Woven · MOQ 800</small><b>Oversized satin shirt</b><span>View the piece</span></div></a></div>
   </div>
-  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><b>Chunky rib sweater</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><b>Silk sleep set</b><span>Lingerie · MOQ 500</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><b>Cropped denim jacket</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><b>Cable knit vest</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><b>Rib denim vest</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><b>Active set</b><span>Knit · MOQ 1,000</span></div></a></div>
+  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Chunky rib sweater</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><small>Lingerie · MOQ 500</small><b>Silk sleep set</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Cropped denim jacket</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Cable knit vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Rib denim vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><small>Knit · MOQ 1,000</small><b>Active set</b><span>View the piece</span></div></a></div>
   <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 </section>
 
@@ -1016,7 +1035,7 @@
         <span class="mpill"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</span>
         <span class="mpill"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</span>
         <span class="mpill"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</span>
-        <span class="mpill"><span class="globe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span>Latin America</span>
+        <span class="mpill"><span class="flagstack" title="Mexico, Brazil, Colombia"><img src="https://flagcdn.com/w80/mx.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""><img src="https://flagcdn.com/w80/co.png" alt=""></span>Latin America</span>
       </div>
     </div>
   </div>
@@ -1569,7 +1588,7 @@
   $$('.edit-tabs button').forEach(b => b.onclick = () => {
     $$('.edit-tabs button').forEach(x => x.classList.toggle('on', x === b));
     $$('#collection .prod').forEach(p => {
-      const cat = p.querySelector('.cap span').textContent.split(' · ')[0];
+      const cat = p.querySelector('.cap small').textContent.split(' · ')[0];
       p.style.display = b.dataset.f === 'all' || cat === b.dataset.f ? '' : 'none';
     });
   });
