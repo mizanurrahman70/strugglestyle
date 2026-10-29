@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 54" role="img" aria-labelledby="t">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" role="img" aria-labelledby="t">
   <title id="t">Struggle Style Inc.</title>
-  <!-- Typographic wordmark. Convert text to outlines in a design tool for print/brand files. -->
-  <text x="4" y="34" font-family="'Inter Tight',Arial,sans-serif" font-size="32" font-weight="800" fill="#1A7F4B" textLength="168" lengthAdjust="spacingAndGlyphs">STRUGGLE</text>
-  <text x="182" y="34" font-family="'Inter Tight',Arial,sans-serif" font-size="32" font-weight="300" fill="#1A7F4B" textLength="96" lengthAdjust="spacingAndGlyphs">STYLE</text>
-  <text x="286" y="15" font-family="Inter,Arial,sans-serif" font-size="10" font-weight="600" fill="#1A7F4B" opacity=".75">INC.</text>
-  <path d="M183 45h94" stroke="#F5A00F" stroke-width="2.4" stroke-dasharray="5 4"/>
+  <!-- Typographic wordmark (Fraunces). Convert text to outlines in a design tool for print/brand files. -->
+  <text x="4" y="38" font-family="Fraunces,Georgia,serif" font-size="36" font-style="italic" font-weight="700" fill="#1A7F4B" textLength="138" lengthAdjust="spacingAndGlyphs">Struggle</text>
+  <text x="150" y="38" font-family="Fraunces,Georgia,serif" font-size="36" font-weight="350" fill="#1A7F4B" textLength="86" lengthAdjust="spacingAndGlyphs">Style</text>
+  <text x="258" y="16" font-family="Inter,Arial,sans-serif" font-size="9" font-weight="600" letter-spacing="1.2" fill="#1A7F4B" opacity=".75">INC.</text>
+  <path d="M149 50 Q180 57 212 51 T246 48" fill="none" stroke="#F5A00F" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3.5"/>
 </svg>

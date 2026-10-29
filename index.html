@@ -9,7 +9,7 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/sew-line.jpg">
 <style>
   :root{
@@ -75,12 +75,14 @@
 
   /* Wordmark (text-only) */
   .logo{display:inline-flex;align-items:center;color:#1A7F4B;line-height:1}
-  .wm{position:relative;display:inline-flex;align-items:baseline;gap:.22em;font-family:var(--head);font-size:24px;letter-spacing:-.01em}
-  .wm b{font-weight:800}
-  .wm i{position:relative;font-style:normal;font-weight:300}
-  .wm i::after{content:"";position:absolute;left:1px;right:1px;bottom:-6px;border-top:2px dashed #F5A00F;transition:right .5s var(--ease)}
-  .logo:hover .wm i::after{right:60%}
-  .wm sup{font-family:var(--body);font-size:9.5px;font-weight:600;letter-spacing:.08em;align-self:flex-start;margin-top:2px;opacity:.75}
+  .wm{position:relative;display:inline-flex;align-items:baseline;gap:.18em;font-family:"Fraunces",Georgia,serif;font-size:29px;line-height:1;letter-spacing:-.02em;font-variation-settings:"opsz" 72}
+  .wm em{font-style:italic;font-weight:700}
+  .wm span{position:relative;font-weight:350}
+  .wm .thread{position:absolute;left:-2px;bottom:-12px;width:calc(100% + 26px);height:14px;overflow:visible;pointer-events:none}
+  .wm .thread path{stroke-dasharray:4 3.5;stroke-dashoffset:0}
+  .logo:hover .wm .thread path{animation:sew 1.2s linear infinite}
+  @keyframes sew{to{stroke-dashoffset:-15}}
+  .wm sup{font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.14em;align-self:flex-start;margin:2px 0 0 12px;opacity:.75}
   /* Brand green: bright on dark backgrounds, deep on light */
   header .logo,footer .logo{color:#3DDC84}
   header .wm{text-shadow:0 1px 12px rgba(0,0,0,.35)}
@@ -713,7 +715,7 @@
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><b>STRUGGLE</b><i>STYLE</i><sup>INC.</sup></span></a>
+    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="#products">Products</a></li>
@@ -779,7 +781,7 @@
   </div>
 </section>
 
-<!-- ===== 4. Categories ===== -->
+<!-- ===== 4. Products ===== -->
 <!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover (desktop) -->
 <section id="products">
   <div class="wrap">
@@ -812,7 +814,49 @@
   </div>
 </section>
 
-<!-- ===== 4c. Outfit builder (catalogue in js/outfit-config.js, renders in outfits/) ===== -->
+<!-- ===== 5. New collection ===== -->
+<section class="edit" id="collection">
+  <div class="wrap edit-head rv">
+    <div><h2>The new collection</h2><p>Pieces from our current production lines. Hover any piece to see its fabric up close.</p></div>
+    <div class="edit-tabs" role="tablist" aria-label="Filter"><button class="on" data-f="all">All</button><button data-f="Woven">Woven</button><button data-f="Sweater">Sweater</button><button data-f="Denim">Denim</button><button data-f="Lingerie">Lingerie</button></div>
+  </div>
+  <div class="edit-hero rv">
+    <a href="#lookbook" class="campaign"><img src="images/look-sweatshirt.jpg" alt="Model in a yellow sweatshirt and baggy jeans" loading="lazy">
+      <div class="campaign-cap"><small>Autumn / Winter 2026</small><h3>Made to be lived in</h3><span>Explore the lookbook</span></div></a>
+    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><b>Linen maxi dress</b><span>Woven · MOQ 800</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><b>Oversized satin shirt</b><span>Woven · MOQ 800</span></div></a></div>
+  </div>
+  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><b>Chunky rib sweater</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><b>Silk sleep set</b><span>Lingerie · MOQ 500</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><b>Cropped denim jacket</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><b>Cable knit vest</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><b>Rib denim vest</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><b>Active set</b><span>Knit · MOQ 1,000</span></div></a></div>
+  <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</section>
+
+<!-- ===== 6. Lookbook (360° ring) ===== -->
+<section class="lookbook-sec" id="lookbook">
+  <div class="wrap">
+    <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
+  </div>
+  <div class="lb-stage rv">
+    <div class="lb-left">
+    <div class="lb-word" id="lbWord" aria-hidden="true">Lingerie</div>
+    <div class="ring" id="ring" aria-roledescription="carousel" aria-label="Lookbook">
+      <div class="platform" aria-hidden="true"><i id="lbSpin"></i></div>
+      <div class="look" data-i="0"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" draggable="false" loading="lazy"><span class="lbl">Silk sleep set</span></div><span class="shadow"></span></div><div class="look" data-i="1"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" draggable="false" loading="lazy"><span class="lbl">Rib denim vest</span></div><span class="shadow"></span></div><div class="look" data-i="2"><div class="ph"><img src="images/cat-sweater.jpg" alt="Soft knit set" draggable="false" loading="lazy"><span class="lbl">Soft knit set</span></div><span class="shadow"></span></div><div class="look" data-i="3"><div class="ph"><img src="images/cat-woven.jpg" alt="Satin shirt suit" draggable="false" loading="lazy"><span class="lbl">Satin shirt suit</span></div><span class="shadow"></span></div><div class="look" data-i="4"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" draggable="false" loading="lazy"><span class="lbl">Active set</span></div><span class="shadow"></span></div><div class="look" data-i="5"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" draggable="false" loading="lazy"><span class="lbl">Cable knit vest</span></div><span class="shadow"></span></div><div class="look" data-i="6"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Denim jacket set" draggable="false" loading="lazy"><span class="lbl">Denim jacket set</span></div><span class="shadow"></span></div><div class="look" data-i="7"><div class="ph"><img src="images/look-linendress.jpg" alt="Linen maxi dress" draggable="false" loading="lazy"><span class="lbl">Linen maxi dress</span></div><span class="shadow"></span></div><div class="look" data-i="8"><div class="ph"><img src="images/look-sweatshirt.jpg" alt="Sweatshirt & baggy jeans" draggable="false" loading="lazy"><span class="lbl">Sweatshirt & baggy jeans</span></div><span class="shadow"></span></div><div class="look" data-i="9"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky knit sweater" draggable="false" loading="lazy"><span class="lbl">Chunky knit sweater</span></div><span class="shadow"></span></div>
+    </div>
+    <div class="ring-ui"><div class="lb-pad"><span class="hint"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></i>Drag to rotate</span>
+          <div class="ring-nav"><span id="lbCount"></span><button id="lbPrev" aria-label="Previous look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="lbNext" aria-label="Next look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div></div>
+    </div>
+    <aside class="inlook" aria-live="polite">
+      <div class="il-top"><span class="il-no" id="lbNo"></span><span class="count" id="lbPcs"></span></div>
+      <h3 id="lbName"></h3>
+      <p class="il-cat">Category · <b id="lbCat"></b></p>
+      <h4>Pieces in this look</h4>
+      <ul class="pieces" id="lbPieces"></ul>
+      <a href="#quote" class="btn btn-primary">Request a quote for this look</a>
+      <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== 7. Build the look (outfit builder) ===== -->
 <section class="ob-sec" id="preview">
   <div class="wrap">
     <div class="ob-head rv">
@@ -823,7 +867,7 @@
   </div>
 </section>
 
-<!-- ===== 4b. Swatch studio (SAMPLE fabric specs — confirm fabrics, weights and colourways with Struggle Style) ===== -->
+<!-- ===== 8. Swatch studio (hidden) ===== -->
 <section class="swatch-sec" id="fabrics" hidden>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><clipPath id="pinked" clipPathUnits="objectBoundingBox"><polygon id="pinkPoly"/></clipPath></svg>
   <div class="wrap sw-grid">
@@ -862,51 +906,7 @@
   <p class="wrap sw-note">Sample fabric specifications — to be confirmed by Struggle Style before launch.</p>
 </section>
 
-
-
-<!-- ===== 4c. Lookbook: 360° ring, drag to rotate ===== -->
-<section class="lookbook-sec" id="lookbook">
-  <div class="wrap">
-    <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
-  </div>
-  <div class="lb-stage rv">
-    <div class="lb-left">
-    <div class="lb-word" id="lbWord" aria-hidden="true">Lingerie</div>
-    <div class="ring" id="ring" aria-roledescription="carousel" aria-label="Lookbook">
-      <div class="platform" aria-hidden="true"><i id="lbSpin"></i></div>
-      <div class="look" data-i="0"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" draggable="false" loading="lazy"><span class="lbl">Silk sleep set</span></div><span class="shadow"></span></div><div class="look" data-i="1"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" draggable="false" loading="lazy"><span class="lbl">Rib denim vest</span></div><span class="shadow"></span></div><div class="look" data-i="2"><div class="ph"><img src="images/cat-sweater.jpg" alt="Soft knit set" draggable="false" loading="lazy"><span class="lbl">Soft knit set</span></div><span class="shadow"></span></div><div class="look" data-i="3"><div class="ph"><img src="images/cat-woven.jpg" alt="Satin shirt suit" draggable="false" loading="lazy"><span class="lbl">Satin shirt suit</span></div><span class="shadow"></span></div><div class="look" data-i="4"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" draggable="false" loading="lazy"><span class="lbl">Active set</span></div><span class="shadow"></span></div><div class="look" data-i="5"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" draggable="false" loading="lazy"><span class="lbl">Cable knit vest</span></div><span class="shadow"></span></div><div class="look" data-i="6"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Denim jacket set" draggable="false" loading="lazy"><span class="lbl">Denim jacket set</span></div><span class="shadow"></span></div><div class="look" data-i="7"><div class="ph"><img src="images/look-linendress.jpg" alt="Linen maxi dress" draggable="false" loading="lazy"><span class="lbl">Linen maxi dress</span></div><span class="shadow"></span></div><div class="look" data-i="8"><div class="ph"><img src="images/look-sweatshirt.jpg" alt="Sweatshirt & baggy jeans" draggable="false" loading="lazy"><span class="lbl">Sweatshirt & baggy jeans</span></div><span class="shadow"></span></div><div class="look" data-i="9"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky knit sweater" draggable="false" loading="lazy"><span class="lbl">Chunky knit sweater</span></div><span class="shadow"></span></div>
-    </div>
-    <div class="ring-ui"><div class="lb-pad"><span class="hint"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></i>Drag to rotate</span>
-          <div class="ring-nav"><span id="lbCount"></span><button id="lbPrev" aria-label="Previous look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="lbNext" aria-label="Next look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div></div>
-    </div>
-    <aside class="inlook" aria-live="polite">
-      <div class="il-top"><span class="il-no" id="lbNo"></span><span class="count" id="lbPcs"></span></div>
-      <h3 id="lbName"></h3>
-      <p class="il-cat">Category · <b id="lbCat"></b></p>
-      <h4>Pieces in this look</h4>
-      <ul class="pieces" id="lbPieces"></ul>
-      <a href="#quote" class="btn btn-primary">Request a quote for this look</a>
-      <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
-    </aside>
-  </div>
-</section>
-
-<!-- ===== 4d. Editorial collection (large imagery; hover shows the fabric) ===== -->
-<section class="edit" id="collection">
-  <div class="wrap edit-head rv">
-    <div><h2>The new collection</h2><p>Pieces from our current production lines. Hover any piece to see its fabric up close.</p></div>
-    <div class="edit-tabs" role="tablist" aria-label="Filter"><button class="on" data-f="all">All</button><button data-f="Woven">Woven</button><button data-f="Sweater">Sweater</button><button data-f="Denim">Denim</button><button data-f="Lingerie">Lingerie</button></div>
-  </div>
-  <div class="edit-hero rv">
-    <a href="#lookbook" class="campaign"><img src="images/look-sweatshirt.jpg" alt="Model in a yellow sweatshirt and baggy jeans" loading="lazy">
-      <div class="campaign-cap"><small>Autumn / Winter 2026</small><h3>Made to be lived in</h3><span>Explore the lookbook</span></div></a>
-    <div class="edit-stack"><a href="#" class="prod"><div class="ph"><span class="tag">New</span><img src="images/look-linendress.jpg" alt="Linen maxi dress" loading="lazy"><img class="alt" src="images/swatches/ss-w06-sage.webp" alt="" loading="lazy"><span class="swatchdot">Linen-cotton, sage</span></div><div class="cap"><b>Linen maxi dress</b><span>Woven · MOQ 800</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-woven.jpg" alt="Oversized satin shirt" loading="lazy"><img class="alt" src="images/swatches/ss-s07-champagne.webp" alt="" loading="lazy"><span class="swatchdot">Satin, champagne</span></div><div class="cap"><b>Oversized satin shirt</b><span>Woven · MOQ 800</span></div></a></div>
-  </div>
-  <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><b>Chunky rib sweater</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><b>Silk sleep set</b><span>Lingerie · MOQ 500</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><b>Cropped denim jacket</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><b>Cable knit vest</b><span>Sweater · MOQ 600</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><b>Rib denim vest</b><span>Denim · MOQ 1,000</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><b>Active set</b><span>Knit · MOQ 1,000</span></div></a></div>
-  <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-</section>
-
-<!-- ===== 5. Manufacturing strengths ===== -->
+<!-- ===== 9. Manufacturing ===== -->
 <section class="mfg" id="manufacturing">
   <div class="wrap mfg-split">
     <div class="mfg-visual rv">
@@ -937,6 +937,7 @@
   </div>
 </section>
 
+<!-- ===== 10. Order process ===== -->
 <!-- Order process — simple numbered list -->
 <section class="process-sec" id="process">
   <div class="wrap">
@@ -958,7 +959,7 @@
   </div>
 </section>
 
-<!-- ===== 6. Sustainability ===== -->
+<!-- ===== 11. Sustainability ===== -->
 <section class="sus" id="sustainability">
   <div class="wrap sus-grid">
     <div class="sus-content rv">
@@ -987,7 +988,21 @@
   </div>
 </section>
 
-<!-- ===== 7. Buyer markets & brand logos ===== -->
+<!-- ===== 12. Certifications ===== -->
+<section class="certs-sec" id="certifications">
+  <div class="wrap cert-layout">
+    <div class="cert-intro rv">
+      <h2>Compliance you can verify</h2>
+      <p class="lead">Each certification lists its issuer and validity date. Select one to view the full certificate.</p>
+      <div class="cert-sum" id="certSum"></div>
+      <a href="certifications.html" class="btn btn-primary">View all certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="certs-note" style="margin-top:20px">Sample data — to be replaced with the client's verified certificates.</p>
+    </div>
+    <div class="cert-list rv" style="--d:.1s" id="certs"></div>
+  </div>
+</section>
+
+<!-- ===== 13. Global reach & brand logos ===== -->
 <!-- Brand logos come from the current site — display each only with that brand's written permission -->
 <section class="reach">
   <div class="wrap">
@@ -1012,33 +1027,7 @@
   <p class="reach-note">Brands &amp; licenses we have produced for · Logos shown with permission</p>
 </section>
 
-<!-- ===== 8. Certifications (SAMPLE documents — replace with scans of the client's real certificates) ===== -->
-<section class="certs-sec" id="certifications">
-  <div class="wrap cert-layout">
-    <div class="cert-intro rv">
-      <h2>Compliance you can verify</h2>
-      <p class="lead">Each certification lists its issuer and validity date. Select one to view the full certificate.</p>
-      <div class="cert-sum" id="certSum"></div>
-      <a href="certifications.html" class="btn btn-primary">View all certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <p class="certs-note" style="margin-top:20px">Sample data — to be replaced with the client's verified certificates.</p>
-    </div>
-    <div class="cert-list rv" style="--d:.1s" id="certs"></div>
-  </div>
-</section>
-<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vName">
-  <div class="viewer-box">
-    <div class="viewer-doc" id="vDoc"></div>
-    <div class="viewer-info">
-      <div class="top"><span class="cat" id="vCat"></span><button class="x" id="vClose" aria-label="Close">×</button></div>
-      <h3 id="vName"></h3>
-      <dl><dt>Issuer</dt><dd id="vIssuer"></dd><dt>Certificate no.</dt><dd id="vNo"></dd><dt>Issued</dt><dd id="vIssued"></dd><dt>Valid until</dt><dd id="vValid"></dd><dt>Status</dt><dd id="vStatus"></dd></dl>
-      <a href="#" class="btn btn-primary btn-sm">Download PDF</a>
-      <div class="viewer-nav"><span id="vPos"></span><div><button id="vPrev" aria-label="Previous certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="vNext" aria-label="Next certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== 9. Testimonials (SAMPLE — replace with verified, client-approved buyer feedback) ===== -->
+<!-- ===== 14. Testimonials ===== -->
 <section class="testi-sec">
   <div class="wrap t-head rv">
     <h2>Loved by the brands we make for</h2>
@@ -1052,7 +1041,7 @@
   <p class="t-note">Sample testimonials with stock photos — to be replaced with verified, client-approved buyer feedback.</p>
 </section>
 
-<!-- ===== 10. News & insights ===== -->
+<!-- ===== 15. News & insights ===== -->
 <section id="news" style="padding-top:0">
   <div class="wrap">
     <div class="s-head rv">
@@ -1070,7 +1059,7 @@
   </div>
 </section>
 
-<!-- ===== 11. RFQ CTA band ===== -->
+<!-- ===== 16. Quote band ===== -->
 <section class="rfq" id="quote">
   <span class="leaf"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span>
   <div class="wrap rfq-grid">
@@ -1094,14 +1083,26 @@
     </div>
   </div>
 </section>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vName">
+  <div class="viewer-box">
+    <div class="viewer-doc" id="vDoc"></div>
+    <div class="viewer-info">
+      <div class="top"><span class="cat" id="vCat"></span><button class="x" id="vClose" aria-label="Close">×</button></div>
+      <h3 id="vName"></h3>
+      <dl><dt>Issuer</dt><dd id="vIssuer"></dd><dt>Certificate no.</dt><dd id="vNo"></dd><dt>Issued</dt><dd id="vIssued"></dd><dt>Valid until</dt><dd id="vValid"></dd><dt>Status</dt><dd id="vStatus"></dd></dl>
+      <a href="#" class="btn btn-primary btn-sm">Download PDF</a>
+      <div class="viewer-nav"><span id="vPos"></span><div><button id="vPrev" aria-label="Previous certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="vNext" aria-label="Next certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div>
+    </div>
+  </div>
+</div>
 </main>
 
-<!-- ===== 12. Footer ===== -->
+<!-- ===== 17. Footer ===== -->
 <footer>
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><b>STRUGGLE</b><i>STYLE</i><sup>INC.</sup></span></a>
+        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
