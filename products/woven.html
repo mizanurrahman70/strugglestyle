@@ -133,7 +133,7 @@
   .dock button[aria-checked="true"]{border-color:var(--text)}
   .view:focus-visible,.dock button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
-  .panel{position:sticky;top:var(--hdr);max-height:calc(100vh - var(--hdr));overflow:auto;padding:40px clamp(24px,4vw,64px) 48px}
+  .panel{padding:32px clamp(24px,4vw,64px) 48px}
   .crumbs{display:flex;gap:6px;font-size:12px;color:var(--muted)}
   .crumbs a:hover{color:var(--text)}
   .panel h1{margin:18px 0 6px;font:600 clamp(24px,2.3vw,30px)/1.15 var(--head);letter-spacing:-.02em}
@@ -153,23 +153,23 @@
   .fab:hover{border-color:#B9C2BD}
   .fab[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
 
-  /* Colour: round swatches cut from the HD fabric photos */
-  .colours{display:flex;flex-wrap:wrap;gap:10px}
-  .sw{width:40px;height:40px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--ease)}
-  .sw span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220% no-repeat;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
-  .sw:hover{transform:scale(1.06)}
-  .sw[aria-checked="true"]{border-color:var(--text)}
 
-  /* Garments: large tiles cropped from the current look, so they take the selected colour */
-  .garments{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .gar{position:relative;display:block;text-align:left}
-  .gar .pic{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;border-radius:14px;background:var(--studio);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s,transform .3s var(--ease),box-shadow .3s}
-  .gar .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform-origin:0 0}
-  .gar .name{position:absolute;left:8px;bottom:8px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12px;font-weight:600}
-  .gar .tick{position:absolute;right:8px;top:8px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--text);color:#fff;opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--spring)}
+  /* Garments: an expanding strip. Worn pieces open wide, the rest fold into slim slices with a vertical label;
+     each tile is cropped from the current look, so it takes the selected colour. */
+  .garments{display:flex;gap:8px;height:236px}
+  .gar{position:relative;flex:1 1 0;min-width:0;text-align:left;transition:flex-grow .7s var(--ease)}
+  .gar:hover{flex-grow:1.5}
+  .gar[aria-pressed="true"]{flex-grow:2.8}
+  .gar .pic{position:absolute;inset:0;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#F6F5F1,#ECEAE3);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s,box-shadow .3s}
+  /* --y: the garment's centre in the render (% of its height), --z: zoom so the garment fills the tile height */
+  .gar .pic img{position:absolute;left:50%;top:50%;height:calc(var(--z) * 100%);width:auto;max-width:none;transform:translate(-50%,calc(var(--y) * -1));transition:transform .7s var(--ease)}
+  .gar:hover .pic img{transform:translate(-50%,calc(var(--y) * -1)) scale(1.04)}
+  .gar:hover .pic{box-shadow:0 16px 28px -18px rgba(15,31,23,.55)}
+  .gar[aria-pressed="true"] .pic{outline-color:var(--text);box-shadow:0 18px 30px -18px rgba(15,31,23,.5)}
+  .gar .name{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12px;font-weight:600;white-space:nowrap;transition:opacity .3s}
+  .gar:not([aria-pressed="true"]) .name{left:50%;bottom:12px;padding:10px 5px;writing-mode:vertical-rl;transform:translateX(-50%) rotate(180deg)}
+  .gar .tick{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--text);color:#fff;opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--spring)}
   .gar .tick svg{width:12px;height:12px}
-  .gar:hover .pic{transform:translateY(-2px);box-shadow:0 14px 24px -16px rgba(15,31,23,.5)}
-  .gar[aria-pressed="true"] .pic{outline-color:var(--text)}
   .gar[aria-pressed="true"] .tick{opacity:1;transform:none}
   .gar:focus-visible,.fab:focus-visible,.sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
@@ -273,8 +273,8 @@
     .recs{display:flex;gap:14px;margin:0 -16px;padding:0 16px 8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
     .recs::-webkit-scrollbar{display:none}
     .rec{flex:0 0 72%;scroll-snap-align:start}
-    .panel{position:static;max-height:none;overflow:visible;padding:20px 16px 40px}
-    .garments{gap:8px}
+    .panel{padding:20px 16px 40px}
+    .garments{height:200px;gap:6px}
     .order{padding:16px}
     .order-h{flex-direction:column;gap:4px}
     .order-h span{text-align:left}
@@ -345,10 +345,6 @@
       <div class="fabrics" id="fabrics" role="radiogroup" aria-label="Fabric"></div>
     </div>
 
-    <div class="opt">
-      <div class="opt-h">Colour <span id="colourName"></span></div>
-      <div class="colours" id="colours" role="radiogroup" aria-label="Colour"></div>
-    </div>
 
     <section class="order" id="price" aria-labelledby="orderTitle">
       <div class="order-h"><h2 id="orderTitle">Your order</h2><span id="leadTime"></span></div>
@@ -409,17 +405,17 @@
     sampleDays: [7, 10],
     initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-w06', colour: 'white'},
     // `use` = fabric per piece (m²), `cm` = cut & make (USD), `perKg` = fabric price (USD/kg) — SAMPLE rates, to be confirmed
-    // `crop: [x%, y%, scale]` zooms the full-body render onto the garment for its tile
+    // `focus: [y%, zoom]`: the garment's vertical centre in the full-body render and the zoom that fills its tile
     garments: [
-      {id: 'shirt',  label: 'Shirt',    type: 'top',    code: 'SH', moq: 300, lead: [40, 55], use: 1.6, cm: 2.8, crop: [-60, -31.2, 2.2],
+      {id: 'shirt',  label: 'Shirt',    type: 'top',    code: 'SH', moq: 300, lead: [40, 55], use: 1.6, cm: 2.8, focus: [35, 2.2],
        build: ['Point collar, full button placket', 'Patch chest pocket', 'Dropped shoulder, barrel cuffs']},
-      {id: 'blazer', label: 'Blazer',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, crop: [-65, -32.5, 2.3],
+      {id: 'blazer', label: 'Blazer',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, focus: [36, 2.1],
        build: ['Double-breasted, peak lapel', 'Flap pockets', 'Half-lined with recycled lining']},
-      {id: 'dress',  label: 'Dress',    type: 'full',   code: 'DR', moq: 300, lead: [45, 60], use: 2.4, cm: 3.8, crop: [-35, -23.8, 1.7],
+      {id: 'dress',  label: 'Dress',    type: 'full',   code: 'DR', moq: 300, lead: [45, 60], use: 2.4, cm: 3.8, focus: [47, 1.4],
        build: ['Square neck, adjustable straps', 'Shirred waist panel', 'Midi length, side seam pockets']},
-      {id: 'pants',  label: 'Trousers', type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, crop: [-32.5, -59.8, 1.65],
+      {id: 'pants',  label: 'Trousers', type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, focus: [73, 1.95],
        build: ['High rise, straight wide leg', 'Elasticated back waistband', 'Side seam pockets']},
-      {id: 'skirt',  label: 'Skirt',    type: 'bottom', code: 'SK', moq: 300, lead: [40, 55], use: 0.9, cm: 2.0, crop: [-120, -124.8, 3.4],
+      {id: 'skirt',  label: 'Skirt',    type: 'bottom', code: 'SK', moq: 300, lead: [40, 55], use: 0.9, cm: 2.0, focus: [61, 3.0],
        build: ['Mini length, flared', 'Concealed side zip', 'Clean-finish hem']}
     ],
     fabrics: [
@@ -469,7 +465,6 @@
   const sel = {full: null, top: null, bottom: null, ...WOVEN.initial};
   const fill = (tpl, k) => tpl.replace(/\{(\w+)\}/g, (_, n) => k[n]);
   const range = ([a, b]) => `${a}–${b} days`;
-  const crop = c => `transform:translate(${c[0]}%,${c[1]}%) scale(${c[2]})`;
 
   const lookSrc = (first, second, f = sel.fabric, c = sel.colour) => fill(WOVEN.look, {first, second, fabric: f, colour: c});
   const current = () => [sel.full || sel.top || 'none', sel.bottom || 'none'];
@@ -482,17 +477,15 @@
 
   // Garment tiles and fabric options are drawn once; colours redraw when the fabric changes
   $('garments').innerHTML = WOVEN.garments.map(g =>
-    `<button type="button" class="gar" data-garment="${g.id}" aria-pressed="false" aria-label="${g.label}"><span class="pic"><img alt="" style="${crop(g.crop)}"></span>` +
+    `<button type="button" class="gar" data-garment="${g.id}" aria-pressed="false" aria-label="${g.label}"><span class="pic"><img alt="" style="--y:${g.focus[0]}%;--z:${g.focus[1]}"></span>` +
     `<span class="name">${g.label}</span><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span></button>`).join('');
   $('fabrics').innerHTML = WOVEN.fabrics.map(f =>
     `<button type="button" class="fab" role="radio" data-fabric="${f.id}" aria-checked="false"><span class="tex"></span><span><b>${f.label}</b><small>${f.gsm}</small></span></button>`).join('');
-  // The colour swatches appear twice: in the panel and in the showcase dock
+  // Colour is picked from the dock under the avatar
   const drawColours = () => {
     const f = fabric[sel.fabric];
-    const html = f.colours.map(([id, label]) =>
+    $('dock').innerHTML = f.colours.map(([id, label]) =>
       `<button type="button" class="sw" role="radio" data-colour="${id}" aria-label="${label}" aria-checked="false"><span style="--c:url('${fill(WOVEN.swatch, {fabric: f.id, colour: id}).replace('.webp', '-sm.webp')}')"></span></button>`).join('');
-    $('colours').innerHTML = html;
-    $('dock').innerHTML = html;
   };
 
   function pickGarment(id) {
@@ -594,8 +587,7 @@
     document.title = `${name} | Struggle Style`;
     $('styleCode').textContent = code;
     $('garmentNames').textContent = w.map(g => g.label).join(' + ');
-    $('fabricName').textContent = f.label;
-    $('colourName').textContent = colour;
+    $('fabricName').textContent = `${f.label} · ${colour}`;
     look = {code, name, colour};
     syncCalc();
     preload();
