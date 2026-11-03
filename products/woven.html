@@ -119,7 +119,7 @@
   .view{position:relative;width:60px;aspect-ratio:4/5;overflow:hidden;border-radius:12px;background:#fff;box-shadow:0 6px 16px -8px rgba(15,31,23,.4);outline:2px solid transparent;outline-offset:3px;transition:outline-color .2s,transform .3s var(--ease)}
   .view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
   .view.det img{object-fit:cover;object-position:50% 20%;transform:scale(1.6);transform-origin:50% 18%}
-  .view.fab img{object-fit:cover}
+  .view.fabv img{object-fit:cover}
   .view span{position:absolute;left:0;right:0;bottom:0;padding:10px 0 4px;background:linear-gradient(transparent,rgba(0,0,0,.55));font-size:9.5px;font-weight:600;color:#fff;text-align:center;letter-spacing:.04em}
   .view:hover{transform:translateX(3px)}
   .view[aria-pressed="true"]{outline-color:var(--text)}
@@ -154,12 +154,9 @@
   .fab[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
 
 
-  /* Garments: an expanding strip. Worn pieces open wide, the rest fold into slim slices with a vertical label;
-     each tile is cropped from the current look, so it takes the selected colour. */
-  .garments{display:flex;gap:8px;height:236px}
-  .gar{position:relative;flex:1 1 0;min-width:0;text-align:left;transition:flex-grow .7s var(--ease)}
-  .gar:hover{flex-grow:1.5}
-  .gar[aria-pressed="true"]{flex-grow:2.8}
+  /* Garments: a 3-column grid of image tiles, each cropped from the current look so it takes the selected colour */
+  .garments{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .gar{position:relative;aspect-ratio:4/5;min-width:0;text-align:left}
   .gar .pic{position:absolute;inset:0;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#F6F5F1,#ECEAE3);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s,box-shadow .3s}
   /* --y: the garment's centre in the render (% of its height), --z: zoom so the garment fills the tile height */
   .gar .pic img{position:absolute;left:50%;top:50%;height:calc(var(--z) * 100%);width:auto;max-width:none;transform:translate(-50%,calc(var(--y) * -1));transition:transform .7s var(--ease)}
@@ -167,7 +164,6 @@
   .gar:hover .pic{box-shadow:0 16px 28px -18px rgba(15,31,23,.55)}
   .gar[aria-pressed="true"] .pic{outline-color:var(--text);box-shadow:0 18px 30px -18px rgba(15,31,23,.5)}
   .gar .name{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12px;font-weight:600;white-space:nowrap;transition:opacity .3s}
-  .gar:not([aria-pressed="true"]) .name{left:50%;bottom:12px;padding:10px 5px;writing-mode:vertical-rl;transform:translateX(-50%) rotate(180deg)}
   .gar .tick{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--text);color:#fff;opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--spring)}
   .gar .tick svg{width:12px;height:12px}
   .gar[aria-pressed="true"] .tick{opacity:1;transform:none}
@@ -274,7 +270,7 @@
     .recs::-webkit-scrollbar{display:none}
     .rec{flex:0 0 72%;scroll-snap-align:start}
     .panel{padding:20px 16px 40px}
-    .garments{height:200px;gap:6px}
+    .garments{gap:8px}
     .order{padding:16px}
     .order-h{flex-direction:column;gap:4px}
     .order-h span{text-align:left}
@@ -326,7 +322,7 @@
     <div class="rail" id="rail" role="group" aria-label="Views">
       <button type="button" class="view" data-view="look" aria-pressed="true"><img alt="" id="vLook"><span>Look</span></button>
       <button type="button" class="view det" data-view="detail" aria-pressed="false"><img alt="" id="vDetail"><span>Detail</span></button>
-      <button type="button" class="view fab" data-view="fabric" aria-pressed="false"><img alt="" id="vFabric"><span>Fabric</span></button>
+      <button type="button" class="view fabv" data-view="fabric" aria-pressed="false"><img alt="" id="vFabric"><span>Fabric</span></button>
     </div>
     <div class="dock" role="radiogroup" aria-label="Colour"><span class="lbl" id="dockLbl"></span><span id="dock" style="display:contents"></span></div>
   </section>
@@ -379,7 +375,6 @@
       <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
     </section>
   </section>
-</main>  </section>
 </main>
 
 <section class="more" aria-labelledby="moreTitle">
