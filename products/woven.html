@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Woven | Struggle Style</title>
+<meta name="description" content="Build a woven look: shirts, blazers, dresses, trousers and skirts in cotton poplin or satin charmeuse, made to order by Struggle Style.">
+<meta name="theme-color" content="#11402A">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="woven/looks/shirt-pants-ss-w06-white.webp">
+<style>
+  :root{
+    --green-800:#11402A;
+    --green-700:#1A7F4B;
+    --green-600:#1F9457;
+    --bg:#FFFFFF;
+    --studio:#F3F2EF;      /* backdrop behind the renders */
+    --text:#0F1F17;
+    --muted:#55665C;
+    --line:#E4E7E5;
+    --head:"Inter Tight",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --ease:cubic-bezier(.23,1,.32,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:400 14px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+
+  /* Header */
+  .hdr{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;padding:0 32px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .logo{font:700 18px/1 var(--head);letter-spacing:-.01em}
+  .logo em{font-style:normal;color:var(--green-700)}
+  .hdr nav{display:flex;gap:28px;font-size:13px;color:var(--muted)}
+  .hdr nav a:hover,.hdr nav a[aria-current]{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;font-weight:600;font-size:14px;transition:background .25s,color .25s,border-color .25s}
+  .btn svg{width:15px;height:15px;transition:transform .25s}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-primary{background:var(--green-700);color:#fff}
+  .btn-primary:hover{background:var(--green-800)}
+  .btn-ghost{border:1px solid var(--text)}
+  .btn-ghost:hover{background:var(--text);color:#fff}
+  .btn-sm{height:38px;padding:0 18px;font-size:13px}
+
+  /* Product: gallery left, sticky panel right */
+  .pdp{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(360px,1fr);align-items:start}
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bg)}
+  .shot{position:relative;aspect-ratio:2/3;overflow:hidden;background:var(--studio)}
+  .shot.wide{grid-column:1/-1;aspect-ratio:auto;height:calc(100vh - 64px);min-height:620px}
+  .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s var(--ease),transform .9s var(--ease)}
+  .shot img.on{opacity:1}
+  /* Change of look: the new render settles in from a slight zoom */
+  .shot img.enter{transform:scale(1.025)}
+  .shot.zoom img{object-fit:cover;object-position:50% 18%;transform-origin:50% 22%;transform:scale(1.55)}
+  .shot.zoom img.enter{transform:scale(1.6)}
+  .shot.fabric img{object-fit:cover}
+  .shot figcaption{position:absolute;left:16px;bottom:14px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.85);font-size:11.5px;font-weight:500;color:var(--muted)}
+  .dots{display:none}
+
+  .panel{position:sticky;top:64px;max-height:calc(100vh - 64px);overflow:auto;padding:40px clamp(24px,4vw,64px) 48px}
+  .crumbs{display:flex;gap:6px;font-size:12px;color:var(--muted)}
+  .crumbs a:hover{color:var(--text)}
+  .panel h1{margin:18px 0 6px;font:600 clamp(24px,2.3vw,30px)/1.15 var(--head);letter-spacing:-.02em}
+  .code{font-size:12px;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
+  .lede{margin:16px 0 0;color:var(--muted)}
+
+  .opt{margin-top:28px}
+  .opt-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:13px;font-weight:600}
+  .opt-h span{font-weight:400;color:var(--muted)}
+
+  /* Fabric: two segmented choices */
+  .fabrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .fab{padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-align:left;transition:border-color .2s,box-shadow .2s}
+  .fab b{display:block;font-size:13.5px;font-weight:600}
+  .fab small{font-size:12px;color:var(--muted)}
+  .fab:hover{border-color:#B9C2BD}
+  .fab[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
+
+  /* Colour: round swatches cut from the HD fabric photos */
+  .colours{display:flex;flex-wrap:wrap;gap:10px}
+  .sw{width:40px;height:40px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--ease)}
+  .sw span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220% no-repeat;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+  .sw:hover{transform:scale(1.06)}
+  .sw[aria-checked="true"]{border-color:var(--text)}
+
+  /* Garments: tiles cropped from the current look, so they take the selected colour */
+  .garments{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .gar{display:flex;flex-direction:column;gap:6px;text-align:center;font-size:12px;color:var(--muted)}
+  .gar .pic{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:10px;background:var(--studio);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s}
+  .gar .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform-origin:0 0}
+  .gar:hover .pic{outline-color:#B9C2BD}
+  .gar[aria-pressed="true"]{color:var(--text);font-weight:600}
+  .gar[aria-pressed="true"] .pic{outline-color:var(--text)}
+  .gar:focus-visible,.fab:focus-visible,.sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  .hint{margin-top:10px;font-size:12px;color:var(--muted)}
+
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;border:1px solid var(--line);border-radius:12px}
+  .facts div{padding:12px 14px}
+  .facts div + div{border-left:1px solid var(--line)}
+  .facts dt{font-size:11.5px;color:var(--muted)}
+  .facts dd{font-weight:600;font-variant-numeric:tabular-nums}
+  .ctas{display:grid;gap:10px;margin-top:20px}
+  .note{margin-top:10px;font-size:11.5px;color:var(--muted);text-align:center}
+
+  details{border-bottom:1px solid var(--line)}
+  details:first-of-type{margin-top:32px;border-top:1px solid var(--line)}
+  summary{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-weight:600;font-size:13.5px;list-style:none;cursor:pointer}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-weight:400;font-size:18px;transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details .body{padding:0 0 18px;color:var(--muted)}
+  details ul{padding-left:18px}
+  .specs{display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
+  .specs dt{color:var(--muted)}
+  .specs dd{color:var(--text);text-align:right}
+
+  /* Price calculator, below the product */
+  .calc{padding:72px 32px;border-top:1px solid var(--line);background:#FAFAF8}
+  .calc-in{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);max-width:1180px;margin:0 auto}
+  .calc h2{font:600 clamp(22px,2.2vw,28px)/1.2 var(--head);letter-spacing:-.02em}
+  .calc .lede{max-width:52ch}
+  .calc-look{margin-top:6px;font-size:12px;letter-spacing:.06em;color:var(--muted)}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  .field label{display:block;margin-bottom:6px;font-size:13px;font-weight:600}
+  .field .ctl{display:flex;align-items:center;height:48px;border:1px solid #CDD4D0;border-radius:12px;background:#fff;transition:border-color .2s,box-shadow .2s}
+  .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
+  .field input,.field select{flex:1;min-width:0;height:100%;padding:0 14px;border:0;background:none;font:500 15px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums}
+  .field select{cursor:pointer}
+  .field .unit{padding-right:14px;font-size:12.5px;color:var(--muted)}
+  .field small{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
+  .field small.warn{color:#B4541A}
+  .field.bad .ctl{border-color:#D9822B}
+  .quote{align-self:start;padding:28px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -24px rgba(15,31,23,.25)}
+  .quote-h{font-size:12.5px;color:var(--muted)}
+  .unit-price{margin:4px 0 2px;font:700 clamp(34px,3.6vw,44px)/1.1 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .unit-price small{font:500 14px var(--body);color:var(--muted);letter-spacing:0}
+  .total{font-size:14px;color:var(--muted)}
+  .total b{color:var(--text);font-variant-numeric:tabular-nums}
+  .lines{display:grid;grid-template-columns:1fr auto;gap:9px 16px;margin:22px 0;padding:18px 0;border-block:1px solid var(--line);font-size:13.5px}
+  .lines dt{color:var(--muted)}
+  .lines dd{text-align:right;font-variant-numeric:tabular-nums}
+  .lines .neg{color:var(--green-700)}
+  .lines .pos{color:#B4541A}
+
+  footer{padding:28px 32px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media (max-width:1100px){
+    .calc-in{grid-template-columns:1fr}
+    .hdr nav{display:none}
+    .pdp{grid-template-columns:minmax(0,1.2fr) minmax(320px,1fr)}
+    .gallery{grid-template-columns:1fr}
+    .shot.wide{height:auto;aspect-ratio:2/3;min-height:0}
+  }
+  /* Phone: the gallery becomes a swipe carousel above the panel */
+  @media (max-width:760px){
+    .hdr{height:56px;padding:0 16px}
+    .pdp{display:block}
+    .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:0}
+    .gallery::-webkit-scrollbar{display:none}
+    .shot,.shot.wide{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/5;height:auto}
+    .dots{display:flex;justify-content:center;gap:6px;padding:12px 0 0}
+    .dots i{width:6px;height:6px;border-radius:50%;background:#C9D0CC;transition:background .2s,width .25s var(--ease)}
+    .dots i.on{width:18px;border-radius:3px;background:var(--text)}
+    .panel{position:static;max-height:none;overflow:visible;padding:20px 16px 40px}
+    .garments{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+    .calc{padding:48px 16px}
+    .fields{grid-template-columns:1fr}
+    .quote{padding:22px 18px}
+    footer{padding:24px 16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .shot img,.shot img.enter{transition:opacity .2s}
+    .shot img.enter{transform:none}
+    .shot.zoom img.enter{transform:scale(1.55)}
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="../index.html" class="logo"><em>Struggle</em> Style</a>
+  <nav aria-label="Products">
+    <a href="lingerie.html">Lingerie</a><a href="denim.html">Denim</a><a href="sweater.html">Sweater</a><a href="woven.html" aria-current="page">Woven</a><a href="knit.html">Knit</a>
+  </nav>
+  <a href="../quote.html" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</header>
+
+<main class="pdp">
+  <div>
+    <div class="gallery" id="gallery" aria-label="Look images">
+      <figure class="shot wide"><img alt="" class="on"><img alt=""></figure>
+      <figure class="shot zoom"><img alt="" class="on"><img alt=""><figcaption>Detail</figcaption></figure>
+      <figure class="shot fabric"><img alt="" class="on"><img alt=""><figcaption id="fabCap"></figcaption></figure>
+    </div>
+    <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+  </div>
+
+  <section class="panel" aria-labelledby="lookName">
+    <div class="crumbs"><a href="../index.html">Home</a>/<a href="../index.html#products">Products</a>/<span>Woven</span></div>
+    <h1 id="lookName"></h1>
+    <div class="code" id="styleCode"></div>
+    <p class="lede">Made to your spec in our woven unit. Choose the pieces, fabric and colour, and the look updates as you go.</p>
+
+    <div class="opt">
+      <div class="opt-h">Garments <span id="garmentNames"></span></div>
+      <div class="garments" id="garments"></div>
+      <p class="hint">Pick one top and one bottom, or a dress on its own.</p>
+    </div>
+
+    <div class="opt">
+      <div class="opt-h">Fabric <span id="fabricName"></span></div>
+      <div class="fabrics" id="fabrics" role="radiogroup" aria-label="Fabric"></div>
+    </div>
+
+    <div class="opt">
+      <div class="opt-h">Colour <span id="colourName"></span></div>
+      <div class="colours" id="colours" role="radiogroup" aria-label="Colour"></div>
+    </div>
+
+    <dl class="facts">
+      <div><dt>MOQ</dt><dd id="moq"></dd></div>
+      <div><dt>Sample</dt><dd id="sample"></dd></div>
+      <div><dt>Bulk</dt><dd id="bulk"></dd></div>
+    </dl>
+    <div class="ctas">
+      <a class="btn btn-primary" id="cta">Request this sample <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" id="swatchCta">Order a fabric swatch</a>
+    </div>
+    <p class="note">Sample specs · to be confirmed</p>
+
+    <details open>
+      <summary>Fabric &amp; composition</summary>
+      <div class="body"><dl class="specs" id="fabricSpecs"></dl></div>
+    </details>
+    <details>
+      <summary>Construction</summary>
+      <div class="body"><ul id="construction"></ul></div>
+    </details>
+    <details>
+      <summary>Sampling &amp; production</summary>
+      <div class="body"><ul>
+        <li>Proto sample in 7–10 days from tech pack approval.</li>
+        <li>Fit, size-set and PP samples before bulk.</li>
+        <li>Custom colours via lab dip, matched to your Pantone reference.</li>
+        <li>Your labels, trims and packaging included.</li>
+      </ul></div>
+    </details>
+  </section>
+</main>
+
+<section class="calc" id="price" aria-labelledby="calcTitle">
+  <div class="calc-in">
+    <div>
+      <h2 id="calcTitle">Product price calculation</h2>
+      <div class="calc-look" id="calcLook"></div>
+      <p class="lede">Enter your order details for an estimated FOB price per piece. It follows the look, fabric and colour chosen above.</p>
+      <form class="fields" id="calcForm" novalidate>
+        <div class="field" id="qtyField">
+          <label for="qty">Quantity</label>
+          <div class="ctl"><input id="qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">pcs</span></div>
+          <small id="qtyHint"></small>
+        </div>
+        <div class="field">
+          <label for="gsm">GSM</label>
+          <div class="ctl"><input id="gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span class="unit">g/m²</span></div>
+          <small id="gsmHint"></small>
+        </div>
+        <div class="field">
+          <label for="ship">Shipping</label>
+          <div class="ctl"><select id="ship"></select></div>
+          <small id="shipHint"></small>
+        </div>
+        <div class="field">
+          <label for="moq">MOQ</label>
+          <div class="ctl"><input id="moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">pcs / colour</span></div>
+          <small id="moqHint"></small>
+        </div>
+      </form>
+    </div>
+
+    <aside class="quote" aria-live="polite">
+      <div class="quote-h">Estimated price per piece</div>
+      <div class="unit-price" id="unitPrice"></div>
+      <div class="total">Order total <b id="orderTotal"></b></div>
+      <dl class="lines" id="lines"></dl>
+      <a class="btn btn-primary" id="calcCta" style="width:100%">Get an exact quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="note">Indicative USD estimate · sample rates, to be confirmed by Struggle Style</p>
+    </aside>
+  </div>
+</section>
+
+<footer><span>© Struggle Style Inc.</span><span>Looks are 3D avatar renders of each garment in the chosen fabric.</span></footer>
+
+<script>
+// Woven look builder: garments + fabric + colour -> one render in woven/looks/ (built by woven/compose_woven.py).
+(() => {
+  const WOVEN = {
+    look: 'woven/looks/{first}-{second}-{fabric}-{colour}.webp',
+    swatch: '../images/swatches/{fabric}-{colour}.webp',
+    quoteUrl: '../quote.html',
+    sampleDays: [7, 10],
+    initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-w06', colour: 'white'},
+    // `use` = fabric per piece (m²), `cm` = cut & make (USD), `perKg` = fabric price (USD/kg) — SAMPLE rates, to be confirmed
+    // `crop: [x%, y%, scale]` zooms the full-body render onto the garment for its tile
+    garments: [
+      {id: 'shirt',  label: 'Shirt',    type: 'top',    code: 'SH', moq: 300, lead: [40, 55], use: 1.6, cm: 2.8, crop: [-60, -31.2, 2.2],
+       build: ['Point collar, full button placket', 'Patch chest pocket', 'Dropped shoulder, barrel cuffs']},
+      {id: 'blazer', label: 'Blazer',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, crop: [-65, -32.5, 2.3],
+       build: ['Double-breasted, peak lapel', 'Flap pockets', 'Half-lined with recycled lining']},
+      {id: 'dress',  label: 'Dress',    type: 'full',   code: 'DR', moq: 300, lead: [45, 60], use: 2.4, cm: 3.8, crop: [-35, -23.8, 1.7],
+       build: ['Square neck, adjustable straps', 'Shirred waist panel', 'Midi length, side seam pockets']},
+      {id: 'pants',  label: 'Trousers', type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, crop: [-32.5, -59.8, 1.65],
+       build: ['High rise, straight wide leg', 'Elasticated back waistband', 'Side seam pockets']},
+      {id: 'skirt',  label: 'Skirt',    type: 'bottom', code: 'SK', moq: 300, lead: [40, 55], use: 0.9, cm: 2.0, crop: [-120, -124.8, 3.4],
+       build: ['Mini length, flared', 'Concealed side zip', 'Clean-finish hem']}
+    ],
+    fabrics: [
+      {id: 'ss-w06', label: 'Cotton poplin',   short: 'Poplin', code: 'PO', comp: '100% cotton', gsm: '115 GSM', g: 115, perKg: 7.5, weave: 'Plain weave, 40s × 40s',
+       care: 'Machine wash 30°C', colours: [['white', 'White'], ['sky', 'Sky'], ['sage', 'Sage'], ['black', 'Black']]},
+      {id: 'ss-s07', label: 'Satin charmeuse', short: 'Satin',  code: 'ST', comp: '100% recycled polyester', gsm: '95 GSM',  g: 95,  perKg: 9.2, weave: 'Satin weave, fluid drape',
+       care: 'Hand wash cold', colours: [['champagne', 'Champagne'], ['emerald', 'Emerald'], ['lilac', 'Lilac'], ['black', 'Black']]}
+    ],
+    // Price calculator — SAMPLE rates, to be confirmed by Struggle Style before launch
+    pricing: {
+      wastage: .08,                                  // cutting loss on fabric
+      trims: .45,                                    // buttons, labels, thread per garment
+      packing: .25,                                  // polybag, hangtag, carton share per piece
+      packKg: .06,                                   // packed weight added per piece
+      margin: .12,                                   // factory overhead & margin
+      volume: [[5000, .12], [3000, .08], [1000, .04]],  // [from qty, discount]
+      smallRun: [.25, .40],                          // below MOQ: +25% per MOQ multiple short, capped at 40%
+      gsmRange: [60, 400],
+      shipping: [
+        {id: 'fob',     label: 'FOB Chattogram (you ship)', perKg: 0,    min: 0,   days: 'Ready at port'},
+        {id: 'sea',     label: 'Sea freight to your port',  perKg: 1.1,  min: 350, days: '25–35 days in transit'},
+        {id: 'air',     label: 'Air freight to your airport', perKg: 5.2, min: 250, days: '5–8 days in transit'},
+        {id: 'express', label: 'Express courier, door to door', perKg: 9.5, min: 60, days: '3–5 days in transit'}
+      ]
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const garment = Object.fromEntries(WOVEN.garments.map(g => [g.id, g]));
+  const fabric = Object.fromEntries(WOVEN.fabrics.map(f => [f.id, f]));
+  const sel = {full: null, top: null, bottom: null, ...WOVEN.initial};
+  const fill = (tpl, k) => tpl.replace(/\{(\w+)\}/g, (_, n) => k[n]);
+  const range = ([a, b]) => `${a}–${b} days`;
+  const crop = c => `transform:translate(${c[0]}%,${c[1]}%) scale(${c[2]})`;
+
+  const lookSrc = (first, second, f = sel.fabric, c = sel.colour) => fill(WOVEN.look, {first, second, fabric: f, colour: c});
+  const current = () => [sel.full || sel.top || 'none', sel.bottom || 'none'];
+  const worn = () => [sel.full, sel.top, sel.bottom].filter(Boolean).map(id => garment[id]);
+  const colourLabel = () => fabric[sel.fabric].colours.find(([id]) => id === sel.colour)[1];
+  const lookName = () => {
+    const f = fabric[sel.fabric].short, w = worn().map(g => g.label.toLowerCase());
+    return `${f} ${w.join(' & ')}`.replace(/^./, c => c.toUpperCase());
+  };
+
+  // Garment tiles and fabric options are drawn once; colours redraw when the fabric changes
+  $('garments').innerHTML = WOVEN.garments.map(g =>
+    `<button type="button" class="gar" data-garment="${g.id}" aria-pressed="false"><span class="pic"><img alt="" style="${crop(g.crop)}"></span>${g.label}</button>`).join('');
+  $('fabrics').innerHTML = WOVEN.fabrics.map(f =>
+    `<button type="button" class="fab" role="radio" data-fabric="${f.id}" aria-checked="false"><b>${f.label}</b><small>${f.gsm} · ${f.comp}</small></button>`).join('');
+  const drawColours = () => {
+    const f = fabric[sel.fabric];
+    $('colours').innerHTML = f.colours.map(([id, label]) =>
+      `<button type="button" class="sw" role="radio" data-colour="${id}" aria-label="${label}" aria-checked="false"><span style="--c:url('${fill(WOVEN.swatch, {fabric: f.id, colour: id}).replace('.webp', '-sm.webp')}')"></span></button>`).join('');
+  };
+
+  function pickGarment(id) {
+    const {type} = garment[id], before = {...sel};
+    if (type === 'full') { sel.full = sel.full === id ? null : id; sel.top = sel.bottom = null; }
+    else { sel.full = null; sel[type] = sel[type] === id ? null : id; }
+    // The avatar always wears something: ignore deselecting the last garment
+    if (!sel.full && !sel.top && !sel.bottom) Object.assign(sel, before);
+  }
+
+  // Each shot keeps two layers: load into the hidden one, then cross-fade
+  const shots = [...document.querySelectorAll('.shot')].map(el => ({el, layers: [...el.querySelectorAll('img')], token: 0}));
+  function swap(shot, url, alt) {
+    const [cur, next] = shot.layers, token = ++shot.token;
+    if (cur.getAttribute('src') === url) return;
+    next.onload = () => {
+      if (token !== shot.token) return;
+      next.alt = alt; cur.alt = '';
+      if (!reduce) { next.classList.add('enter'); void next.offsetWidth; next.classList.remove('enter'); }
+      next.classList.add('on'); cur.classList.remove('on');
+      shot.layers = [next, cur];
+    };
+    next.src = url;
+  }
+
+  // Warm the cache with every look one click away: other garments in this colour, this look in other colours
+  const warmed = new Set();
+  function preload() {
+    const ids = t => WOVEN.garments.filter(g => g.type === t).map(g => g.id);
+    const pairs = [...ids('full').map(f => [f, 'none']), ...['none', ...ids('top')].flatMap(t => ['none', ...ids('bottom')].map(b => [t, b]))]
+      .filter(([t, b]) => t !== 'none' || b !== 'none');
+    const urls = [...pairs.map(([a, b]) => lookSrc(a, b)),
+      ...WOVEN.fabrics.flatMap(f => f.colours.map(([c]) => lookSrc(...current(), f.id, c)))];
+    urls.filter(u => !warmed.has(u)).forEach(u => { warmed.add(u); new Image().src = u; });
+  }
+
+  function render() {
+    const f = fabric[sel.fabric], w = worn(), name = lookName(), colour = colourLabel();
+    const code = `SS-${w.map(g => g.code).join('')}-${f.code}-${sel.colour.slice(0, 3).toUpperCase()}`;
+    const alt = `${name} in ${colour.toLowerCase()} on the 3D avatar`;
+
+    swap(shots[0], lookSrc(...current()), alt);
+    swap(shots[1], lookSrc(...current()), `${name}, close-up`);
+    swap(shots[2], fill(WOVEN.swatch, {fabric: f.id, colour: sel.colour}), `${f.label} swatch in ${colour.toLowerCase()}`);
+    $('fabCap').textContent = `${f.label} · ${colour}`;
+
+    document.querySelectorAll('[data-garment]').forEach(b => {
+      const g = garment[b.dataset.garment];
+      b.setAttribute('aria-pressed', [sel.full, sel.top, sel.bottom].includes(g.id));
+      b.querySelector('img').src = lookSrc(g.type === 'bottom' ? 'none' : g.id, g.type === 'bottom' ? g.id : 'none');
+    });
+    document.querySelectorAll('[data-fabric]').forEach(b => b.setAttribute('aria-checked', b.dataset.fabric === sel.fabric));
+    document.querySelectorAll('[data-colour]').forEach(b => b.setAttribute('aria-checked', b.dataset.colour === sel.colour));
+
+    $('lookName').textContent = name;
+    document.title = `${name} | Struggle Style`;
+    $('styleCode').textContent = code;
+    $('garmentNames').textContent = w.map(g => g.label).join(' + ');
+    $('fabricName').textContent = f.label;
+    $('colourName').textContent = colour;
+    $('moq').textContent = `${Math.max(...w.map(g => g.moq))} pcs`;
+    $('sample').textContent = range(WOVEN.sampleDays);
+    $('bulk').textContent = range([Math.max(...w.map(g => g.lead[0])), Math.max(...w.map(g => g.lead[1]))]);
+    $('fabricSpecs').innerHTML = [['Fabric', `${f.label} (${f.id.toUpperCase()})`], ['Content', f.comp], ['Weight', f.gsm], ['Weave', f.weave], ['Care', f.care]]
+      .map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+    $('construction').innerHTML = w.flatMap(g => g.build.map(b => `<li><b>${g.label}:</b> ${b}</li>`)).join('');
+    $('cta').href = `${WOVEN.quoteUrl}?${new URLSearchParams({style: code, look: name, fabric: `${f.label}, ${colour}`})}`;
+    $('swatchCta').href = `${WOVEN.quoteUrl}?${new URLSearchParams({swatches: `${f.id.toUpperCase()} ${colour}`})}`;
+    look = {code, name, colour};
+    syncCalc();
+    preload();
+  }
+
+  // Price calculator: fabric by weight + cut & make + trims, adjusted for volume, small runs, margin and freight
+  const P = WOVEN.pricing;
+  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+  const int = new Intl.NumberFormat('en-US');
+  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
+  let look = {}, synced = {};
+  $('ship').innerHTML = P.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
+  $('ship').value = 'sea';
+
+  // GSM follows the fabric and MOQ follows the garments, until the buyer types their own
+  function syncCalc() {
+    const f = fabric[sel.fabric], moq = Math.max(...worn().map(g => g.moq));
+    if (synced.fabric !== f.id) { $('gsm').value = f.g; synced.fabric = f.id; }
+    if (synced.moq !== moq) { $('moqIn').value = moq; synced.moq = moq; }
+    $('calcLook').textContent = `${look.code} · ${look.name} · ${look.colour}`;
+    price();
+  }
+
+  function price() {
+    const w = worn(), f = fabric[sel.fabric], ship = P.shipping.find(s => s.id === $('ship').value);
+    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn'));
+    const [gMin, gMax] = P.gsmRange;
+    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1;
+    const nextTier = P.volume.map(([q]) => q).filter(q => q > qty).pop();  // tiers run high to low
+
+    $('qtyField').classList.toggle('bad', !qtyOk || (moqOk && qty < moq));
+    $('qtyHint').className = qtyOk && moqOk && qty < moq ? 'warn' : '';
+    $('qtyHint').textContent = !qtyOk ? 'Enter a quantity of 1 or more.'
+      : moqOk && qty < moq ? `${int.format(moq - qty)} pcs below MOQ, small-run surcharge applies.`
+      : nextTier ? `${int.format(nextTier - qty)} more pcs for the next volume discount.` : 'Best volume rate.';
+    $('gsmHint').className = gsmOk ? '' : 'warn';
+    $('gsmHint').textContent = gsmOk ? `${f.label} standard: ${f.g} GSM` : `Enter ${gMin}–${gMax} GSM.`;
+    $('shipHint').textContent = ship.days;
+    $('moqHint').className = moqOk ? '' : 'warn';
+    $('moqHint').textContent = moqOk ? `Standard for this look: ${int.format(Math.max(...w.map(g => g.moq)))} pcs` : 'Enter an MOQ of 1 or more.';
+
+    if (!qtyOk || !gsmOk || !moqOk) {
+      $('unitPrice').innerHTML = '—';
+      $('orderTotal').textContent = '—';
+      $('lines').innerHTML = '';
+      return;
+    }
+
+    // Per piece (a set counts as one piece)
+    const area = w.reduce((a, g) => a + g.use, 0);
+    const netKg = area * gsm / 1000;
+    const fabricCost = netKg * (1 + P.wastage) * f.perKg;
+    const make = w.reduce((a, g) => a + g.cm, 0);
+    const trims = P.trims * w.length + P.packing;
+    const base = fabricCost + make + trims;
+    const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
+    const small = qty < moq ? Math.min(P.smallRun[1], (moq / qty - 1) * P.smallRun[0]) : 0;
+    const adjusted = base * (1 - vol + small);
+    const margin = adjusted * P.margin;
+    const shipKg = (netKg + P.packKg) * qty;
+    const freight = ship.perKg ? Math.max(ship.min, shipKg * ship.perKg) / qty : 0;
+    const unit = adjusted + margin + freight;
+
+    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
+    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ ${w.length > 1 ? 'set' : 'pc'}</small>`;
+    $('orderTotal').textContent = `${usd.format(unit * qty)} · ${int.format(qty)} pcs`;
+    $('lines').innerHTML = [
+      row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
+      row(`Cut &amp; make · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
+      row('Trims &amp; packing', usd.format(trims)),
+      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
+      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
+      row('Overhead &amp; margin', usd.format(margin)),
+      row(`${ship.label.split(' (')[0]}${ship.perKg ? ` · ${int.format(Math.round(shipKg))} kg` : ''}`, ship.perKg ? usd.format(freight) : 'Included')
+    ].join('');
+    $('calcCta').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
+      style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
+      quantity: qty, gsm, moq, shipping: ship.label, estimate: usd.format(unit)
+    })}`;
+  }
+
+  $('calcForm').addEventListener('input', price);
+  $('calcForm').addEventListener('submit', e => e.preventDefault());
+
+  document.querySelector('.panel').addEventListener('click', e => {
+    const t = e.target.closest('[data-garment],[data-fabric],[data-colour]');
+    if (!t) return;
+    if (t.dataset.garment) pickGarment(t.dataset.garment);
+    else if (t.dataset.colour) sel.colour = t.dataset.colour;
+    else if (t.dataset.fabric !== sel.fabric) {
+      // Keep black across fabrics; otherwise start on the new fabric's first colour
+      const f = fabric[sel.fabric = t.dataset.fabric];
+      if (!f.colours.some(([c]) => c === sel.colour)) sel.colour = f.colours[0][0];
+      drawColours();
+    }
+    render();
+  });
+
+  // Phone carousel dots follow the swipe
+  const gallery = $('gallery'), dots = [...$('dots').children];
+  gallery.addEventListener('scroll', () => {
+    const i = Math.round(gallery.scrollLeft / gallery.clientWidth);
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  }, {passive: true});
+
+  drawColours();
+  render();
+})();
+</script>
+</body>
+</html>

@@ -5,6 +5,16 @@
 #   out: outfits/{first}-{second}-{fabric}.webp
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageMath, ImageStat
 
+
+def lambda_eval(fn, **images):
+    """ImageMath.lambda_eval, with a fallback for Pillow < 11."""
+    if hasattr(ImageMath, 'lambda_eval'):
+        return ImageMath.lambda_eval(fn, **images)
+    args = {k: ImageMath._Operand(v) for k, v in images.items()}
+    args['convert'] = ImageMath.imagemath_convert
+    return fn(args).im
+
+
 FULL, TOPS, BOTTOMS = ['dress'], ['shirt', 'blazer', 'tee'], ['pants', 'skirt']
 FABRICS = {'denim': 4, 'jersey': 2, 'silk': 1}  # fabric id: weave strength (0-10)
 
@@ -24,8 +34,8 @@ def fabric_tone(fab):
     patch = sw.crop((int(w * .36), int(h * .2), int(w * .64), int(h * .42))).convert('RGB')
     color = tuple(int(c) for c in ImageStat.Stat(patch).median)
     lum = patch.convert('L')
-    detail = ImageMath.lambda_eval(lambda a: a['convert'](a['a'] * 128 / (a['b'] + 1), 'L'),
-                                   a=lum, b=lum.filter(ImageFilter.GaussianBlur(4)))
+    detail = lambda_eval(lambda a: a['convert'](a['a'] * 128 / (a['b'] + 1), 'L'),
+                         a=lum, b=lum.filter(ImageFilter.GaussianBlur(4)))
     # mirror-tile so the weave has no seams
     tw, th = detail.size
     tile = Image.new('L', (tw * 2, th * 2))
@@ -42,7 +52,7 @@ def tint(im, mask, color, weave, strength):
     for x in range(0, W, weave.width):
         for y in range(0, H, weave.height):
             tex.paste(weave, (x, y))
-    shade = ImageMath.lambda_eval(lambda a: a['convert'](a['l'] * (1280 + (a['t'] - 128) * strength) / 1280, 'L'), l=lum, t=tex)
+    shade = lambda_eval(lambda a: a['convert'](a['l'] * (1280 + (a['t'] - 128) * strength) / 1280, 'L'), l=lum, t=tex)
     rgb = Image.merge('RGB', [shade.point(lambda v, c=c: min(255, v * c // 230)) for c in color])
     out = im.copy()
     out.paste(Image.composite(rgb.convert('RGBA'), im, mask), (0, 0))
@@ -66,14 +76,15 @@ def layer(top, top_mask, bottom, bottom_mask):
     return Image.composite(top, bottom, keep)
 
 
-src = {g: Image.open(f'outfits/garments/{g}.webp').convert('RGBA') for g in FULL + TOPS + BOTTOMS}
-masks = {g: garment_mask(im) for g, im in src.items()}
-for fab, strength in FABRICS.items():
-    color, weave = fabric_tone(fab)
-    dyed = {g: tint(src[g], masks[g], color, weave, strength) for g in src}
-    jobs = {f'{g}-none': dyed[g] for g in FULL + TOPS + BOTTOMS if g not in BOTTOMS}
-    jobs.update({f'none-{b}': dyed[b] for b in BOTTOMS})
-    jobs.update({f'{t}-{b}': layer(dyed[t], masks[t], dyed[b], masks[b]) for t in TOPS for b in BOTTOMS})
-    for name, im in jobs.items():
-        im.save(f'outfits/{name}-{fab}.webp', quality=84, method=6)
-    print(fab, color, len(jobs), 'outfits')
+if __name__ == '__main__':
+    src = {g: Image.open(f'outfits/garments/{g}.webp').convert('RGBA') for g in FULL + TOPS + BOTTOMS}
+    masks = {g: garment_mask(im) for g, im in src.items()}
+    for fab, strength in FABRICS.items():
+        color, weave = fabric_tone(fab)
+        dyed = {g: tint(src[g], masks[g], color, weave, strength) for g in src}
+        jobs = {f'{g}-none': dyed[g] for g in FULL + TOPS + BOTTOMS if g not in BOTTOMS}
+        jobs.update({f'none-{b}': dyed[b] for b in BOTTOMS})
+        jobs.update({f'{t}-{b}': layer(dyed[t], masks[t], dyed[b], masks[b]) for t in TOPS for b in BOTTOMS})
+        for name, im in jobs.items():
+            im.save(f'outfits/{name}-{fab}.webp', quality=84, method=6)
+        print(fab, color, len(jobs), 'outfits')
