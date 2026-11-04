@@ -3,7 +3,8 @@
 #   in : outfits/garments/{id}.webp            (same avatar, same pose, one white garment each)
 #        images/swatches/{code}-{colour}.webp  (flat 800px fabric swatches)
 #   out: products/woven/looks/{first}-{second}-{code}-{colour}.webp   at SCALE x the render size
-# Re-run after adding a garment or colourway; keep WOVEN in products/woven.html in step with it.
+# Re-run after adding a garment or colourway; keep WOVEN in products/woven.html (and the builder in denim.html) in step.
+# Pass fabric codes to build only those, e.g.  python products/woven/compose_woven.py ss-d01
 import os
 import sys
 
@@ -17,6 +18,7 @@ FULL, TOPS, BOTTOMS = ['dress'], ['shirt', 'blazer'], ['pants', 'skirt']
 FABRICS = {
     'ss-w06': (5, ['white', 'sage', 'sky', 'black']),          # linen-cotton: visible slub
     'ss-s07': (1, ['champagne', 'emerald', 'lilac', 'black']),  # satin: smooth
+    'ss-d01': (4, ['indigo', 'mid-wash', 'black', 'ecru']),     # eco-wash denim: visible twill
 }
 SCALE = 1.5  # 820x1260 -> 1230x1890, sharp at 2x on the page's ~600px image column
 OUT = 'products/woven/looks'
@@ -45,7 +47,10 @@ def load(g):
 os.makedirs(OUT, exist_ok=True)
 src = {g: load(g) for g in FULL + TOPS + BOTTOMS}
 masks = {g: garment_mask(im) for g, im in src.items()}
+only = set(sys.argv[1:]) or set(FABRICS)
 for code, (strength, colours) in FABRICS.items():
+    if code not in only:
+        continue
     dyed = {}
     for colour in colours:
         color, weave = swatch_tone(f'images/swatches/{code}-{colour}.webp')
