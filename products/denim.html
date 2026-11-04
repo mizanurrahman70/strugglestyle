@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vintage-wash denim jacket &amp; straight jeans | Struggle Style</title>
+<meta name="description" content="A vintage-wash denim jacket with a stand collar and button placket, and straight-leg jeans, made to order by Struggle Style in Bangladesh.">
+<meta name="theme-color" content="#11402A">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="denim/model.webp">
+<style>
+  :root{
+    --green-900:#0C2A1B;
+    --green-800:#11402A;
+    --green-700:#1A7F4B;
+    --green-600:#1F9457;
+    --green-100:#DEF5E7;
+    --leaf:#3DDC84;
+    --orange:#F5A00F;
+    --border:#DCEBE1;
+    --bg:#FFFFFF;
+    --studio:#E8E9EC;      /* the photo's backdrop, behind every gallery shot */
+    --ink:#111;
+    --text:#0F1F17;
+    --muted:#6B6F6C;
+    --line:#E6E6E3;
+    --head:"Inter Tight",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --ease:cubic-bezier(.23,1,.32,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
+    --hdr:84px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:400 14px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-size:15px;font-weight:600;white-space:nowrap;transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+  .btn svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-primary{background:var(--green-700);color:#fff}
+  .btn-primary:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .btn-ghost{border:1px solid var(--text)}
+  .btn-ghost:hover{background:var(--text);color:#fff}
+  .btn-sm{height:44px;padding:0 20px;font-size:14px}
+
+  /* Site header: same as the home page, in its solid (scrolled) state since there is no hero behind it */
+  .wrap{max-width:none;margin:0;padding:0 32px}
+  .logo{display:inline-flex;align-items:center;color:#1A7F4B;line-height:1}
+  .wm{position:relative;display:inline-flex;align-items:baseline;gap:.18em;font-family:"Fraunces",Georgia,serif;font-size:29px;line-height:1;letter-spacing:-.02em;font-variation-settings:"opsz" 72}
+  .wm em{font-style:italic;font-weight:700}
+  .wm span{position:relative;font-weight:350}
+  .wm .thread{position:absolute;left:-2px;bottom:-12px;width:calc(100% + 26px);height:14px;overflow:visible;pointer-events:none}
+  .wm .thread path{stroke-dasharray:4 3.5;stroke-dashoffset:0}
+  .logo:hover .wm .thread path{animation:sew 1.2s linear infinite}
+  @keyframes sew{to{stroke-dashoffset:-15}}
+  .wm sup{font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.14em;align-self:flex-start;margin:2px 0 0 12px;opacity:.75}
+  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border);transition:transform .38s var(--ease)}
+  /* Hide the bar while scrolling down, slide it back as soon as the page scrolls up */
+  #hdr.is-hidden{transform:translateY(-101%)}
+  .nav{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav ul{display:flex;gap:4px;list-style:none}
+  .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
+  .nav ul a:hover{color:var(--green-700)}
+  .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .nav ul a:hover::after,.nav ul a:focus-visible::after,.nav ul a[aria-current]::after{transform:scaleX(1)}
+  .burger{flex:none;display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
+  .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
+  .mnav{display:none}
+
+  /* Product: a two-column gallery; the calculator takes the cell beside the hero */
+  .pdp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;margin:0;background:#fff}
+  .shot{position:relative;aspect-ratio:4/5;margin:0;overflow:hidden;background:var(--studio);cursor:zoom-in}
+  .shot img,.shot video{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+  .shot:hover img{transform:scale(1.03)}
+  .shot figcaption{position:absolute;left:18px;bottom:16px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(17,17,17,.55)}
+  .shot.full img{object-position:50% 30%}
+  /* Look video sits in the grid, silent and looping, and is not part of the photo lightbox */
+  .shot.video{cursor:default;background:#000}
+  .shot.video video{transition:none}
+  .shot.video figcaption{color:rgba(255,255,255,.9)}
+  /* Product shot: a cut-out on its own warm white, shown whole beside the full look */
+  .shot.product{background:#F8F7F5}
+  .shot.product img{object-fit:contain;padding:7% 9%}
+  /* Fabric tile: the swatch the denim is cut from; not part of the photo lightbox */
+  .shot.fabric{cursor:default}
+  .shot.fabric:hover img{transform:none}
+  .shot.fabric figcaption{color:rgba(255,255,255,.92)}
+  .info-cell{display:flex;align-items:center;justify-content:center;padding:32px;background:#fff}
+
+  /* Product card: stays in view while the gallery beside it scrolls */
+  .info{width:100%;max-width:480px;margin:0;padding:0}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* Order panel: flat and quiet like the gallery — hairlines, square corners, one black action.
+     Prices in euros excl. VAT, delivered to the buyer's EU country. */
+  .order{color:var(--ink)}
+  .kicker{font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .order h1{margin-top:10px;font:500 clamp(22px,1.9vw,26px)/1.25 var(--head);letter-spacing:-.01em}
+  .from{margin-top:8px;font-size:13px;color:var(--muted)}
+  .from b{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .step{margin-top:24px}
+  /* Style picker: one thumbnail per variant; picking one swaps the whole gallery */
+  /* Style bar: right under the site header, stays in view; picking a style swaps the whole page */
+  /* Style tabs: a quiet strip under the header, as on European fashion sites. Each style is a small portrait and
+     a name; the active one is ink with an underline. It scrolls sideways when there are many styles. */
+  .stylebar{position:sticky;top:var(--hdr);z-index:40;margin-top:var(--hdr);background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:top .38s var(--ease),transform .38s var(--ease)}
+  /* Both bars tuck away together while scrolling down, then return on scroll up */
+  #hdr.is-hidden + .stylebar{top:0;transform:translateY(-101%)}
+  .stylebar-in{display:flex;align-items:stretch;height:60px;padding:0 32px}
+  .styles{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none}
+  .styles::-webkit-scrollbar{display:none}
+  .sty{position:relative;flex:none;display:flex;align-items:center;gap:10px;padding:0 20px;font-size:13px;font-weight:500;color:#8A8A85;white-space:nowrap;transition:color .2s}
+  .sty .ph{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;background:var(--studio);box-shadow:0 0 0 1px var(--line);transition:box-shadow .2s}
+  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+  .sty::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .35s var(--ease)}
+  .sty:hover{color:var(--ink)}
+  .sty[aria-checked="true"]{color:var(--ink)}
+  .sty[aria-checked="true"] .ph{box-shadow:0 0 0 1.5px var(--ink)}
+  .sty[aria-checked="true"]::after{transform:scaleX(1)}
+  .sty:focus-visible{outline:2px solid var(--green-600);outline-offset:-4px}
+  .sb-nav{flex:none;display:none;align-items:center;gap:4px;padding-left:12px}
+  .stylebar.overflow .sb-nav{display:flex}
+  .sb-nav button{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;color:var(--ink);transition:border-color .2s}
+  .sb-nav button:hover{border-color:var(--ink)}
+  .sb-nav svg{width:14px;height:14px}
+  /* Gallery swap: images fade out, change, fade back in */
+  .pdp .shot img,.pdp .shot video{transition:transform 1.2s var(--ease),opacity .35s}
+  .pdp.swapping .shot:not(.fabric) img,.pdp.swapping .shot video{opacity:0}
+  .shot.video img{display:none}
+  .shot.video.still video{display:none}
+  .shot.video.still img{display:block}
+  .step > label,.step-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .step-h span,.step > label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+  .dest{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border:1px solid #D4D4D0;transition:border-color .2s}
+  .dest:focus-within{border-color:var(--ink)}
+  .dest img{flex:none;width:22px;height:15px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+  .dest select{flex:1;min-width:0;height:100%;border:0;background:none;font:500 14.5px var(--body);color:var(--ink);outline:0;cursor:pointer}
+  .qty{display:flex;height:48px;border:1px solid #D4D4D0}
+  .qty:focus-within{border-color:var(--ink)}
+  .qty button{flex:none;width:48px;font-size:18px;transition:background .2s}
+  .qty button:hover{background:#F2F2EF}
+  .qty input{flex:1;min-width:0;border:0;border-inline:1px solid #D4D4D0;text-align:center;font:600 15px var(--body);color:var(--ink);outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+  .qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .hint{margin-top:7px;font-size:12px;color:var(--muted)}
+  .hint.warn{color:#A1461B}
+  .ship{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .ship button{padding:10px 8px;border:1px solid #D4D4D0;text-align:left;transition:border-color .2s,background .2s}
+  .ship button:hover{border-color:var(--ink)}
+  .ship button b{display:block;font-size:13px;font-weight:600}
+  .ship button small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .ship button[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+  .sum{margin-top:24px;border-top:1px solid var(--ink)}
+  .sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-variant-numeric:tabular-nums}
+  .sum dt{color:var(--muted)}
+  .sum div[hidden]{display:none}
+  .sum .neg{color:#3F7A4F}
+  .sum .pos{color:#A1461B}
+  .sum .tot{border-bottom:0;padding-top:14px;font-size:15px;font-weight:600}
+  .sum .tot dt{color:var(--ink)}
+  .sum .tot dd{font-size:20px}
+  .vat{font-size:11.5px;color:var(--muted)}
+  .buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;margin-top:18px;background:var(--green-700);color:#fff;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:background .25s,box-shadow .25s}
+  .buy:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .buy svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .buy:hover svg{transform:translateX(3px)}
+  .buy[aria-disabled="true"]{opacity:.4;pointer-events:none}
+  .dest select:focus-visible,.qty button:focus-visible,.ship button:focus-visible,.buy:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Full-screen viewer, as on fashion house pages: white, thumbnails down the left, every image of the style stacked
+     full width on the right; the thumbnail of the image in view is underlined. */
+  .lb{position:fixed;inset:0;z-index:80;background:#fff;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  .lb.open{opacity:1;visibility:visible}
+  .lb-thumbs{position:absolute;left:28px;top:50%;z-index:2;display:flex;flex-direction:column;gap:0;max-height:calc(100vh - 80px);overflow-y:auto;transform:translateY(-50%);scrollbar-width:none}
+  .lb-thumbs::-webkit-scrollbar{display:none}
+  .lb-thumbs button{position:relative;flex:none;width:92px;aspect-ratio:3/4;overflow:hidden;background:var(--studio);opacity:.55;transition:opacity .2s}
+  .lb-thumbs button img{width:100%;height:100%;object-fit:cover}
+  .lb-thumbs button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
+  .lb-thumbs button:hover{opacity:.85}
+  .lb-thumbs button[aria-current="true"]{opacity:1}
+  .lb-thumbs button[aria-current="true"]::after{transform:scaleX(1)}
+  .lb-stage{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-left:150px;scroll-behavior:smooth}
+  .lb-stage figure{margin:0;background:var(--studio)}
+  .lb-stage img{display:block;width:100%;height:auto}
+  .lb-stage figure + figure{margin-top:2px}
+  .lb .x{position:absolute;top:18px;right:22px;z-index:3;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:var(--ink);transition:background .2s}
+  .lb .x:hover{background:#fff}
+  .lb .x svg{width:22px;height:22px}
+  .lb-thumbs button:focus-visible,.lb .x:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* You may also like */
+  .more{padding:88px 0 96px}
+  .more-h{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .more h2{margin-top:6px;font:500 clamp(22px,2.2vw,28px)/1.2 var(--head);letter-spacing:-.01em;color:var(--ink)}
+  .more-h a{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
+  .recs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+  .rec .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--studio)}
+  .rec .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform 1s var(--ease)}
+  .rec .ph .alt{opacity:0;transform:scale(1.06)}
+  .rec:hover .ph .alt{opacity:1;transform:none}
+  .rec .cap{padding:14px 2px 0}
+  .rec .cap small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .rec .cap b{display:block;margin-top:4px;font-size:14px;font-weight:500;color:var(--ink)}
+
+  /* Site footer: same as the home page */
+  footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
+  footer .logo{color:#3DDC84}
+  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-about p{margin:20px 0 24px;max-width:320px}
+  footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
+  footer ul{list-style:none;display:grid;gap:11px}
+  footer a{transition:color .2s}
+  footer a:hover,footer a[aria-current]{color:#fff}
+  .soc{display:flex;gap:10px}
+  .soc a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:background .2s,color .2s}
+  .soc a:hover{background:#fff;color:var(--green-900)}
+  .soc svg{width:16px;height:16px}
+  .contact li{display:flex;gap:12px;align-items:flex-start}
+  .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
+  .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
+  .f-bot nav{display:flex;flex-wrap:wrap;gap:24px}
+  .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
+  .f-bot select option{color:var(--text)}
+
+  @media (max-width:1100px){
+    .f-grid{grid-template-columns:1fr 1fr}
+    .nav ul,.nav > .btn{display:none}
+    .burger{display:block}
+    .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
+    .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
+    .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
+    .recs{grid-template-columns:repeat(2,1fr)}
+  }
+  /* Phone: the two-column grid stacks; images full-bleed, calculator inset */
+  @media (max-width:760px){
+    .stylebar-in{height:52px;padding:0 4px}
+    .sty{padding:0 12px}
+    .stylebar.overflow .sb-nav{display:none}
+    .stylebar.overflow .styles{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+    .sty::after{left:12px;right:12px}
+    :root{--hdr:72px}
+    .wrap{padding:0 16px}
+    .mnav.open{padding:8px 16px 24px}
+    .pdp{grid-template-columns:1fr}
+    .info-cell{padding:28px 16px 28px}
+    .info{max-width:640px}
+    .lb-thumbs{left:0;right:0;top:auto;bottom:0;flex-direction:row;max-height:none;overflow-x:auto;padding:6px 8px;background:rgba(255,255,255,.95);transform:none}
+    .lb-thumbs button{width:52px}
+    .lb-stage{padding-left:0;padding-bottom:84px}
+    .more{padding:56px 0 64px}
+    .recs{display:flex;gap:2px;margin:0 -16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .recs::-webkit-scrollbar{display:none}
+    .rec{flex:0 0 70%;scroll-snap-align:start}
+    .f-grid{grid-template-columns:1fr;gap:36px}
+    footer{padding:56px 0 28px}
+    .f-bot nav{gap:12px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .shot img,.rec .ph img,.lb{transition:none}
+    .lb-stage{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="../index.html#products" aria-current="page">Products</a></li>
+        <li><a href="../index.html#manufacturing">Manufacturing</a></li>
+        <li><a href="../index.html#sustainability">Sustainability</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#news">News</a></li>
+        <li><a href="../index.html#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Mobile">
+    <a href="../index.html#products">Products</a><a href="../index.html#manufacturing">Manufacturing</a><a href="../index.html#sustainability">Sustainability</a><a href="../index.html#about">About</a><a href="../index.html#news">News</a><a href="../index.html#faq">FAQ</a>
+    <a href="../index.html#quote" class="btn btn-primary">Get a Quote</a>
+  </nav>
+</header>
+
+<nav class="stylebar" aria-label="Styles">
+  <div class="stylebar-in">
+    <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
+    <div class="sb-nav"><button type="button" id="sbPrev" aria-label="Scroll styles left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="sbNext" aria-label="Scroll styles right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+</nav>
+
+<main class="pdp" id="gallery">
+  <figure data-slot="full" class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
+  <figure data-slot="product" class="shot product" data-i="1"><img src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket"></figure>
+  <figure data-slot="half" class="shot" data-i="2"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
+
+  <div class="info-cell">
+    <section class="info" aria-labelledby="name">
+      <section class="order" id="price">
+        <p class="kicker">Denim · Made to order</p>
+        <h1 id="name">Vintage-wash denim jacket &amp; straight jeans</h1>
+        <p class="from">From <b id="fromPrice"></b> / set · excl. VAT</p>
+
+        <form id="calcForm" novalidate>
+          <div class="step">
+            <label for="dest">Deliver to <span id="destPort"></span></label>
+            <div class="dest"><img id="destFlag" alt=""><select id="dest"></select></div>
+          </div>
+          <div class="step">
+            <label for="qty">Quantity <span id="qtyUnit"></span></label>
+            <div class="qty"><button type="button" id="minus" aria-label="100 fewer">−</button><input id="qty" type="number" inputmode="numeric" min="1" step="100" value="1000"><button type="button" id="plus" aria-label="100 more">+</button></div>
+            <p class="hint" id="qtyHint" aria-live="polite"></p>
+          </div>
+          <div class="step">
+            <div class="step-h">Shipping</div>
+            <div class="ship" id="ship" role="radiogroup" aria-label="Shipping"></div>
+          </div>
+        </form>
+
+        <dl class="sum" aria-live="polite">
+          <div><dt id="perSetLabel">Price per set</dt><dd id="perSet"></dd></div>
+          <div id="discRow"><dt id="discLabel"></dt><dd id="disc"></dd></div>
+          <div><dt id="freightLabel">Delivery</dt><dd id="freight"></dd></div>
+          <div><dt>EU import duty</dt><dd>€0.00</dd></div>
+          <div class="tot"><dt>Order total <span class="vat" id="vatNote"></span></dt><dd id="total"></dd></div>
+        </dl>
+        <a class="buy" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </section>
+    </section>
+  </div>
+
+  <figure data-slot="detail1" class="shot" data-i="3"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
+  <figure data-slot="long" class="shot" data-i="4"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
+  <figure data-slot="detail2" class="shot" data-i="5"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
+  <figure data-slot="hem" class="shot" data-i="6"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
+  <figure class="shot video" data-slot="film">
+    <img alt="" loading="lazy">
+    <video src="denim/look.mp4" poster="denim/look-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="Short video of the vintage-wash denim jacket and straight jeans"></video>
+    <figcaption>Look video</figcaption>
+  </figure>
+  <figure class="shot fabric"><img src="../images/swatches/ss-d01-mid-wash.webp" alt="Eco-wash denim swatch, SS-D01" loading="lazy"><figcaption>Fabric · SS-D01 eco-wash denim</figcaption></figure>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <div class="lb-thumbs" id="lbThumbs" aria-label="Images"></div>
+  <div class="lb-stage" id="lbStage"></div>
+  <button type="button" class="x" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
+<section class="more" aria-labelledby="moreTitle">
+  <div class="wrap">
+    <div class="more-h">
+      <div><div class="eyebrow">Keep exploring</div><h2 id="moreTitle">You may also like</h2></div>
+      <a href="../index.html#products">All products</a>
+    </div>
+    <div class="recs" id="recs"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-about">
+        <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+        <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
+        <div class="soc">
+          <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
+          <a href="https://www.instagram.com/strugglestylewear" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="https://www.facebook.com/share/zWskqrghouEvd4Uw" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+          <a href="https://x.com/struggl86081532" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L.7 3h6.8l4.7 6.2zm-1.2 16h1.8L6.6 4.9H4.7z"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Products</h5><ul><li><a href="lingerie.html">Lingerie</a></li><li><a href="denim.html" aria-current="page">Denim</a></li><li><a href="sweater.html">Sweater</a></li><li><a href="woven.html">Woven</a></li><li><a href="knit.html">Knit</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="../index.html#about">About Us</a></li><li><a href="../index.html#manufacturing">Manufacturing</a></li><li><a href="../index.html#sustainability">Sustainability</a></li><li><a href="../index.html#sustainability">Certifications</a></li><li><a href="../index.html#news">News</a></li><li><a href="../index.html#faq">FAQ</a></li></ul></div>
+      <div>
+        <h5>Contact</h5>
+        <ul class="contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:info@strugglestyle.net">info@strugglestyle.net</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><a href="tel:+12675368321">+1 (267) 536-8321</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Holy Intimates, Bangladesh<br><small>Full address to be added</small></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Struggle Style Inc. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#">Terms &amp; Conditions</a><a href="#">Privacy Policy</a><a href="#">Cookies</a><a href="../index.html#quote">Contact</a></nav>
+      <select aria-label="Language"><option>English</option></select>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Denim product page: quantity and MOQ feed a live FOB estimate; images open full screen.
+(() => {
+  const DENIM = {
+    quoteUrl: '../quote.html',
+    // Variants: each is a look with its own gallery (by slot), name, style code and part prices (EUR per piece at MOQ,
+    // SAMPLE rates). `film` is the look video, or a still where a variant has none. Open one directly with #<id>.
+    variants: [
+      {id: 'jacket', label: 'Jacket & jeans', style: 'SS-DN-JKT-JN', name: 'Vintage-wash denim jacket & straight jeans',
+       parts: {jacket: 11.6, jeans: 9.1}, thumb: 'denim/half.webp', video: 'denim/look.mp4', poster: 'denim/look-poster.webp',
+       shots: {
+         full: ['denim/model.webp', 'Model wearing the vintage-wash denim jacket and straight jeans, full length'],
+         product: ['denim/product.webp', 'Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket'],
+         half: ['denim/half.webp', 'The jacket worn, head to hip'],
+         detail1: ['denim/placket.webp', 'Close-up of the stand collar, chest pockets and button placket'],
+         long: ['denim/jeans.webp', 'The straight jeans, waist to hem'],
+         detail2: ['denim/detail.webp', 'Close-up of the scalloped hem, belt chain and knee rip'],
+         hem: ['denim/hem.webp', 'The straight hems and denim boots']}},
+      {id: 'skirt', label: 'Vest & maxi skirt', style: 'SS-DN-VST-SK', name: 'Rib-knit denim vest & maxi skirt',
+       parts: {vest: 8.4, skirt: 10.2}, thumb: 'denim/skirt/half.webp',
+       shots: {
+         full: ['denim/skirt/model.webp', 'Model wearing the rib-knit denim vest and seamed maxi skirt, full length'],
+         product: ['denim/skirt/product.webp', 'Product shot: the rib-knit denim vest with zip front and flap pocket'],
+         half: ['denim/skirt/half.webp', 'The vest worn, head to hip'],
+         detail1: ['denim/skirt/vest.webp', 'Close-up of the rib knit, zip and flap pocket'],
+         long: ['denim/skirt/skirt.webp', 'The maxi skirt, waist to hem'],
+         detail2: ['denim/skirt/belt.webp', 'Close-up of the western belt, waistband and pockets'],
+         hem: ['denim/skirt/hem.webp', 'The raw hem and denim mules'],
+         film: ['denim/skirt/panels.webp', 'The seamed panels and vintage wash of the skirt']}}
+    ],
+    // EUR per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
+    setDiscount: .04,                                // jacket + jeans bought as a set
+    moq: 1000,                                       // sets per run
+    setKg: 1.25,                                     // packed weight per set, for freight
+    volume: [[5000, .08], [2000, .04]],              // [from qty, discount]
+    smallRun: .25,                                   // max surcharge below MOQ
+    // Delivery from Chattogram: EUR per kg (with a minimum per shipment); sea days vary by destination port
+    shipping: [
+      {id: 'sea',     label: 'Sea',     perKg: 1.0, min: 320},
+      {id: 'air',     label: 'Air',     perKg: 4.8, min: 230, days: [5, 8]},
+      {id: 'express', label: 'Express', perKg: 8.8, min: 55,  days: [3, 5]}
+    ],
+    // EU destinations: arrival port, standard VAT % (charged at import, reclaimable for VAT-registered buyers), sea days
+    countries: [
+      {id: 'de', name: 'Germany',     port: 'Hamburg',    vat: 19, sea: [30, 36]},
+      {id: 'fr', name: 'France',      port: 'Le Havre',   vat: 20, sea: [29, 35]},
+      {id: 'it', name: 'Italy',       port: 'Genoa',      vat: 22, sea: [22, 28]},
+      {id: 'es', name: 'Spain',       port: 'Valencia',   vat: 21, sea: [23, 29]},
+      {id: 'nl', name: 'Netherlands', port: 'Rotterdam',  vat: 21, sea: [29, 35]},
+      {id: 'be', name: 'Belgium',     port: 'Antwerp',    vat: 21, sea: [29, 35]},
+      {id: 'pt', name: 'Portugal',    port: 'Lisbon',     vat: 23, sea: [25, 31]},
+      {id: 'at', name: 'Austria',     port: 'Koper',      vat: 20, sea: [24, 30]},
+      {id: 'pl', name: 'Poland',      port: 'Gdańsk',     vat: 23, sea: [33, 40]},
+      {id: 'dk', name: 'Denmark',     port: 'Aarhus',     vat: 25, sea: [32, 38]},
+      {id: 'se', name: 'Sweden',      port: 'Gothenburg', vat: 25, sea: [33, 39]},
+      {id: 'ie', name: 'Ireland',     port: 'Dublin',     vat: 23, sea: [32, 38]}
+    ],
+    related: [
+      {label: 'Cropped denim jacket',     cat: 'Denim',   moq: '1,000', photo: '../images/look-denimjacket.jpg', alt: '../images/swatches/ss-d01-mid-wash.webp', href: 'denim.html'},
+      {label: 'Rib denim vest',           cat: 'Denim',   moq: '1,000', photo: '../images/cat-denim.jpg',        alt: '../images/swatches/ss-d01-indigo.webp',   href: 'denim.html'},
+      {label: 'Sweatshirt & baggy jeans', cat: 'Knit',    moq: '1,000', photo: '../images/look-sweatshirt.jpg',  alt: '../images/swatches/ss-t05-sand.webp',     href: 'knit.html'},
+      {label: 'Linen maxi dress',         cat: 'Woven',   moq: '800',   photo: '../images/look-linendress.jpg',  alt: '../images/swatches/ss-w06-sage.webp',     href: 'woven.html'}
+    ]
+  };
+
+  const $ = id => document.getElementById(id);
+  const eur = new Intl.NumberFormat('en-IE', {style: 'currency', currency: 'EUR'});
+  const int = new Intl.NumberFormat('en-US');
+  const range = ([a, b]) => `${a}–${b} days`;
+  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
+
+  // Site header: menu toggle, as on the home page
+  const hdr = $('hdr');
+  const setMenu = o => { $('mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('burger').setAttribute('aria-expanded', o); };
+  $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
+  document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
+
+  // Site bar: hide on scroll down, reveal on scroll up; always visible near the top or with the menu open
+  let lastY = Math.max(0, scrollY);
+  addEventListener('scroll', () => {
+    const y = Math.max(0, scrollY), dy = y - lastY;
+    if (Math.abs(dy) < 6) return;                       // ignore trackpad jitter
+    if (y < 90 || dy < 0 || hdr.classList.contains('open')) hdr.classList.remove('is-hidden');
+    else hdr.classList.add('is-hidden');
+    lastY = y;
+  }, {passive: true});
+
+  $('dest').innerHTML = DENIM.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  $('dest').value = 'de';
+  let ship = 'sea';
+
+  // Price per set: jacket + jeans, set discount, volume discount or small-run surcharge, then delivery
+  function price() {
+    const c = DENIM.countries.find(x => x.id === $('dest').value);
+    const qty = Math.round(num('qty')), ok = qty >= 1, belowMoq = ok && qty < DENIM.moq;
+    const nextTier = DENIM.volume.map(([q]) => q).filter(q => q > qty).pop();
+    const days = s => s.days || c.sea;
+
+    $('destFlag').src = `https://flagcdn.com/w40/${c.id}.png`;
+    $('destPort').textContent = {sea: `via ${c.port}`, air: 'via airport', express: 'door to door'}[ship];
+    $('ship').innerHTML = DENIM.shipping.map(s =>
+      `<button type="button" role="radio" data-ship="${s.id}" aria-checked="${s.id === ship}"><b>${s.label}</b><small>${range(days(s))}</small></button>`).join('');
+    $('qtyHint').className = 'hint' + (ok && !belowMoq ? '' : ' warn');
+    $('qtyHint').textContent = !ok ? 'Enter a quantity.'
+      : belowMoq ? `Below the ${int.format(DENIM.moq)}-set MOQ: a small-run surcharge applies.`
+      : nextTier ? `Add ${int.format(nextTier - qty)} sets for the next volume discount.` : 'Best volume rate.';
+
+    const list = Object.values(V.parts).reduce((a, b) => a + b, 0), base = list * (1 - DENIM.setDiscount);
+    $('fromPrice').textContent = eur.format(base * (1 - DENIM.volume[0][1]));
+    if (!ok) {
+      ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
+      $('orderNow').removeAttribute('href');
+      $('orderNow').setAttribute('aria-disabled', 'true');
+      return;
+    }
+
+    const s = DENIM.shipping.find(x => x.id === ship);
+    const [, vol = 0] = DENIM.volume.find(([q]) => qty >= q) || [];
+    const small = belowMoq ? Math.min(DENIM.smallRun, (DENIM.moq / qty - 1) * .1) : 0;
+    const goods = base * qty, adj = goods * (small - vol);
+    const freight = Math.max(s.min, DENIM.setKg * qty * s.perKg);
+    const total = goods + adj + freight;
+
+    $('perSet').textContent = `${eur.format(base)} × ${int.format(qty)}`;
+    $('discRow').hidden = !adj;
+    $('discLabel').textContent = vol ? `Volume discount · ${vol * 100}%` : `Small-run surcharge · ${Math.round(small * 100)}%`;
+    $('disc').textContent = (adj < 0 ? '−' : '+') + eur.format(Math.abs(adj));
+    $('disc').className = adj < 0 ? 'neg' : 'pos';
+    $('freightLabel').textContent = `${s.label} to ${ship === 'sea' ? c.port : c.name}`;
+    $('freight').textContent = eur.format(freight);
+    $('total').textContent = eur.format(total);
+    $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
+
+    const q = {style: V.style, product: V.name, quantity: qty, destination: `${c.name} (${c.port})`, shipping: s.label,
+      estimate: `${eur.format(total / qty)} / set, ${eur.format(total)} total excl. VAT`};
+    $('orderNow').removeAttribute('aria-disabled');
+    $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({order: 'now', ...q})}`;
+  }
+
+  $('ship').addEventListener('click', e => {
+    const b = e.target.closest('[data-ship]');
+    if (b && b.dataset.ship !== ship) { ship = b.dataset.ship; price(); $('ship').querySelector(`[data-ship="${ship}"]`).focus(); }
+  });
+  const stepQty = d => { $('qty').value = Math.max(100, Math.round((num('qty') || 0) / 100) * 100 + d); price(); };
+  $('minus').onclick = () => stepQty(-100);
+  $('plus').onclick = () => stepQty(100);
+  $('calcForm').addEventListener('input', price);
+  $('calcForm').addEventListener('submit', e => e.preventDefault());
+
+  // Full-screen viewer: clicking a shot opens every image of the current style, stacked, at the one clicked.
+  // Thumbnails jump to an image; the one in view is marked as you scroll. Esc closes, ↑ ↓ step through.
+  const shots = [...document.querySelectorAll('.shot[data-i]')].sort((a, b) => a.dataset.i - b.dataset.i);
+  const lb = $('lb'), stage = $('lbStage'), thumbs = $('lbThumbs');
+  let at = 0, opener, spy;
+  const mark = i => {
+    at = i;
+    thumbs.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === i));
+    thumbs.children[i]?.scrollIntoView({block: 'nearest', inline: 'nearest'});
+  };
+  const goTo = (i, smooth = true) => {
+    i = Math.max(0, Math.min(shots.length - 1, i));
+    stage.scrollTo({top: stage.children[i].offsetTop, behavior: smooth ? 'smooth' : 'instant'});
+    mark(i);
+  };
+  function open(i) {
+    // Build from the gallery as it is now, so it always shows the selected style
+    const imgs = shots.map(s => s.querySelector('img'));
+    thumbs.innerHTML = imgs.map((img, k) => `<button type="button" aria-label="Image ${k + 1} of ${imgs.length}"><img src="${img.currentSrc || img.src}" alt=""></button>`).join('');
+    // Width/height up front (4:5 if not loaded yet) so the stack has its full height before the images arrive
+    stage.innerHTML = imgs.map(img => `<figure><img src="${img.currentSrc || img.src}" alt="${img.alt}" width="${img.naturalWidth || 4}" height="${img.naturalHeight || 5}"></figure>`).join('');
+    opener = document.activeElement;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    goTo(i, false);
+    $('lbClose').focus({preventScroll: true});
+    void lb.offsetWidth;  // commit the unhidden state so the fade-in runs
+    lb.classList.add('open');
+    spy?.disconnect();
+    spy = new IntersectionObserver(entries => {
+      const seen = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (seen) mark([...stage.children].indexOf(seen.target));
+    }, {root: stage, threshold: [.35, .6]});
+    [...stage.children].forEach(f => spy.observe(f));
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    spy?.disconnect();
+    setTimeout(() => { lb.hidden = true; }, 300);
+    if (opener) opener.focus();
+  }
+  shots.forEach((s, i) => {
+    s.tabIndex = 0;
+    s.setAttribute('role', 'button');
+    s.addEventListener('click', () => open(i));
+    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
+  });
+  thumbs.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) goTo([...thumbs.children].indexOf(b));
+  });
+  $('lbClose').onclick = close;
+  addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(at + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(at - 1); }
+  });
+
+  $('recs').innerHTML = DENIM.related.map(r =>
+    `<a class="rec" href="${r.href}"><div class="ph"><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"></div>` +
+    `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
+
+  // Style picker: swap every gallery image, the name and the prices; the images fade out and back in together
+  const gallery = $('gallery'), filmFig = document.querySelector('[data-slot="film"]');
+  let V = DENIM.variants[0], activeTab = 0;
+  // Placeholder fill: the real styles are repeated so the bar can be judged with many styles. Set to 1 to show each once.
+  const REPEAT = 4;
+  const tabs = Array.from({length: DENIM.variants.length * REPEAT}, (_, i) => DENIM.variants[i % DENIM.variants.length]);
+  $('styles').innerHTML = tabs.map((v, i) =>
+    `<button type="button" class="sty" role="radio" data-variant="${v.id}" data-tab="${i}" aria-checked="false" tabindex="-1"><span class="ph"><img src="${v.thumb}" alt=""></span>${v.label}</button>`).join('');
+  function useVariant(id, animate) {
+    const v = DENIM.variants.find(x => x.id === id) || DENIM.variants[0];
+    const apply = () => {
+      V = v;
+      document.querySelectorAll('[data-slot]').forEach(fig => {
+        const shot = v.shots[fig.dataset.slot];
+        if (!shot) return;
+        const img = fig.querySelector('img');
+        img.src = shot[0];
+        img.alt = shot[1];
+      });
+      const video = filmFig.querySelector('video');
+      filmFig.classList.toggle('still', !v.video);
+      filmFig.querySelector('figcaption').textContent = v.video ? 'Look video' : 'Detail';
+      if (v.video) { if (video.getAttribute('src') !== v.video) { video.src = v.video; video.poster = v.poster; } video.play().catch(() => {}); }
+      else video.pause();
+      $('name').textContent = v.name;
+      document.title = `${v.name} | Struggle Style`;
+      $('qtyUnit').textContent = `sets · ${Object.keys(v.parts).join(' + ')}`;
+      document.querySelectorAll('[data-variant]').forEach(b => {
+        const on = +b.dataset.tab === activeTab;
+        b.setAttribute('aria-checked', on);
+        b.tabIndex = on ? 0 : -1;
+        if (on) b.scrollIntoView({block: 'nearest', inline: 'nearest'});
+      });
+      price();
+      gallery.classList.remove('swapping');
+    };
+    if (!animate || reduce) return apply();
+    gallery.classList.add('swapping');
+    setTimeout(apply, 350);
+  }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('styles').addEventListener('click', e => {
+    const b = e.target.closest('[data-variant]');
+    if (!b || +b.dataset.tab === activeTab) return;
+    activeTab = +b.dataset.tab;
+    history.replaceState(null, '', `#${b.dataset.variant}`);
+    useVariant(b.dataset.variant, b.dataset.variant !== V.id);
+  });
+  // Arrow keys move between styles (radio group); the side arrows scroll when the styles don't fit
+  $('styles').addEventListener('keydown', e => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const tabs = [...document.querySelectorAll('[data-variant]')], i = tabs.indexOf(document.activeElement);
+    const to = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    tabs[to].focus();
+    tabs[to].click();
+  });
+  const bar = document.querySelector('.stylebar'), strip = $('styles');
+  const fit = () => bar.classList.toggle('overflow', strip.scrollWidth > strip.clientWidth + 2);
+  addEventListener('resize', fit);
+  fit();
+  $('sbPrev').onclick = () => { strip.scrollLeft -= strip.clientWidth * .7; };
+  $('sbNext').onclick = () => { strip.scrollLeft += strip.clientWidth * .7; };
+
+  // Warm the other variants' images so the swap is instant
+  addEventListener('load', () => DENIM.variants.forEach(v => Object.values(v.shots).forEach(([src]) => { new Image().src = src; })));
+
+  // Respect reduced-motion: keep the look video paused on its poster
+  const lookVideo = document.querySelector('.shot.video video');
+  if (lookVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    lookVideo.removeAttribute('autoplay');
+    lookVideo.pause();
+  }
+
+  activeTab = Math.max(0, DENIM.variants.findIndex(v => v.id === location.hash.slice(1)));
+  useVariant(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
