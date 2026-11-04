@@ -87,7 +87,9 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .shadow{position:absolute;left:50%;bottom:var(--feet);width:min(22%,180px);height:30px;border-radius:50%;background:radial-gradient(closest-side,rgba(15,31,23,.35),transparent);transform:translate(-50%,40%);filter:blur(3px)}
   /* The renders have ~4% empty space under the feet, hence the small negative offset */
-  .fig{position:absolute;left:50%;bottom:calc(var(--feet) - 3%);height:78%;aspect-ratio:1230/1890;transform:translateX(-50%);transform-origin:50% 26%;transition:transform 1s var(--ease),opacity .5s}
+  .fig{position:absolute;left:50%;bottom:calc(var(--feet) - 3%);height:78%;aspect-ratio:1230/1890;transform:translateX(-50%) translate(var(--panx,0px),var(--pany,0px)) scale(var(--zoom,1));transform-origin:50% 26%;transition:transform 1s var(--ease),opacity .5s}
+  .fig.zoom-anim{transition:transform .35s var(--ease),opacity .5s}
+  .fig.no-zoom-anim{transition:opacity .5s}
   .fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:perspective(1000px) rotateY(-16deg) scale(.98);transition:opacity .5s,transform .8s var(--ease)}
   .fig img.enter{transition:none;transform:perspective(1000px) rotateY(16deg) scale(.98)}
   .fig img.on{opacity:1;transform:none}
@@ -95,7 +97,7 @@
   .fig img.drape{z-index:1;transition:none;animation:drape .9s var(--ease)}
   @keyframes drape{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
   /* Detail view zooms onto the upper body; Fabric view swaps the avatar for a floating swatch card */
-  .show.v-detail .fig{transform:translateX(-50%) translateY(14%) scale(1.75)}
+  .show.v-detail .fig{transform:translateX(-50%) translateY(14%) translate(var(--panx,0px),var(--pany,0px)) scale(calc(1.75 * var(--zoom,1)))}
   .show.v-detail .pedestal,.show.v-detail .shadow,.show.v-fabric .pedestal,.show.v-fabric .shadow{opacity:0}
   .pedestal,.shadow{transition:opacity .5s}
   .show.v-fabric .fig{opacity:0;transform:translateX(-50%) scale(.94)}
@@ -124,14 +126,39 @@
   .view:hover{transform:translateX(3px)}
   .view[aria-pressed="true"]{outline-color:var(--text)}
 
-  /* Colour dock: change colour straight from the showcase */
-  .dock{position:absolute;left:50%;bottom:22px;z-index:4;display:flex;align-items:center;gap:8px;padding:6px 8px 6px 16px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
-  .dock .lbl{margin-right:4px;color:var(--muted);font-weight:500}
-  .dock button{width:30px;height:30px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--spring)}
-  .dock button span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
-  .dock button:hover{transform:scale(1.12)}
-  .dock button[aria-checked="true"]{border-color:var(--text)}
-  .view:focus-visible,.dock button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  /* Colour dock: one swatch group per worn garment */
+  .dock{position:absolute;left:50%;bottom:22px;z-index:4;display:flex;align-items:center;gap:12px;padding:6px 10px 6px 14px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
+  .dock-grp{display:flex;align-items:center;gap:6px}
+  .dock-grp + .dock-grp{padding-left:12px;border-left:1px solid rgba(15,31,23,.12)}
+  .dock .lbl{margin-right:2px;color:var(--muted);font-weight:500;font-size:11px}
+  .sw{width:30px;height:30px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--spring)}
+  .sw span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .sw:hover{transform:scale(1.12)}
+  .sw[aria-checked="true"]{border-color:var(--text)}
+  .view:focus-visible,.sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Per-garment colours in the panel */
+  .colour-rows{display:grid;gap:8px}
+  .colour-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px 7px 14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+  .colour-row .who{font-size:13px;font-weight:600}
+  .colour-row .who small{display:block;font-size:11.5px;font-weight:400;color:var(--muted)}
+  .colour-row .swatches{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .colour-row .sw{width:28px;height:28px}
+
+  /* Zoom: a glass pill over the top-right of the showcase */
+  .zoom{position:absolute;right:20px;top:20px;z-index:4;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transition:opacity .3s}
+  .zoom button{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;transition:background .2s,transform .2s var(--spring)}
+  .zoom button:hover:not(:disabled){background:rgba(15,31,23,.08)}
+  .zoom button:active:not(:disabled){transform:scale(.94)}
+  .zoom button:disabled{opacity:.3;cursor:default}
+  .zoom button svg{width:15px;height:15px}
+  .zoom button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  .zoom-val{min-width:42px;text-align:center;font-size:11.5px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+  .show.v-fabric .zoom{opacity:0;pointer-events:none}
+  .show.zoomed{cursor:grab}
+  .show.zoomed.dragging{cursor:grabbing}
+  .show.zoomed .fig{touch-action:none}
+  .show.zoomed .fig img{-webkit-user-drag:none;user-select:none}
 
   .panel{padding:32px clamp(24px,4vw,64px) 48px}
   .crumbs{display:flex;gap:6px;font-size:12px;color:var(--muted)}
@@ -284,6 +311,9 @@
     .view span{display:none}
     .dock{bottom:14px}
     .dock .lbl{display:none}
+    .zoom{right:12px;top:12px;padding:3px}
+    .zoom button{width:28px;height:28px}
+    .zoom-val{min-width:36px;font-size:10.5px}
     .more{padding:56px 0 64px}
     .recs{display:flex;gap:14px;margin:0 -16px;padding:0 16px 8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
     .recs::-webkit-scrollbar{display:none}
@@ -345,7 +375,13 @@
       <button type="button" class="view det" data-view="detail" aria-pressed="false"><img alt="" id="vDetail"><span>Detail</span></button>
       <button type="button" class="view fabv" data-view="fabric" aria-pressed="false"><img alt="" id="vFabric"><span>Fabric</span></button>
     </div>
-    <div class="dock" role="radiogroup" aria-label="Colour"><span class="lbl" id="dockLbl"></span><span id="dock" style="display:contents"></span></div>
+    <div class="zoom" role="group" aria-label="Zoom the look">
+      <button type="button" id="zoomOut" data-zoom="out" aria-label="Zoom out" title="Zoom out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+      <output class="zoom-val" id="zoomVal" aria-live="polite">100%</output>
+      <button type="button" id="zoomIn" data-zoom="in" aria-label="Zoom in" title="Zoom in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button type="button" data-zoom="reset" aria-label="Reset zoom" title="Reset zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+    <div class="dock" id="dock" role="group" aria-label="Garment colours"></div>
   </section>
 
   <section class="panel" aria-labelledby="lookName">
@@ -360,6 +396,11 @@
     <div class="opt">
       <div class="opt-h">Fabric <span id="fabricName"></span></div>
       <div class="fabrics" id="fabrics" role="radiogroup" aria-label="Fabric"></div>
+    </div>
+
+    <div class="opt">
+      <div class="opt-h">Colours <span id="colourNames"></span></div>
+      <div class="colour-rows" id="colourRows"></div>
     </div>
 
 
@@ -508,14 +549,26 @@
   document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
   const garment = Object.fromEntries(WOVEN.garments.map(g => [g.id, g]));
   const fabric = Object.fromEntries(WOVEN.fabrics.map(f => [f.id, f]));
-  const sel = {full: null, top: null, bottom: null, ...WOVEN.initial};
+  const sel = {full: null, top: WOVEN.initial.top, bottom: WOVEN.initial.bottom, fabric: WOVEN.initial.fabric, colours: {}};
+  WOVEN.garments.forEach(g => { sel.colours[g.id] = WOVEN.initial.colour; });
   const fill = (tpl, k) => tpl.replace(/\{(\w+)\}/g, (_, n) => k[n]);
   const range = ([a, b]) => `${a}–${b} days`;
 
-  const lookSrc = (first, second, f = sel.fabric, c = sel.colour) => fill(WOVEN.look, {first, second, fabric: f, colour: c});
+  const colourOf = id => sel.colours[id] ?? fabric[sel.fabric].colours[0][0];
+  const colourLabelOf = id => {
+    const f = fabric[sel.fabric], c = colourOf(id);
+    return (f.colours.find(([cid]) => cid === c) || f.colours[0])[1];
+  };
+  const colourSummary = () => [...new Set(worn().map(g => colourLabelOf(g.id)))].join(' / ');
+  const swatchUrl = (fid, cid) => fill(WOVEN.swatch, {fabric: fid, colour: cid}).replace('.webp', '-sm.webp');
+  const lookSrc = (first, second, f = sel.fabric, c1, c2) => {
+    if (c1 === undefined) c1 = first === 'none' ? undefined : colourOf(first);
+    if (c2 === undefined) c2 = second === 'none' ? undefined : colourOf(second);
+    const colour = first === 'none' ? c2 : second === 'none' ? c1 : c1 === c2 ? c1 : `${c1}-${c2}`;
+    return fill(WOVEN.look, {first, second, fabric: f, colour});
+  };
   const current = () => [sel.full || sel.top || 'none', sel.bottom || 'none'];
   const worn = () => [sel.full, sel.top, sel.bottom].filter(Boolean).map(id => garment[id]);
-  const colourLabel = () => fabric[sel.fabric].colours.find(([id]) => id === sel.colour)[1];
   const lookName = () => {
     const f = fabric[sel.fabric].short, w = worn().map(g => g.label.toLowerCase());
     return `${f} ${w.join(' & ')}`.replace(/^./, c => c.toUpperCase());
@@ -527,11 +580,15 @@
     `<span class="name">${g.label}</span><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></span></button>`).join('');
   $('fabrics').innerHTML = WOVEN.fabrics.map(f =>
     `<button type="button" class="fab" role="radio" data-fabric="${f.id}" aria-checked="false"><span class="tex"></span><span><b>${f.label}</b><small>${f.gsm}</small></span></button>`).join('');
-  // Colour is picked from the dock under the avatar
+  // Each worn garment keeps its own colour; the dock and panel rows are redrawn when the set changes
   const drawColours = () => {
-    const f = fabric[sel.fabric];
-    $('dock').innerHTML = f.colours.map(([id, label]) =>
-      `<button type="button" class="sw" role="radio" data-colour="${id}" aria-label="${label}" aria-checked="false"><span style="--c:url('${fill(WOVEN.swatch, {fabric: f.id, colour: id}).replace('.webp', '-sm.webp')}')"></span></button>`).join('');
+    const f = fabric[sel.fabric], w = worn();
+    const swatches = g => f.colours.map(([id, label]) =>
+      `<button type="button" class="sw" role="radio" data-colour-for="${g.id}" data-colour="${id}" aria-label="${g.label} ${label}" aria-checked="${id === colourOf(g.id)}"><span style="--c:url('${swatchUrl(f.id, id)}')"></span></button>`).join('');
+    $('dock').innerHTML = w.map(g =>
+      `<span class="dock-grp" role="radiogroup" aria-label="${g.label} colour"><span class="lbl">${g.label}</span>${swatches(g)}</span>`).join('');
+    $('colourRows').innerHTML = w.map(g =>
+      `<div class="colour-row"><span class="who">${g.label}<small data-colour-label="${g.id}">${colourLabelOf(g.id)}</small></span><span class="swatches" role="radiogroup" aria-label="${g.label} colour">${swatches(g)}</span></div>`).join('');
   };
 
   function pickGarment(id) {
@@ -573,10 +630,96 @@
   let view = 'look';
   function setView(v) {
     view = v;
+    resetZoom();
     show.classList.remove('v-look', 'v-detail', 'v-fabric');
     show.classList.add(`v-${v}`);
     document.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
   }
+
+  // Zoom: buttons, wheel, double-click and drag-to-pan on the avatar
+  const fig = $('fig');
+  const ZMIN = 1, ZMAX = 3;
+  let zoom = 1, panX = 0, panY = 0, wheelTimer, zoomTimer, drag = null;
+
+  function applyZoom() {
+    if (zoom <= 1) { zoom = 1; panX = panY = 0; }
+    if (zoom > 1) {
+      // Keep the render from being dragged completely out of the frame
+      const base = view === 'detail' ? 1.75 : 1;
+      const maxX = fig.offsetWidth * (base * zoom - 1) / 2;
+      const maxY = fig.offsetHeight * (base * zoom - 1) / 2;
+      panX = Math.max(-maxX, Math.min(maxX, panX));
+      panY = Math.max(-maxY, Math.min(maxY, panY));
+      const scene = show.querySelector('.scene');
+      scene.style.removeProperty('--rx');
+      scene.style.removeProperty('--ry');
+      show.classList.remove('tilting');
+    }
+    fig.style.setProperty('--zoom', zoom);
+    fig.style.setProperty('--panx', `${panX}px`);
+    fig.style.setProperty('--pany', `${panY}px`);
+    show.classList.toggle('zoomed', zoom > 1);
+    $('zoomVal').textContent = `${Math.round(zoom * 100)}%`;
+    $('zoomOut').disabled = zoom <= ZMIN + .001;
+    $('zoomIn').disabled = zoom >= ZMAX - .001;
+  }
+  function setZoom(z) { zoom = Math.max(ZMIN, Math.min(ZMAX, z)); applyZoom(); }
+  function resetZoom() { zoom = 1; panX = panY = 0; applyZoom(); }
+  function smoothZoom() {
+    fig.classList.add('zoom-anim');
+    clearTimeout(zoomTimer);
+    zoomTimer = setTimeout(() => fig.classList.remove('zoom-anim'), 400);
+  }
+
+  document.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+    const action = b.dataset.zoom;
+    smoothZoom();
+    if (action === 'in') setZoom(zoom * 1.5);
+    else if (action === 'out') setZoom(zoom / 1.5);
+    else resetZoom();
+  }));
+
+  // Mouse wheel (and trackpad) zoom the look. Scrolling down at 100% still moves the page.
+  show.addEventListener('wheel', e => {
+    if (e.target.closest('.zoom')) return;
+    if (zoom <= 1 && e.deltaY > 0) return;
+    e.preventDefault();
+    const factor = Math.min(1.4, Math.max(1 / 1.4, Math.exp(-e.deltaY * 0.0015)));
+    fig.classList.add('no-zoom-anim');
+    setZoom(zoom * factor);
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => fig.classList.remove('no-zoom-anim'), 160);
+  }, {passive: false});
+
+  // Double-click toggles between the whole look and a close-up
+  show.addEventListener('dblclick', e => {
+    if (e.target.closest('button,a')) return;
+    smoothZoom();
+    if (zoom > 1) resetZoom(); else setZoom(2);
+  });
+
+  // Drag to pan while zoomed
+  show.addEventListener('pointerdown', e => {
+    if (zoom <= 1 || e.button !== 0 || e.target.closest('button,a')) return;
+    drag = {id: e.pointerId, x: e.clientX, y: e.clientY, panX, panY};
+    fig.classList.add('no-zoom-anim');
+    show.classList.add('dragging');
+    try { show.setPointerCapture(e.pointerId); } catch {}
+  });
+  show.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    panX = drag.panX + e.clientX - drag.x;
+    panY = drag.panY + e.clientY - drag.y;
+    applyZoom();
+  });
+  const endDrag = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag = null;
+    fig.classList.remove('no-zoom-anim');
+    show.classList.remove('dragging');
+  };
+  show.addEventListener('pointerup', endDrag);
+  show.addEventListener('pointercancel', endDrag);
 
   // Changed chip values flip in
   const chip = (id, text, animate) => {
@@ -585,56 +728,77 @@
     el.innerHTML = animate && !reduce ? `<span class="flip">${text}</span>` : text;
   };
 
-  // Warm the cache with every look one click away: other garments in this colour, this look in other colours
+  // Warm the cache with every look one click away: other garments in the current colours,
+  // and this look with each garment in its other colours
   const warmed = new Set();
   function preload() {
     const ids = t => WOVEN.garments.filter(g => g.type === t).map(g => g.id);
     const pairs = [...ids('full').map(f => [f, 'none']), ...['none', ...ids('top')].flatMap(t => ['none', ...ids('bottom')].map(b => [t, b]))]
       .filter(([t, b]) => t !== 'none' || b !== 'none');
-    const urls = [...pairs.map(([a, b]) => lookSrc(a, b)),
-      ...WOVEN.fabrics.flatMap(f => f.colours.map(([c]) => lookSrc(...current(), f.id, c)))];
-    urls.filter(u => !warmed.has(u)).forEach(u => { warmed.add(u); new Image().src = u; });
+    const first = sel.full || sel.top || 'none', second = sel.bottom || 'none';
+    const urls = new Set(pairs.map(([a, b]) => lookSrc(a, b)));
+    const addVariants = (id, isFirst) => {
+      if (id === 'none') return;
+      fabric[sel.fabric].colours.forEach(([c]) => {
+        if (c === colourOf(id)) return;
+        urls.add(isFirst
+          ? lookSrc(first, second, sel.fabric, c, second === 'none' ? undefined : colourOf(second))
+          : lookSrc(first, second, sel.fabric, first === 'none' ? undefined : colourOf(first), c));
+      });
+    };
+    addVariants(first, true);
+    addVariants(second, false);
+    urls.forEach(u => { if (!warmed.has(u)) { warmed.add(u); new Image().src = u; } });
   }
 
   function render(mode) {
-    const f = fabric[sel.fabric], w = worn(), name = lookName(), colour = colourLabel();
-    const code = `SS-${w.map(g => g.code).join('')}-${f.code}-${sel.colour.slice(0, 3).toUpperCase()}`;
-    const alt = `${name} in ${colour.toLowerCase()} on the 3D avatar`;
+    const f = fabric[sel.fabric], w = worn(), name = lookName(), summary = colourSummary();
+    const firstColour = colourOf(w[0].id);
+    const colourCodes = [...new Set(w.map(g => colourOf(g.id).slice(0, 3).toUpperCase()))];
+    const code = `SS-${w.map(g => g.code).join('')}-${f.code}-${colourCodes.join('-')}`;
+    const alt = `${name} in ${summary.toLowerCase()} on the 3D avatar`;
 
-    const swatch = fill(WOVEN.swatch, {fabric: f.id, colour: sel.colour});
+    const swatch = fill(WOVEN.swatch, {fabric: f.id, colour: firstColour});
     const moq = `${Math.max(...w.map(g => g.moq))} pcs`;
     showLook(lookSrc(...current()), alt, mode);
-    $('figCap').textContent = `${name} · ${colour}`;
+    $('figCap').textContent = `${name} · ${summary}`;
     $('vLook').src = $('vDetail').src = lookSrc(...current());
     $('vFabric').src = swatch;
     $('swcard').style.setProperty('--sw', `url('${swatch}')`);
     $('chipDot').style.setProperty('--sw', `url('${swatch.replace('.webp', '-sm.webp')}')`);
-    show.style.setProperty('--tint', fabric[sel.fabric].colours.find(([id]) => id === sel.colour)[2]);
+    show.style.setProperty('--tint', fabric[sel.fabric].colours.find(([id]) => id === firstColour)[2]);
     chip('chipName', name, mode);
     chip('chipCode', code, mode);
     chip('chipMoq', moq, mode);
-    chip('chipFab', `${f.label} · ${colour}`, mode);
+    chip('chipFab', `${f.label} · ${summary}`, mode);
     chip('chipGsm', `${f.gsm} · ${f.comp}`, mode);
-    $('dockLbl').textContent = colour;
 
     document.querySelectorAll('[data-garment]').forEach(b => {
       const g = garment[b.dataset.garment];
       b.setAttribute('aria-pressed', [sel.full, sel.top, sel.bottom].includes(g.id));
-      b.querySelector('img').src = lookSrc(g.type === 'bottom' ? 'none' : g.id, g.type === 'bottom' ? g.id : 'none');
+      b.querySelector('img').src = g.type === 'bottom'
+        ? lookSrc('none', g.id, sel.fabric, undefined, colourOf(g.id))
+        : lookSrc(g.id, 'none', sel.fabric, colourOf(g.id), undefined);
     });
     document.querySelectorAll('[data-fabric]').forEach(b => {
-      const fb = fabric[b.dataset.fabric], c = fb.colours.some(([id]) => id === sel.colour) ? sel.colour : fb.colours[0][0];
+      const fb = fabric[b.dataset.fabric], c = fb.colours.some(([id]) => id === firstColour) ? firstColour : fb.colours[0][0];
       b.setAttribute('aria-checked', fb.id === sel.fabric);
-      b.querySelector('.tex').style.setProperty('--t', `url('${fill(WOVEN.swatch, {fabric: fb.id, colour: c}).replace('.webp', '-sm.webp')}')`);
+      b.querySelector('.tex').style.setProperty('--t', `url('${swatchUrl(fb.id, c)}')`);
     });
-    document.querySelectorAll('[data-colour]').forEach(b => b.setAttribute('aria-checked', b.dataset.colour === sel.colour));
+    document.querySelectorAll('[data-colour-for]').forEach(b => {
+      b.setAttribute('aria-checked', b.dataset.colour === colourOf(b.dataset.colourFor));
+    });
+    document.querySelectorAll('[data-colour-label]').forEach(el => {
+      el.textContent = colourLabelOf(el.dataset.colourLabel);
+    });
 
     $('lookName').textContent = name;
     document.title = `${name} | Struggle Style`;
     $('styleCode').textContent = code;
     $('garmentNames').textContent = w.map(g => g.label).join(' + ');
-    $('fabricName').textContent = `${f.label} · ${colour}`;
-    look = {code, name, colour};
+    $('fabricName').textContent = `${f.label} · ${f.gsm}`;
+    $('colourNames').textContent = summary;
+    look = {code, name, colour: summary};
     syncCalc();
     preload();
   }
@@ -719,16 +883,22 @@
   $('calcForm').addEventListener('input', price);
   $('calcForm').addEventListener('submit', e => e.preventDefault());
 
-  // Panel and showcase dock share one handler: garments turn the avatar, fabric and colour drape over it
+  // Panel and showcase dock share one handler: garments turn the avatar, fabric and colours drape over it
   const choose = e => {
-    const t = e.target.closest('[data-garment],[data-fabric],[data-colour]');
+    const t = e.target.closest('[data-garment],[data-fabric],[data-colour-for]');
     if (!t) return;
-    if (t.dataset.garment) pickGarment(t.dataset.garment);
-    else if (t.dataset.colour) sel.colour = t.dataset.colour;
+    if (t.dataset.garment) {
+      pickGarment(t.dataset.garment);
+      drawColours();
+    }
+    else if (t.dataset.colourFor) sel.colours[t.dataset.colourFor] = t.dataset.colour;
     else if (t.dataset.fabric !== sel.fabric) {
-      // Keep black across fabrics; otherwise start on the new fabric's first colour
-      const f = fabric[sel.fabric = t.dataset.fabric];
-      if (!f.colours.some(([c]) => c === sel.colour)) sel.colour = f.colours[0][0];
+      // Keep a colour across fabrics when it exists there; otherwise start on that fabric's first colour
+      sel.fabric = t.dataset.fabric;
+      const f = fabric[sel.fabric];
+      WOVEN.garments.forEach(g => {
+        if (!f.colours.some(([c]) => c === sel.colours[g.id])) sel.colours[g.id] = f.colours[0][0];
+      });
       drawColours();
     }
     // A new garment is best seen whole
@@ -743,8 +913,9 @@
   });
 
   // The scene and the recommendation cards lean toward the pointer
-  function tilt(el, target, deg) {
+  function tilt(el, target, deg, skip) {
     el.addEventListener('pointermove', e => {
+      if (skip && skip()) return;
       const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
       el.classList.add('tilting');
       target.style.setProperty('--rx', `${(.5 - y) * deg}deg`);
@@ -760,12 +931,13 @@
     `<a class="rec" href="${r.href}"><div class="ph"><span class="tag">${r.cat}</span><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"><span class="go">${ARROW}</span></div>` +
     `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
   if (hover && !reduce) {
-    tilt(show, show.querySelector('.scene'), 10);
+    tilt(show, show.querySelector('.scene'), 10, () => zoom > 1);
     document.querySelectorAll('.rec').forEach(r => tilt(r, r, 8));
   }
 
   drawColours();
   render();
+  applyZoom();
 })();
 </script>
 </body>

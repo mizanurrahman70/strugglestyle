@@ -46,12 +46,24 @@ os.makedirs(OUT, exist_ok=True)
 src = {g: load(g) for g in FULL + TOPS + BOTTOMS}
 masks = {g: garment_mask(im) for g, im in src.items()}
 for code, (strength, colours) in FABRICS.items():
+    dyed = {}
     for colour in colours:
         color, weave = swatch_tone(f'images/swatches/{code}-{colour}.webp')
-        dyed = {g: tint(src[g], masks[g], color, weave, strength) for g in src}
-        jobs = {f'{g}-none': dyed[g] for g in FULL + TOPS}
-        jobs.update({f'none-{b}': dyed[b] for b in BOTTOMS})
-        jobs.update({f'{t}-{b}': layer(dyed[t], masks[t], dyed[b], masks[b]) for t in TOPS for b in BOTTOMS})
-        for name, im in jobs.items():
-            im.save(f'{OUT}/{name}-{code}-{colour}.webp', quality=86, method=6)
-        print(code, colour, color, len(jobs), 'looks')
+        for g in src:
+            dyed[(g, colour)] = tint(src[g], masks[g], color, weave, strength)
+    # Single garments: the same files the page has always used
+    for colour in colours:
+        for g in FULL + TOPS:
+            dyed[(g, colour)].save(f'{OUT}/{g}-none-{code}-{colour}.webp', quality=86, method=6)
+        for b in BOTTOMS:
+            dyed[(b, colour)].save(f'{OUT}/none-{b}-{code}-{colour}.webp', quality=86, method=6)
+    # Two garments: every top/bottom colour combination.
+    # Same colour keeps the old name; mixed colours add the bottom colour after the top one.
+    for t in TOPS:
+        for b in BOTTOMS:
+            for ct in colours:
+                for cb in colours:
+                    suffix = ct if ct == cb else f'{ct}-{cb}'
+                    layer(dyed[(t, ct)], masks[t], dyed[(b, cb)], masks[b]).save(
+                        f'{OUT}/{t}-{b}-{code}-{suffix}.webp', quality=86, method=6)
+    print(code, len(colours), 'colours', 'done')
