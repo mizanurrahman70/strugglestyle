@@ -79,6 +79,9 @@
   .shot:not(.product):hover img{transform:scale(1.03)}
   .shot figcaption{position:absolute;left:18px;bottom:16px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(17,17,17,.55)}
   .shot.full img{object-position:50% 30%}
+  /* First cell plays the style's video (silent, looping) over its photo when the style has one */
+  .shot.full .fullvid{position:absolute;inset:0;z-index:1;display:none;object-position:50% 30%}
+  .shot.full.has-video .fullvid{display:block}
   /* Look video sits in the grid, silent and looping, and is not part of the photo lightbox */
   .shot.video{cursor:default;background:#000}
   .shot.video video{transition:none}
@@ -504,54 +507,12 @@
 </nav>
 
 <main class="pdp" id="gallery">
-  <figure data-slot="full" class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
+  <h1 id="name" class="sr-only">Vintage-wash denim jacket &amp; straight jeans</h1>
+  <figure data-slot="full" class="shot full" data-i="0"><video class="fullvid" muted loop playsinline preload="metadata" poster="denim/model.webp" aria-hidden="true"></video><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
   <figure data-slot="product" class="shot product">
     <img class="main" src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket">
     <div class="pthumbs" id="pThumbs" role="tablist" aria-label="Product images" aria-orientation="vertical"></div>
   </figure>
-
-  <div class="info-cell">
-    <section class="info" aria-labelledby="name">
-      <section class="order" id="price">
-        <header class="o-head">
-          <div>
-            <p class="kicker">Denim · Made to order</p>
-            <h1 id="name">Vintage-wash denim jacket &amp; straight jeans</h1>
-          </div>
-          <p class="from">From <b id="fromPrice"></b> / set · excl. VAT</p>
-        </header>
-
-        <form class="o-cfg" id="calcForm" novalidate>
-          <div class="step">
-            <label for="dest">Deliver to <span id="destPort"></span></label>
-            <div class="dest"><img id="destFlag" alt=""><select id="dest"></select></div>
-          </div>
-          <div class="step">
-            <label for="qty">Quantity <span id="qtyUnit"></span></label>
-            <div class="qty"><button type="button" id="minus" aria-label="100 fewer">−</button><input id="qty" type="number" inputmode="numeric" min="1" step="100" value="1000"><button type="button" id="plus" aria-label="100 more">+</button></div>
-            <p class="hint" id="qtyHint" aria-live="polite"></p>
-          </div>
-          <div class="step">
-            <div class="step-h">Shipping</div>
-            <div class="ship" id="ship" role="radiogroup" aria-label="Shipping"></div>
-          </div>
-        </form>
-
-        <aside class="o-sum" aria-label="Price summary">
-        <h2 class="o-sum-h">Your estimate</h2>
-        <dl class="sum" aria-live="polite">
-          <div><dt id="perSetLabel">Price per set</dt><dd id="perSet"></dd></div>
-          <div id="discRow"><dt id="discLabel"></dt><dd id="disc"></dd></div>
-          <div><dt id="freightLabel">Delivery</dt><dd id="freight"></dd></div>
-          <div><dt>EU import duty</dt><dd>€0.00</dd></div>
-          <div class="tot"><dt>Order total <span class="vat" id="vatNote"></span></dt><dd id="total"></dd></div>
-        </dl>
-        <a class="buy" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-        <p class="o-note">Indicative FOB estimate · final price confirmed with your order</p>
-        </aside>
-      </section>
-    </section>
-  </div>
 
 </main>
 
@@ -713,7 +674,7 @@
     // SAMPLE rates). `film` is the look video, or a still where a variant has none. Open one directly with #<id>.
     variants: [
       {id: 'jacket', label: 'Jacket & jeans', style: 'SS-DN-JKT-JN', name: 'Vintage-wash denim jacket & straight jeans',
-       parts: {jacket: 11.6, jeans: 9.1}, thumb: 'denim/half.webp', video: 'denim/look.mp4', poster: 'denim/look-poster.webp',
+       parts: {jacket: 11.6, jeans: 9.1}, thumb: 'denim/half.webp', fullVideo: 'denim/jacketVideo/jacket.mp4',
        shots: {
          full: ['denim/model.webp', 'Model wearing the vintage-wash denim jacket and straight jeans, full length'],
          product: ['denim/product.webp', 'Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket'],
@@ -792,67 +753,6 @@
   }, {passive: true});
 
   window.SS_EU = {countries: DENIM.countries, shipping: DENIM.shipping};
-  $('dest').innerHTML = DENIM.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  $('dest').value = 'de';
-  let ship = 'sea';
-
-  // Price per set: jacket + jeans, set discount, volume discount or small-run surcharge, then delivery
-  function price() {
-    const c = DENIM.countries.find(x => x.id === $('dest').value);
-    const qty = Math.round(num('qty')), ok = qty >= 1, belowMoq = ok && qty < DENIM.moq;
-    const nextTier = DENIM.volume.map(([q]) => q).filter(q => q > qty).pop();
-    const days = s => s.days || c.sea;
-
-    $('destFlag').src = `https://flagcdn.com/w40/${c.id}.png`;
-    $('destPort').textContent = {sea: `via ${c.port}`, air: 'via airport', express: 'door to door'}[ship];
-    $('ship').innerHTML = DENIM.shipping.map(s =>
-      `<button type="button" role="radio" data-ship="${s.id}" aria-checked="${s.id === ship}"><b>${s.label}</b><small>${range(days(s))}</small></button>`).join('');
-    $('qtyHint').className = 'hint' + (ok && !belowMoq ? '' : ' warn');
-    $('qtyHint').textContent = !ok ? 'Enter a quantity.'
-      : belowMoq ? `Below the ${int.format(DENIM.moq)}-set MOQ: a small-run surcharge applies.`
-      : nextTier ? `Add ${int.format(nextTier - qty)} sets for the next volume discount.` : 'Best volume rate.';
-
-    const list = Object.values(V.parts).reduce((a, b) => a + b, 0), base = list * (1 - DENIM.setDiscount);
-    $('fromPrice').textContent = eur.format(base * (1 - DENIM.volume[0][1]));
-    if (!ok) {
-      ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
-      $('orderNow').removeAttribute('href');
-      $('orderNow').setAttribute('aria-disabled', 'true');
-      return;
-    }
-
-    const s = DENIM.shipping.find(x => x.id === ship);
-    const [, vol = 0] = DENIM.volume.find(([q]) => qty >= q) || [];
-    const small = belowMoq ? Math.min(DENIM.smallRun, (DENIM.moq / qty - 1) * .1) : 0;
-    const goods = base * qty, adj = goods * (small - vol);
-    const freight = Math.max(s.min, DENIM.setKg * qty * s.perKg);
-    const total = goods + adj + freight;
-
-    $('perSet').textContent = `${eur.format(base)} × ${int.format(qty)}`;
-    $('discRow').hidden = !adj;
-    $('discLabel').textContent = vol ? `Volume discount · ${vol * 100}%` : `Small-run surcharge · ${Math.round(small * 100)}%`;
-    $('disc').textContent = (adj < 0 ? '−' : '+') + eur.format(Math.abs(adj));
-    $('disc').className = adj < 0 ? 'neg' : 'pos';
-    $('freightLabel').textContent = `${s.label} to ${ship === 'sea' ? c.port : c.name}`;
-    $('freight').textContent = eur.format(freight);
-    $('total').textContent = eur.format(total);
-    $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
-
-    const q = {style: V.style, product: V.name, quantity: qty, destination: `${c.name} (${c.port})`, shipping: s.label,
-      estimate: `${eur.format(total / qty)} / set, ${eur.format(total)} total excl. VAT`};
-    $('orderNow').removeAttribute('aria-disabled');
-    $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({order: 'now', ...q})}`;
-  }
-
-  $('ship').addEventListener('click', e => {
-    const b = e.target.closest('[data-ship]');
-    if (b && b.dataset.ship !== ship) { ship = b.dataset.ship; price(); $('ship').querySelector(`[data-ship="${ship}"]`).focus(); }
-  });
-  const stepQty = d => { $('qty').value = Math.max(100, Math.round((num('qty') || 0) / 100) * 100 + d); price(); };
-  $('minus').onclick = () => stepQty(-100);
-  $('plus').onclick = () => stepQty(100);
-  $('calcForm').addEventListener('input', price);
-  $('calcForm').addEventListener('submit', e => e.preventDefault());
 
   // Full-screen viewer: clicking a shot opens every image of the current style, stacked, at the one clicked.
   // Thumbnails jump to an image; the one in view is marked as you scroll. Esc closes, ↑ ↓ step through.
@@ -969,9 +869,15 @@
         img.src = shot[0];
         img.alt = shot[1];
       });
+      // The first cell plays this style's video if it has one; the photo underneath stays for the viewer
+      const fullFig = document.querySelector('[data-slot="full"]'), vid = fullFig.querySelector('.fullvid');
+      fullFig.classList.toggle('has-video', !!v.fullVideo);
+      if (v.fullVideo) {
+        if (vid.getAttribute('src') !== v.fullVideo) { vid.src = v.fullVideo; vid.poster = v.shots.full[0]; }
+        if (!reduce) vid.play().catch(() => {});
+      } else vid.pause();
       $('name').textContent = v.name;
       document.title = `${v.name} | Struggle Style`;
-      $('qtyUnit').textContent = `sets · ${Object.keys(v.parts).join(' + ')}`;
       document.querySelectorAll('[data-variant]').forEach(b => {
         const on = +b.dataset.tab === activeTab;
         b.setAttribute('aria-checked', on);
@@ -979,7 +885,6 @@
         if (on) b.scrollIntoView({block: 'nearest', inline: 'nearest'});
       });
       drawPThumbs(v);
-      price();
       gallery.classList.remove('swapping');
     };
     if (!animate || reduce) return apply();
