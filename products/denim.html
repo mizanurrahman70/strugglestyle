@@ -59,7 +59,9 @@
   .logo:hover .wm .thread path{animation:sew 1.2s linear infinite}
   @keyframes sew{to{stroke-dashoffset:-15}}
   .wm sup{font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.14em;align-self:flex-start;margin:2px 0 0 12px;opacity:.75}
-  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border)}
+  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border);transition:transform .38s var(--ease)}
+  /* Hide the bar while scrolling down, slide it back as soon as the page scrolls up */
+  #hdr.is-hidden{transform:translateY(-101%)}
   .nav{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:24px}
   .nav ul{display:flex;gap:4px;list-style:none}
   .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
@@ -71,7 +73,7 @@
   .mnav{display:none}
 
   /* Product: a two-column gallery; the calculator takes the cell beside the hero */
-  .pdp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;margin:var(--hdr) 0 0;background:#fff}
+  .pdp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;margin:0;background:#fff}
   .shot{position:relative;aspect-ratio:4/5;margin:0;overflow:hidden;background:var(--studio);cursor:zoom-in}
   .shot img,.shot video{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
   .shot:hover img{transform:scale(1.03)}
@@ -103,13 +105,29 @@
   .from b{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
   .step{margin-top:24px}
   /* Style picker: one thumbnail per variant; picking one swaps the whole gallery */
-  .styles{display:flex;gap:8px}
-  .sty{position:relative;width:64px;aspect-ratio:4/5;overflow:hidden;background:var(--studio);outline:1px solid transparent;outline-offset:3px;transition:outline-color .2s}
-  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform .5s var(--ease)}
-  .sty:hover img{transform:scale(1.06)}
-  .sty:hover{outline-color:#B8B8B3}
-  .sty[aria-checked="true"]{outline-color:var(--ink)}
-  .sty:focus-visible{outline:2px solid var(--green-600)}
+  /* Style bar: right under the site header, stays in view; picking a style swaps the whole page */
+  /* Style tabs: a quiet strip under the header, as on European fashion sites. Each style is a small portrait and
+     a name; the active one is ink with an underline. It scrolls sideways when there are many styles. */
+  .stylebar{position:sticky;top:var(--hdr);z-index:40;margin-top:var(--hdr);background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:top .38s var(--ease),transform .38s var(--ease)}
+  /* Both bars tuck away together while scrolling down, then return on scroll up */
+  #hdr.is-hidden + .stylebar{top:0;transform:translateY(-101%)}
+  .stylebar-in{display:flex;align-items:stretch;height:60px;padding:0 32px}
+  .styles{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none}
+  .styles::-webkit-scrollbar{display:none}
+  .sty{position:relative;flex:none;display:flex;align-items:center;gap:10px;padding:0 20px;font-size:13px;font-weight:500;color:#8A8A85;white-space:nowrap;transition:color .2s}
+  .sty .ph{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;background:var(--studio);box-shadow:0 0 0 1px var(--line);transition:box-shadow .2s}
+  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+  .sty::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .35s var(--ease)}
+  .sty:hover{color:var(--ink)}
+  .sty[aria-checked="true"]{color:var(--ink)}
+  .sty[aria-checked="true"] .ph{box-shadow:0 0 0 1.5px var(--ink)}
+  .sty[aria-checked="true"]::after{transform:scaleX(1)}
+  .sty:focus-visible{outline:2px solid var(--green-600);outline-offset:-4px}
+  .sb-nav{flex:none;display:none;align-items:center;gap:4px;padding-left:12px}
+  .stylebar.overflow .sb-nav{display:flex}
+  .sb-nav button{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;color:var(--ink);transition:border-color .2s}
+  .sb-nav button:hover{border-color:var(--ink)}
+  .sb-nav svg{width:14px;height:14px}
   /* Gallery swap: images fade out, change, fade back in */
   .pdp .shot img,.pdp .shot video{transition:transform 1.2s var(--ease),opacity .35s}
   .pdp.swapping .shot:not(.fabric) img,.pdp.swapping .shot video{opacity:0}
@@ -212,6 +230,11 @@
   }
   /* Phone: the two-column grid stacks; images full-bleed, calculator inset */
   @media (max-width:760px){
+    .stylebar-in{height:52px;padding:0 4px}
+    .sty{padding:0 12px}
+    .stylebar.overflow .sb-nav{display:none}
+    .stylebar.overflow .styles{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+    .sty::after{left:12px;right:12px}
     :root{--hdr:72px}
     .wrap{padding:0 16px}
     .mnav.open{padding:8px 16px 24px}
@@ -256,6 +279,13 @@
   </nav>
 </header>
 
+<nav class="stylebar" aria-label="Styles">
+  <div class="stylebar-in">
+    <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
+    <div class="sb-nav"><button type="button" id="sbPrev" aria-label="Scroll styles left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="sbNext" aria-label="Scroll styles right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+</nav>
+
 <main class="pdp" id="gallery">
   <figure data-slot="full" class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
   <figure data-slot="product" class="shot product" data-i="1"><img src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket"></figure>
@@ -267,11 +297,6 @@
         <p class="kicker">Denim · Made to order</p>
         <h1 id="name">Vintage-wash denim jacket &amp; straight jeans</h1>
         <p class="from">From <b id="fromPrice"></b> / set · excl. VAT</p>
-
-        <div class="step">
-          <div class="step-h">Style <span id="styleName"></span></div>
-          <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
-        </div>
 
         <form id="calcForm" novalidate>
           <div class="step">
@@ -440,6 +465,16 @@
   $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
   document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
 
+  // Site bar: hide on scroll down, reveal on scroll up; always visible near the top or with the menu open
+  let lastY = Math.max(0, scrollY);
+  addEventListener('scroll', () => {
+    const y = Math.max(0, scrollY), dy = y - lastY;
+    if (Math.abs(dy) < 6) return;                       // ignore trackpad jitter
+    if (y < 90 || dy < 0 || hdr.classList.contains('open')) hdr.classList.remove('is-hidden');
+    else hdr.classList.add('is-hidden');
+    lastY = y;
+  }, {passive: true});
+
   $('dest').innerHTML = DENIM.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
   $('dest').value = 'de';
   let ship = 'sea';
@@ -557,9 +592,12 @@
 
   // Style picker: swap every gallery image, the name and the prices; the images fade out and back in together
   const gallery = $('gallery'), filmFig = document.querySelector('[data-slot="film"]');
-  let V = DENIM.variants[0];
-  $('styles').innerHTML = DENIM.variants.map(v =>
-    `<button type="button" class="sty" role="radio" data-variant="${v.id}" aria-label="${v.label}" aria-checked="false"><img src="${v.thumb}" alt=""></button>`).join('');
+  let V = DENIM.variants[0], activeTab = 0;
+  // Placeholder fill: the real styles are repeated so the bar can be judged with many styles. Set to 1 to show each once.
+  const REPEAT = 4;
+  const tabs = Array.from({length: DENIM.variants.length * REPEAT}, (_, i) => DENIM.variants[i % DENIM.variants.length]);
+  $('styles').innerHTML = tabs.map((v, i) =>
+    `<button type="button" class="sty" role="radio" data-variant="${v.id}" data-tab="${i}" aria-checked="false" tabindex="-1"><span class="ph"><img src="${v.thumb}" alt=""></span>${v.label}</button>`).join('');
   function useVariant(id, animate) {
     const v = DENIM.variants.find(x => x.id === id) || DENIM.variants[0];
     const apply = () => {
@@ -578,9 +616,13 @@
       else video.pause();
       $('name').textContent = v.name;
       document.title = `${v.name} | Struggle Style`;
-      $('styleName').textContent = v.label;
       $('qtyUnit').textContent = `sets · ${Object.keys(v.parts).join(' + ')}`;
-      document.querySelectorAll('[data-variant]').forEach(b => b.setAttribute('aria-checked', b.dataset.variant === v.id));
+      document.querySelectorAll('[data-variant]').forEach(b => {
+        const on = +b.dataset.tab === activeTab;
+        b.setAttribute('aria-checked', on);
+        b.tabIndex = on ? 0 : -1;
+        if (on) b.scrollIntoView({block: 'nearest', inline: 'nearest'});
+      });
       price();
       gallery.classList.remove('swapping');
     };
@@ -591,10 +633,27 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   $('styles').addEventListener('click', e => {
     const b = e.target.closest('[data-variant]');
-    if (!b || b.dataset.variant === V.id) return;
+    if (!b || +b.dataset.tab === activeTab) return;
+    activeTab = +b.dataset.tab;
     history.replaceState(null, '', `#${b.dataset.variant}`);
-    useVariant(b.dataset.variant, true);
+    useVariant(b.dataset.variant, b.dataset.variant !== V.id);
   });
+  // Arrow keys move between styles (radio group); the side arrows scroll when the styles don't fit
+  $('styles').addEventListener('keydown', e => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const tabs = [...document.querySelectorAll('[data-variant]')], i = tabs.indexOf(document.activeElement);
+    const to = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    tabs[to].focus();
+    tabs[to].click();
+  });
+  const bar = document.querySelector('.stylebar'), strip = $('styles');
+  const fit = () => bar.classList.toggle('overflow', strip.scrollWidth > strip.clientWidth + 2);
+  addEventListener('resize', fit);
+  fit();
+  $('sbPrev').onclick = () => { strip.scrollLeft -= strip.clientWidth * .7; };
+  $('sbNext').onclick = () => { strip.scrollLeft += strip.clientWidth * .7; };
+
   // Warm the other variants' images so the swap is instant
   addEventListener('load', () => DENIM.variants.forEach(v => Object.values(v.shots).forEach(([src]) => { new Image().src = src; })));
 
@@ -605,6 +664,7 @@
     lookVideo.pause();
   }
 
+  activeTab = Math.max(0, DENIM.variants.findIndex(v => v.id === location.hash.slice(1)));
   useVariant(location.hash.slice(1));
 })();
 </script>

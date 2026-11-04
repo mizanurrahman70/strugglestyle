@@ -19,17 +19,19 @@ CROPS = {
 }
 
 # The vest for the product shot: outline in photo pixels; inside it, denim blue is kept and arms, hair and wall dropped
-VEST = [(680, 310), (752, 312), (754, 330), (800, 356), (845, 366), (858, 420), (858, 600), (850, 650), (843, 738),
+VEST = [(680, 310), (752, 312), (754, 358), (800, 428), (852, 458), (858, 600), (850, 650), (843, 738),
         (700, 742), (560, 740), (527, 736), (527, 690), (540, 620), (555, 560), (565, 500), (570, 450), (585, 410),
         (600, 378), (678, 372)]
 BG, SIZE, FILL, SS = (248, 247, 245), (1200, 1500), .7, 4
-HAIR = (748, 300, 862, 430)  # blond hair over the right yoke: anything not denim here is repainted from the denim around
+# Hair covers the right yoke, so the outline cuts below it on a clean diagonal; nothing is repainted
+HAIR = (0, 0, 0, 0)
 
 
 def denim(r, g, b):
     h, s, _ = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
     lum = .299 * r + .587 * g + .114 * b
-    return (.5 < h < .72 and s > .12) or lum < 55
+    hair = h < .16 and s > .2
+    return (.5 < h < .72 and s > .12) or (lum < 45 and not hair)
 
 
 def fill_holes(m):
