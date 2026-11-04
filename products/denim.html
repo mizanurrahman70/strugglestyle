@@ -94,46 +94,50 @@
   .info{width:100%;max-width:480px;margin:0;padding:0}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-  /* Calculator: quantity + MOQ + shipping -> live FOB estimate */
-  .order{padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#FBFCFA,#F4F7F5);box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -28px rgba(15,31,23,.35)}
-  .order-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
-  .order-h h2{font:600 16px/1.2 var(--head)}
-  .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
-  .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .field{min-width:0}
-  .field.wide{grid-column:1/-1}
-  .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-  .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
-  .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
-  .field input,.field select{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;font:600 14.5px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-  .field input::-webkit-outer-spin-button,.field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-  .field select{cursor:pointer;font-weight:500;font-size:13.5px}
-  .field .unit{padding-right:12px;font-size:12px;color:var(--muted)}
-  .field small{display:none;margin-top:5px;font-size:11.5px;color:#B4541A}
-  .field small.warn{display:block}
-  .field.bad .ctl{border-color:#D9822B}
-  .tier{margin-top:10px;font-size:12px;color:var(--green-700)}
-  .tier:empty{display:none}
-  .sum{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-  .sum small{display:block;font-size:11.5px;color:var(--muted)}
-  .unit-price{font:700 34px/1.05 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .unit-price small{display:inline;font:500 13px var(--body);color:var(--muted);letter-spacing:0}
-  .total{text-align:right}
-  .total b{display:block;font:600 17px/1.2 var(--head);font-variant-numeric:tabular-nums}
-  .breakdown{margin-top:12px}
-  .breakdown summary{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);list-style:none;cursor:pointer}
-  .breakdown summary::-webkit-details-marker{display:none}
-  .breakdown summary::after{content:"";width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
-  .breakdown[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
-  .lines{display:grid;grid-template-columns:1fr auto;gap:7px 16px;margin-top:10px;font-size:12.5px}
-  .lines dt{color:var(--muted)}
-  .lines dd{text-align:right;font-variant-numeric:tabular-nums}
-  .lines .neg{color:var(--green-700)}
-  .lines .pos{color:#B4541A}
-  .order .btn{width:100%;margin-top:16px}
-  .order .btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
-  .order .note{margin-top:10px;font-size:11.5px;color:var(--muted);text-align:center}
-  .field input:focus-visible,.field select:focus-visible,.breakdown summary:focus-visible,.order .btn:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  /* Order panel: flat and quiet like the gallery — hairlines, square corners, one black action.
+     Prices in euros excl. VAT, delivered to the buyer's EU country. */
+  .order{color:var(--ink)}
+  .kicker{font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .order h1{margin-top:10px;font:500 clamp(22px,1.9vw,26px)/1.25 var(--head);letter-spacing:-.01em}
+  .from{margin-top:8px;font-size:13px;color:var(--muted)}
+  .from b{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .step{margin-top:24px}
+  .step > label,.step-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .step-h span,.step > label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+  .dest{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border:1px solid #D4D4D0;transition:border-color .2s}
+  .dest:focus-within{border-color:var(--ink)}
+  .dest img{flex:none;width:22px;height:15px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+  .dest select{flex:1;min-width:0;height:100%;border:0;background:none;font:500 14.5px var(--body);color:var(--ink);outline:0;cursor:pointer}
+  .qty{display:flex;height:48px;border:1px solid #D4D4D0}
+  .qty:focus-within{border-color:var(--ink)}
+  .qty button{flex:none;width:48px;font-size:18px;transition:background .2s}
+  .qty button:hover{background:#F2F2EF}
+  .qty input{flex:1;min-width:0;border:0;border-inline:1px solid #D4D4D0;text-align:center;font:600 15px var(--body);color:var(--ink);outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+  .qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .hint{margin-top:7px;font-size:12px;color:var(--muted)}
+  .hint.warn{color:#A1461B}
+  .ship{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .ship button{padding:10px 8px;border:1px solid #D4D4D0;text-align:left;transition:border-color .2s,background .2s}
+  .ship button:hover{border-color:var(--ink)}
+  .ship button b{display:block;font-size:13px;font-weight:600}
+  .ship button small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .ship button[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+  .sum{margin-top:24px;border-top:1px solid var(--ink)}
+  .sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-variant-numeric:tabular-nums}
+  .sum dt{color:var(--muted)}
+  .sum div[hidden]{display:none}
+  .sum .neg{color:#3F7A4F}
+  .sum .pos{color:#A1461B}
+  .sum .tot{border-bottom:0;padding-top:14px;font-size:15px;font-weight:600}
+  .sum .tot dt{color:var(--ink)}
+  .sum .tot dd{font-size:20px}
+  .vat{font-size:11.5px;color:var(--muted)}
+  .buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;margin-top:18px;background:var(--green-700);color:#fff;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:background .25s,box-shadow .25s}
+  .buy:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .buy svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .buy:hover svg{transform:translateX(3px)}
+  .buy[aria-disabled="true"]{opacity:.4;pointer-events:none}
+  .dest select:focus-visible,.qty button:focus-visible,.ship button:focus-visible,.buy:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
   /* Full-screen viewer */
   .lb{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(246,246,244,.97);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
@@ -245,33 +249,35 @@
 
   <div class="info-cell">
     <section class="info" aria-labelledby="name">
-      <h1 id="name" class="sr-only">Vintage-wash denim jacket &amp; straight jeans</h1>
-      <section class="order" id="price" aria-labelledby="orderTitle">
-        <div class="order-h"><h2 id="orderTitle">Your order</h2><span id="leadTime"></span></div>
-        <form class="fields" id="calcForm" novalidate>
-          <div class="field" id="qtyField">
-            <label for="qty">Quantity</label>
-            <div class="ctl"><input id="qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">sets</span></div>
-            <small id="qtyHint"></small>
+      <section class="order" id="price">
+        <p class="kicker">Denim · Made to order</p>
+        <h1 id="name">Vintage-wash denim jacket &amp; straight jeans</h1>
+        <p class="from">From <b id="fromPrice"></b> / set · excl. VAT</p>
+
+        <form id="calcForm" novalidate>
+          <div class="step">
+            <label for="dest">Deliver to <span id="destPort"></span></label>
+            <div class="dest"><img id="destFlag" alt=""><select id="dest"></select></div>
           </div>
-          <div class="field">
-            <label for="moqIn">MOQ</label>
-            <div class="ctl"><input id="moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">sets</span></div>
-            <small id="moqHint"></small>
+          <div class="step">
+            <label for="qty">Quantity <span>sets · jacket + jeans</span></label>
+            <div class="qty"><button type="button" id="minus" aria-label="100 fewer">−</button><input id="qty" type="number" inputmode="numeric" min="1" step="100" value="1000"><button type="button" id="plus" aria-label="100 more">+</button></div>
+            <p class="hint" id="qtyHint" aria-live="polite"></p>
           </div>
-          <div class="field wide">
-            <label for="ship">Shipping</label>
-            <div class="ctl"><select id="ship"></select></div>
+          <div class="step">
+            <div class="step-h">Shipping</div>
+            <div class="ship" id="ship" role="radiogroup" aria-label="Shipping"></div>
           </div>
         </form>
-        <div class="tier" id="tier"></div>
-        <div class="sum" aria-live="polite">
-          <div><small>Estimated price</small><div class="unit-price" id="unitPrice"></div></div>
-          <div class="total"><small>Order total</small><b id="total"></b></div>
-        </div>
-        <details class="breakdown"><summary>Price breakdown</summary><dl class="lines" id="lines"></dl></details>
-        <a class="btn btn-primary" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
+
+        <dl class="sum" aria-live="polite">
+          <div><dt id="perSetLabel">Price per set</dt><dd id="perSet"></dd></div>
+          <div id="discRow"><dt id="discLabel"></dt><dd id="disc"></dd></div>
+          <div><dt id="freightLabel">Delivery</dt><dd id="freight"></dd></div>
+          <div><dt>EU import duty</dt><dd>€0.00</dd></div>
+          <div class="tot"><dt>Order total <span class="vat" id="vatNote"></span></dt><dd id="total"></dd></div>
+        </dl>
+        <a class="buy" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
       </section>
     </section>
   </div>
@@ -344,19 +350,33 @@
     quoteUrl: '../quote.html',
     style: 'SS-DN-JKT-JN',
     name: 'Vintage-wash denim jacket & straight jeans',
-    // USD per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
-    parts: {jacket: 12.6, jeans: 9.9},
+    // EUR per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
+    parts: {jacket: 11.6, jeans: 9.1},
     setDiscount: .04,                                // jacket + jeans bought as a set
-    lead: [50, 65],                                  // bulk production, days
     moq: 1000,                                       // sets per run
     setKg: 1.25,                                     // packed weight per set, for freight
     volume: [[5000, .08], [2000, .04]],              // [from qty, discount]
     smallRun: .25,                                   // max surcharge below MOQ
+    // Delivery from Chattogram: EUR per kg (with a minimum per shipment); sea days vary by destination port
     shipping: [
-      {id: 'fob',     label: 'FOB Chattogram',  perKg: 0,   min: 0,   days: 'Ready at port'},
-      {id: 'sea',     label: 'Sea freight',     perKg: 1.1, min: 350, days: '25–35 days in transit'},
-      {id: 'air',     label: 'Air freight',     perKg: 5.2, min: 250, days: '5–8 days in transit'},
-      {id: 'express', label: 'Express courier', perKg: 9.5, min: 60,  days: '3–5 days in transit'}
+      {id: 'sea',     label: 'Sea',     perKg: 1.0, min: 320},
+      {id: 'air',     label: 'Air',     perKg: 4.8, min: 230, days: [5, 8]},
+      {id: 'express', label: 'Express', perKg: 8.8, min: 55,  days: [3, 5]}
+    ],
+    // EU destinations: arrival port, standard VAT % (charged at import, reclaimable for VAT-registered buyers), sea days
+    countries: [
+      {id: 'de', name: 'Germany',     port: 'Hamburg',    vat: 19, sea: [30, 36]},
+      {id: 'fr', name: 'France',      port: 'Le Havre',   vat: 20, sea: [29, 35]},
+      {id: 'it', name: 'Italy',       port: 'Genoa',      vat: 22, sea: [22, 28]},
+      {id: 'es', name: 'Spain',       port: 'Valencia',   vat: 21, sea: [23, 29]},
+      {id: 'nl', name: 'Netherlands', port: 'Rotterdam',  vat: 21, sea: [29, 35]},
+      {id: 'be', name: 'Belgium',     port: 'Antwerp',    vat: 21, sea: [29, 35]},
+      {id: 'pt', name: 'Portugal',    port: 'Lisbon',     vat: 23, sea: [25, 31]},
+      {id: 'at', name: 'Austria',     port: 'Koper',      vat: 20, sea: [24, 30]},
+      {id: 'pl', name: 'Poland',      port: 'Gdańsk',     vat: 23, sea: [33, 40]},
+      {id: 'dk', name: 'Denmark',     port: 'Aarhus',     vat: 25, sea: [32, 38]},
+      {id: 'se', name: 'Sweden',      port: 'Gothenburg', vat: 25, sea: [33, 39]},
+      {id: 'ie', name: 'Ireland',     port: 'Dublin',     vat: 23, sea: [32, 38]}
     ],
     related: [
       {label: 'Cropped denim jacket',     cat: 'Denim',   moq: '1,000', photo: '../images/look-denimjacket.jpg', alt: '../images/swatches/ss-d01-mid-wash.webp', href: 'denim.html'},
@@ -367,7 +387,7 @@
   };
 
   const $ = id => document.getElementById(id);
-  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+  const eur = new Intl.NumberFormat('en-IE', {style: 'currency', currency: 'EUR'});
   const int = new Intl.NumberFormat('en-US');
   const range = ([a, b]) => `${a}–${b} days`;
   const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
@@ -378,60 +398,65 @@
   $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
   document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
 
-  $('ship').innerHTML = DENIM.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
-  $('ship').value = 'sea';
-  $('moqIn').value = DENIM.moq;
+  $('dest').innerHTML = DENIM.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  $('dest').value = 'de';
+  let ship = 'sea';
 
-  // Price per set: jacket + jeans, set discount, volume discount or small-run surcharge, then freight
+  // Price per set: jacket + jeans, set discount, volume discount or small-run surcharge, then delivery
   function price() {
-    const ship = DENIM.shipping.find(s => s.id === $('ship').value);
-    const qty = Math.round(num('qty')), moq = Math.round(num('moqIn'));
-    const qtyOk = qty >= 1, moqOk = moq >= 1;
-    const belowMoq = qtyOk && moqOk && qty < moq;
+    const c = DENIM.countries.find(x => x.id === $('dest').value);
+    const qty = Math.round(num('qty')), ok = qty >= 1, belowMoq = ok && qty < DENIM.moq;
     const nextTier = DENIM.volume.map(([q]) => q).filter(q => q > qty).pop();
+    const days = s => s.days || c.sea;
 
-    $('qtyField').classList.toggle('bad', !qtyOk || belowMoq);
-    $('qtyHint').className = !qtyOk || belowMoq ? 'warn' : '';
-    $('qtyHint').textContent = !qtyOk ? 'Enter 1 or more.' : belowMoq ? `${int.format(moq - qty)} below MOQ · small-run surcharge` : '';
-    $('moqHint').className = moqOk ? '' : 'warn';
-    $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
-    $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} sets to unlock the next volume discount` : '';
-    $('leadTime').textContent = `Production ${range(DENIM.lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
+    $('destFlag').src = `https://flagcdn.com/w40/${c.id}.png`;
+    $('destPort').textContent = {sea: `via ${c.port}`, air: 'via airport', express: 'door to door'}[ship];
+    $('ship').innerHTML = DENIM.shipping.map(s =>
+      `<button type="button" role="radio" data-ship="${s.id}" aria-checked="${s.id === ship}"><b>${s.label}</b><small>${range(days(s))}</small></button>`).join('');
+    $('qtyHint').className = 'hint' + (ok && !belowMoq ? '' : ' warn');
+    $('qtyHint').textContent = !ok ? 'Enter a quantity.'
+      : belowMoq ? `Below the ${int.format(DENIM.moq)}-set MOQ: a small-run surcharge applies.`
+      : nextTier ? `Add ${int.format(nextTier - qty)} sets for the next volume discount.` : 'Best volume rate.';
 
-    if (!qtyOk || !moqOk) {
-      $('unitPrice').innerHTML = '—';
-      $('total').textContent = '—';
-      $('lines').innerHTML = '';
+    const list = DENIM.parts.jacket + DENIM.parts.jeans, base = list * (1 - DENIM.setDiscount);
+    $('fromPrice').textContent = eur.format(base * (1 - DENIM.volume[0][1]));
+    if (!ok) {
+      ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
       $('orderNow').removeAttribute('href');
       $('orderNow').setAttribute('aria-disabled', 'true');
       return;
     }
 
-    const list = DENIM.parts.jacket + DENIM.parts.jeans;
-    const base = list * (1 - DENIM.setDiscount);
+    const s = DENIM.shipping.find(x => x.id === ship);
     const [, vol = 0] = DENIM.volume.find(([q]) => qty >= q) || [];
-    const small = qty < moq ? Math.min(DENIM.smallRun, (moq / qty - 1) * .1) : 0;
-    const adjusted = base * (1 - vol + small);
-    const freight = ship.perKg ? Math.max(ship.min, DENIM.setKg * qty * ship.perKg) / qty : 0;
-    const unit = adjusted + freight;
+    const small = belowMoq ? Math.min(DENIM.smallRun, (DENIM.moq / qty - 1) * .1) : 0;
+    const goods = base * qty, adj = goods * (small - vol);
+    const freight = Math.max(s.min, DENIM.setKg * qty * s.perKg);
+    const total = goods + adj + freight;
 
-    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
-    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ set</small>`;
-    $('total').textContent = usd.format(unit * qty);
-    $('lines').innerHTML = [
-      row('Jacket &amp; jeans', usd.format(list)),
-      row(`Set discount · ${Math.round(DENIM.setDiscount * 100)}%`, `−${usd.format(list * DENIM.setDiscount)}`, 'neg'),
-      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
-      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
-      row(ship.perKg ? `${ship.label} · ${int.format(Math.round(DENIM.setKg * qty))} kg` : ship.label, ship.perKg ? usd.format(freight) : 'Included')
-    ].join('');
+    $('perSet').textContent = `${eur.format(base)} × ${int.format(qty)}`;
+    $('discRow').hidden = !adj;
+    $('discLabel').textContent = vol ? `Volume discount · ${vol * 100}%` : `Small-run surcharge · ${Math.round(small * 100)}%`;
+    $('disc').textContent = (adj < 0 ? '−' : '+') + eur.format(Math.abs(adj));
+    $('disc').className = adj < 0 ? 'neg' : 'pos';
+    $('freightLabel').textContent = `${s.label} to ${ship === 'sea' ? c.port : c.name}`;
+    $('freight').textContent = eur.format(freight);
+    $('total').textContent = eur.format(total);
+    $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
+
+    const q = {style: DENIM.style, product: DENIM.name, quantity: qty, destination: `${c.name} (${c.port})`, shipping: s.label,
+      estimate: `${eur.format(total / qty)} / set, ${eur.format(total)} total excl. VAT`};
     $('orderNow').removeAttribute('aria-disabled');
-    $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({
-      order: 'now', style: DENIM.style, product: DENIM.name,
-      quantity: qty, moq, shipping: ship.label, estimate: usd.format(unit)
-    })}`;
+    $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({order: 'now', ...q})}`;
   }
 
+  $('ship').addEventListener('click', e => {
+    const b = e.target.closest('[data-ship]');
+    if (b && b.dataset.ship !== ship) { ship = b.dataset.ship; price(); $('ship').querySelector(`[data-ship="${ship}"]`).focus(); }
+  });
+  const stepQty = d => { $('qty').value = Math.max(100, Math.round((num('qty') || 0) / 100) * 100 + d); price(); };
+  $('minus').onclick = () => stepQty(-100);
+  $('plus').onclick = () => stepQty(100);
   $('calcForm').addEventListener('input', price);
   $('calcForm').addEventListener('submit', e => e.preventDefault());
 
