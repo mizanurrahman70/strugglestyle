@@ -648,12 +648,14 @@
     else resetZoom();
   }));
 
-  // Wheel zooms once the look is already magnified; at 1× the page keeps scrolling
+  // Mouse wheel (and trackpad) zoom the look. Scrolling down at 100% still moves the page.
   show.addEventListener('wheel', e => {
-    if (zoom <= 1 && !e.ctrlKey && !e.metaKey) return;
+    if (e.target.closest('.zoom')) return;
+    if (zoom <= 1 && e.deltaY > 0) return;
     e.preventDefault();
+    const factor = Math.min(1.4, Math.max(1 / 1.4, Math.exp(-e.deltaY * 0.0015)));
     fig.classList.add('no-zoom-anim');
-    setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15));
+    setZoom(zoom * factor);
     clearTimeout(wheelTimer);
     wheelTimer = setTimeout(() => fig.classList.remove('no-zoom-anim'), 160);
   }, {passive: false});
