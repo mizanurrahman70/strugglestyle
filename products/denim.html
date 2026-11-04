@@ -393,7 +393,7 @@
   #builder .opt-h span{font-weight:400;color:var(--muted)}
 
   /* Fabric: cards led by the fabric's own texture */
-  #builder .fabrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #builder .fabrics{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
   #builder .fab{position:relative;display:flex;align-items:center;gap:12px;padding:8px 12px 8px 8px;border:1px solid var(--line);border-radius:14px;text-align:left;transition:border-color .2s,box-shadow .2s}
   #builder .fab .tex{flex:none;width:52px;height:52px;border-radius:10px;background:var(--t) center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
   #builder .fab b{display:block;font-size:13.5px;font-weight:600;line-height:1.25}
@@ -932,26 +932,24 @@
     swatch: '../images/swatches/{fabric}-{colour}.webp',
     quoteUrl: '../quote.html',
     sampleDays: [7, 10],
-    initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-w06', colour: 'white'},
+    initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-d01', colour: 'indigo'},
     // `use` = fabric per piece (m²), `cm` = cut & make (USD), `perKg` = fabric price (USD/kg) — SAMPLE rates, to be confirmed
     // `focus: [y%, zoom]`: the garment's vertical centre in the full-body render and the zoom that fills its tile
     garments: [
       {id: 'shirt',  label: 'Shirt',    type: 'top',    code: 'SH', moq: 300, lead: [40, 55], use: 1.6, cm: 2.8, focus: [35, 2.2],
        build: ['Point collar, full button placket', 'Patch chest pocket', 'Dropped shoulder, barrel cuffs']},
-      {id: 'blazer', label: 'Blazer',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, focus: [36, 2.1],
+      {id: 'blazer', label: 'Jacket',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, focus: [36, 2.1],
        build: ['Double-breasted, peak lapel', 'Flap pockets', 'Half-lined with recycled lining']},
       {id: 'dress',  label: 'Dress',    type: 'full',   code: 'DR', moq: 300, lead: [45, 60], use: 2.4, cm: 3.8, focus: [47, 1.4],
        build: ['Square neck, adjustable straps', 'Shirred waist panel', 'Midi length, side seam pockets']},
-      {id: 'pants',  label: 'Trousers', type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, focus: [73, 1.95],
+      {id: 'pants',  label: 'Jeans',    type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, focus: [73, 1.95],
        build: ['High rise, straight wide leg', 'Elasticated back waistband', 'Side seam pockets']},
       {id: 'skirt',  label: 'Skirt',    type: 'bottom', code: 'SK', moq: 300, lead: [40, 55], use: 0.9, cm: 2.0, focus: [61, 3.0],
        build: ['Mini length, flared', 'Concealed side zip', 'Clean-finish hem']}
     ],
     fabrics: [
-      {id: 'ss-w06', label: 'Cotton poplin',   short: 'Poplin', code: 'PO', comp: '100% cotton', gsm: '115 GSM', g: 115, perKg: 7.5, weave: 'Plain weave, 40s × 40s',
-       care: 'Machine wash 30°C', colours: [['white', 'White', '#F5F5F1'], ['sky', 'Sky', '#B8CDE3'], ['sage', 'Sage', '#B9C8AE'], ['black', 'Black', '#232427']]},
-      {id: 'ss-s07', label: 'Satin charmeuse', short: 'Satin',  code: 'ST', comp: '100% recycled polyester', gsm: '95 GSM',  g: 95,  perKg: 9.2, weave: 'Satin weave, fluid drape',
-       care: 'Hand wash cold', colours: [['champagne', 'Champagne', '#DCC7A3'], ['emerald', 'Emerald', '#1E6B4A'], ['lilac', 'Lilac', '#B3A0D4'], ['black', 'Black', '#1E1E22']]}
+      {id: 'ss-d01', label: 'Eco-wash denim',  short: 'Denim',  code: 'DN', comp: '98% cotton, 2% elastane', gsm: '340 GSM', g: 340, perKg: 6.2, weave: '3×1 right-hand twill',
+       care: 'Machine wash 30°C inside out', colours: [['indigo', 'Indigo', '#2C3E63'], ['mid-wash', 'Mid wash', '#5B7AA6'], ['black', 'Black', '#26272B'], ['ecru', 'Ecru', '#E4D9C3']]}
     ],
     // Order this look — SAMPLE rates, to be confirmed. Costs are USD, shown in EUR; destinations and shipping
     // come from this page's main order panel (window.SS_EU)
