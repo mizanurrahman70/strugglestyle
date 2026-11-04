@@ -81,6 +81,13 @@
   .shot.video{cursor:default;background:#000}
   .shot.video video{transition:none}
   .shot.video figcaption{color:rgba(255,255,255,.9)}
+  /* Product shot: a cut-out on its own warm white, shown whole beside the full look */
+  .shot.product{background:#F8F7F5}
+  .shot.product img{object-fit:contain;padding:7% 9%}
+  /* Fabric tile: the swatch the denim is cut from; not part of the photo lightbox */
+  .shot.fabric{cursor:default}
+  .shot.fabric:hover img{transform:none}
+  .shot.fabric figcaption{color:rgba(255,255,255,.92)}
   .info-cell{display:flex;align-items:center;justify-content:center;padding:32px;background:#fff}
 
   /* Product card: stays in view while the gallery beside it scrolls */
@@ -233,8 +240,8 @@
 
 <main class="pdp" id="gallery">
   <figure class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
-  <figure class="shot" data-i="1"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
-  <figure class="shot" data-i="2"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
+  <figure class="shot product" data-i="1"><img src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket"></figure>
+  <figure class="shot" data-i="2"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
 
   <div class="info-cell">
     <section class="info" aria-labelledby="name">
@@ -269,13 +276,15 @@
     </section>
   </div>
 
-  <figure class="shot" data-i="3"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
-  <figure class="shot" data-i="4"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
-  <figure class="shot" data-i="5"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
+  <figure class="shot" data-i="3"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
+  <figure class="shot" data-i="4"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
+  <figure class="shot" data-i="5"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
+  <figure class="shot" data-i="6"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
   <figure class="shot video">
     <video src="denim/look.mp4" poster="denim/look-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="Short video of the vintage-wash denim jacket and straight jeans"></video>
     <figcaption>Look video</figcaption>
   </figure>
+  <figure class="shot fabric"><img src="../images/swatches/ss-d01-mid-wash.webp" alt="Eco-wash denim swatch, SS-D01" loading="lazy"><figcaption>Fabric · SS-D01 eco-wash denim</figcaption></figure>
 </main>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
