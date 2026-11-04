@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vintage-wash denim jacket &amp; straight jeans | Struggle Style</title>
+<meta name="description" content="A vintage-wash denim jacket with a stand collar and button placket, and straight-leg jeans, made to order by Struggle Style in Bangladesh.">
+<meta name="theme-color" content="#11402A">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="denim/model.webp">
+<style>
+  :root{
+    --green-900:#0C2A1B;
+    --green-800:#11402A;
+    --green-700:#1A7F4B;
+    --green-600:#1F9457;
+    --green-100:#DEF5E7;
+    --leaf:#3DDC84;
+    --orange:#F5A00F;
+    --border:#DCEBE1;
+    --bg:#FFFFFF;
+    --studio:#E8E9EC;      /* the photo's backdrop, behind every gallery shot */
+    --ink:#111;
+    --text:#0F1F17;
+    --muted:#6B6F6C;
+    --line:#E6E6E3;
+    --head:"Inter Tight",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --ease:cubic-bezier(.23,1,.32,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
+    --hdr:84px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:400 14px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-size:15px;font-weight:600;white-space:nowrap;transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+  .btn svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-primary{background:var(--green-700);color:#fff}
+  .btn-primary:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .btn-ghost{border:1px solid var(--text)}
+  .btn-ghost:hover{background:var(--text);color:#fff}
+  .btn-sm{height:44px;padding:0 20px;font-size:14px}
+
+  /* Site header: same as the home page, in its solid (scrolled) state since there is no hero behind it */
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+  .logo{display:inline-flex;align-items:center;color:#1A7F4B;line-height:1}
+  .wm{position:relative;display:inline-flex;align-items:baseline;gap:.18em;font-family:"Fraunces",Georgia,serif;font-size:29px;line-height:1;letter-spacing:-.02em;font-variation-settings:"opsz" 72}
+  .wm em{font-style:italic;font-weight:700}
+  .wm span{position:relative;font-weight:350}
+  .wm .thread{position:absolute;left:-2px;bottom:-12px;width:calc(100% + 26px);height:14px;overflow:visible;pointer-events:none}
+  .wm .thread path{stroke-dasharray:4 3.5;stroke-dashoffset:0}
+  .logo:hover .wm .thread path{animation:sew 1.2s linear infinite}
+  @keyframes sew{to{stroke-dashoffset:-15}}
+  .wm sup{font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.14em;align-self:flex-start;margin:2px 0 0 12px;opacity:.75}
+  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border)}
+  .nav{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav ul{display:flex;gap:4px;list-style:none}
+  .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
+  .nav ul a:hover{color:var(--green-700)}
+  .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .nav ul a:hover::after,.nav ul a:focus-visible::after,.nav ul a[aria-current]::after{transform:scaleX(1)}
+  .burger{flex:none;display:none;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border)}
+  .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
+  .mnav{display:none}
+
+  /* Product: a two-column gallery; the calculator takes the cell beside the hero */
+  .pdp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;max-width:1200px;margin:var(--hdr) auto 0;background:#fff}
+  .shot{position:relative;aspect-ratio:4/5;margin:0;overflow:hidden;background:var(--studio);cursor:zoom-in}
+  .shot img,.shot video{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+  .shot:hover img{transform:scale(1.03)}
+  .shot figcaption{position:absolute;left:18px;bottom:16px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(17,17,17,.55)}
+  .shot.full img{object-position:50% 30%}
+  /* Look video sits in the grid, silent and looping, and is not part of the photo lightbox */
+  .shot.video{cursor:default;background:#000}
+  .shot.video video{transition:none}
+  .shot.video figcaption{color:rgba(255,255,255,.9)}
+  .info-cell{display:flex;align-items:center;justify-content:center;padding:32px;background:#fff}
+
+  /* Product card: stays in view while the gallery beside it scrolls */
+  .info{width:100%;max-width:480px;margin:0;padding:0}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* Calculator: quantity + MOQ + shipping -> live FOB estimate */
+  .order{padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#FBFCFA,#F4F7F5);box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -28px rgba(15,31,23,.35)}
+  .order-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+  .order-h h2{font:600 16px/1.2 var(--head)}
+  .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
+  .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .field{min-width:0}
+  .field.wide{grid-column:1/-1}
+  .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
+  .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
+  .field input,.field select{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;font:600 14.5px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+  .field input::-webkit-outer-spin-button,.field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .field select{cursor:pointer;font-weight:500;font-size:13.5px}
+  .field .unit{padding-right:12px;font-size:12px;color:var(--muted)}
+  .field small{display:none;margin-top:5px;font-size:11.5px;color:#B4541A}
+  .field small.warn{display:block}
+  .field.bad .ctl{border-color:#D9822B}
+  .tier{margin-top:10px;font-size:12px;color:var(--green-700)}
+  .tier:empty{display:none}
+  .sum{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .sum small{display:block;font-size:11.5px;color:var(--muted)}
+  .unit-price{font:700 34px/1.05 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .unit-price small{display:inline;font:500 13px var(--body);color:var(--muted);letter-spacing:0}
+  .total{text-align:right}
+  .total b{display:block;font:600 17px/1.2 var(--head);font-variant-numeric:tabular-nums}
+  .breakdown{margin-top:12px}
+  .breakdown summary{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);list-style:none;cursor:pointer}
+  .breakdown summary::-webkit-details-marker{display:none}
+  .breakdown summary::after{content:"";width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+  .breakdown[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+  .lines{display:grid;grid-template-columns:1fr auto;gap:7px 16px;margin-top:10px;font-size:12.5px}
+  .lines dt{color:var(--muted)}
+  .lines dd{text-align:right;font-variant-numeric:tabular-nums}
+  .lines .neg{color:var(--green-700)}
+  .lines .pos{color:#B4541A}
+  .order .btn{width:100%;margin-top:16px}
+  .order .btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
+  .order .note{margin-top:10px;font-size:11.5px;color:var(--muted);text-align:center}
+  .field input:focus-visible,.field select:focus-visible,.breakdown summary:focus-visible,.order .btn:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Full-screen viewer */
+  .lb{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(246,246,244,.97);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  .lb.open{opacity:1;visibility:visible}
+  .lb img{max-width:min(92vw,1100px);max-height:92vh;object-fit:contain;transform:scale(.98);transition:transform .4s var(--ease)}
+  .lb.open img{transform:none}
+  .lb button{position:absolute;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 4px 14px -6px rgba(0,0,0,.3);transition:background .2s,color .2s}
+  .lb button:hover{background:var(--ink);color:#fff}
+  .lb button svg{width:18px;height:18px}
+  .lb .x{top:20px;right:20px}
+  .lb .prev{left:20px;top:50%;transform:translateY(-50%)}
+  .lb .next{right:20px;top:50%;transform:translateY(-50%)}
+  .lb .count{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.14em;color:var(--muted)}
+
+  /* You may also like */
+  .more{padding:88px 0 96px}
+  .more-h{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .more h2{margin-top:6px;font:500 clamp(22px,2.2vw,28px)/1.2 var(--head);letter-spacing:-.01em;color:var(--ink)}
+  .more-h a{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
+  .recs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+  .rec .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--studio)}
+  .rec .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform 1s var(--ease)}
+  .rec .ph .alt{opacity:0;transform:scale(1.06)}
+  .rec:hover .ph .alt{opacity:1;transform:none}
+  .rec .cap{padding:14px 2px 0}
+  .rec .cap small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .rec .cap b{display:block;margin-top:4px;font-size:14px;font-weight:500;color:var(--ink)}
+
+  /* Site footer: same as the home page */
+  footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
+  footer .logo{color:#3DDC84}
+  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-about p{margin:20px 0 24px;max-width:320px}
+  footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
+  footer ul{list-style:none;display:grid;gap:11px}
+  footer a{transition:color .2s}
+  footer a:hover,footer a[aria-current]{color:#fff}
+  .soc{display:flex;gap:10px}
+  .soc a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:background .2s,color .2s}
+  .soc a:hover{background:#fff;color:var(--green-900)}
+  .soc svg{width:16px;height:16px}
+  .contact li{display:flex;gap:12px;align-items:flex-start}
+  .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
+  .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
+  .f-bot nav{display:flex;flex-wrap:wrap;gap:24px}
+  .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
+  .f-bot select option{color:var(--text)}
+
+  @media (max-width:1100px){
+    .f-grid{grid-template-columns:1fr 1fr}
+    .nav ul,.nav > .btn{display:none}
+    .burger{display:block}
+    .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
+    .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
+    .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
+    .recs{grid-template-columns:repeat(2,1fr)}
+  }
+  /* Phone: the two-column grid stacks; images full-bleed, calculator inset */
+  @media (max-width:760px){
+    :root{--hdr:72px}
+    .wrap{padding:0 16px}
+    .mnav.open{padding:8px 16px 24px}
+    .pdp{grid-template-columns:1fr}
+    .info-cell{padding:28px 16px 28px}
+    .info{max-width:640px}
+    .lb .prev,.lb .next{top:auto;bottom:12px;transform:none}
+    .more{padding:56px 0 64px}
+    .recs{display:flex;gap:2px;margin:0 -16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .recs::-webkit-scrollbar{display:none}
+    .rec{flex:0 0 70%;scroll-snap-align:start}
+    .f-grid{grid-template-columns:1fr;gap:36px}
+    footer{padding:56px 0 28px}
+    .f-bot nav{gap:12px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .shot img,.rec .ph img,.lb,.lb img{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="../index.html#products" aria-current="page">Products</a></li>
+        <li><a href="../index.html#manufacturing">Manufacturing</a></li>
+        <li><a href="../index.html#sustainability">Sustainability</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#news">News</a></li>
+        <li><a href="../index.html#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a href="../index.html#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Mobile">
+    <a href="../index.html#products">Products</a><a href="../index.html#manufacturing">Manufacturing</a><a href="../index.html#sustainability">Sustainability</a><a href="../index.html#about">About</a><a href="../index.html#news">News</a><a href="../index.html#faq">FAQ</a>
+    <a href="../index.html#quote" class="btn btn-primary">Get a Quote</a>
+  </nav>
+</header>
+
+<main class="pdp" id="gallery">
+  <figure class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
+  <figure class="shot" data-i="1"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
+  <figure class="shot" data-i="2"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
+
+  <div class="info-cell">
+    <section class="info" aria-labelledby="name">
+      <h1 id="name" class="sr-only">Vintage-wash denim jacket &amp; straight jeans</h1>
+      <section class="order" id="price" aria-labelledby="orderTitle">
+        <div class="order-h"><h2 id="orderTitle">Your order</h2><span id="leadTime"></span></div>
+        <form class="fields" id="calcForm" novalidate>
+          <div class="field" id="qtyField">
+            <label for="qty">Quantity</label>
+            <div class="ctl"><input id="qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">sets</span></div>
+            <small id="qtyHint"></small>
+          </div>
+          <div class="field">
+            <label for="moqIn">MOQ</label>
+            <div class="ctl"><input id="moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">sets</span></div>
+            <small id="moqHint"></small>
+          </div>
+          <div class="field wide">
+            <label for="ship">Shipping</label>
+            <div class="ctl"><select id="ship"></select></div>
+          </div>
+        </form>
+        <div class="tier" id="tier"></div>
+        <div class="sum" aria-live="polite">
+          <div><small>Estimated price</small><div class="unit-price" id="unitPrice"></div></div>
+          <div class="total"><small>Order total</small><b id="total"></b></div>
+        </div>
+        <details class="breakdown"><summary>Price breakdown</summary><dl class="lines" id="lines"></dl></details>
+        <a class="btn btn-primary" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
+      </section>
+    </section>
+  </div>
+
+  <figure class="shot" data-i="3"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
+  <figure class="shot" data-i="4"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
+  <figure class="shot" data-i="5"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
+  <figure class="shot video">
+    <video src="denim/look.mp4" poster="denim/look-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="Short video of the vintage-wash denim jacket and straight jeans"></video>
+    <figcaption>Look video</figcaption>
+  </figure>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <img id="lbImg" alt="">
+  <button type="button" class="x" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button type="button" class="prev" id="lbPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button type="button" class="next" id="lbNext" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="count" id="lbCount"></span>
+</div>
+
+<section class="more" aria-labelledby="moreTitle">
+  <div class="wrap">
+    <div class="more-h">
+      <div><div class="eyebrow">Keep exploring</div><h2 id="moreTitle">You may also like</h2></div>
+      <a href="../index.html#products">All products</a>
+    </div>
+    <div class="recs" id="recs"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-about">
+        <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+        <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
+        <div class="soc">
+          <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
+          <a href="https://www.instagram.com/strugglestylewear" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="https://www.facebook.com/share/zWskqrghouEvd4Uw" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+          <a href="https://x.com/struggl86081532" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L.7 3h6.8l4.7 6.2zm-1.2 16h1.8L6.6 4.9H4.7z"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Products</h5><ul><li><a href="lingerie.html">Lingerie</a></li><li><a href="denim.html" aria-current="page">Denim</a></li><li><a href="sweater.html">Sweater</a></li><li><a href="woven.html">Woven</a></li><li><a href="knit.html">Knit</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="../index.html#about">About Us</a></li><li><a href="../index.html#manufacturing">Manufacturing</a></li><li><a href="../index.html#sustainability">Sustainability</a></li><li><a href="../index.html#sustainability">Certifications</a></li><li><a href="../index.html#news">News</a></li><li><a href="../index.html#faq">FAQ</a></li></ul></div>
+      <div>
+        <h5>Contact</h5>
+        <ul class="contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:info@strugglestyle.net">info@strugglestyle.net</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><a href="tel:+12675368321">+1 (267) 536-8321</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Holy Intimates, Bangladesh<br><small>Full address to be added</small></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Struggle Style Inc. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#">Terms &amp; Conditions</a><a href="#">Privacy Policy</a><a href="#">Cookies</a><a href="../index.html#quote">Contact</a></nav>
+      <select aria-label="Language"><option>English</option></select>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Denim product page: quantity and MOQ feed a live FOB estimate; images open full screen.
+(() => {
+  const DENIM = {
+    quoteUrl: '../quote.html',
+    style: 'SS-DN-JKT-JN',
+    name: 'Vintage-wash denim jacket & straight jeans',
+    // USD per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
+    parts: {jacket: 12.6, jeans: 9.9},
+    setDiscount: .04,                                // jacket + jeans bought as a set
+    lead: [50, 65],                                  // bulk production, days
+    moq: 1000,                                       // sets per run
+    setKg: 1.25,                                     // packed weight per set, for freight
+    volume: [[5000, .08], [2000, .04]],              // [from qty, discount]
+    smallRun: .25,                                   // max surcharge below MOQ
+    shipping: [
+      {id: 'fob',     label: 'FOB Chattogram',  perKg: 0,   min: 0,   days: 'Ready at port'},
+      {id: 'sea',     label: 'Sea freight',     perKg: 1.1, min: 350, days: '25–35 days in transit'},
+      {id: 'air',     label: 'Air freight',     perKg: 5.2, min: 250, days: '5–8 days in transit'},
+      {id: 'express', label: 'Express courier', perKg: 9.5, min: 60,  days: '3–5 days in transit'}
+    ],
+    related: [
+      {label: 'Cropped denim jacket',     cat: 'Denim',   moq: '1,000', photo: '../images/look-denimjacket.jpg', alt: '../images/swatches/ss-d01-mid-wash.webp', href: 'denim.html'},
+      {label: 'Rib denim vest',           cat: 'Denim',   moq: '1,000', photo: '../images/cat-denim.jpg',        alt: '../images/swatches/ss-d01-indigo.webp',   href: 'denim.html'},
+      {label: 'Sweatshirt & baggy jeans', cat: 'Knit',    moq: '1,000', photo: '../images/look-sweatshirt.jpg',  alt: '../images/swatches/ss-t05-sand.webp',     href: 'knit.html'},
+      {label: 'Linen maxi dress',         cat: 'Woven',   moq: '800',   photo: '../images/look-linendress.jpg',  alt: '../images/swatches/ss-w06-sage.webp',     href: 'woven.html'}
+    ]
+  };
+
+  const $ = id => document.getElementById(id);
+  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+  const int = new Intl.NumberFormat('en-US');
+  const range = ([a, b]) => `${a}–${b} days`;
+  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
+
+  // Site header: menu toggle, as on the home page
+  const hdr = $('hdr');
+  const setMenu = o => { $('mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('burger').setAttribute('aria-expanded', o); };
+  $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
+  document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
+
+  $('ship').innerHTML = DENIM.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
+  $('ship').value = 'sea';
+  $('moqIn').value = DENIM.moq;
+
+  // Price per set: jacket + jeans, set discount, volume discount or small-run surcharge, then freight
+  function price() {
+    const ship = DENIM.shipping.find(s => s.id === $('ship').value);
+    const qty = Math.round(num('qty')), moq = Math.round(num('moqIn'));
+    const qtyOk = qty >= 1, moqOk = moq >= 1;
+    const belowMoq = qtyOk && moqOk && qty < moq;
+    const nextTier = DENIM.volume.map(([q]) => q).filter(q => q > qty).pop();
+
+    $('qtyField').classList.toggle('bad', !qtyOk || belowMoq);
+    $('qtyHint').className = !qtyOk || belowMoq ? 'warn' : '';
+    $('qtyHint').textContent = !qtyOk ? 'Enter 1 or more.' : belowMoq ? `${int.format(moq - qty)} below MOQ · small-run surcharge` : '';
+    $('moqHint').className = moqOk ? '' : 'warn';
+    $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
+    $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} sets to unlock the next volume discount` : '';
+    $('leadTime').textContent = `Production ${range(DENIM.lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
+
+    if (!qtyOk || !moqOk) {
+      $('unitPrice').innerHTML = '—';
+      $('total').textContent = '—';
+      $('lines').innerHTML = '';
+      $('orderNow').removeAttribute('href');
+      $('orderNow').setAttribute('aria-disabled', 'true');
+      return;
+    }
+
+    const list = DENIM.parts.jacket + DENIM.parts.jeans;
+    const base = list * (1 - DENIM.setDiscount);
+    const [, vol = 0] = DENIM.volume.find(([q]) => qty >= q) || [];
+    const small = qty < moq ? Math.min(DENIM.smallRun, (moq / qty - 1) * .1) : 0;
+    const adjusted = base * (1 - vol + small);
+    const freight = ship.perKg ? Math.max(ship.min, DENIM.setKg * qty * ship.perKg) / qty : 0;
+    const unit = adjusted + freight;
+
+    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
+    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ set</small>`;
+    $('total').textContent = usd.format(unit * qty);
+    $('lines').innerHTML = [
+      row('Jacket &amp; jeans', usd.format(list)),
+      row(`Set discount · ${Math.round(DENIM.setDiscount * 100)}%`, `−${usd.format(list * DENIM.setDiscount)}`, 'neg'),
+      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
+      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
+      row(ship.perKg ? `${ship.label} · ${int.format(Math.round(DENIM.setKg * qty))} kg` : ship.label, ship.perKg ? usd.format(freight) : 'Included')
+    ].join('');
+    $('orderNow').removeAttribute('aria-disabled');
+    $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({
+      order: 'now', style: DENIM.style, product: DENIM.name,
+      quantity: qty, moq, shipping: ship.label, estimate: usd.format(unit)
+    })}`;
+  }
+
+  $('calcForm').addEventListener('input', price);
+  $('calcForm').addEventListener('submit', e => e.preventDefault());
+
+  // Full-screen viewer: click a shot; arrows, Esc and swipe move through the gallery
+  const shots = [...document.querySelectorAll('.shot[data-i]')].sort((a, b) => a.dataset.i - b.dataset.i);
+  let at = 0, opener;
+  const lb = $('lb');
+  function open(i) {
+    at = (i + shots.length) % shots.length;
+    const img = shots[at].querySelector('img');
+    $('lbImg').src = img.currentSrc || img.src;
+    $('lbImg').alt = img.alt;
+    $('lbCount').textContent = `${at + 1} / ${shots.length}`;
+    if (lb.hidden) {
+      opener = document.activeElement;
+      lb.hidden = false;
+      requestAnimationFrame(() => lb.classList.add('open'));
+      document.body.style.overflow = 'hidden';
+      $('lbClose').focus();
+    }
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { lb.hidden = true; }, 300);
+    if (opener) opener.focus();
+  }
+  shots.forEach((s, i) => {
+    s.tabIndex = 0;
+    s.setAttribute('role', 'button');
+    s.addEventListener('click', () => open(i));
+    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
+  });
+  $('lbClose').onclick = close;
+  $('lbPrev').onclick = () => open(at - 1);
+  $('lbNext').onclick = () => open(at + 1);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(at - 1);
+    if (e.key === 'ArrowRight') open(at + 1);
+  });
+  let x0 = null;
+  lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+  lb.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) open(at + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+
+  $('recs').innerHTML = DENIM.related.map(r =>
+    `<a class="rec" href="${r.href}"><div class="ph"><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"></div>` +
+    `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
+
+  // Respect reduced-motion: keep the look video paused on its poster
+  const lookVideo = document.querySelector('.shot.video video');
+  if (lookVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    lookVideo.removeAttribute('autoplay');
+    lookVideo.pause();
+  }
+
+  price();
+})();
+</script>
+</body>
+</html>
