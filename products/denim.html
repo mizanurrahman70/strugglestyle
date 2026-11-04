@@ -102,6 +102,20 @@
   .from{margin-top:8px;font-size:13px;color:var(--muted)}
   .from b{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
   .step{margin-top:24px}
+  /* Style picker: one thumbnail per variant; picking one swaps the whole gallery */
+  .styles{display:flex;gap:8px}
+  .sty{position:relative;width:64px;aspect-ratio:4/5;overflow:hidden;background:var(--studio);outline:1px solid transparent;outline-offset:3px;transition:outline-color .2s}
+  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;transition:transform .5s var(--ease)}
+  .sty:hover img{transform:scale(1.06)}
+  .sty:hover{outline-color:#B8B8B3}
+  .sty[aria-checked="true"]{outline-color:var(--ink)}
+  .sty:focus-visible{outline:2px solid var(--green-600)}
+  /* Gallery swap: images fade out, change, fade back in */
+  .pdp .shot img,.pdp .shot video{transition:transform 1.2s var(--ease),opacity .35s}
+  .pdp.swapping .shot:not(.fabric) img,.pdp.swapping .shot video{opacity:0}
+  .shot.video img{display:none}
+  .shot.video.still video{display:none}
+  .shot.video.still img{display:block}
   .step > label,.step-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
   .step-h span,.step > label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
   .dest{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border:1px solid #D4D4D0;transition:border-color .2s}
@@ -243,9 +257,9 @@
 </header>
 
 <main class="pdp" id="gallery">
-  <figure class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
-  <figure class="shot product" data-i="1"><img src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket"></figure>
-  <figure class="shot" data-i="2"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
+  <figure data-slot="full" class="shot full" data-i="0"><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
+  <figure data-slot="product" class="shot product" data-i="1"><img src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket"></figure>
+  <figure data-slot="half" class="shot" data-i="2"><img src="denim/half.webp" alt="The jacket worn, head to hip" loading="lazy"></figure>
 
   <div class="info-cell">
     <section class="info" aria-labelledby="name">
@@ -254,13 +268,18 @@
         <h1 id="name">Vintage-wash denim jacket &amp; straight jeans</h1>
         <p class="from">From <b id="fromPrice"></b> / set · excl. VAT</p>
 
+        <div class="step">
+          <div class="step-h">Style <span id="styleName"></span></div>
+          <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
+        </div>
+
         <form id="calcForm" novalidate>
           <div class="step">
             <label for="dest">Deliver to <span id="destPort"></span></label>
             <div class="dest"><img id="destFlag" alt=""><select id="dest"></select></div>
           </div>
           <div class="step">
-            <label for="qty">Quantity <span>sets · jacket + jeans</span></label>
+            <label for="qty">Quantity <span id="qtyUnit"></span></label>
             <div class="qty"><button type="button" id="minus" aria-label="100 fewer">−</button><input id="qty" type="number" inputmode="numeric" min="1" step="100" value="1000"><button type="button" id="plus" aria-label="100 more">+</button></div>
             <p class="hint" id="qtyHint" aria-live="polite"></p>
           </div>
@@ -282,11 +301,12 @@
     </section>
   </div>
 
-  <figure class="shot" data-i="3"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
-  <figure class="shot" data-i="4"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
-  <figure class="shot" data-i="5"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
-  <figure class="shot" data-i="6"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
-  <figure class="shot video">
+  <figure data-slot="detail1" class="shot" data-i="3"><img src="denim/placket.webp" alt="Close-up of the stand collar, chest pockets and button placket" loading="lazy"></figure>
+  <figure data-slot="long" class="shot" data-i="4"><img src="denim/jeans.webp" alt="The straight jeans, waist to hem" loading="lazy"></figure>
+  <figure data-slot="detail2" class="shot" data-i="5"><img src="denim/detail.webp" alt="Close-up of the scalloped hem, belt chain and knee rip" loading="lazy"></figure>
+  <figure data-slot="hem" class="shot" data-i="6"><img src="denim/hem.webp" alt="The straight hems and denim boots" loading="lazy"></figure>
+  <figure class="shot video" data-slot="film">
+    <img alt="" loading="lazy">
     <video src="denim/look.mp4" poster="denim/look-poster.webp" muted loop playsinline autoplay preload="metadata" aria-label="Short video of the vintage-wash denim jacket and straight jeans"></video>
     <figcaption>Look video</figcaption>
   </figure>
@@ -348,10 +368,32 @@
 (() => {
   const DENIM = {
     quoteUrl: '../quote.html',
-    style: 'SS-DN-JKT-JN',
-    name: 'Vintage-wash denim jacket & straight jeans',
+    // Variants: each is a look with its own gallery (by slot), name, style code and part prices (EUR per piece at MOQ,
+    // SAMPLE rates). `film` is the look video, or a still where a variant has none. Open one directly with #<id>.
+    variants: [
+      {id: 'jacket', label: 'Jacket & jeans', style: 'SS-DN-JKT-JN', name: 'Vintage-wash denim jacket & straight jeans',
+       parts: {jacket: 11.6, jeans: 9.1}, thumb: 'denim/half.webp', video: 'denim/look.mp4', poster: 'denim/look-poster.webp',
+       shots: {
+         full: ['denim/model.webp', 'Model wearing the vintage-wash denim jacket and straight jeans, full length'],
+         product: ['denim/product.webp', 'Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket'],
+         half: ['denim/half.webp', 'The jacket worn, head to hip'],
+         detail1: ['denim/placket.webp', 'Close-up of the stand collar, chest pockets and button placket'],
+         long: ['denim/jeans.webp', 'The straight jeans, waist to hem'],
+         detail2: ['denim/detail.webp', 'Close-up of the scalloped hem, belt chain and knee rip'],
+         hem: ['denim/hem.webp', 'The straight hems and denim boots']}},
+      {id: 'skirt', label: 'Vest & maxi skirt', style: 'SS-DN-VST-SK', name: 'Rib-knit denim vest & maxi skirt',
+       parts: {vest: 8.4, skirt: 10.2}, thumb: 'denim/skirt/half.webp',
+       shots: {
+         full: ['denim/skirt/model.webp', 'Model wearing the rib-knit denim vest and seamed maxi skirt, full length'],
+         product: ['denim/skirt/product.webp', 'Product shot: the rib-knit denim vest with zip front and flap pocket'],
+         half: ['denim/skirt/half.webp', 'The vest worn, head to hip'],
+         detail1: ['denim/skirt/vest.webp', 'Close-up of the rib knit, zip and flap pocket'],
+         long: ['denim/skirt/skirt.webp', 'The maxi skirt, waist to hem'],
+         detail2: ['denim/skirt/belt.webp', 'Close-up of the western belt, waistband and pockets'],
+         hem: ['denim/skirt/hem.webp', 'The raw hem and denim mules'],
+         film: ['denim/skirt/panels.webp', 'The seamed panels and vintage wash of the skirt']}}
+    ],
     // EUR per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
-    parts: {jacket: 11.6, jeans: 9.1},
     setDiscount: .04,                                // jacket + jeans bought as a set
     moq: 1000,                                       // sets per run
     setKg: 1.25,                                     // packed weight per set, for freight
@@ -418,7 +460,7 @@
       : belowMoq ? `Below the ${int.format(DENIM.moq)}-set MOQ: a small-run surcharge applies.`
       : nextTier ? `Add ${int.format(nextTier - qty)} sets for the next volume discount.` : 'Best volume rate.';
 
-    const list = DENIM.parts.jacket + DENIM.parts.jeans, base = list * (1 - DENIM.setDiscount);
+    const list = Object.values(V.parts).reduce((a, b) => a + b, 0), base = list * (1 - DENIM.setDiscount);
     $('fromPrice').textContent = eur.format(base * (1 - DENIM.volume[0][1]));
     if (!ok) {
       ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
@@ -444,7 +486,7 @@
     $('total').textContent = eur.format(total);
     $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
 
-    const q = {style: DENIM.style, product: DENIM.name, quantity: qty, destination: `${c.name} (${c.port})`, shipping: s.label,
+    const q = {style: V.style, product: V.name, quantity: qty, destination: `${c.name} (${c.port})`, shipping: s.label,
       estimate: `${eur.format(total / qty)} / set, ${eur.format(total)} total excl. VAT`};
     $('orderNow').removeAttribute('aria-disabled');
     $('orderNow').href = `${DENIM.quoteUrl}?${new URLSearchParams({order: 'now', ...q})}`;
@@ -513,6 +555,49 @@
     `<a class="rec" href="${r.href}"><div class="ph"><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"></div>` +
     `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
 
+  // Style picker: swap every gallery image, the name and the prices; the images fade out and back in together
+  const gallery = $('gallery'), filmFig = document.querySelector('[data-slot="film"]');
+  let V = DENIM.variants[0];
+  $('styles').innerHTML = DENIM.variants.map(v =>
+    `<button type="button" class="sty" role="radio" data-variant="${v.id}" aria-label="${v.label}" aria-checked="false"><img src="${v.thumb}" alt=""></button>`).join('');
+  function useVariant(id, animate) {
+    const v = DENIM.variants.find(x => x.id === id) || DENIM.variants[0];
+    const apply = () => {
+      V = v;
+      document.querySelectorAll('[data-slot]').forEach(fig => {
+        const shot = v.shots[fig.dataset.slot];
+        if (!shot) return;
+        const img = fig.querySelector('img');
+        img.src = shot[0];
+        img.alt = shot[1];
+      });
+      const video = filmFig.querySelector('video');
+      filmFig.classList.toggle('still', !v.video);
+      filmFig.querySelector('figcaption').textContent = v.video ? 'Look video' : 'Detail';
+      if (v.video) { if (video.getAttribute('src') !== v.video) { video.src = v.video; video.poster = v.poster; } video.play().catch(() => {}); }
+      else video.pause();
+      $('name').textContent = v.name;
+      document.title = `${v.name} | Struggle Style`;
+      $('styleName').textContent = v.label;
+      $('qtyUnit').textContent = `sets · ${Object.keys(v.parts).join(' + ')}`;
+      document.querySelectorAll('[data-variant]').forEach(b => b.setAttribute('aria-checked', b.dataset.variant === v.id));
+      price();
+      gallery.classList.remove('swapping');
+    };
+    if (!animate || reduce) return apply();
+    gallery.classList.add('swapping');
+    setTimeout(apply, 350);
+  }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('styles').addEventListener('click', e => {
+    const b = e.target.closest('[data-variant]');
+    if (!b || b.dataset.variant === V.id) return;
+    history.replaceState(null, '', `#${b.dataset.variant}`);
+    useVariant(b.dataset.variant, true);
+  });
+  // Warm the other variants' images so the swap is instant
+  addEventListener('load', () => DENIM.variants.forEach(v => Object.values(v.shots).forEach(([src]) => { new Image().src = src; })));
+
   // Respect reduced-motion: keep the look video paused on its poster
   const lookVideo = document.querySelector('.shot.video video');
   if (lookVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -520,7 +605,7 @@
     lookVideo.pause();
   }
 
-  price();
+  useVariant(location.hash.slice(1));
 })();
 </script>
 </body>
