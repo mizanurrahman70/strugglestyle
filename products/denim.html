@@ -171,18 +171,26 @@
   .buy[aria-disabled="true"]{opacity:.4;pointer-events:none}
   .dest select:focus-visible,.qty button:focus-visible,.ship button:focus-visible,.buy:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
-  /* Full-screen viewer */
-  .lb{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(246,246,244,.97);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  /* Full-screen viewer, as on fashion house pages: white, thumbnails down the left, every image of the style stacked
+     full width on the right; the thumbnail of the image in view is underlined. */
+  .lb{position:fixed;inset:0;z-index:80;background:#fff;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
   .lb.open{opacity:1;visibility:visible}
-  .lb img{max-width:min(92vw,1100px);max-height:92vh;object-fit:contain;transform:scale(.98);transition:transform .4s var(--ease)}
-  .lb.open img{transform:none}
-  .lb button{position:absolute;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 4px 14px -6px rgba(0,0,0,.3);transition:background .2s,color .2s}
-  .lb button:hover{background:var(--ink);color:#fff}
-  .lb button svg{width:18px;height:18px}
-  .lb .x{top:20px;right:20px}
-  .lb .prev{left:20px;top:50%;transform:translateY(-50%)}
-  .lb .next{right:20px;top:50%;transform:translateY(-50%)}
-  .lb .count{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.14em;color:var(--muted)}
+  .lb-thumbs{position:absolute;left:28px;top:50%;z-index:2;display:flex;flex-direction:column;gap:0;max-height:calc(100vh - 80px);overflow-y:auto;transform:translateY(-50%);scrollbar-width:none}
+  .lb-thumbs::-webkit-scrollbar{display:none}
+  .lb-thumbs button{position:relative;flex:none;width:92px;aspect-ratio:3/4;overflow:hidden;background:var(--studio);opacity:.55;transition:opacity .2s}
+  .lb-thumbs button img{width:100%;height:100%;object-fit:cover}
+  .lb-thumbs button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
+  .lb-thumbs button:hover{opacity:.85}
+  .lb-thumbs button[aria-current="true"]{opacity:1}
+  .lb-thumbs button[aria-current="true"]::after{transform:scaleX(1)}
+  .lb-stage{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-left:150px;scroll-behavior:smooth}
+  .lb-stage figure{margin:0;background:var(--studio)}
+  .lb-stage img{display:block;width:100%;height:auto}
+  .lb-stage figure + figure{margin-top:2px}
+  .lb .x{position:absolute;top:18px;right:22px;z-index:3;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:var(--ink);transition:background .2s}
+  .lb .x:hover{background:#fff}
+  .lb .x svg{width:22px;height:22px}
+  .lb-thumbs button:focus-visible,.lb .x:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
   /* You may also like */
   .more{padding:88px 0 96px}
@@ -241,7 +249,9 @@
     .pdp{grid-template-columns:1fr}
     .info-cell{padding:28px 16px 28px}
     .info{max-width:640px}
-    .lb .prev,.lb .next{top:auto;bottom:12px;transform:none}
+    .lb-thumbs{left:0;right:0;top:auto;bottom:0;flex-direction:row;max-height:none;overflow-x:auto;padding:6px 8px;background:rgba(255,255,255,.95);transform:none}
+    .lb-thumbs button{width:52px}
+    .lb-stage{padding-left:0;padding-bottom:84px}
     .more{padding:56px 0 64px}
     .recs{display:flex;gap:2px;margin:0 -16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
     .recs::-webkit-scrollbar{display:none}
@@ -251,7 +261,8 @@
     .f-bot nav{gap:12px 20px}
   }
   @media (prefers-reduced-motion:reduce){
-    .shot img,.rec .ph img,.lb,.lb img{transition:none}
+    .shot img,.rec .ph img,.lb{transition:none}
+    .lb-stage{scroll-behavior:auto}
   }
 </style>
 </head>
@@ -339,11 +350,9 @@
 </main>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
-  <img id="lbImg" alt="">
-  <button type="button" class="x" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <button type="button" class="prev" id="lbPrev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button>
-  <button type="button" class="next" id="lbNext" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button>
-  <span class="count" id="lbCount"></span>
+  <div class="lb-thumbs" id="lbThumbs" aria-label="Images"></div>
+  <div class="lb-stage" id="lbStage"></div>
+  <button type="button" class="x" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 </div>
 
 <section class="more" aria-labelledby="moreTitle">
@@ -537,27 +546,45 @@
   $('calcForm').addEventListener('input', price);
   $('calcForm').addEventListener('submit', e => e.preventDefault());
 
-  // Full-screen viewer: click a shot; arrows, Esc and swipe move through the gallery
+  // Full-screen viewer: clicking a shot opens every image of the current style, stacked, at the one clicked.
+  // Thumbnails jump to an image; the one in view is marked as you scroll. Esc closes, ↑ ↓ step through.
   const shots = [...document.querySelectorAll('.shot[data-i]')].sort((a, b) => a.dataset.i - b.dataset.i);
-  let at = 0, opener;
-  const lb = $('lb');
+  const lb = $('lb'), stage = $('lbStage'), thumbs = $('lbThumbs');
+  let at = 0, opener, spy;
+  const mark = i => {
+    at = i;
+    thumbs.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === i));
+    thumbs.children[i]?.scrollIntoView({block: 'nearest', inline: 'nearest'});
+  };
+  const goTo = (i, smooth = true) => {
+    i = Math.max(0, Math.min(shots.length - 1, i));
+    stage.scrollTo({top: stage.children[i].offsetTop, behavior: smooth ? 'smooth' : 'instant'});
+    mark(i);
+  };
   function open(i) {
-    at = (i + shots.length) % shots.length;
-    const img = shots[at].querySelector('img');
-    $('lbImg').src = img.currentSrc || img.src;
-    $('lbImg').alt = img.alt;
-    $('lbCount').textContent = `${at + 1} / ${shots.length}`;
-    if (lb.hidden) {
-      opener = document.activeElement;
-      lb.hidden = false;
-      requestAnimationFrame(() => lb.classList.add('open'));
-      document.body.style.overflow = 'hidden';
-      $('lbClose').focus();
-    }
+    // Build from the gallery as it is now, so it always shows the selected style
+    const imgs = shots.map(s => s.querySelector('img'));
+    thumbs.innerHTML = imgs.map((img, k) => `<button type="button" aria-label="Image ${k + 1} of ${imgs.length}"><img src="${img.currentSrc || img.src}" alt=""></button>`).join('');
+    // Width/height up front (4:5 if not loaded yet) so the stack has its full height before the images arrive
+    stage.innerHTML = imgs.map(img => `<figure><img src="${img.currentSrc || img.src}" alt="${img.alt}" width="${img.naturalWidth || 4}" height="${img.naturalHeight || 5}"></figure>`).join('');
+    opener = document.activeElement;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    goTo(i, false);
+    $('lbClose').focus({preventScroll: true});
+    void lb.offsetWidth;  // commit the unhidden state so the fade-in runs
+    lb.classList.add('open');
+    spy?.disconnect();
+    spy = new IntersectionObserver(entries => {
+      const seen = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (seen) mark([...stage.children].indexOf(seen.target));
+    }, {root: stage, threshold: [.35, .6]});
+    [...stage.children].forEach(f => spy.observe(f));
   }
   function close() {
     lb.classList.remove('open');
     document.body.style.overflow = '';
+    spy?.disconnect();
     setTimeout(() => { lb.hidden = true; }, 300);
     if (opener) opener.focus();
   }
@@ -567,23 +594,16 @@
     s.addEventListener('click', () => open(i));
     s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
   });
+  thumbs.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) goTo([...thumbs.children].indexOf(b));
+  });
   $('lbClose').onclick = close;
-  $('lbPrev').onclick = () => open(at - 1);
-  $('lbNext').onclick = () => open(at + 1);
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
   addEventListener('keydown', e => {
     if (lb.hidden) return;
     if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') open(at - 1);
-    if (e.key === 'ArrowRight') open(at + 1);
-  });
-  let x0 = null;
-  lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
-  lb.addEventListener('touchend', e => {
-    if (x0 === null) return;
-    const dx = e.changedTouches[0].clientX - x0;
-    if (Math.abs(dx) > 40) open(at + (dx < 0 ? 1 : -1));
-    x0 = null;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(at + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(at - 1); }
   });
 
   $('recs').innerHTML = DENIM.related.map(r =>
