@@ -364,12 +364,6 @@
   #builder .view:focus-visible,#builder .sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
   /* Per-garment colours in the panel */
-  #builder .colour-rows{display:grid;gap:8px}
-  #builder .colour-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px 7px 14px;border:1px solid var(--line);border-radius:14px;background:#fff}
-  #builder .colour-row .who{font-size:13px;font-weight:600}
-  #builder .colour-row .who small{display:block;font-size:11.5px;font-weight:400;color:var(--muted)}
-  #builder .colour-row .swatches{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-  #builder .colour-row .sw{width:28px;height:28px}
 
   /* Zoom: a glass pill over the top-right of the showcase */
   #builder .zoom{position:absolute;right:20px;top:20px;z-index:4;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transition:opacity .3s}
@@ -421,42 +415,7 @@
   #builder .gar:focus-visible,#builder .fab:focus-visible,#builder .sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
 
   /* Your order: the price calculator, in the panel */
-  #builder .order{margin-top:30px;padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#FBFCFA,#F4F7F5);box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -28px rgba(15,31,23,.35)}
-  #builder .order-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
-  #builder .order-h h2{font:600 16px/1.2 var(--head)}
-  #builder .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
-  #builder .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  #builder .field{min-width:0}
-  #builder .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-  #builder .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
-  #builder .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
-  #builder .field input,#builder .field select{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;font:600 14.5px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums}
-  #builder .field select{cursor:pointer;font-weight:500;font-size:13.5px}
-  #builder .field .unit{padding-right:12px;font-size:12px;color:var(--muted)}
   /* Hints only speak up when something needs fixing */
-  #builder .field small{display:none;margin-top:5px;font-size:11.5px;color:#B4541A}
-  #builder .field small.warn{display:block}
-  #builder .field.bad .ctl{border-color:#D9822B}
-  #builder .tier{margin-top:10px;font-size:12px;color:var(--green-700)}
-  #builder .tier:empty{display:none}
-  #builder .sum{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-  #builder .sum small{display:block;font-size:11.5px;color:var(--muted)}
-  #builder .unit-price{font:700 34px/1.05 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  #builder .unit-price small{display:inline;font:500 13px var(--body);color:var(--muted);letter-spacing:0}
-  #builder .total{text-align:right}
-  #builder .total b{display:block;font:600 17px/1.2 var(--head);font-variant-numeric:tabular-nums}
-  #builder .breakdown{margin-top:12px}
-  #builder .breakdown summary{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);list-style:none;cursor:pointer}
-  #builder .breakdown summary::-webkit-details-marker{display:none}
-  #builder .breakdown summary::after{content:"";width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
-  #builder .breakdown[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
-  #builder .lines{display:grid;grid-template-columns:1fr auto;gap:7px 16px;margin-top:10px;font-size:12.5px}
-  #builder .lines dt{color:var(--muted)}
-  #builder .lines dd{text-align:right;font-variant-numeric:tabular-nums}
-  #builder .lines .neg{color:var(--green-700)}
-  #builder .lines .pos{color:#B4541A}
-  #builder .order .btn{width:100%;margin-top:16px;height:54px;font-size:15.5px}
-  #builder .note{margin-top:10px;font-size:11px;color:var(--muted);text-align:center}
 
   @media (max-width:1100px){
     #builder .pdp{grid-template-columns:minmax(0,1.15fr) minmax(320px,1fr)}
@@ -486,9 +445,6 @@
     #builder .zoom-val{min-width:36px;font-size:10.5px}
     #builder .panel{padding:20px 16px 40px}
     #builder .garments{gap:8px}
-    #builder .order{padding:16px}
-    #builder .order-h{flex-direction:column;gap:4px}
-    #builder .order-h span{text-align:left}
   }
   @media (prefers-reduced-motion:reduce){
     #builder .fig img.drape,#builder .pedestal::after,#builder .chip .flip{animation:none}
@@ -498,9 +454,21 @@
   #builder .show{position:relative;top:auto;height:min(820px,calc(100vh - var(--hdr) - 60px));min-height:600px}
   #builder .panel{padding-top:0}
   #builder .panel .opt:first-of-type{margin-top:0}
-  /* Undo this page's own order-panel styles inside the copied form */
-  #builder .order{display:block;gap:0}
-  #builder .sum div{display:block;padding:0;border:0;gap:0}
+  /* Order this look: full width under the showcase, laid out like the main order panel */
+  #builder .o-title{margin-top:10px;font:500 clamp(22px,1.9vw,26px)/1.25 var(--head);letter-spacing:-.01em;color:#111}
+  #builder .b-order{border-top:1px solid var(--line)}
+  /* GSM and MOQ: two inputs side by side, boxed like the quantity field */
+  #builder .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+  #builder .pair label{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  #builder .pair label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+  #builder .box{display:flex;align-items:center;height:48px;border:1px solid #D4D4D0;transition:border-color .2s}
+  #builder .box:focus-within{border-color:#111}
+  #builder .box.bad{border-color:#C46A2B}
+  #builder .box input{flex:1;min-width:0;height:100%;padding:0 14px;border:0;background:none;font:600 15px var(--body);color:#111;outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+  #builder .box input::-webkit-outer-spin-button,#builder .box input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  #builder .box span{padding-right:14px;font-size:12px;color:var(--muted)}
+  #builder .pair .hint{grid-column:1/-1}
+  #builder .pair .hint:empty{display:none}
   @media (max-width:760px){#builder .show{height:auto;min-height:0}}
 </style>
 </head>
@@ -635,43 +603,60 @@
         <div class="fabrics" id="b-fabrics" role="radiogroup" aria-label="Fabric"></div>
       </div>
   
-      <div class="opt">
-        <div class="opt-h">Colours <span id="b-colourNames"></span></div>
-        <div class="colour-rows" id="b-colourRows"></div>
-      </div>
   
   
-      <section class="order" id="b-price" aria-labelledby="b-orderTitle">
-        <div class="order-h"><h2 id="b-orderTitle">Your order</h2><span id="b-leadTime"></span></div>
-        <form class="fields" id="b-calcForm" novalidate>
-          <div class="field" id="b-qtyField">
-            <label for="b-qty">Quantity</label>
-            <div class="ctl"><input id="b-qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">pcs</span></div>
-            <small id="b-qtyHint"></small>
+    </section>
+  </div>
+  <div class="info-cell b-order">
+    <section class="info" aria-labelledby="b-orderTitle">
+      <section class="order" id="b-price">
+        <header class="o-head">
+          <div>
+            <p class="kicker">Mix &amp; match · Custom look</p>
+            <h2 class="o-title" id="b-orderTitle">Order this look</h2>
           </div>
-          <div class="field">
-            <label for="b-moqIn">MOQ</label>
-            <div class="ctl"><input id="b-moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">pcs</span></div>
-            <small id="b-moqHint"></small>
+          <p class="from" id="b-fromPrice"></p>
+        </header>
+
+        <form class="o-cfg" id="b-calcForm" novalidate>
+          <div class="step">
+            <label for="b-dest">Deliver to <span id="b-destPort"></span></label>
+            <div class="dest"><img id="b-destFlag" alt=""><select id="b-dest"></select></div>
           </div>
-          <div class="field">
-            <label for="b-gsm">GSM</label>
-            <div class="ctl"><input id="b-gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span class="unit">g/m²</span></div>
-            <small id="b-gsmHint"></small>
+          <div class="step">
+            <label for="b-qty">Quantity <span id="b-qtyUnit"></span></label>
+            <div class="qty"><button type="button" id="b-minus" aria-label="100 fewer">−</button><input id="b-qty" type="number" inputmode="numeric" min="1" step="100" value="300"><button type="button" id="b-plus" aria-label="100 more">+</button></div>
+            <p class="hint" id="b-qtyHint" aria-live="polite"></p>
           </div>
-          <div class="field">
-            <label for="b-ship">Shipping</label>
-            <div class="ctl"><select id="b-ship"></select></div>
+          <div class="step pair">
+            <div>
+              <label for="b-gsm">GSM <span id="b-gsmStd"></span></label>
+              <div class="box"><input id="b-gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span>g/m²</span></div>
+            </div>
+            <div>
+              <label for="b-moq">MOQ <span id="b-moqStd"></span></label>
+              <div class="box"><input id="b-moq" type="number" inputmode="numeric" min="1" step="50"><span id="b-moqUnit">sets</span></div>
+            </div>
+            <p class="hint warn" id="b-pairHint" aria-live="polite"></p>
+          </div>
+          <div class="step">
+            <div class="step-h">Shipping</div>
+            <div class="ship" id="b-ship" role="radiogroup" aria-label="Shipping"></div>
           </div>
         </form>
-        <div class="tier" id="b-tier"></div>
-        <div class="sum" aria-live="polite">
-          <div><small>Estimated price</small><div class="unit-price" id="b-unitPrice"></div></div>
-          <div class="total"><small>Order total</small><b id="b-orderTotal"></b></div>
-        </div>
-        <details class="breakdown"><summary>Price breakdown</summary><dl class="lines" id="b-lines"></dl></details>
-        <a class="btn btn-primary" id="b-orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
+
+        <aside class="o-sum" aria-label="Price summary">
+        <h2 class="o-sum-h">Your estimate</h2>
+        <dl class="sum" aria-live="polite">
+          <div><dt id="b-perLabel">Price per set</dt><dd id="b-perSet"></dd></div>
+          <div id="b-discRow"><dt id="b-discLabel"></dt><dd id="b-disc"></dd></div>
+          <div><dt id="b-freightLabel">Delivery</dt><dd id="b-freight"></dd></div>
+          <div><dt>EU import duty</dt><dd>€0.00</dd></div>
+          <div class="tot"><dt>Order total <span class="vat" id="b-vatNote"></span></dt><dd id="b-total"></dd></div>
+        </dl>
+        <a class="buy" id="b-orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+        <p class="o-note">Indicative FOB estimate · final price confirmed with your order</p>
+        </aside>
       </section>
     </section>
   </div>
@@ -806,6 +791,7 @@
     lastY = y;
   }, {passive: true});
 
+  window.SS_EU = {countries: DENIM.countries, shipping: DENIM.shipping};
   $('dest').innerHTML = DENIM.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
   $('dest').value = 'de';
   let ship = 'sea';
@@ -1062,23 +1048,10 @@
       {id: 'ss-s07', label: 'Satin charmeuse', short: 'Satin',  code: 'ST', comp: '100% recycled polyester', gsm: '95 GSM',  g: 95,  perKg: 9.2, weave: 'Satin weave, fluid drape',
        care: 'Hand wash cold', colours: [['champagne', 'Champagne', '#DCC7A3'], ['emerald', 'Emerald', '#1E6B4A'], ['lilac', 'Lilac', '#B3A0D4'], ['black', 'Black', '#1E1E22']]}
     ],
-    // Price calculator — SAMPLE rates, to be confirmed by Struggle Style before launch
-    pricing: {
-      wastage: .08,                                  // cutting loss on fabric
-      trims: .45,                                    // buttons, labels, thread per garment
-      packing: .25,                                  // polybag, hangtag, carton share per piece
-      packKg: .06,                                   // packed weight added per piece
-      margin: .12,                                   // factory overhead & margin
-      volume: [[5000, .12], [3000, .08], [1000, .04]],  // [from qty, discount]
-      smallRun: [.25, .40],                          // below MOQ: +25% per MOQ multiple short, capped at 40%
-      gsmRange: [60, 400],
-      shipping: [
-        {id: 'fob',     label: 'FOB Chattogram', perKg: 0,    min: 0,   days: 'Ready at port'},
-        {id: 'sea',     label: 'Sea freight', perKg: 1.1,  min: 350, days: '25–35 days in transit'},
-        {id: 'air',     label: 'Air freight', perKg: 5.2, min: 250, days: '5–8 days in transit'},
-        {id: 'express', label: 'Express courier', perKg: 9.5, min: 60, days: '3–5 days in transit'}
-      ]
-    }
+    // Order this look — SAMPLE rates, to be confirmed. Costs are USD, shown in EUR; destinations and shipping
+    // come from this page's main order panel (window.SS_EU)
+    custom: {eurPerUsd: .92, wastage: .08, trims: .45, packing: .25, packKg: .06, margin: .12,
+             volume: [[5000, .08], [2000, .04]], smallRun: .25},
   };
 
   const root = document.getElementById('builder');
@@ -1126,8 +1099,6 @@
       `<button type="button" class="sw" role="radio" data-colour-for="${g.id}" data-colour="${id}" aria-label="${g.label} ${label}" aria-checked="${id === colourOf(g.id)}"><span style="--c:url('${swatchUrl(f.id, id)}')"></span></button>`).join('');
     $('dock').innerHTML = w.map(g =>
       `<span class="dock-grp" role="radiogroup" aria-label="${g.label} colour"><span class="lbl">${g.label}</span>${swatches(g)}</span>`).join('');
-    $('colourRows').innerHTML = w.map(g =>
-      `<div class="colour-row"><span class="who">${g.label}<small data-colour-label="${g.id}">${colourLabelOf(g.id)}</small></span><span class="swatches" role="radiogroup" aria-label="${g.label} colour">${swatches(g)}</span></div>`).join('');
   };
 
   function pickGarment(id) {
@@ -1335,91 +1306,94 @@
     $('styleCode').textContent = code;
     $('garmentNames').textContent = w.map(g => g.label).join(' + ');
     $('fabricName').textContent = `${f.label} · ${f.gsm}`;
-    $('colourNames').textContent = summary;
     look = {code, name, colour: summary};
     syncCalc();
     preload();
   }
 
-  // Price calculator: fabric by weight + cut & make + trims, adjusted for volume, small runs, margin and freight
-  const P = WOVEN.pricing;
-  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+  // Order this look: per set = each worn garment's fabric (by weight) + cut & make, trims, packing and margin;
+  // volume discount or small-run surcharge against the look's MOQ; delivery by weight to the chosen EU country
+  const C = WOVEN.custom, EU = window.SS_EU;
+  const eur = new Intl.NumberFormat('en-IE', {style: 'currency', currency: 'EUR'});
   const int = new Intl.NumberFormat('en-US');
-  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
-  let look = {}, synced = {};
-  $('ship').innerHTML = P.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
-  $('ship').value = 'sea';
-
-  // GSM follows the fabric and MOQ follows the garments, until the buyer types their own
-  function syncCalc() {
+  let look = {}, ship = 'sea';
+  $('dest').innerHTML = EU.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  $('dest').value = 'de';
+  // GSM follows the fabric and MOQ follows the look; both can be overwritten by the buyer
+  const synced = {};
+  const syncCalc = () => {
     const f = fabric[sel.fabric], moq = Math.max(...worn().map(g => g.moq));
     if (synced.fabric !== f.id) { $('gsm').value = f.g; synced.fabric = f.id; }
-    if (synced.moq !== moq) { $('moqIn').value = moq; synced.moq = moq; }
+    if (synced.moq !== moq) { $('moq').value = moq; synced.moq = moq; }
+    $('gsmStd').textContent = `${f.short} standard ${f.g}`;
+    $('moqStd').textContent = `look standard ${int.format(moq)}`;
     price();
-  }
+  };
 
   function price() {
-    const w = worn(), f = fabric[sel.fabric], ship = P.shipping.find(s => s.id === $('ship').value);
-    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn'));
-    const [gMin, gMax] = P.gsmRange;
-    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1;
-    const nextTier = P.volume.map(([q]) => q).filter(q => q > qty).pop();  // tiers run high to low
+    const w = worn(), f = fabric[sel.fabric], c = EU.countries.find(x => x.id === $('dest').value);
+    const qty = Math.round(+$('qty').value), gsm = +$('gsm').value, moq = Math.round(+$('moq').value);
+    const gsmOk = gsm >= 60 && gsm <= 400, moqOk = moq >= 1, ok = qty >= 1 && gsmOk && moqOk;
+    const belowMoq = ok && qty < moq;
+    $('gsm').parentNode.classList.toggle('bad', !gsmOk);
+    $('moq').parentNode.classList.toggle('bad', !moqOk);
+    $('pairHint').textContent = !gsmOk ? 'Enter a GSM between 60 and 400.' : !moqOk ? 'Enter an MOQ of 1 or more.' : '';
+    const kg = w.reduce((a, g) => a + g.use * (gsmOk ? gsm : f.g) / 1000, 0) + C.packKg;
+    const usd = ((kg - C.packKg) * (1 + C.wastage) * f.perKg + w.reduce((a, g) => a + g.cm, 0) + C.trims * w.length + C.packing) * (1 + C.margin);
+    const per = usd * C.eurPerUsd, unit = w.length > 1 ? 'set' : 'pc';
+    const nextTier = C.volume.map(([q]) => q).filter(q => q > qty).pop();
+    const days = s => s.days || c.sea;
 
-    $('qtyField').classList.toggle('bad', !qtyOk || (moqOk && qty < moq));
-    // Hints only show when an input needs fixing; the volume nudge sits under the fields
-    const belowMoq = qtyOk && moqOk && qty < moq;
-    $('qtyHint').className = !qtyOk || belowMoq ? 'warn' : '';
-    $('qtyHint').textContent = !qtyOk ? 'Enter 1 or more.' : belowMoq ? `${int.format(moq - qty)} below MOQ · small-run surcharge` : '';
-    $('gsmHint').className = gsmOk ? '' : 'warn';
-    $('gsmHint').textContent = gsmOk ? '' : `Enter ${gMin}–${gMax}.`;
-    $('moqHint').className = moqOk ? '' : 'warn';
-    $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
-    $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} pcs to unlock the next volume discount` : '';
-    const lead = [Math.max(...w.map(g => g.lead[0])), Math.max(...w.map(g => g.lead[1]))];
-    $('leadTime').textContent = `Production ${range(lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
-
-    if (!qtyOk || !gsmOk || !moqOk) {
-      $('unitPrice').innerHTML = '—';
-      $('orderTotal').textContent = '—';
-      $('lines').innerHTML = '';
+    $('fromPrice').innerHTML = `From <b>${eur.format(per * (1 - C.volume[0][1]))}</b> / ${unit} · excl. VAT`;
+    $('destFlag').src = `https://flagcdn.com/w40/${c.id}.png`;
+    $('destPort').textContent = {sea: `via ${c.port}`, air: 'via airport', express: 'door to door'}[ship];
+    $('qtyUnit').textContent = `${unit === 'set' ? 'sets' : 'pieces'} · ${w.map(g => g.label.toLowerCase()).join(' + ')}`;
+    $('ship').innerHTML = EU.shipping.map(s =>
+      `<button type="button" role="radio" data-ship="${s.id}" aria-checked="${s.id === ship}"><b>${s.label}</b><small>${range(days(s))}</small></button>`).join('');
+    $('qtyHint').className = 'hint' + (ok && !belowMoq ? '' : ' warn');
+    $('moqUnit').textContent = unit === 'set' ? 'sets' : 'pcs';
+    $('qtyHint').textContent = !(qty >= 1) ? 'Enter a quantity.' : !ok ? ''
+      : belowMoq ? `Below the ${int.format(moq)} MOQ for this look: a small-run surcharge applies.`
+      : nextTier ? `Add ${int.format(nextTier - qty)} for the next volume discount.` : 'Best volume rate.';
+    if (!ok) {
+      ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
+      $('orderNow').removeAttribute('href');
+      $('orderNow').setAttribute('aria-disabled', 'true');
       return;
     }
-
-    // Per piece (a set counts as one piece)
-    const area = w.reduce((a, g) => a + g.use, 0);
-    const netKg = area * gsm / 1000;
-    const fabricCost = netKg * (1 + P.wastage) * f.perKg;
-    const make = w.reduce((a, g) => a + g.cm, 0);
-    const trims = P.trims * w.length + P.packing;
-    const base = fabricCost + make + trims;
-    const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
-    const small = qty < moq ? Math.min(P.smallRun[1], (moq / qty - 1) * P.smallRun[0]) : 0;
-    const adjusted = base * (1 - vol + small);
-    const margin = adjusted * P.margin;
-    const shipKg = (netKg + P.packKg) * qty;
-    const freight = ship.perKg ? Math.max(ship.min, shipKg * ship.perKg) / qty : 0;
-    const unit = adjusted + margin + freight;
-
-    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
-    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ ${w.length > 1 ? 'set' : 'pc'}</small>`;
-    $('orderTotal').textContent = `${usd.format(unit * qty)}`;
-    $('lines').innerHTML = [
-      row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
-      row(`Cut &amp; make · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
-      row('Trims &amp; packing', usd.format(trims)),
-      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
-      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
-      row('Overhead &amp; margin', usd.format(margin)),
-      row(`${ship.label.split(' (')[0]}${ship.perKg ? ` · ${int.format(Math.round(shipKg))} kg` : ''}`, ship.perKg ? usd.format(freight) : 'Included')
-    ].join('');
+    const s = EU.shipping.find(x => x.id === ship);
+    const [, vol = 0] = C.volume.find(([q]) => qty >= q) || [];
+    const small = belowMoq ? Math.min(C.smallRun, (moq / qty - 1) * .1) : 0;
+    const goods = per * qty, adj = goods * (small - vol);
+    const freight = Math.max(s.min, kg * qty * s.perKg);
+    const total = goods + adj + freight;
+    $('perLabel').textContent = `Price per ${unit === 'set' ? 'set' : 'piece'}`;
+    $('perSet').textContent = `${eur.format(per)} × ${int.format(qty)}`;
+    $('discRow').hidden = !adj;
+    $('discLabel').textContent = vol ? `Volume discount · ${vol * 100}%` : `Small-run surcharge · ${Math.round(small * 100)}%`;
+    $('disc').textContent = (adj < 0 ? '−' : '+') + eur.format(Math.abs(adj));
+    $('disc').className = adj < 0 ? 'neg' : 'pos';
+    $('freightLabel').textContent = `${s.label} to ${ship === 'sea' ? c.port : c.name}`;
+    $('freight').textContent = eur.format(freight);
+    $('total').textContent = eur.format(total);
+    $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
+    $('orderNow').removeAttribute('aria-disabled');
     $('orderNow').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
-      order: 'now', style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
-      quantity: qty, gsm, moq, shipping: ship.label, estimate: usd.format(unit)
+      order: 'now', type: 'custom', style: look.code, look: look.name,
+      garments: w.map(g => `${g.label} (${colourLabelOf(g.id)})`).join(', '), fabric: f.label, gsm, moq,
+      quantity: qty, destination: ship === 'sea' ? `${c.name} (${c.port})` : c.name, shipping: s.label,
+      estimate: `${eur.format(total / qty)} / ${unit}, ${eur.format(total)} total excl. VAT`
     })}`;
   }
-
   $('calcForm').addEventListener('input', price);
   $('calcForm').addEventListener('submit', e => e.preventDefault());
+  $('ship').addEventListener('click', e => {
+    const b = e.target.closest('[data-ship]');
+    if (b && b.dataset.ship !== ship) { ship = b.dataset.ship; price(); $('ship').querySelector(`[data-ship="${ship}"]`).focus(); }
+  });
+  const step = d => { $('qty').value = Math.max(100, Math.round((+$('qty').value || 0) / 100) * 100 + d); price(); };
+  $('minus').onclick = () => step(-100);
+  $('plus').onclick = () => step(100);
 
   // Panel and showcase dock share one handler: garments turn the avatar, fabric and colours drape over it
   const choose = e => {
