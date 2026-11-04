@@ -290,17 +290,17 @@
     .shot img,.rec .ph img,.lb{transition:none}
     .lb-stage{scroll-behavior:auto}
   }
-  /* Look builder, copied from woven.html: scoped to #builder so it never touches the rest of this page */
+  /* Look builder, copied from woven.html (showcase, garments, fabric, colours and its order form): scoped to #builder */
   #builder{--studio:#F3F2EF;--text:#0F1F17;--muted:#55665C;--line:#E4E7E5;border-top:1px solid var(--line)}
   #builder .b-head{padding:56px 32px 28px;text-align:center}
   #builder .b-head p{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
   #builder .b-head h2{margin-top:8px;font:500 clamp(22px,2.2vw,30px)/1.2 var(--head);letter-spacing:-.01em;color:#111}
   /* Product: 3D showcase left, sticky panel right */
-  #builder .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin:0}
+  #builder .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin-top:var(--hdr)}
 
   /* Showcase: the avatar stands on a lit pedestal over a receding floor, in front of a halo tinted with the chosen colour.
      The scene leans toward the pointer; glass chips float at different depths. */
-  #builder .show{position:relative;height:min(820px,calc(100vh - var(--hdr) - 60px));min-height:600px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#FFFFFF 0%,#F3F2EE 55%,#E8E6DF 100%);perspective:1600px;isolation:isolate}
+  #builder .show{position:sticky;top:var(--hdr);height:calc(100vh - var(--hdr));min-height:640px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#FFFFFF 0%,#F3F2EE 55%,#E8E6DF 100%);perspective:1600px;isolation:isolate}
   #builder .halo{position:absolute;left:50%;top:42%;width:58%;aspect-ratio:1;border-radius:50%;background:var(--tint,#E9E4DA);filter:blur(90px);opacity:.7;transform:translate(-50%,-50%);transition:background-color 1s var(--ease);z-index:-1}
   #builder .floor{position:absolute;left:-50%;right:-50%;bottom:-8%;height:48%;background-image:linear-gradient(rgba(17,64,42,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(17,64,42,.08) 1px,transparent 1px);background-size:60px 60px;transform:rotateX(78deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(to top,#000 5%,transparent 80%);mask-image:linear-gradient(to top,#000 5%,transparent 80%);z-index:-1}
   #builder .scene{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .9s var(--ease)}
@@ -386,11 +386,12 @@
   #builder .show.zoomed .fig{touch-action:none}
   #builder .show.zoomed .fig img{-webkit-user-drag:none;user-select:none}
 
-  #builder .panel{padding:0 clamp(24px,4vw,64px) 48px}
+  #builder .panel{padding:32px clamp(24px,4vw,64px) 48px}
+  #builder .panel h1{margin:18px 0 6px;font:600 clamp(24px,2.3vw,30px)/1.15 var(--head);letter-spacing:-.02em}
+  #builder .code{font-size:12px;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
 
   #builder .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
   #builder .opt{margin-top:26px}
-  #builder .panel .opt:first-of-type{margin-top:0}
   #builder .opt-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:13px;font-weight:600}
   #builder .opt-h span{font-weight:400;color:var(--muted)}
 
@@ -418,6 +419,44 @@
   #builder .gar .tick svg{width:12px;height:12px}
   #builder .gar[aria-pressed="true"] .tick{opacity:1;transform:none}
   #builder .gar:focus-visible,#builder .fab:focus-visible,#builder .sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Your order: the price calculator, in the panel */
+  #builder .order{margin-top:30px;padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#FBFCFA,#F4F7F5);box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -28px rgba(15,31,23,.35)}
+  #builder .order-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+  #builder .order-h h2{font:600 16px/1.2 var(--head)}
+  #builder .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
+  #builder .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #builder .field{min-width:0}
+  #builder .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  #builder .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
+  #builder .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
+  #builder .field input,#builder .field select{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;font:600 14.5px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums}
+  #builder .field select{cursor:pointer;font-weight:500;font-size:13.5px}
+  #builder .field .unit{padding-right:12px;font-size:12px;color:var(--muted)}
+  /* Hints only speak up when something needs fixing */
+  #builder .field small{display:none;margin-top:5px;font-size:11.5px;color:#B4541A}
+  #builder .field small.warn{display:block}
+  #builder .field.bad .ctl{border-color:#D9822B}
+  #builder .tier{margin-top:10px;font-size:12px;color:var(--green-700)}
+  #builder .tier:empty{display:none}
+  #builder .sum{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  #builder .sum small{display:block;font-size:11.5px;color:var(--muted)}
+  #builder .unit-price{font:700 34px/1.05 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  #builder .unit-price small{display:inline;font:500 13px var(--body);color:var(--muted);letter-spacing:0}
+  #builder .total{text-align:right}
+  #builder .total b{display:block;font:600 17px/1.2 var(--head);font-variant-numeric:tabular-nums}
+  #builder .breakdown{margin-top:12px}
+  #builder .breakdown summary{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);list-style:none;cursor:pointer}
+  #builder .breakdown summary::-webkit-details-marker{display:none}
+  #builder .breakdown summary::after{content:"";width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+  #builder .breakdown[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+  #builder .lines{display:grid;grid-template-columns:1fr auto;gap:7px 16px;margin-top:10px;font-size:12.5px}
+  #builder .lines dt{color:var(--muted)}
+  #builder .lines dd{text-align:right;font-variant-numeric:tabular-nums}
+  #builder .lines .neg{color:var(--green-700)}
+  #builder .lines .pos{color:#B4541A}
+  #builder .order .btn{width:100%;margin-top:16px;height:54px;font-size:15.5px}
+  #builder .note{margin-top:10px;font-size:11px;color:var(--muted);text-align:center}
 
   @media (max-width:1100px){
     #builder .pdp{grid-template-columns:minmax(0,1.15fr) minmax(320px,1fr)}
@@ -447,10 +486,22 @@
     #builder .zoom-val{min-width:36px;font-size:10.5px}
     #builder .panel{padding:20px 16px 40px}
     #builder .garments{gap:8px}
+    #builder .order{padding:16px}
+    #builder .order-h{flex-direction:column;gap:4px}
+    #builder .order-h span{text-align:left}
   }
   @media (prefers-reduced-motion:reduce){
     #builder .fig img.drape,#builder .pedestal::after,#builder .chip .flip{animation:none}
   }
+  /* This page: no sticky showcase, the panel starts level with it, title kept for screen readers only */
+  #builder .pdp{margin:0}
+  #builder .show{position:relative;top:auto;height:min(820px,calc(100vh - var(--hdr) - 60px));min-height:600px}
+  #builder .panel{padding-top:0}
+  #builder .panel .opt:first-of-type{margin-top:0}
+  /* Undo this page's own order-panel styles inside the copied form */
+  #builder .order{display:block;gap:0}
+  #builder .sum div{display:block;padding:0;border:0;gap:0}
+  @media (max-width:760px){#builder .show{height:auto;min-height:0}}
 </style>
 </head>
 <body>
@@ -584,8 +635,44 @@
         <div class="fabrics" id="b-fabrics" role="radiogroup" aria-label="Fabric"></div>
       </div>
   
+      <div class="opt">
+        <div class="opt-h">Colours <span id="b-colourNames"></span></div>
+        <div class="colour-rows" id="b-colourRows"></div>
+      </div>
   
   
+      <section class="order" id="b-price" aria-labelledby="b-orderTitle">
+        <div class="order-h"><h2 id="b-orderTitle">Your order</h2><span id="b-leadTime"></span></div>
+        <form class="fields" id="b-calcForm" novalidate>
+          <div class="field" id="b-qtyField">
+            <label for="b-qty">Quantity</label>
+            <div class="ctl"><input id="b-qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">pcs</span></div>
+            <small id="b-qtyHint"></small>
+          </div>
+          <div class="field">
+            <label for="b-moqIn">MOQ</label>
+            <div class="ctl"><input id="b-moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">pcs</span></div>
+            <small id="b-moqHint"></small>
+          </div>
+          <div class="field">
+            <label for="b-gsm">GSM</label>
+            <div class="ctl"><input id="b-gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span class="unit">g/m²</span></div>
+            <small id="b-gsmHint"></small>
+          </div>
+          <div class="field">
+            <label for="b-ship">Shipping</label>
+            <div class="ctl"><select id="b-ship"></select></div>
+          </div>
+        </form>
+        <div class="tier" id="b-tier"></div>
+        <div class="sum" aria-live="polite">
+          <div><small>Estimated price</small><div class="unit-price" id="b-unitPrice"></div></div>
+          <div class="total"><small>Order total</small><b id="b-orderTotal"></b></div>
+        </div>
+        <details class="breakdown"><summary>Price breakdown</summary><dl class="lines" id="b-lines"></dl></details>
+        <a class="btn btn-primary" id="b-orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
+      </section>
     </section>
   </div>
 </section>
@@ -946,8 +1033,8 @@
 })();
 </script>
 <script>
-// Look builder, copied from woven.html: garments + fabric + colour -> one render in woven/looks/, on the 3D showcase.
-// Its ids are prefixed b- and every lookup stays inside #builder, so it runs alongside this page's own script.
+// Look builder, copied from woven.html: garments + fabric + colours on the 3D showcase, with its own order form.
+// Ids are prefixed b- and every lookup stays inside #builder, so it runs alongside this page's own script.
 (() => {
   const WOVEN = {
     look: 'woven/looks/{first}-{second}-{fabric}-{colour}.webp',
@@ -975,6 +1062,23 @@
       {id: 'ss-s07', label: 'Satin charmeuse', short: 'Satin',  code: 'ST', comp: '100% recycled polyester', gsm: '95 GSM',  g: 95,  perKg: 9.2, weave: 'Satin weave, fluid drape',
        care: 'Hand wash cold', colours: [['champagne', 'Champagne', '#DCC7A3'], ['emerald', 'Emerald', '#1E6B4A'], ['lilac', 'Lilac', '#B3A0D4'], ['black', 'Black', '#1E1E22']]}
     ],
+    // Price calculator — SAMPLE rates, to be confirmed by Struggle Style before launch
+    pricing: {
+      wastage: .08,                                  // cutting loss on fabric
+      trims: .45,                                    // buttons, labels, thread per garment
+      packing: .25,                                  // polybag, hangtag, carton share per piece
+      packKg: .06,                                   // packed weight added per piece
+      margin: .12,                                   // factory overhead & margin
+      volume: [[5000, .12], [3000, .08], [1000, .04]],  // [from qty, discount]
+      smallRun: [.25, .40],                          // below MOQ: +25% per MOQ multiple short, capped at 40%
+      gsmRange: [60, 400],
+      shipping: [
+        {id: 'fob',     label: 'FOB Chattogram', perKg: 0,    min: 0,   days: 'Ready at port'},
+        {id: 'sea',     label: 'Sea freight', perKg: 1.1,  min: 350, days: '25–35 days in transit'},
+        {id: 'air',     label: 'Air freight', perKg: 5.2, min: 250, days: '5–8 days in transit'},
+        {id: 'express', label: 'Express courier', perKg: 9.5, min: 60, days: '3–5 days in transit'}
+      ]
+    }
   };
 
   const root = document.getElementById('builder');
@@ -1022,6 +1126,8 @@
       `<button type="button" class="sw" role="radio" data-colour-for="${g.id}" data-colour="${id}" aria-label="${g.label} ${label}" aria-checked="${id === colourOf(g.id)}"><span style="--c:url('${swatchUrl(f.id, id)}')"></span></button>`).join('');
     $('dock').innerHTML = w.map(g =>
       `<span class="dock-grp" role="radiogroup" aria-label="${g.label} colour"><span class="lbl">${g.label}</span>${swatches(g)}</span>`).join('');
+    $('colourRows').innerHTML = w.map(g =>
+      `<div class="colour-row"><span class="who">${g.label}<small data-colour-label="${g.id}">${colourLabelOf(g.id)}</small></span><span class="swatches" role="radiogroup" aria-label="${g.label} colour">${swatches(g)}</span></div>`).join('');
   };
 
   function pickGarment(id) {
@@ -1229,8 +1335,91 @@
     $('styleCode').textContent = code;
     $('garmentNames').textContent = w.map(g => g.label).join(' + ');
     $('fabricName').textContent = `${f.label} · ${f.gsm}`;
+    $('colourNames').textContent = summary;
+    look = {code, name, colour: summary};
+    syncCalc();
     preload();
   }
+
+  // Price calculator: fabric by weight + cut & make + trims, adjusted for volume, small runs, margin and freight
+  const P = WOVEN.pricing;
+  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+  const int = new Intl.NumberFormat('en-US');
+  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
+  let look = {}, synced = {};
+  $('ship').innerHTML = P.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
+  $('ship').value = 'sea';
+
+  // GSM follows the fabric and MOQ follows the garments, until the buyer types their own
+  function syncCalc() {
+    const f = fabric[sel.fabric], moq = Math.max(...worn().map(g => g.moq));
+    if (synced.fabric !== f.id) { $('gsm').value = f.g; synced.fabric = f.id; }
+    if (synced.moq !== moq) { $('moqIn').value = moq; synced.moq = moq; }
+    price();
+  }
+
+  function price() {
+    const w = worn(), f = fabric[sel.fabric], ship = P.shipping.find(s => s.id === $('ship').value);
+    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn'));
+    const [gMin, gMax] = P.gsmRange;
+    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1;
+    const nextTier = P.volume.map(([q]) => q).filter(q => q > qty).pop();  // tiers run high to low
+
+    $('qtyField').classList.toggle('bad', !qtyOk || (moqOk && qty < moq));
+    // Hints only show when an input needs fixing; the volume nudge sits under the fields
+    const belowMoq = qtyOk && moqOk && qty < moq;
+    $('qtyHint').className = !qtyOk || belowMoq ? 'warn' : '';
+    $('qtyHint').textContent = !qtyOk ? 'Enter 1 or more.' : belowMoq ? `${int.format(moq - qty)} below MOQ · small-run surcharge` : '';
+    $('gsmHint').className = gsmOk ? '' : 'warn';
+    $('gsmHint').textContent = gsmOk ? '' : `Enter ${gMin}–${gMax}.`;
+    $('moqHint').className = moqOk ? '' : 'warn';
+    $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
+    $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} pcs to unlock the next volume discount` : '';
+    const lead = [Math.max(...w.map(g => g.lead[0])), Math.max(...w.map(g => g.lead[1]))];
+    $('leadTime').textContent = `Production ${range(lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
+
+    if (!qtyOk || !gsmOk || !moqOk) {
+      $('unitPrice').innerHTML = '—';
+      $('orderTotal').textContent = '—';
+      $('lines').innerHTML = '';
+      return;
+    }
+
+    // Per piece (a set counts as one piece)
+    const area = w.reduce((a, g) => a + g.use, 0);
+    const netKg = area * gsm / 1000;
+    const fabricCost = netKg * (1 + P.wastage) * f.perKg;
+    const make = w.reduce((a, g) => a + g.cm, 0);
+    const trims = P.trims * w.length + P.packing;
+    const base = fabricCost + make + trims;
+    const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
+    const small = qty < moq ? Math.min(P.smallRun[1], (moq / qty - 1) * P.smallRun[0]) : 0;
+    const adjusted = base * (1 - vol + small);
+    const margin = adjusted * P.margin;
+    const shipKg = (netKg + P.packKg) * qty;
+    const freight = ship.perKg ? Math.max(ship.min, shipKg * ship.perKg) / qty : 0;
+    const unit = adjusted + margin + freight;
+
+    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
+    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ ${w.length > 1 ? 'set' : 'pc'}</small>`;
+    $('orderTotal').textContent = `${usd.format(unit * qty)}`;
+    $('lines').innerHTML = [
+      row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
+      row(`Cut &amp; make · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
+      row('Trims &amp; packing', usd.format(trims)),
+      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
+      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
+      row('Overhead &amp; margin', usd.format(margin)),
+      row(`${ship.label.split(' (')[0]}${ship.perKg ? ` · ${int.format(Math.round(shipKg))} kg` : ''}`, ship.perKg ? usd.format(freight) : 'Included')
+    ].join('');
+    $('orderNow').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
+      order: 'now', style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
+      quantity: qty, gsm, moq, shipping: ship.label, estimate: usd.format(unit)
+    })}`;
+  }
+
+  $('calcForm').addEventListener('input', price);
+  $('calcForm').addEventListener('submit', e => e.preventDefault());
 
   // Panel and showcase dock share one handler: garments turn the avatar, fabric and colours drape over it
   const choose = e => {
