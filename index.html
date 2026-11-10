@@ -138,12 +138,18 @@
   .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
   .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
   /* Slide control: simple bullet points */
-  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;gap:4px}
-  .hero-ctrl button{display:grid;place-items:center;width:24px;height:24px}
-  .hero-ctrl button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .25s,transform .25s}
-  .hero-ctrl button:hover::before{background:rgba(255,255,255,.8)}
-  .hero-ctrl button.on::before{background:#fff;transform:scale(1.25)}
+  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;align-items:center;gap:12px}
+  #dots{display:flex;gap:4px}
+  #dots button{display:grid;place-items:center;width:24px;height:24px}
+  #dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .25s,transform .25s}
+  #dots button:hover::before{background:rgba(255,255,255,.8)}
+  #dots button.on::before{background:#fff;transform:scale(1.25)}
   .hero-ctrl button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:50%}
+  .hero-pp{display:grid;place-items:center;width:24px;height:24px;color:rgba(255,255,255,.75);transition:color .2s}
+  .hero-pp:hover{color:#fff}
+  .hero-pp svg{width:12px;height:12px;fill:currentColor}
+  .hero-pp .i-play,.hero-pp.paused .i-pause{display:none}
+  .hero-pp.paused .i-play{display:block}
 
   /* 3. Proof — soft sage band with leaf accents */
   .proof{position:relative;padding:64px 0 56px;background:linear-gradient(180deg,#E3F5EA 0%,var(--soft) 100%);overflow:hidden}
@@ -764,7 +770,7 @@
         <p id="heroText">Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step.</p>
       </div>
 
-      <div class="hero-ctrl" id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div>
+      <div class="hero-ctrl"><div id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div><button class="hero-pp" id="heroPP" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx=".6"/><rect x="7.4" y="1.5" width="2.6" height="9" rx=".6"/></svg><svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button></div>
     </div>
 </section>
 
@@ -1145,7 +1151,7 @@
   // Hero slideshow: a fixed order, each slide with its own title and text; bullets jump to a slide.
   // It pauses while the pointer or keyboard focus is on the hero.
   const slides = $$('.slide'), dots = $$('#dots button'), hero = $('#hero'), content = hero.querySelector('.hero-content');
-  let cur = 0, timer, held = false;
+  let cur = 0, timer, held = false, paused = false;
   const show = i => {
     slides[cur].classList.remove('on');
     dots[cur].classList.remove('on'); dots[cur].setAttribute('aria-selected', 'false');
@@ -1160,9 +1166,18 @@
     }, reduce ? 0 : 450);
     schedule();
   };
-  const schedule = () => { clearTimeout(timer); if (!reduce && !held) timer = setTimeout(() => show(cur + 1), 6000); };
+  const schedule = () => { clearTimeout(timer); if (!held && !paused) timer = setTimeout(() => show(cur + 1), 6000); };
   dots.forEach((d, i) => d.onclick = () => show(i));
   const hold = on => { held = on; schedule(); };
+  const pp = $('#heroPP');
+  pp.onclick = () => {
+    paused = !paused;
+    pp.classList.toggle('paused', paused);
+    pp.setAttribute('aria-pressed', paused);
+    pp.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    schedule();
+  };
+  if (reduce) { paused = true; pp.classList.add('paused'); pp.setAttribute('aria-pressed', 'true'); pp.setAttribute('aria-label', 'Play slideshow'); }
   hero.addEventListener('mouseenter', () => hold(true));
   hero.addEventListener('mouseleave', () => hold(false));
   hero.addEventListener('focusin', () => hold(true));
