@@ -115,18 +115,14 @@
   /* 2. Hero */
   .hero{padding:0;--edge:max(32px,calc((100vw - var(--max))/2 + 32px))}
   .hero-card{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:var(--green-900);color:#fff}
-  .slide,.hero-card video{position:absolute;inset:0;width:100%;height:100%}
+  .slide{position:absolute;inset:0;width:100%;height:100%}
   .slide{opacity:0;transition:opacity 1.4s ease}
   .slide.on{opacity:1}
   .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease-out}
   .slide.on img{transform:scale(1)}
-  .hero-card video{object-fit:cover;opacity:0;transition:opacity 1s}
-  .hero-card.has-video video{opacity:1}
   .hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(12,42,27,.55) 0%,rgba(12,42,27,.35) 60%,rgba(12,42,27,.5) 100%),linear-gradient(180deg,rgba(12,42,27,.55) 0%,transparent 22%,transparent 70%,rgba(12,42,27,.6) 100%)}
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero-badge{display:inline-flex;align-items:center;gap:10px;height:36px;padding:0 16px 0 6px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);font-size:13.5px;font-weight:500;margin-bottom:24px}
-  .hero-badge b{background:var(--leaf);color:var(--green-900);font-size:12px;padding:4px 10px;border-radius:999px}
-  .hero h1{color:#fff;font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  .hero h1{color:rgba(255,255,255,.82);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -138,17 +134,16 @@
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
   .hero p{font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.88);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
-  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;align-items:center;gap:14px;padding:8px 8px 8px 20px;border-radius:999px;background:rgba(12,42,27,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
-  .hero-ctrl .lbl{font-size:13px;font-weight:500;min-width:130px}
-  .dots{display:flex;gap:6px}
-  .dots button{width:26px;height:4px;border-radius:4px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
-  .dots button::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-  .dots button.on::after{animation:fill 6s linear forwards}
-  .paused .dots button.on::after{animation-play-state:paused}
-  @keyframes fill{to{transform:scaleX(1)}}
-  .pp{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--green-900);display:grid;place-items:center}
-  .pp svg{width:14px;height:14px}
+  /* Slide text changes with the image */
+  .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
+  .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
+  /* Slide control: simple bullet points */
+  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;gap:4px}
+  .hero-ctrl button{display:grid;place-items:center;width:24px;height:24px}
+  .hero-ctrl button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .25s,transform .25s}
+  .hero-ctrl button:hover::before{background:rgba(255,255,255,.8)}
+  .hero-ctrl button.on::before{background:#fff;transform:scale(1.25)}
+  .hero-ctrl button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:50%}
 
   /* 3. Proof — soft sage band with leaf accents */
   .proof{position:relative;padding:64px 0 56px;background:linear-gradient(180deg,#E3F5EA 0%,var(--soft) 100%);overflow:hidden}
@@ -687,11 +682,8 @@
     .hero{--edge:16px}
     .hero-card{height:auto;min-height:100svh}
     .hero-content{position:relative;inset:auto;min-height:100svh;padding:100px 16px 112px}
-    .hero-badge{height:auto;min-height:34px;padding:4px 14px 4px 4px;font-size:12.5px;line-height:1.35;text-align:left;margin-bottom:20px}
     .hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.1}
     .hero-ctrl{bottom:24px}
-    .hero-ctrl .lbl{display:none}
-    .hero-ctas .btn{flex:1}
     .cats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
     .cat,.cat:nth-child(n){margin-top:0;scroll-snap-align:start}
     .clip-tag{opacity:1;transform:none}
@@ -760,32 +752,19 @@
 <!-- ===== 2. Hero ===== -->
 <section class="hero" aria-label="Introduction">
     <div class="hero-card" id="hero">
-      <!-- Storyboard images; the sustainability film (media/hero.mp4) replaces them once supplied -->
-      <div class="slide on" data-label="Global shipping"><img src="images/port.jpg" alt=""></div>
-      <div class="slide" data-label="Sustainable raw materials"><img src="images/cotton-trees.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Responsible production"><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Energy efficiency"><img src="images/solar.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Finished garments"><img src="images/cotton-cloths.jpg" alt="" loading="lazy" style="object-position:center 60%"></div>
-      <video id="film" muted loop playsinline preload="none" aria-hidden="true">
-        <source src="media/hero.webm" type="video/webm">
-        <source src="media/hero.mp4" type="video/mp4">
-      </video>
+      <!-- Story in a fixed order: each slide carries its own title and text -->
+      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/cotton-cloths.jpg" alt="" style="object-position:center 60%"></div>
+      <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/cotton-trees.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/solar.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/port.jpg" alt="" loading="lazy"></div>
 
       <div class="hero-content">
-        <span class="hero-badge"><b>New</b> Preview key styles on 3D avatars before sampling</span>
-        <h1>Responsible apparel manufacturing<br> for growing brands</h1>
-        <p>Lingerie, denim, sweaters, wovens and knits — produced to your specification with transparent costing and a quotation within one business day.</p>
-        <div class="hero-ctas">
-          <a href="#quote" class="btn btn-white">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#sustainability" class="btn btn-glass">Our Sustainability</a>
-        </div>
+        <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
+        <p id="heroText">Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step.</p>
       </div>
 
-      <div class="hero-ctrl">
-        <span class="lbl" id="slideLbl">Sustainable raw materials</span>
-        <div class="dots" id="dots"><button class="on" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button><button aria-label="Slide 5"></button></div>
-        <button class="pp" id="pp" aria-label="Pause"><svg id="ppIco" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
-      </div>
+      <div class="hero-ctrl" id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div>
     </div>
 </section>
 
@@ -1163,33 +1142,32 @@
   $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
   $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
 
-  // Hero slideshow (replaced by the film when media/hero.mp4 is available)
-  const slides = $$('.slide'), dots = $$('#dots button'), hero = $('#hero'), film = $('#film');
-  let cur = 0, playing = !reduce, timer;
+  // Hero slideshow: a fixed order, each slide with its own title and text; bullets jump to a slide.
+  // It pauses while the pointer or keyboard focus is on the hero.
+  const slides = $$('.slide'), dots = $$('#dots button'), hero = $('#hero'), content = hero.querySelector('.hero-content');
+  let cur = 0, timer, held = false;
   const show = i => {
-    slides[cur].classList.remove('on'); dots[cur].classList.remove('on');
+    slides[cur].classList.remove('on');
+    dots[cur].classList.remove('on'); dots[cur].setAttribute('aria-selected', 'false');
     cur = (i + slides.length) % slides.length;
-    slides[cur].classList.add('on'); void dots[cur].offsetWidth; dots[cur].classList.add('on');
-    $('#slideLbl').textContent = slides[cur].dataset.label;
+    slides[cur].classList.add('on');
+    dots[cur].classList.add('on'); dots[cur].setAttribute('aria-selected', 'true');
+    content.classList.add('swap');
+    setTimeout(() => {
+      $('#heroTitle').innerHTML = slides[cur].dataset.title;
+      $('#heroText').textContent = slides[cur].dataset.text;
+      content.classList.remove('swap');
+    }, reduce ? 0 : 450);
     schedule();
   };
-  const schedule = () => { clearTimeout(timer); if (playing) timer = setTimeout(() => show(cur + 1), 6000); };
-  const setIcon = () => {
-    hero.classList.toggle('paused', !playing);
-    $('#ppIco').innerHTML = playing ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>' : '<path d="M8 5v14l11-7z"/>';
-    $('#pp').setAttribute('aria-label', playing ? 'Pause' : 'Play');
-  };
+  const schedule = () => { clearTimeout(timer); if (!reduce && !held) timer = setTimeout(() => show(cur + 1), 6000); };
   dots.forEach((d, i) => d.onclick = () => show(i));
-  $('#pp').onclick = () => {
-    playing = !playing; setIcon();
-    if (hero.classList.contains('has-video')) playing ? film.play() : film.pause(); else schedule();
-  };
-  setIcon(); schedule();
-  const c = navigator.connection;
-  if (!reduce && innerWidth > 640 && !(c && (c.saveData || /2g/.test(c.effectiveType)))) {
-    film.addEventListener('canplay', () => { hero.classList.add('has-video'); clearTimeout(timer); film.play().catch(() => {}); }, {once: true});
-    film.load();
-  }
+  const hold = on => { held = on; schedule(); };
+  hero.addEventListener('mouseenter', () => hold(true));
+  hero.addEventListener('mouseleave', () => hold(false));
+  hero.addEventListener('focusin', () => hold(true));
+  hero.addEventListener('focusout', () => hold(false));
+  schedule();
 
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
