@@ -202,6 +202,7 @@
   .order-h h2{font:600 16px/1.2 var(--head)}
   .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
   .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .field.wide{grid-column:1/-1}
   .field{min-width:0}
   .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
   .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
@@ -428,6 +429,11 @@
           <small id="gsmHint"></small>
         </div>
         <div class="field">
+          <label for="cmIn">CM charge</label>
+          <div class="ctl"><input id="cmIn" type="number" inputmode="decimal" min="0" step="0.1"><span class="unit">$/pc</span></div>
+          <small id="cmHint"></small>
+        </div>
+        <div class="field wide">
           <label for="ship">Shipping</label>
           <div class="ctl"><select id="ship"></select></div>
         </div>
@@ -822,14 +828,16 @@
     const f = fabric[sel.fabric], moq = Math.max(...worn().map(g => g.moq));
     if (synced.fabric !== f.id) { $('gsm').value = f.g; synced.fabric = f.id; }
     if (synced.moq !== moq) { $('moqIn').value = moq; synced.moq = moq; }
+    const cm = +worn().reduce((a, g) => a + g.cm, 0).toFixed(2);
+    if (synced.cm !== cm) { $('cmIn').value = cm; synced.cm = cm; }
     price();
   }
 
   function price() {
     const w = worn(), f = fabric[sel.fabric], ship = P.shipping.find(s => s.id === $('ship').value);
-    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn'));
+    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn')), cmIn = num('cmIn');
     const [gMin, gMax] = P.gsmRange;
-    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1;
+    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1, cmOk = cmIn >= 0;
     const nextTier = P.volume.map(([q]) => q).filter(q => q > qty).pop();  // tiers run high to low
 
     $('qtyField').classList.toggle('bad', !qtyOk || (moqOk && qty < moq));
@@ -841,11 +849,13 @@
     $('gsmHint').textContent = gsmOk ? '' : `Enter ${gMin}–${gMax}.`;
     $('moqHint').className = moqOk ? '' : 'warn';
     $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
+    $('cmHint').className = cmOk ? '' : 'warn';
+    $('cmHint').textContent = cmOk ? '' : 'Enter 0 or more.';
     $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} pcs to unlock the next volume discount` : '';
     const lead = [Math.max(...w.map(g => g.lead[0])), Math.max(...w.map(g => g.lead[1]))];
     $('leadTime').textContent = `Production ${range(lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
 
-    if (!qtyOk || !gsmOk || !moqOk) {
+    if (!qtyOk || !gsmOk || !moqOk || !cmOk) {
       $('unitPrice').innerHTML = '—';
       $('orderTotal').textContent = '—';
       $('lines').innerHTML = '';
@@ -856,7 +866,7 @@
     const area = w.reduce((a, g) => a + g.use, 0);
     const netKg = area * gsm / 1000;
     const fabricCost = netKg * (1 + P.wastage) * f.perKg;
-    const make = w.reduce((a, g) => a + g.cm, 0);
+    const make = cmIn;  // CM charge per piece (set) from the form
     const trims = P.trims * w.length + P.packing;
     const base = fabricCost + make + trims;
     const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
@@ -872,7 +882,7 @@
     $('orderTotal').textContent = `${usd.format(unit * qty)}`;
     $('lines').innerHTML = [
       row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
-      row(`Cut &amp; make · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
+      row(`CM charge · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
       row('Trims &amp; packing', usd.format(trims)),
       vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
       small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
@@ -881,7 +891,7 @@
     ].join('');
     $('orderNow').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
       order: 'now', style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
-      quantity: qty, gsm, moq, shipping: ship.label, estimate: usd.format(unit)
+      quantity: qty, gsm, moq, cm: make, shipping: ship.label, estimate: usd.format(unit)
     })}`;
   }
 

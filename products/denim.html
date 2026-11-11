@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vintage-wash denim jacket &amp; straight jeans | Struggle Style</title>
-<meta name="description" content="A vintage-wash denim jacket with a stand collar and button placket, and straight-leg jeans, made to order by Struggle Style in Bangladesh.">
+<title>Woven | Struggle Style</title>
+<meta name="description" content="Build a woven look: shirts, blazers, dresses, trousers and skirts in cotton poplin or satin charmeuse, made to order by Struggle Style.">
 <meta name="theme-color" content="#11402A">
 <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="denim/model.webp">
+<link rel="preload" as="image" href="woven/looks/shirt-pants-ss-w06-white.webp">
 <style>
   :root{
     --green-900:#0C2A1B;
@@ -22,11 +22,10 @@
     --orange:#F5A00F;
     --border:#DCEBE1;
     --bg:#FFFFFF;
-    --studio:#E8E9EC;      /* the photo's backdrop, behind every gallery shot */
-    --ink:#111;
+    --studio:#F3F2EF;      /* backdrop behind the renders */
     --text:#0F1F17;
-    --muted:#6B6F6C;
-    --line:#E6E6E3;
+    --muted:#55665C;
+    --line:#E4E7E5;
     --head:"Inter Tight",system-ui,sans-serif;
     --body:"Inter",system-ui,sans-serif;
     --ease:cubic-bezier(.23,1,.32,1);
@@ -49,7 +48,7 @@
   .btn-sm{height:44px;padding:0 20px;font-size:14px}
 
   /* Site header: same as the home page, in its solid (scrolled) state since there is no hero behind it */
-  .wrap{max-width:none;margin:0;padding:0 32px}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
   .logo{display:inline-flex;align-items:center;color:#1A7F4B;line-height:1}
   .wm{position:relative;display:inline-flex;align-items:baseline;gap:.18em;font-family:"Fraunces",Georgia,serif;font-size:29px;line-height:1;letter-spacing:-.02em;font-variation-settings:"opsz" 72}
   .wm em{font-style:italic;font-weight:700}
@@ -59,9 +58,7 @@
   .logo:hover .wm .thread path{animation:sew 1.2s linear infinite}
   @keyframes sew{to{stroke-dashoffset:-15}}
   .wm sup{font-family:var(--body);font-size:9px;font-weight:600;letter-spacing:.14em;align-self:flex-start;margin:2px 0 0 12px;opacity:.75}
-  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border);transition:transform .38s var(--ease)}
-  /* Hide the bar while scrolling down, slide it back as soon as the page scrolls up */
-  #hdr.is-hidden{transform:translateY(-101%)}
+  #hdr{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(251,252,248,.92);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--border)}
   .nav{height:var(--hdr);display:flex;align-items:center;justify-content:space-between;gap:24px}
   .nav ul{display:flex;gap:4px;list-style:none}
   .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500;color:var(--green-800);transition:color .25s}
@@ -72,164 +69,194 @@
   .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
   .mnav{display:none}
 
-  /* Product: a two-column gallery; the calculator takes the cell beside the hero */
-  .pdp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;margin:0;background:#fff}
-  .shot{position:relative;aspect-ratio:4/5;margin:0;overflow:hidden;background:var(--studio);cursor:zoom-in}
-  .shot img,.shot video{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
-  .shot:not(.product):hover img{transform:scale(1.03)}
-  .shot figcaption{position:absolute;left:18px;bottom:16px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(17,17,17,.55)}
-  .shot.full img{object-position:50% 30%}
-  /* First cell plays the style's video (silent, looping) over its photo when the style has one */
-  .shot.full .fullvid{position:absolute;inset:0;z-index:1;display:none;object-position:50% 30%}
-  .shot.full.has-video .fullvid{display:block}
-  /* Look video sits in the grid, silent and looping, and is not part of the photo lightbox */
-  .shot.video{cursor:default;background:#000}
-  .shot.video video{transition:none}
-  .shot.video figcaption{color:rgba(255,255,255,.9)}
-  /* Product cell: the cut-out on its own warm white, with a strip of small thumbnails down its right edge.
-     Clicking a thumbnail shows that photo large in this cell; the cell stays out of the lightbox. */
-  .shot.product{background:#F8F7F5;cursor:default}
-  .shot.product img.main{object-fit:contain;padding:7% calc(9% + 60px) 7% 9%;transition:opacity .25s}
-  .shot.product.photo img.main{object-fit:cover;padding:0}
-  .shot.product.fading img.main{opacity:0}
-  .pthumbs{position:absolute;right:14px;top:14px;z-index:2;display:flex;flex-direction:column;gap:6px;max-height:calc(100% - 28px);overflow-y:auto;scrollbar-width:none}
-  .pthumbs::-webkit-scrollbar{display:none}
-  .shot.product.photo .pthumbs{padding:6px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-  .pthumbs button{position:relative;flex:none;width:52px;aspect-ratio:3/4;overflow:hidden;background:var(--studio);opacity:.55;box-shadow:0 0 0 1px rgba(17,17,17,.06);transition:opacity .2s}
-  .pthumbs button img{width:100%;height:100%;object-fit:cover;padding:0}
-  .pthumbs button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
-  .pthumbs button:hover{opacity:.85}
-  .pthumbs button[aria-selected="true"]{opacity:1}
-  .pthumbs button[aria-selected="true"]::after{transform:scaleX(1)}
-  .pthumbs button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
-  /* Fabric tile: the swatch the denim is cut from; not part of the photo lightbox */
-  .shot.fabric{cursor:default}
-  .shot.fabric:hover img{transform:none}
-  .shot.fabric figcaption{color:rgba(255,255,255,.92)}
-  .info-cell{grid-column:1/-1;display:flex;justify-content:center;padding:56px 32px 72px;background:#fff}
+  /* Product: 3D showcase left, sticky panel right */
+  .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin-top:var(--hdr)}
 
-  /* Product card: stays in view while the gallery beside it scrolls */
-  .info{width:100%;max-width:1080px;margin:0;padding:0}
-  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  /* Showcase: the avatar stands on a lit pedestal over a receding floor, in front of a halo tinted with the chosen colour.
+     The scene leans toward the pointer; glass chips float at different depths. */
+  .show{position:sticky;top:var(--hdr);height:calc(100vh - var(--hdr));min-height:640px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#FFFFFF 0%,#F3F2EE 55%,#E8E6DF 100%);perspective:1600px;isolation:isolate}
+  .halo{position:absolute;left:50%;top:42%;width:58%;aspect-ratio:1;border-radius:50%;background:var(--tint,#E9E4DA);filter:blur(90px);opacity:.7;transform:translate(-50%,-50%);transition:background-color 1s var(--ease);z-index:-1}
+  .floor{position:absolute;left:-50%;right:-50%;bottom:-8%;height:48%;background-image:linear-gradient(rgba(17,64,42,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(17,64,42,.08) 1px,transparent 1px);background-size:60px 60px;transform:rotateX(78deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(to top,#000 5%,transparent 80%);mask-image:linear-gradient(to top,#000 5%,transparent 80%);z-index:-1}
+  .scene{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .9s var(--ease)}
+  .show.tilting .scene{transition:transform .15s linear}
+  /* Pedestal: a lit disc in perspective (a flat ellipse, so it never cuts through the avatar) with a stitched ring.
+     --feet is where the avatar's feet land, measured from the bottom of the showcase. */
+  .show{--feet:16%}
+  .pedestal{position:absolute;left:50%;bottom:var(--feet);width:min(52%,440px);aspect-ratio:4.2;border-radius:50%;background:radial-gradient(closest-side,#fff,rgba(255,255,255,.7) 55%,rgba(255,255,255,0));box-shadow:0 0 0 1px rgba(17,64,42,.07),0 18px 30px -18px rgba(15,31,23,.25);transform:translate(-50%,50%)}
+  .pedestal::after{content:"";position:absolute;inset:12% 7%;border-radius:50%;border:1.5px dashed rgba(26,127,75,.45);animation:spin 40s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .shadow{position:absolute;left:50%;bottom:var(--feet);width:min(22%,180px);height:30px;border-radius:50%;background:radial-gradient(closest-side,rgba(15,31,23,.35),transparent);transform:translate(-50%,40%);filter:blur(3px)}
+  /* The renders have ~4% empty space under the feet, hence the small negative offset */
+  .fig{position:absolute;left:50%;bottom:calc(var(--feet) - 3%);height:78%;aspect-ratio:1230/1890;transform:translateX(-50%) translate(var(--panx,0px),var(--pany,0px)) scale(var(--zoom,1));transform-origin:50% 26%;transition:transform 1s var(--ease),opacity .5s}
+  .fig.zoom-anim{transition:transform .35s var(--ease),opacity .5s}
+  .fig.no-zoom-anim{transition:opacity .5s}
+  .fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:perspective(1000px) rotateY(-16deg) scale(.98);transition:opacity .5s,transform .8s var(--ease)}
+  .fig img.enter{transition:none;transform:perspective(1000px) rotateY(16deg) scale(.98)}
+  .fig img.on{opacity:1;transform:none}
+  /* Fabric change: the new colour drapes down over the old one */
+  .fig img.drape{z-index:1;transition:none;animation:drape .9s var(--ease)}
+  @keyframes drape{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+  /* Detail view zooms onto the upper body; Fabric view swaps the avatar for a floating swatch card */
+  .show.v-detail .fig{transform:translateX(-50%) translateY(14%) translate(var(--panx,0px),var(--pany,0px)) scale(calc(1.75 * var(--zoom,1)))}
+  .show.v-detail .pedestal,.show.v-detail .shadow,.show.v-fabric .pedestal,.show.v-fabric .shadow{opacity:0}
+  .pedestal,.shadow{transition:opacity .5s}
+  .show.v-fabric .fig{opacity:0;transform:translateX(-50%) scale(.94)}
+  .swcard{position:absolute;left:50%;top:46%;width:min(56%,440px);aspect-ratio:1;border-radius:28px;background:var(--sw) center/cover;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 40px 80px -30px rgba(15,31,23,.5);opacity:0;transform:translate(-50%,-50%) translateZ(-60px) rotateX(18deg) rotateZ(-6deg);transition:opacity .5s,transform 1s var(--ease);pointer-events:none}
+  .show.v-fabric .swcard{opacity:1;transform:translate(-50%,-50%) translateZ(40px) rotateX(8deg) rotateZ(-3deg)}
+  .swcard::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 45%)}
 
-  /* Order panel: flat and quiet like the gallery — hairlines, square corners, one black action.
-     Prices in euros excl. VAT, delivered to the buyer's EU country. */
-  /* Calculator: choices on the left, a summary card on the right that stays in view while choosing */
-  .order{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,1fr);gap:28px 64px;align-items:start;color:var(--ink)}
-  .o-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:22px;border-bottom:1px solid var(--line)}
-  .o-head .from{margin:0;white-space:nowrap}
-  .o-cfg .step:first-child{margin-top:0}
-  .o-sum{position:sticky;top:calc(var(--hdr) + 84px);padding:24px 24px 20px;background:#FAFAF8;border:1px solid var(--line)}
-  .o-sum-h{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
-  .o-sum .sum{margin-top:0}
-  .o-note{margin-top:12px;font-size:11px;color:var(--muted);text-align:center}
-  .kicker{font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  .order h1{margin-top:10px;font:500 clamp(22px,1.9vw,26px)/1.25 var(--head);letter-spacing:-.01em}
-  .from{margin-top:8px;font-size:13px;color:var(--muted)}
-  .from b{font-size:17px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
-  .step{margin-top:24px}
-  /* Style picker: one thumbnail per variant; picking one swaps the whole gallery */
-  /* Style bar: right under the site header, stays in view; picking a style swaps the whole page */
-  /* Style tabs: a quiet strip under the header, as on European fashion sites. Each style is a small portrait and
-     a name; the active one is ink with an underline. It scrolls sideways when there are many styles. */
-  .stylebar{position:sticky;top:var(--hdr);z-index:40;margin-top:var(--hdr);background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:top .38s var(--ease),transform .38s var(--ease)}
-  /* Both bars tuck away together while scrolling down, then return on scroll up */
-  #hdr.is-hidden + .stylebar{top:0;transform:translateY(-101%)}
-  .stylebar-in{display:flex;align-items:stretch;height:60px;padding:0 32px}
-  .styles{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none}
-  .styles::-webkit-scrollbar{display:none}
-  .sty{position:relative;flex:none;display:flex;align-items:center;gap:10px;padding:0 20px;font-size:13px;font-weight:500;color:#8A8A85;white-space:nowrap;transition:color .2s}
-  .sty .ph{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;background:var(--studio);box-shadow:0 0 0 1px var(--line);transition:box-shadow .2s}
-  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
-  .sty::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .35s var(--ease)}
-  .sty:hover{color:var(--ink)}
-  .sty[aria-checked="true"]{color:var(--ink)}
-  .sty[aria-checked="true"] .ph{box-shadow:0 0 0 1.5px var(--ink)}
-  .sty[aria-checked="true"]::after{transform:scaleX(1)}
-  .sty:focus-visible{outline:2px solid var(--green-600);outline-offset:-4px}
-  .sb-nav{flex:none;display:none;align-items:center;gap:4px;padding-left:12px}
-  .stylebar.overflow .sb-nav{display:flex}
-  .sb-nav button{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;color:var(--ink);transition:border-color .2s}
-  .sb-nav button:hover{border-color:var(--ink)}
-  .sb-nav svg{width:14px;height:14px}
-  /* Gallery swap: images fade out, change, fade back in */
-  .pdp .shot img,.pdp .shot video{transition:transform 1.2s var(--ease),opacity .35s}
-  .pdp.swapping .shot:not(.fabric) img,.pdp.swapping .shot video{opacity:0}
-  .shot.video img{display:none}
-  .shot.video.still video{display:none}
-  .shot.video.still img{display:block}
-  .step > label,.step-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
-  .step-h span,.step > label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
-  .dest{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border:1px solid #D4D4D0;transition:border-color .2s}
-  .dest:focus-within{border-color:var(--ink)}
-  .dest img{flex:none;width:22px;height:15px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
-  .dest select{flex:1;min-width:0;height:100%;border:0;background:none;font:500 14.5px var(--body);color:var(--ink);outline:0;cursor:pointer}
-  .qty{display:flex;height:48px;border:1px solid #D4D4D0}
-  .qty:focus-within{border-color:var(--ink)}
-  .qty button{flex:none;width:48px;font-size:18px;transition:background .2s}
-  .qty button:hover{background:#F2F2EF}
-  .qty input{flex:1;min-width:0;border:0;border-inline:1px solid #D4D4D0;text-align:center;font:600 15px var(--body);color:var(--ink);outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-  .qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-  .hint{margin-top:7px;font-size:12px;color:var(--muted)}
-  .hint.warn{color:#A1461B}
-  .ship{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-  .ship button{padding:10px 8px;border:1px solid #D4D4D0;text-align:left;transition:border-color .2s,background .2s}
-  .ship button:hover{border-color:var(--ink)}
-  .ship button b{display:block;font-size:13px;font-weight:600}
-  .ship button small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-  .ship button[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-  .sum{margin-top:24px;border-top:1px solid var(--ink)}
-  .sum div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-variant-numeric:tabular-nums}
-  .sum dt{color:var(--muted)}
-  .sum div[hidden]{display:none}
-  .sum .neg{color:#3F7A4F}
-  .sum .pos{color:#A1461B}
-  .sum .tot{border-bottom:0;padding-top:14px;font-size:15px;font-weight:600}
-  .sum .tot dt{color:var(--ink)}
-  .sum .tot dd{font-size:20px}
-  .vat{font-size:11.5px;color:var(--muted)}
-  .buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;margin-top:18px;background:var(--green-700);color:#fff;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:background .25s,box-shadow .25s}
-  .buy:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
-  .buy svg{width:16px;height:16px;transition:transform .25s var(--ease)}
-  .buy:hover svg{transform:translateX(3px)}
-  .buy[aria-disabled="true"]{opacity:.4;pointer-events:none}
-  .dest select:focus-visible,.qty button:focus-visible,.ship button:focus-visible,.buy:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  /* Glass chips */
+  .chip{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.75);border-radius:16px;background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);box-shadow:0 14px 30px -14px rgba(15,31,23,.35);font-size:12px;line-height:1.3;color:var(--muted);white-space:nowrap}
+  .chip b{display:block;font-size:13px;font-weight:600;color:var(--text)}
+  .chip-code{left:15%;top:13%;transform:translateZ(90px)}
+  .chip-code i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px rgba(61,220,132,.25)}
+  .chip-moq{right:11%;top:24%;transform:translateZ(60px)}
+  .chip-fab{right:9%;bottom:24%;transform:translateZ(130px)}
+  .chip-fab .dot{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sw) center/240%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1),0 4px 10px -4px rgba(0,0,0,.4)}
+  .chip .flip{display:inline-block;animation:flip .5s var(--ease)}
+  @keyframes flip{from{opacity:0;transform:perspective(300px) rotateX(-80deg)}}
 
-  /* Full-screen viewer, as on fashion house pages: white, thumbnails down the left, every image of the style stacked
-     full width on the right; the thumbnail of the image in view is underlined. */
-  .lb{position:fixed;inset:0;z-index:80;background:#fff;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
-  .lb.open{opacity:1;visibility:visible}
-  .lb-thumbs{position:absolute;left:28px;top:50%;z-index:2;display:flex;flex-direction:column;gap:0;max-height:calc(100vh - 80px);overflow-y:auto;transform:translateY(-50%);scrollbar-width:none}
-  .lb-thumbs::-webkit-scrollbar{display:none}
-  .lb-thumbs button{position:relative;flex:none;width:92px;aspect-ratio:3/4;overflow:hidden;background:var(--studio);opacity:.55;transition:opacity .2s}
-  .lb-thumbs button img{width:100%;height:100%;object-fit:cover}
-  .lb-thumbs button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease)}
-  .lb-thumbs button:hover{opacity:.85}
-  .lb-thumbs button[aria-current="true"]{opacity:1}
-  .lb-thumbs button[aria-current="true"]::after{transform:scaleX(1)}
-  .lb-stage{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding-left:150px;scroll-behavior:smooth}
-  .lb-stage figure{margin:0;background:var(--studio)}
-  .lb-stage img{display:block;width:100%;height:auto}
-  .lb-stage figure + figure{margin-top:2px}
-  .lb .x{position:absolute;top:18px;right:22px;z-index:3;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);color:var(--ink);transition:background .2s}
-  .lb .x:hover{background:#fff}
-  .lb .x svg{width:22px;height:22px}
-  .lb-thumbs button:focus-visible,.lb .x:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  /* Views rail */
+  .rail{position:absolute;left:24px;top:50%;z-index:4;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
+  .view{position:relative;width:60px;aspect-ratio:4/5;overflow:hidden;border-radius:12px;background:#fff;box-shadow:0 6px 16px -8px rgba(15,31,23,.4);outline:2px solid transparent;outline-offset:3px;transition:outline-color .2s,transform .3s var(--ease)}
+  .view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .view.det img{object-fit:cover;object-position:50% 20%;transform:scale(1.6);transform-origin:50% 18%}
+  .view.fabv img{object-fit:cover}
+  .view span{position:absolute;left:0;right:0;bottom:0;padding:10px 0 4px;background:linear-gradient(transparent,rgba(0,0,0,.55));font-size:9.5px;font-weight:600;color:#fff;text-align:center;letter-spacing:.04em}
+  .view:hover{transform:translateX(3px)}
+  .view[aria-pressed="true"]{outline-color:var(--text)}
+
+  /* Colour dock: one swatch group per worn garment */
+  .dock{position:absolute;left:50%;bottom:22px;z-index:4;display:flex;align-items:center;gap:12px;padding:6px 10px 6px 14px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
+  .dock-grp{display:flex;align-items:center;gap:6px}
+  .dock-grp + .dock-grp{padding-left:12px;border-left:1px solid rgba(15,31,23,.12)}
+  .dock .lbl{margin-right:2px;color:var(--muted);font-weight:500;font-size:11px}
+  .sw{width:30px;height:30px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--spring)}
+  .sw span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .sw:hover{transform:scale(1.12)}
+  .sw[aria-checked="true"]{border-color:var(--text)}
+  .view:focus-visible,.sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Per-garment colours in the panel */
+  .colour-rows{display:grid;gap:8px}
+  .colour-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px 7px 14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+  .colour-row .who{font-size:13px;font-weight:600}
+  .colour-row .who small{display:block;font-size:11.5px;font-weight:400;color:var(--muted)}
+  .colour-row .swatches{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .colour-row .sw{width:28px;height:28px}
+
+  /* Zoom: a glass pill over the top-right of the showcase */
+  .zoom{position:absolute;right:20px;top:20px;z-index:4;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transition:opacity .3s}
+  .zoom button{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;transition:background .2s,transform .2s var(--spring)}
+  .zoom button:hover:not(:disabled){background:rgba(15,31,23,.08)}
+  .zoom button:active:not(:disabled){transform:scale(.94)}
+  .zoom button:disabled{opacity:.3;cursor:default}
+  .zoom button svg{width:15px;height:15px}
+  .zoom button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+  .zoom-val{min-width:42px;text-align:center;font-size:11.5px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+  .show.v-fabric .zoom{opacity:0;pointer-events:none}
+  .show.zoomed{cursor:grab}
+  .show.zoomed.dragging{cursor:grabbing}
+  .show.zoomed .fig{touch-action:none}
+  .show.zoomed .fig img{-webkit-user-drag:none;user-select:none}
+
+  .panel{padding:32px clamp(24px,4vw,64px) 48px}
+  .crumbs{display:flex;gap:6px;font-size:12px;color:var(--muted)}
+  .crumbs a:hover{color:var(--text)}
+  .panel h1{margin:18px 0 6px;font:600 clamp(24px,2.3vw,30px)/1.15 var(--head);letter-spacing:-.02em}
+  .code{font-size:12px;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .opt{margin-top:26px}
+  .opt-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:13px;font-weight:600}
+  .opt-h span{font-weight:400;color:var(--muted)}
+
+  /* Fabric: cards led by the fabric's own texture */
+  .fabrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fab{position:relative;display:flex;align-items:center;gap:12px;padding:8px 12px 8px 8px;border:1px solid var(--line);border-radius:14px;text-align:left;transition:border-color .2s,box-shadow .2s}
+  .fab .tex{flex:none;width:52px;height:52px;border-radius:10px;background:var(--t) center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+  .fab b{display:block;font-size:13.5px;font-weight:600;line-height:1.25}
+  .fab small{font-size:12px;color:var(--muted)}
+  .fab:hover{border-color:#B9C2BD}
+  .fab[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
+
+
+  /* Garments: a 3-column grid of image tiles, each cropped from the current look so it takes the selected colour */
+  .garments{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .gar{position:relative;aspect-ratio:4/5;min-width:0;text-align:left}
+  .gar .pic{position:absolute;inset:0;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#F6F5F1,#ECEAE3);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s,box-shadow .3s}
+  /* --y: the garment's centre in the render (% of its height), --z: zoom so the garment fills the tile height */
+  .gar .pic img{position:absolute;left:50%;top:50%;height:calc(var(--z) * 100%);width:auto;max-width:none;transform:translate(-50%,calc(var(--y) * -1));transition:transform .7s var(--ease)}
+  .gar:hover .pic img{transform:translate(-50%,calc(var(--y) * -1)) scale(1.04)}
+  .gar:hover .pic{box-shadow:0 16px 28px -18px rgba(15,31,23,.55)}
+  .gar[aria-pressed="true"] .pic{outline-color:var(--text);box-shadow:0 18px 30px -18px rgba(15,31,23,.5)}
+  .gar .name{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12px;font-weight:600;white-space:nowrap;transition:opacity .3s}
+  .gar .tick{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--text);color:#fff;opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--spring)}
+  .gar .tick svg{width:12px;height:12px}
+  .gar[aria-pressed="true"] .tick{opacity:1;transform:none}
+  .gar:focus-visible,.fab:focus-visible,.sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
+
+  /* Your order: the price calculator, in the panel */
+  .order{margin-top:30px;padding:20px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#FBFCFA,#F4F7F5);box-shadow:0 1px 2px rgba(15,31,23,.04),0 18px 40px -28px rgba(15,31,23,.35)}
+  .order-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+  .order-h h2{font:600 16px/1.2 var(--head)}
+  .order-h span{font-size:11.5px;color:var(--muted);text-align:right}
+  .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .field.wide{grid-column:1/-1}
+  .field{min-width:0}
+  .field label{display:block;margin-bottom:5px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .field .ctl{display:flex;align-items:center;height:44px;border:1px solid #D3D9D5;border-radius:11px;background:#fff;transition:border-color .2s,box-shadow .2s}
+  .field .ctl:focus-within{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(31,148,87,.15)}
+  .field input,.field select{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;font:600 14.5px var(--body);color:var(--text);outline:0;font-variant-numeric:tabular-nums}
+  .field select{cursor:pointer;font-weight:500;font-size:13.5px}
+  .field .unit{padding-right:12px;font-size:12px;color:var(--muted)}
+  /* Hints only speak up when something needs fixing */
+  .field small{display:none;margin-top:5px;font-size:11.5px;color:#B4541A}
+  .field small.warn{display:block}
+  .field.bad .ctl{border-color:#D9822B}
+  .tier{margin-top:10px;font-size:12px;color:var(--green-700)}
+  .tier:empty{display:none}
+  .sum{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .sum small{display:block;font-size:11.5px;color:var(--muted)}
+  .unit-price{font:700 34px/1.05 var(--head);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .unit-price small{display:inline;font:500 13px var(--body);color:var(--muted);letter-spacing:0}
+  .total{text-align:right}
+  .total b{display:block;font:600 17px/1.2 var(--head);font-variant-numeric:tabular-nums}
+  .breakdown{margin-top:12px}
+  .breakdown summary{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--muted);list-style:none;cursor:pointer}
+  .breakdown summary::-webkit-details-marker{display:none}
+  .breakdown summary::after{content:"";width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .25s}
+  .breakdown[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+  .lines{display:grid;grid-template-columns:1fr auto;gap:7px 16px;margin-top:10px;font-size:12.5px}
+  .lines dt{color:var(--muted)}
+  .lines dd{text-align:right;font-variant-numeric:tabular-nums}
+  .lines .neg{color:var(--green-700)}
+  .lines .pos{color:#B4541A}
+  .order .btn{width:100%;margin-top:16px;height:54px;font-size:15.5px}
+  .note{margin-top:10px;font-size:11px;color:var(--muted);text-align:center}
 
   /* You may also like */
-  .more{padding:88px 0 96px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+  .more{padding:88px 0 96px;border-top:1px solid var(--line)}
   .more-h{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:32px}
-  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  .more h2{margin-top:6px;font:500 clamp(22px,2.2vw,28px)/1.2 var(--head);letter-spacing:-.01em;color:var(--ink)}
-  .more-h a{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
-  .recs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
-  .rec .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--studio)}
-  .rec .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform 1s var(--ease)}
-  .rec .ph .alt{opacity:0;transform:scale(1.06)}
+  .more h2{margin-top:6px;font:600 clamp(24px,2.4vw,32px)/1.15 var(--head);letter-spacing:-.02em}
+  .more-h a{font-size:14px;font-weight:600;color:var(--green-700);white-space:nowrap}
+  .more-h a:hover{color:var(--green-800)}
+  .recs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;perspective:1200px}
+  .rec{display:block;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d;transition:transform .6s var(--ease)}
+  .rec.tilting{transition:transform .12s linear}
+  .rec .ph{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:20px;background:#EFEDE6;box-shadow:0 18px 36px -24px rgba(15,31,23,.45);transition:box-shadow .4s}
+  .rec:hover .ph{box-shadow:0 30px 50px -24px rgba(15,31,23,.55)}
+  .rec .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform .9s var(--ease)}
+  .rec .ph .alt{opacity:0;transform:scale(1.08)}
   .rec:hover .ph .alt{opacity:1;transform:none}
-  .rec .cap{padding:14px 2px 0}
-  .rec .cap small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  .rec .cap b{display:block;margin-top:4px;font-size:14px;font-weight:500;color:var(--ink)}
+  .rec .tag{position:absolute;left:14px;top:14px;z-index:1;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:11px;font-weight:600}
+  .rec .go{position:absolute;right:14px;bottom:14px;z-index:1;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .4s var(--spring)}
+  .rec .go svg{width:16px;height:16px}
+  .rec:hover .go{opacity:1;transform:none}
+  .rec .cap{padding:14px 4px 0}
+  .rec .cap small{font-size:12px;color:var(--muted)}
+  .rec .cap b{display:block;margin-top:2px;font:600 16px/1.3 var(--head)}
 
   /* Site footer: same as the home page */
   footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
@@ -260,221 +287,53 @@
     .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
     .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;border-bottom:1px solid var(--border)}
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0}
+    .pdp{grid-template-columns:minmax(0,1.15fr) minmax(320px,1fr)}
+    .chip-moq{display:none}
+    .chip-code{left:6%}
+    .chip-fab{right:4%}
     .recs{grid-template-columns:repeat(2,1fr)}
   }
-  /* Phone: the two-column grid stacks; images full-bleed, calculator inset */
-  @media (max-width:900px){
-    .order{grid-template-columns:1fr}
-    .o-head{flex-direction:column;align-items:flex-start;gap:8px}
-    .o-sum{position:static}
-  }
+  /* Phone: the showcase sits above the panel; the views rail moves under the avatar */
   @media (max-width:760px){
-    .stylebar-in{height:52px;padding:0 4px}
-    .sty{padding:0 12px}
-    .stylebar.overflow .sb-nav{display:none}
-    .stylebar.overflow .styles{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
-    .sty::after{left:12px;right:12px}
     :root{--hdr:72px}
     .wrap{padding:0 16px}
     .mnav.open{padding:8px 16px 24px}
-    .pdp{grid-template-columns:1fr}
-    .info-cell{padding:28px 16px 28px}
-    .info{max-width:640px}
-    .lb-thumbs{left:0;right:0;top:auto;bottom:0;flex-direction:row;max-height:none;overflow-x:auto;padding:6px 8px;background:rgba(255,255,255,.95);transform:none}
-    .lb-thumbs button{width:52px}
-    .lb-stage{padding-left:0;padding-bottom:84px}
+    .pdp{display:block}
+    .show{position:relative;top:0;height:auto;min-height:0;aspect-ratio:4/5.4}
+    .show{--feet:24%}
+    .fig{height:68%}
+    .pedestal{width:70%}
+    .shadow{width:30%}
+    .chip{padding:7px 10px;font-size:10.5px;border-radius:12px}
+    .chip b{font-size:11.5px}
+    .chip-code{left:12px;top:12px;transform:none}
+    .chip-fab{right:12px;bottom:auto;top:62px;transform:none}
+    .chip-fab .dot{width:24px;height:24px}
+    .rail{left:auto;right:12px;top:auto;bottom:70px;flex-direction:row;transform:none;gap:6px}
+    .view{width:38px}
+    .view span{display:none}
+    .dock{bottom:14px}
+    .dock .lbl{display:none}
+    .zoom{right:12px;top:12px;padding:3px}
+    .zoom button{width:28px;height:28px}
+    .zoom-val{min-width:36px;font-size:10.5px}
     .more{padding:56px 0 64px}
-    .recs{display:flex;gap:2px;margin:0 -16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+    .recs{display:flex;gap:14px;margin:0 -16px;padding:0 16px 8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
     .recs::-webkit-scrollbar{display:none}
-    .rec{flex:0 0 70%;scroll-snap-align:start}
+    .rec{flex:0 0 72%;scroll-snap-align:start}
+    .panel{padding:20px 16px 40px}
+    .garments{gap:8px}
+    .order{padding:16px}
+    .order-h{flex-direction:column;gap:4px}
+    .order-h span{text-align:left}
     .f-grid{grid-template-columns:1fr;gap:36px}
     footer{padding:56px 0 28px}
     .f-bot nav{gap:12px 20px}
   }
   @media (prefers-reduced-motion:reduce){
-    .shot img,.rec .ph img,.lb{transition:none}
-    .lb-stage{scroll-behavior:auto}
+    .scene,.rec,.fig img,.fig img.enter{transition:opacity .2s!important;transform:none!important}
+    .fig img.drape,.pedestal::after,.chip .flip{animation:none}
   }
-  /* Look builder, copied from woven.html (showcase, garments, fabric, colours and its order form): scoped to #builder */
-  #builder{--studio:#F3F2EF;--text:#0F1F17;--muted:#55665C;--line:#E4E7E5;border-top:1px solid var(--line)}
-  #builder .b-head{padding:56px 32px 28px;text-align:center}
-  #builder .b-head p{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  #builder .b-head h2{margin-top:8px;font:500 clamp(22px,2.2vw,30px)/1.2 var(--head);letter-spacing:-.01em;color:#111}
-  /* Product: 3D showcase left, sticky panel right */
-  #builder .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin-top:var(--hdr)}
-
-  /* Showcase: the avatar stands on a lit pedestal over a receding floor, in front of a halo tinted with the chosen colour.
-     The scene leans toward the pointer; glass chips float at different depths. */
-  #builder .show{position:sticky;top:var(--hdr);height:calc(100vh - var(--hdr));min-height:640px;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#FFFFFF 0%,#F3F2EE 55%,#E8E6DF 100%);perspective:1600px;isolation:isolate}
-  #builder .halo{position:absolute;left:50%;top:42%;width:58%;aspect-ratio:1;border-radius:50%;background:var(--tint,#E9E4DA);filter:blur(90px);opacity:.7;transform:translate(-50%,-50%);transition:background-color 1s var(--ease);z-index:-1}
-  #builder .floor{position:absolute;left:-50%;right:-50%;bottom:-8%;height:48%;background-image:linear-gradient(rgba(17,64,42,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(17,64,42,.08) 1px,transparent 1px);background-size:60px 60px;transform:rotateX(78deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(to top,#000 5%,transparent 80%);mask-image:linear-gradient(to top,#000 5%,transparent 80%);z-index:-1}
-  #builder .scene{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .9s var(--ease)}
-  #builder .show.tilting .scene{transition:transform .15s linear}
-  /* Pedestal: a lit disc in perspective (a flat ellipse, so it never cuts through the avatar) with a stitched ring.
-     --feet is where the avatar's feet land, measured from the bottom of the showcase. */
-  #builder .show{--feet:16%}
-  #builder .pedestal{position:absolute;left:50%;bottom:var(--feet);width:min(52%,440px);aspect-ratio:4.2;border-radius:50%;background:radial-gradient(closest-side,#fff,rgba(255,255,255,.7) 55%,rgba(255,255,255,0));box-shadow:0 0 0 1px rgba(17,64,42,.07),0 18px 30px -18px rgba(15,31,23,.25);transform:translate(-50%,50%)}
-  #builder .pedestal::after{content:"";position:absolute;inset:12% 7%;border-radius:50%;border:1.5px dashed rgba(26,127,75,.45);animation:spin 40s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  #builder .shadow{position:absolute;left:50%;bottom:var(--feet);width:min(22%,180px);height:30px;border-radius:50%;background:radial-gradient(closest-side,rgba(15,31,23,.35),transparent);transform:translate(-50%,40%);filter:blur(3px)}
-  /* The renders have ~4% empty space under the feet, hence the small negative offset */
-  #builder .fig{position:absolute;left:50%;bottom:calc(var(--feet) - 3%);height:78%;aspect-ratio:1230/1890;transform:translateX(-50%) translate(var(--panx,0px),var(--pany,0px)) scale(var(--zoom,1));transform-origin:50% 26%;transition:transform 1s var(--ease),opacity .5s}
-  #builder .fig.zoom-anim{transition:transform .35s var(--ease),opacity .5s}
-  #builder .fig.no-zoom-anim{transition:opacity .5s}
-  #builder .fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:perspective(1000px) rotateY(-16deg) scale(.98);transition:opacity .5s,transform .8s var(--ease)}
-  #builder .fig img.enter{transition:none;transform:perspective(1000px) rotateY(16deg) scale(.98)}
-  #builder .fig img.on{opacity:1;transform:none}
-  /* Fabric change: the new colour drapes down over the old one */
-  #builder .fig img.drape{z-index:1;transition:none;animation:drape .9s var(--ease)}
-  @keyframes drape{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
-  /* Detail view zooms onto the upper body; Fabric view swaps the avatar for a floating swatch card */
-  #builder .show.v-detail .fig{transform:translateX(-50%) translateY(14%) translate(var(--panx,0px),var(--pany,0px)) scale(calc(1.75 * var(--zoom,1)))}
-  #builder .show.v-detail .pedestal,#builder .show.v-detail .shadow,#builder .show.v-fabric .pedestal,#builder .show.v-fabric .shadow{opacity:0}
-  #builder .pedestal,#builder .shadow{transition:opacity .5s}
-  #builder .show.v-fabric .fig{opacity:0;transform:translateX(-50%) scale(.94)}
-  #builder .swcard{position:absolute;left:50%;top:46%;width:min(56%,440px);aspect-ratio:1;border-radius:28px;background:var(--sw) center/cover;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 40px 80px -30px rgba(15,31,23,.5);opacity:0;transform:translate(-50%,-50%) translateZ(-60px) rotateX(18deg) rotateZ(-6deg);transition:opacity .5s,transform 1s var(--ease);pointer-events:none}
-  #builder .show.v-fabric .swcard{opacity:1;transform:translate(-50%,-50%) translateZ(40px) rotateX(8deg) rotateZ(-3deg)}
-  #builder .swcard::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 45%)}
-
-  /* Glass chips */
-  #builder .chip{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.75);border-radius:16px;background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);box-shadow:0 14px 30px -14px rgba(15,31,23,.35);font-size:12px;line-height:1.3;color:var(--muted);white-space:nowrap}
-  #builder .chip b{display:block;font-size:13px;font-weight:600;color:var(--text)}
-  #builder .chip-code{left:15%;top:13%;transform:translateZ(90px)}
-  #builder .chip-code i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px rgba(61,220,132,.25)}
-  #builder .chip-moq{right:11%;top:24%;transform:translateZ(60px)}
-  #builder .chip-fab{right:9%;bottom:24%;transform:translateZ(130px)}
-  #builder .chip-fab .dot{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sw) center/240%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1),0 4px 10px -4px rgba(0,0,0,.4)}
-  #builder .chip .flip{display:inline-block;animation:flip .5s var(--ease)}
-  @keyframes flip{from{opacity:0;transform:perspective(300px) rotateX(-80deg)}}
-
-  /* Views rail */
-  #builder .rail{position:absolute;left:24px;top:50%;z-index:4;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
-  #builder .view{position:relative;width:60px;aspect-ratio:4/5;overflow:hidden;border-radius:12px;background:#fff;box-shadow:0 6px 16px -8px rgba(15,31,23,.4);outline:2px solid transparent;outline-offset:3px;transition:outline-color .2s,transform .3s var(--ease)}
-  #builder .view img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-  #builder .view.det img{object-fit:cover;object-position:50% 20%;transform:scale(1.6);transform-origin:50% 18%}
-  #builder .view.fabv img{object-fit:cover}
-  #builder .view span{position:absolute;left:0;right:0;bottom:0;padding:10px 0 4px;background:linear-gradient(transparent,rgba(0,0,0,.55));font-size:9.5px;font-weight:600;color:#fff;text-align:center;letter-spacing:.04em}
-  #builder .view:hover{transform:translateX(3px)}
-  #builder .view[aria-pressed="true"]{outline-color:var(--text)}
-
-  /* Colour dock: one swatch group per worn garment */
-  #builder .dock{position:absolute;left:50%;bottom:22px;z-index:4;display:flex;align-items:center;gap:12px;padding:6px 10px 6px 14px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
-  #builder .dock-grp{display:flex;align-items:center;gap:6px}
-  #builder .dock-grp + .dock-grp{padding-left:12px;border-left:1px solid rgba(15,31,23,.12)}
-  #builder .dock .lbl{margin-right:2px;color:var(--muted);font-weight:500;font-size:11px}
-  #builder .sw{width:30px;height:30px;padding:3px;border-radius:50%;border:1px solid transparent;transition:border-color .2s,transform .2s var(--spring)}
-  #builder .sw span{display:block;width:100%;height:100%;border-radius:50%;background:var(--c) center/220%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
-  #builder .sw:hover{transform:scale(1.12)}
-  #builder .sw[aria-checked="true"]{border-color:var(--text)}
-  #builder .view:focus-visible,#builder .sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
-
-  /* Per-garment colours in the panel */
-
-  /* Zoom: a glass pill over the top-right of the showcase */
-  #builder .zoom{position:absolute;right:20px;top:20px;z-index:4;display:flex;align-items:center;gap:2px;padding:4px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transition:opacity .3s}
-  #builder .zoom button{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;transition:background .2s,transform .2s var(--spring)}
-  #builder .zoom button:hover:not(:disabled){background:rgba(15,31,23,.08)}
-  #builder .zoom button:active:not(:disabled){transform:scale(.94)}
-  #builder .zoom button:disabled{opacity:.3;cursor:default}
-  #builder .zoom button svg{width:15px;height:15px}
-  #builder .zoom button:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
-  #builder .zoom-val{min-width:42px;text-align:center;font-size:11.5px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
-  #builder .show.v-fabric .zoom{opacity:0;pointer-events:none}
-  #builder .show.zoomed{cursor:grab}
-  #builder .show.zoomed.dragging{cursor:grabbing}
-  #builder .show.zoomed .fig{touch-action:none}
-  #builder .show.zoomed .fig img{-webkit-user-drag:none;user-select:none}
-
-  #builder .panel{padding:32px clamp(24px,4vw,64px) 48px}
-  #builder .panel h1{margin:18px 0 6px;font:600 clamp(24px,2.3vw,30px)/1.15 var(--head);letter-spacing:-.02em}
-  #builder .code{font-size:12px;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
-
-  #builder .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  #builder .opt{margin-top:26px}
-  #builder .opt-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:13px;font-weight:600}
-  #builder .opt-h span{font-weight:400;color:var(--muted)}
-
-  /* Fabric: cards led by the fabric's own texture */
-  #builder .fabrics{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-  #builder .fab{position:relative;display:flex;align-items:center;gap:12px;padding:8px 12px 8px 8px;border:1px solid var(--line);border-radius:14px;text-align:left;transition:border-color .2s,box-shadow .2s}
-  #builder .fab .tex{flex:none;width:52px;height:52px;border-radius:10px;background:var(--t) center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-  #builder .fab b{display:block;font-size:13.5px;font-weight:600;line-height:1.25}
-  #builder .fab small{font-size:12px;color:var(--muted)}
-  #builder .fab:hover{border-color:#B9C2BD}
-  #builder .fab[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
-
-
-  /* Garments: a 3-column grid of image tiles, each cropped from the current look so it takes the selected colour */
-  #builder .garments{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  #builder .gar{position:relative;aspect-ratio:4/5;min-width:0;text-align:left}
-  #builder .gar .pic{position:absolute;inset:0;overflow:hidden;border-radius:16px;background:linear-gradient(180deg,#F6F5F1,#ECEAE3);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s,box-shadow .3s}
-  /* --y: the garment's centre in the render (% of its height), --z: zoom so the garment fills the tile height */
-  #builder .gar .pic img{position:absolute;left:50%;top:50%;height:calc(var(--z) * 100%);width:auto;max-width:none;transform:translate(-50%,calc(var(--y) * -1));transition:transform .7s var(--ease)}
-  #builder .gar:hover .pic img{transform:translate(-50%,calc(var(--y) * -1)) scale(1.04)}
-  #builder .gar:hover .pic{box-shadow:0 16px 28px -18px rgba(15,31,23,.55)}
-  #builder .gar[aria-pressed="true"] .pic{outline-color:var(--text);box-shadow:0 18px 30px -18px rgba(15,31,23,.5)}
-  #builder .gar .name{position:absolute;left:10px;bottom:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12px;font-weight:600;white-space:nowrap;transition:opacity .3s}
-  #builder .gar .tick{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--text);color:#fff;opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--spring)}
-  #builder .gar .tick svg{width:12px;height:12px}
-  #builder .gar[aria-pressed="true"] .tick{opacity:1;transform:none}
-  #builder .gar:focus-visible,#builder .fab:focus-visible,#builder .sw:focus-visible{outline:2px solid var(--green-600);outline-offset:2px}
-
-  /* Your order: the price calculator, in the panel */
-  /* Hints only speak up when something needs fixing */
-
-  @media (max-width:1100px){
-    #builder .pdp{grid-template-columns:minmax(0,1.15fr) minmax(320px,1fr)}
-    #builder .chip-moq{display:none}
-    #builder .chip-code{left:6%}
-    #builder .chip-fab{right:4%}
-  }
-  @media (max-width:760px){
-    #builder .pdp{display:block}
-    #builder .show{position:relative;top:0;height:auto;min-height:0;aspect-ratio:4/5.4}
-    #builder .show{--feet:24%}
-    #builder .fig{height:68%}
-    #builder .pedestal{width:70%}
-    #builder .shadow{width:30%}
-    #builder .chip{padding:7px 10px;font-size:10.5px;border-radius:12px}
-    #builder .chip b{font-size:11.5px}
-    #builder .chip-code{left:12px;top:12px;transform:none}
-    #builder .chip-fab{right:12px;bottom:auto;top:62px;transform:none}
-    #builder .chip-fab .dot{width:24px;height:24px}
-    #builder .rail{left:auto;right:12px;top:auto;bottom:70px;flex-direction:row;transform:none;gap:6px}
-    #builder .view{width:38px}
-    #builder .view span{display:none}
-    #builder .dock{bottom:14px}
-    #builder .dock .lbl{display:none}
-    #builder .zoom{right:12px;top:12px;padding:3px}
-    #builder .zoom button{width:28px;height:28px}
-    #builder .zoom-val{min-width:36px;font-size:10.5px}
-    #builder .panel{padding:20px 16px 40px}
-    #builder .garments{gap:8px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    #builder .fig img.drape,#builder .pedestal::after,#builder .chip .flip{animation:none}
-  }
-  /* This page: no sticky showcase, the panel starts level with it, title kept for screen readers only */
-  #builder .pdp{margin:0}
-  #builder .show{position:relative;top:auto;height:min(820px,calc(100vh - var(--hdr) - 60px));min-height:600px}
-  #builder .panel{padding-top:0}
-  #builder .panel .opt:first-of-type{margin-top:0}
-  /* Order this look: full width under the showcase, laid out like the main order panel */
-  #builder .o-title{margin-top:10px;font:500 clamp(22px,1.9vw,26px)/1.25 var(--head);letter-spacing:-.01em;color:#111}
-  #builder .b-order{border-top:1px solid var(--line)}
-  /* GSM and MOQ: two inputs side by side, boxed like the quantity field */
-  #builder .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-  #builder .pair label{display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
-  #builder .pair label span{font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
-  #builder .box{display:flex;align-items:center;height:48px;border:1px solid #D4D4D0;transition:border-color .2s}
-  #builder .box:focus-within{border-color:#111}
-  #builder .box.bad{border-color:#C46A2B}
-  #builder .box input{flex:1;min-width:0;height:100%;padding:0 14px;border:0;background:none;font:600 15px var(--body);color:#111;outline:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
-  #builder .box input::-webkit-outer-spin-button,#builder .box input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-  #builder .box span{padding-right:14px;font-size:12px;color:var(--muted)}
-  #builder .pair .hint{grid-column:1/-1}
-  #builder .pair .hint:empty{display:none}
-  @media (max-width:760px){#builder .show{height:auto;min-height:0}}
   /* Brand logo (images/logo-ss.png, the supplied SS mark in its own green) */
   .logo-img{display:block;height:46px;width:auto}
   footer .logo-img{height:64px;padding:10px 16px;border-radius:12px;background:#FAF9F4}  /* the logo's own backdrop keeps the green readable on the dark footer */
@@ -504,135 +363,98 @@
   </nav>
 </header>
 
-<nav class="stylebar" aria-label="Styles">
-  <div class="stylebar-in">
-    <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
-    <div class="sb-nav"><button type="button" id="sbPrev" aria-label="Scroll styles left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="sbNext" aria-label="Scroll styles right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
-  </div>
-</nav>
+<main class="pdp">
+  <section class="show v-look" id="show" aria-label="Look showcase">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="floor" aria-hidden="true"></div>
+    <div class="scene">
+      <div class="pedestal" aria-hidden="true"></div>
+      <div class="shadow" aria-hidden="true"></div>
+      <figure class="fig" id="fig"><img alt="" class="on"><img alt=""><figcaption class="sr" id="figCap" aria-live="polite"></figcaption></figure>
+      <div class="swcard" id="swcard" aria-hidden="true"></div>
+      <div class="chip chip-code" aria-hidden="true"><i></i><div><b id="chipName"></b><span id="chipCode"></span></div></div>
+      <div class="chip chip-moq" aria-hidden="true"><div><span>MOQ</span><b id="chipMoq"></b></div></div>
+      <div class="chip chip-fab" aria-hidden="true"><span class="dot" id="chipDot"></span><div><b id="chipFab"></b><span id="chipGsm"></span></div></div>
+    </div>
+    <div class="rail" id="rail" role="group" aria-label="Views">
+      <button type="button" class="view" data-view="look" aria-pressed="true"><img alt="" id="vLook"><span>Look</span></button>
+      <button type="button" class="view det" data-view="detail" aria-pressed="false"><img alt="" id="vDetail"><span>Detail</span></button>
+      <button type="button" class="view fabv" data-view="fabric" aria-pressed="false"><img alt="" id="vFabric"><span>Fabric</span></button>
+    </div>
+    <div class="zoom" role="group" aria-label="Zoom the look">
+      <button type="button" id="zoomOut" data-zoom="out" aria-label="Zoom out" title="Zoom out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+      <output class="zoom-val" id="zoomVal" aria-live="polite">100%</output>
+      <button type="button" id="zoomIn" data-zoom="in" aria-label="Zoom in" title="Zoom in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button type="button" data-zoom="reset" aria-label="Reset zoom" title="Reset zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+    <div class="dock" id="dock" role="group" aria-label="Garment colours"></div>
+  </section>
 
-<main class="pdp" id="gallery">
-  <h1 id="name" class="sr-only">Vintage-wash denim jacket &amp; straight jeans</h1>
-  <figure data-slot="full" class="shot full" data-i="0"><video class="fullvid" muted loop playsinline preload="metadata" poster="denim/model.webp" aria-hidden="true"></video><img src="denim/model.webp" alt="Model wearing the vintage-wash denim jacket and straight jeans, full length"></figure>
-  <figure data-slot="product" class="shot product">
-    <img class="main" src="denim/product.webp" alt="Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket">
-    <div class="pthumbs" id="pThumbs" role="tablist" aria-label="Product images" aria-orientation="vertical"></div>
-  </figure>
+  <section class="panel" aria-labelledby="lookName">
+    <div class="crumbs"><a href="../index.html">Home</a>/<a href="../products.html">Products</a>/<span>Woven</span></div>
+    <h1 id="lookName"></h1>
+    <div class="code" id="styleCode"></div>
+    <div class="opt">
+      <div class="opt-h">Garments <span id="garmentNames"></span></div>
+      <div class="garments" id="garments"></div>
+    </div>
 
+    <div class="opt">
+      <div class="opt-h">Fabric <span id="fabricName"></span></div>
+      <div class="fabrics" id="fabrics" role="radiogroup" aria-label="Fabric"></div>
+    </div>
+
+    <div class="opt">
+      <div class="opt-h">Colours <span id="colourNames"></span></div>
+      <div class="colour-rows" id="colourRows"></div>
+    </div>
+
+
+    <section class="order" id="price" aria-labelledby="orderTitle">
+      <div class="order-h"><h2 id="orderTitle">Your order</h2><span id="leadTime"></span></div>
+      <form class="fields" id="calcForm" novalidate>
+        <div class="field" id="qtyField">
+          <label for="qty">Quantity</label>
+          <div class="ctl"><input id="qty" type="number" inputmode="numeric" min="1" step="50" value="1000"><span class="unit">pcs</span></div>
+          <small id="qtyHint"></small>
+        </div>
+        <div class="field">
+          <label for="moqIn">MOQ</label>
+          <div class="ctl"><input id="moqIn" type="number" inputmode="numeric" min="1" step="50"><span class="unit">pcs</span></div>
+          <small id="moqHint"></small>
+        </div>
+        <div class="field">
+          <label for="gsm">GSM</label>
+          <div class="ctl"><input id="gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span class="unit">g/m²</span></div>
+          <small id="gsmHint"></small>
+        </div>
+        <div class="field">
+          <label for="cmIn">CM charge</label>
+          <div class="ctl"><input id="cmIn" type="number" inputmode="decimal" min="0" step="0.1"><span class="unit">$/pc</span></div>
+          <small id="cmHint"></small>
+        </div>
+        <div class="field wide">
+          <label for="ship">Shipping</label>
+          <div class="ctl"><select id="ship"></select></div>
+        </div>
+      </form>
+      <div class="tier" id="tier"></div>
+      <div class="sum" aria-live="polite">
+        <div><small>Estimated price</small><div class="unit-price" id="unitPrice"></div></div>
+        <div class="total"><small>Order total</small><b id="orderTotal"></b></div>
+      </div>
+      <details class="breakdown"><summary>Price breakdown</summary><dl class="lines" id="lines"></dl></details>
+      <a class="btn btn-primary" id="orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="note">Indicative FOB estimate · sample rates, final price confirmed with your order</p>
+    </section>
+  </section>
 </main>
-
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
-  <div class="lb-thumbs" id="lbThumbs" aria-label="Images"></div>
-  <div class="lb-stage" id="lbStage"></div>
-  <button type="button" class="x" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-</div>
-
-<section id="builder" aria-labelledby="b-title">
-  <div class="b-head"><p>Mix &amp; match</p><h2 id="b-title">Build your own look</h2></div>
-  <div class="pdp">
-    <section class="show v-look" id="b-show" aria-label="Look showcase">
-      <div class="halo" aria-hidden="true"></div>
-      <div class="floor" aria-hidden="true"></div>
-      <div class="scene">
-        <div class="pedestal" aria-hidden="true"></div>
-        <div class="shadow" aria-hidden="true"></div>
-        <figure class="fig" id="b-fig"><img alt="" class="on"><img alt=""><figcaption class="sr" id="b-figCap" aria-live="polite"></figcaption></figure>
-        <div class="swcard" id="b-swcard" aria-hidden="true"></div>
-        <div class="chip chip-code" aria-hidden="true"><i></i><div><b id="b-chipName"></b><span id="b-chipCode"></span></div></div>
-        <div class="chip chip-moq" aria-hidden="true"><div><span>MOQ</span><b id="b-chipMoq"></b></div></div>
-        <div class="chip chip-fab" aria-hidden="true"><span class="dot" id="b-chipDot"></span><div><b id="b-chipFab"></b><span id="b-chipGsm"></span></div></div>
-      </div>
-      <div class="rail" id="b-rail" role="group" aria-label="Views">
-        <button type="button" class="view" data-view="look" aria-pressed="true"><img alt="" id="b-vLook"><span>Look</span></button>
-        <button type="button" class="view det" data-view="detail" aria-pressed="false"><img alt="" id="b-vDetail"><span>Detail</span></button>
-        <button type="button" class="view fabv" data-view="fabric" aria-pressed="false"><img alt="" id="b-vFabric"><span>Fabric</span></button>
-      </div>
-      <div class="zoom" role="group" aria-label="Zoom the look">
-        <button type="button" id="b-zoomOut" data-zoom="out" aria-label="Zoom out" title="Zoom out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
-        <output class="zoom-val" id="b-zoomVal" aria-live="polite">100%</output>
-        <button type="button" id="b-zoomIn" data-zoom="in" aria-label="Zoom in" title="Zoom in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-        <button type="button" data-zoom="reset" aria-label="Reset zoom" title="Reset zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
-      </div>
-      <div class="dock" id="b-dock" role="group" aria-label="Garment colours"></div>
-    </section>
-  
-    <section class="panel" aria-labelledby="b-lookName">
-      <h2 id="b-lookName" class="sr-only"></h2>
-      <span class="sr-only" id="b-styleCode"></span>
-      <div class="opt">
-        <div class="opt-h">Garments <span id="b-garmentNames"></span></div>
-        <div class="garments" id="b-garments"></div>
-      </div>
-  
-      <div class="opt">
-        <div class="opt-h">Fabric <span id="b-fabricName"></span></div>
-        <div class="fabrics" id="b-fabrics" role="radiogroup" aria-label="Fabric"></div>
-      </div>
-  
-  
-  
-    </section>
-  </div>
-  <div class="info-cell b-order">
-    <section class="info" aria-labelledby="b-orderTitle">
-      <section class="order" id="b-price">
-        <header class="o-head">
-          <div>
-            <p class="kicker">Mix &amp; match · Custom look</p>
-            <h2 class="o-title" id="b-orderTitle">Order this look</h2>
-          </div>
-          <p class="from" id="b-fromPrice"></p>
-        </header>
-
-        <form class="o-cfg" id="b-calcForm" novalidate>
-          <div class="step">
-            <label for="b-dest">Deliver to <span id="b-destPort"></span></label>
-            <div class="dest"><img id="b-destFlag" alt=""><select id="b-dest"></select></div>
-          </div>
-          <div class="step">
-            <label for="b-qty">Quantity <span id="b-qtyUnit"></span></label>
-            <div class="qty"><button type="button" id="b-minus" aria-label="100 fewer">−</button><input id="b-qty" type="number" inputmode="numeric" min="1" step="100" value="300"><button type="button" id="b-plus" aria-label="100 more">+</button></div>
-            <p class="hint" id="b-qtyHint" aria-live="polite"></p>
-          </div>
-          <div class="step pair">
-            <div>
-              <label for="b-gsm">GSM <span id="b-gsmStd"></span></label>
-              <div class="box"><input id="b-gsm" type="number" inputmode="numeric" min="60" max="400" step="5"><span>g/m²</span></div>
-            </div>
-            <div>
-              <label for="b-moq">MOQ <span id="b-moqStd"></span></label>
-              <div class="box"><input id="b-moq" type="number" inputmode="numeric" min="1" step="50"><span id="b-moqUnit">sets</span></div>
-            </div>
-            <p class="hint warn" id="b-pairHint" aria-live="polite"></p>
-          </div>
-          <div class="step">
-            <div class="step-h">Shipping</div>
-            <div class="ship" id="b-ship" role="radiogroup" aria-label="Shipping"></div>
-          </div>
-        </form>
-
-        <aside class="o-sum" aria-label="Price summary">
-        <h2 class="o-sum-h">Your estimate</h2>
-        <dl class="sum" aria-live="polite">
-          <div><dt id="b-perLabel">Price per set</dt><dd id="b-perSet"></dd></div>
-          <div id="b-discRow"><dt id="b-discLabel"></dt><dd id="b-disc"></dd></div>
-          <div><dt id="b-freightLabel">Delivery</dt><dd id="b-freight"></dd></div>
-          <div><dt>EU import duty</dt><dd>€0.00</dd></div>
-          <div class="tot"><dt>Order total <span class="vat" id="b-vatNote"></span></dt><dd id="b-total"></dd></div>
-        </dl>
-        <a class="buy" id="b-orderNow">Order now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-        <p class="o-note">Indicative FOB estimate · final price confirmed with your order</p>
-        </aside>
-      </section>
-    </section>
-  </div>
-</section>
 
 <section class="more" aria-labelledby="moreTitle">
   <div class="wrap">
     <div class="more-h">
       <div><div class="eyebrow">Keep exploring</div><h2 id="moreTitle">You may also like</h2></div>
-      <a href="../index.html#products">All products</a>
+      <a href="../index.html#products">All products →</a>
     </div>
     <div class="recs" id="recs"></div>
   </div>
@@ -671,302 +493,71 @@
 </footer>
 
 <script>
-// Denim product page: quantity and MOQ feed a live FOB estimate; images open full screen.
-(() => {
-  const DENIM = {
-    quoteUrl: '../quote.html',
-    // Variants: each is a look with its own gallery (by slot), name, style code and part prices (EUR per piece at MOQ,
-    // SAMPLE rates). `film` is the look video, or a still where a variant has none. Open one directly with #<id>.
-    variants: [
-      {id: 'jacket', label: 'Jacket & jeans', style: 'SS-DN-JKT-JN', name: 'Vintage-wash denim jacket & straight jeans',
-       parts: {jacket: 11.6, jeans: 9.1}, thumb: 'denim/half.webp', fullVideo: 'denim/jacketVideo/jacket.mp4',
-       shots: {
-         full: ['denim/model.webp', 'Model wearing the vintage-wash denim jacket and straight jeans, full length'],
-         product: ['denim/product.webp', 'Product shot: the vintage-wash denim jacket, front, with stand collar and scalloped button placket'],
-         half: ['denim/half.webp', 'The jacket worn, head to hip'],
-         detail1: ['denim/placket.webp', 'Close-up of the stand collar, chest pockets and button placket'],
-         long: ['denim/jeans.webp', 'The straight jeans, waist to hem'],
-         detail2: ['denim/detail.webp', 'Close-up of the scalloped hem, belt chain and knee rip'],
-         hem: ['denim/hem.webp', 'The straight hems and denim boots']}},
-      {id: 'skirt', label: 'Vest & maxi skirt', style: 'SS-DN-VST-SK', name: 'Rib-knit denim vest & maxi skirt',
-       parts: {vest: 8.4, skirt: 10.2}, thumb: 'denim/skirt/half.webp',
-       shots: {
-         full: ['denim/skirt/model.webp', 'Model wearing the rib-knit denim vest and seamed maxi skirt, full length'],
-         product: ['denim/skirt/product.webp', 'Product shot: the rib-knit denim vest with zip front and flap pocket'],
-         half: ['denim/skirt/half.webp', 'The vest worn, head to hip'],
-         detail1: ['denim/skirt/vest.webp', 'Close-up of the rib knit, zip and flap pocket'],
-         long: ['denim/skirt/skirt.webp', 'The maxi skirt, waist to hem'],
-         detail2: ['denim/skirt/belt.webp', 'Close-up of the western belt, waistband and pockets'],
-         hem: ['denim/skirt/hem.webp', 'The raw hem and denim mules'],
-         film: ['denim/skirt/panels.webp', 'The seamed panels and vintage wash of the skirt']}}
-    ],
-    // EUR per piece at MOQ — SAMPLE rates, to be confirmed by Struggle Style
-    setDiscount: .04,                                // jacket + jeans bought as a set
-    moq: 1000,                                       // sets per run
-    setKg: 1.25,                                     // packed weight per set, for freight
-    volume: [[5000, .08], [2000, .04]],              // [from qty, discount]
-    smallRun: .25,                                   // max surcharge below MOQ
-    // Delivery from Chattogram: EUR per kg (with a minimum per shipment); sea days vary by destination port
-    shipping: [
-      {id: 'sea',     label: 'Sea',     perKg: 1.0, min: 320},
-      {id: 'air',     label: 'Air',     perKg: 4.8, min: 230, days: [5, 8]},
-      {id: 'express', label: 'Express', perKg: 8.8, min: 55,  days: [3, 5]}
-    ],
-    // EU destinations: arrival port, standard VAT % (charged at import, reclaimable for VAT-registered buyers), sea days
-    countries: [
-      {id: 'de', name: 'Germany',     port: 'Hamburg',    vat: 19, sea: [30, 36]},
-      {id: 'fr', name: 'France',      port: 'Le Havre',   vat: 20, sea: [29, 35]},
-      {id: 'it', name: 'Italy',       port: 'Genoa',      vat: 22, sea: [22, 28]},
-      {id: 'es', name: 'Spain',       port: 'Valencia',   vat: 21, sea: [23, 29]},
-      {id: 'nl', name: 'Netherlands', port: 'Rotterdam',  vat: 21, sea: [29, 35]},
-      {id: 'be', name: 'Belgium',     port: 'Antwerp',    vat: 21, sea: [29, 35]},
-      {id: 'pt', name: 'Portugal',    port: 'Lisbon',     vat: 23, sea: [25, 31]},
-      {id: 'at', name: 'Austria',     port: 'Koper',      vat: 20, sea: [24, 30]},
-      {id: 'pl', name: 'Poland',      port: 'Gdańsk',     vat: 23, sea: [33, 40]},
-      {id: 'dk', name: 'Denmark',     port: 'Aarhus',     vat: 25, sea: [32, 38]},
-      {id: 'se', name: 'Sweden',      port: 'Gothenburg', vat: 25, sea: [33, 39]},
-      {id: 'ie', name: 'Ireland',     port: 'Dublin',     vat: 23, sea: [32, 38]}
-    ],
-    related: [
-      {label: 'Cropped denim jacket',     cat: 'Denim',   moq: '1,000', photo: '../images/look-denimjacket.jpg', alt: '../images/swatches/ss-d01-mid-wash.webp', href: 'denim.html'},
-      {label: 'Rib denim vest',           cat: 'Denim',   moq: '1,000', photo: '../images/cat-denim.jpg',        alt: '../images/swatches/ss-d01-indigo.webp',   href: 'denim.html'},
-      {label: 'Sweatshirt & baggy jeans', cat: 'Knit',    moq: '1,000', photo: '../images/look-sweatshirt.jpg',  alt: '../images/swatches/ss-t05-sand.webp',     href: 'knit.html'},
-      {label: 'Linen maxi dress',         cat: 'Woven',   moq: '800',   photo: '../images/look-linendress.jpg',  alt: '../images/swatches/ss-w06-sage.webp',     href: 'woven.html'}
-    ]
-  };
-
-  const $ = id => document.getElementById(id);
-  const eur = new Intl.NumberFormat('en-IE', {style: 'currency', currency: 'EUR'});
-  const int = new Intl.NumberFormat('en-US');
-  const range = ([a, b]) => `${a}–${b} days`;
-  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
-
-  // Site header: menu toggle, as on the home page
-  const hdr = $('hdr');
-  const setMenu = o => { $('mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('burger').setAttribute('aria-expanded', o); };
-  $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
-  document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
-
-  // Site bar: hide on scroll down, reveal on scroll up; always visible near the top or with the menu open
-  let lastY = Math.max(0, scrollY);
-  addEventListener('scroll', () => {
-    const y = Math.max(0, scrollY), dy = y - lastY;
-    if (Math.abs(dy) < 6) return;                       // ignore trackpad jitter
-    if (y < 90 || dy < 0 || hdr.classList.contains('open')) hdr.classList.remove('is-hidden');
-    else hdr.classList.add('is-hidden');
-    lastY = y;
-  }, {passive: true});
-
-  window.SS_EU = {countries: DENIM.countries, shipping: DENIM.shipping};
-
-  // Full-screen viewer: clicking a shot opens every image of the current style, stacked, at the one clicked.
-  // Thumbnails jump to an image; the one in view is marked as you scroll. Esc closes, ↑ ↓ step through.
-  const shots = [...document.querySelectorAll('.shot[data-i]')].sort((a, b) => a.dataset.i - b.dataset.i);
-  const lb = $('lb'), stage = $('lbStage'), thumbs = $('lbThumbs');
-  let at = 0, opener, spy;
-  const mark = i => {
-    at = i;
-    thumbs.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === i));
-    thumbs.children[i]?.scrollIntoView({block: 'nearest', inline: 'nearest'});
-  };
-  const goTo = (i, smooth = true) => {
-    i = Math.max(0, Math.min(shots.length - 1, i));
-    stage.scrollTo({top: stage.children[i].offsetTop, behavior: smooth ? 'smooth' : 'instant'});
-    mark(i);
-  };
-  function open(i) {
-    // Build from the gallery as it is now, so it always shows the selected style
-    const imgs = shots.map(s => s.querySelector('img'));
-    thumbs.innerHTML = imgs.map((img, k) => `<button type="button" aria-label="Image ${k + 1} of ${imgs.length}"><img src="${img.currentSrc || img.src}" alt=""></button>`).join('');
-    // Width/height up front (4:5 if not loaded yet) so the stack has its full height before the images arrive
-    stage.innerHTML = imgs.map(img => `<figure><img src="${img.currentSrc || img.src}" alt="${img.alt}" width="${img.naturalWidth || 4}" height="${img.naturalHeight || 5}"></figure>`).join('');
-    opener = document.activeElement;
-    lb.hidden = false;
-    document.body.style.overflow = 'hidden';
-    goTo(i, false);
-    $('lbClose').focus({preventScroll: true});
-    void lb.offsetWidth;  // commit the unhidden state so the fade-in runs
-    lb.classList.add('open');
-    spy?.disconnect();
-    spy = new IntersectionObserver(entries => {
-      const seen = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (seen) mark([...stage.children].indexOf(seen.target));
-    }, {root: stage, threshold: [.35, .6]});
-    [...stage.children].forEach(f => spy.observe(f));
-  }
-  function close() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    spy?.disconnect();
-    setTimeout(() => { lb.hidden = true; }, 300);
-    if (opener) opener.focus();
-  }
-  shots.forEach((s, i) => {
-    s.tabIndex = 0;
-    s.setAttribute('role', 'button');
-    s.addEventListener('click', () => open(i));
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
-  });
-
-  // Product cell: thumbnails of the style's photos; clicking one shows it large here (the cut-out first)
-  const productFig = document.querySelector('.shot.product'), pMain = productFig.querySelector('img.main'), pThumbs = $('pThumbs');
-  const P_ORDER = ['product', 'full', 'half', 'detail1', 'long', 'detail2', 'hem'];
-  let pList = [];
-  function showP(i, animate) {
-    const [src, alt] = pList[i];
-    const swap = () => {
-      pMain.src = src; pMain.alt = alt;
-      productFig.classList.toggle('photo', i > 0);
-      productFig.classList.remove('fading');
-    };
-    pThumbs.querySelectorAll('button').forEach((b, k) => { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
-    if (animate && !reduce) { productFig.classList.add('fading'); setTimeout(swap, 250); } else swap();
-  }
-  function drawPThumbs(v) {
-    pList = P_ORDER.map(k => v.shots[k]).filter(Boolean);
-    pThumbs.innerHTML = pList.map(([src], i) => `<button type="button" role="tab" aria-label="Image ${i + 1} of ${pList.length}"><img src="${src}" alt=""></button>`).join('');
-    showP(0);
-  }
-  pThumbs.addEventListener('click', e => {
-    const b = e.target.closest('button');
-    if (b) showP([...pThumbs.children].indexOf(b), true);
-  });
-  pThumbs.addEventListener('keydown', e => {
-    if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) return;
-    e.preventDefault();
-    const list = [...pThumbs.children], i = list.indexOf(document.activeElement);
-    const to = e.key === 'Home' ? 0 : e.key === 'End' ? list.length - 1 : (i + (e.key === 'ArrowDown' ? 1 : -1) + list.length) % list.length;
-    list[to].focus();
-    list[to].click();
-  });
-  thumbs.addEventListener('click', e => {
-    const b = e.target.closest('button');
-    if (b) goTo([...thumbs.children].indexOf(b));
-  });
-  $('lbClose').onclick = close;
-  addEventListener('keydown', e => {
-    if (lb.hidden) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(at + 1); }
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(at - 1); }
-  });
-
-  $('recs').innerHTML = DENIM.related.map(r =>
-    `<a class="rec" href="${r.href}"><div class="ph"><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"></div>` +
-    `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
-
-  // Style picker: swap every gallery image, the name and the prices; the images fade out and back in together
-  const gallery = $('gallery');
-  let V = DENIM.variants[0], activeTab = 0;
-  // Placeholder fill: the real styles are repeated so the bar can be judged with many styles. Set to 1 to show each once.
-  const REPEAT = 4;
-  const tabs = Array.from({length: DENIM.variants.length * REPEAT}, (_, i) => DENIM.variants[i % DENIM.variants.length]);
-  $('styles').innerHTML = tabs.map((v, i) =>
-    `<button type="button" class="sty" role="radio" data-variant="${v.id}" data-tab="${i}" aria-checked="false" tabindex="-1"><span class="ph"><img src="${v.thumb}" alt=""></span>${v.label}</button>`).join('');
-  function useVariant(id, animate) {
-    const v = DENIM.variants.find(x => x.id === id) || DENIM.variants[0];
-    const apply = () => {
-      V = v;
-      document.querySelectorAll('[data-slot]').forEach(fig => {
-        const shot = v.shots[fig.dataset.slot];
-        if (!shot) return;
-        const img = fig.querySelector('img');
-        img.src = shot[0];
-        img.alt = shot[1];
-      });
-      // The first cell plays this style's video if it has one; the photo underneath stays for the viewer
-      const fullFig = document.querySelector('[data-slot="full"]'), vid = fullFig.querySelector('.fullvid');
-      fullFig.classList.toggle('has-video', !!v.fullVideo);
-      if (v.fullVideo) {
-        if (vid.getAttribute('src') !== v.fullVideo) { vid.src = v.fullVideo; vid.poster = v.shots.full[0]; }
-        if (!reduce) vid.play().catch(() => {});
-      } else vid.pause();
-      $('name').textContent = v.name;
-      document.title = `${v.name} | Struggle Style`;
-      document.querySelectorAll('[data-variant]').forEach(b => {
-        const on = +b.dataset.tab === activeTab;
-        b.setAttribute('aria-checked', on);
-        b.tabIndex = on ? 0 : -1;
-        if (on) b.scrollIntoView({block: 'nearest', inline: 'nearest'});
-      });
-      drawPThumbs(v);
-      gallery.classList.remove('swapping');
-    };
-    if (!animate || reduce) return apply();
-    gallery.classList.add('swapping');
-    setTimeout(apply, 350);
-  }
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  $('styles').addEventListener('click', e => {
-    const b = e.target.closest('[data-variant]');
-    if (!b || +b.dataset.tab === activeTab) return;
-    activeTab = +b.dataset.tab;
-    history.replaceState(null, '', `#${b.dataset.variant}`);
-    useVariant(b.dataset.variant, b.dataset.variant !== V.id);
-  });
-  // Arrow keys move between styles (radio group); the side arrows scroll when the styles don't fit
-  $('styles').addEventListener('keydown', e => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
-    e.preventDefault();
-    const tabs = [...document.querySelectorAll('[data-variant]')], i = tabs.indexOf(document.activeElement);
-    const to = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-    tabs[to].focus();
-    tabs[to].click();
-  });
-  const bar = document.querySelector('.stylebar'), strip = $('styles');
-  const fit = () => bar.classList.toggle('overflow', strip.scrollWidth > strip.clientWidth + 2);
-  addEventListener('resize', fit);
-  fit();
-  $('sbPrev').onclick = () => { strip.scrollLeft -= strip.clientWidth * .7; };
-  $('sbNext').onclick = () => { strip.scrollLeft += strip.clientWidth * .7; };
-
-  // Warm the other variants' images so the swap is instant
-  addEventListener('load', () => DENIM.variants.forEach(v => Object.values(v.shots).forEach(([src]) => { new Image().src = src; })));
-
-
-  activeTab = Math.max(0, DENIM.variants.findIndex(v => v.id === location.hash.slice(1)));
-  useVariant(location.hash.slice(1));
-})();
-</script>
-<script>
-// Look builder, copied from woven.html: garments + fabric + colours on the 3D showcase, with its own order form.
-// Ids are prefixed b- and every lookup stays inside #builder, so it runs alongside this page's own script.
+// Woven look builder: garments + fabric + colour -> one render in woven/looks/ (built by woven/compose_woven.py),
+// shown on the 3D showcase on the left.
 (() => {
   const WOVEN = {
     look: 'woven/looks/{first}-{second}-{fabric}-{colour}.webp',
     swatch: '../images/swatches/{fabric}-{colour}.webp',
     quoteUrl: '../quote.html',
     sampleDays: [7, 10],
-    initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-d01', colour: 'indigo'},
+    initial: {top: 'shirt', bottom: 'pants', fabric: 'ss-w06', colour: 'white'},
     // `use` = fabric per piece (m²), `cm` = cut & make (USD), `perKg` = fabric price (USD/kg) — SAMPLE rates, to be confirmed
     // `focus: [y%, zoom]`: the garment's vertical centre in the full-body render and the zoom that fills its tile
     garments: [
       {id: 'shirt',  label: 'Shirt',    type: 'top',    code: 'SH', moq: 300, lead: [40, 55], use: 1.6, cm: 2.8, focus: [35, 2.2],
        build: ['Point collar, full button placket', 'Patch chest pocket', 'Dropped shoulder, barrel cuffs']},
-      {id: 'blazer', label: 'Jacket',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, focus: [36, 2.1],
+      {id: 'blazer', label: 'Blazer',   type: 'top',    code: 'BZ', moq: 200, lead: [55, 70], use: 2.2, cm: 6.5, focus: [36, 2.1],
        build: ['Double-breasted, peak lapel', 'Flap pockets', 'Half-lined with recycled lining']},
       {id: 'dress',  label: 'Dress',    type: 'full',   code: 'DR', moq: 300, lead: [45, 60], use: 2.4, cm: 3.8, focus: [47, 1.4],
        build: ['Square neck, adjustable straps', 'Shirred waist panel', 'Midi length, side seam pockets']},
-      {id: 'pants',  label: 'Jeans',    type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, focus: [73, 1.95],
+      {id: 'pants',  label: 'Trousers', type: 'bottom', code: 'PT', moq: 300, lead: [45, 60], use: 1.8, cm: 3.0, focus: [73, 1.95],
        build: ['High rise, straight wide leg', 'Elasticated back waistband', 'Side seam pockets']},
       {id: 'skirt',  label: 'Skirt',    type: 'bottom', code: 'SK', moq: 300, lead: [40, 55], use: 0.9, cm: 2.0, focus: [61, 3.0],
        build: ['Mini length, flared', 'Concealed side zip', 'Clean-finish hem']}
     ],
     fabrics: [
-      {id: 'ss-d01', label: 'Eco-wash denim',  short: 'Denim',  code: 'DN', comp: '98% cotton, 2% elastane', gsm: '340 GSM', g: 340, perKg: 6.2, weave: '3×1 right-hand twill',
-       care: 'Machine wash 30°C inside out', colours: [['indigo', 'Indigo', '#2C3E63'], ['mid-wash', 'Mid wash', '#5B7AA6'], ['black', 'Black', '#26272B'], ['ecru', 'Ecru', '#E4D9C3']]}
+      {id: 'ss-w06', label: 'Cotton poplin',   short: 'Poplin', code: 'PO', comp: '100% cotton', gsm: '115 GSM', g: 115, perKg: 7.5, weave: 'Plain weave, 40s × 40s',
+       care: 'Machine wash 30°C', colours: [['white', 'White', '#F5F5F1'], ['sky', 'Sky', '#B8CDE3'], ['sage', 'Sage', '#B9C8AE'], ['black', 'Black', '#232427']]},
+      {id: 'ss-s07', label: 'Satin charmeuse', short: 'Satin',  code: 'ST', comp: '100% recycled polyester', gsm: '95 GSM',  g: 95,  perKg: 9.2, weave: 'Satin weave, fluid drape',
+       care: 'Hand wash cold', colours: [['champagne', 'Champagne', '#DCC7A3'], ['emerald', 'Emerald', '#1E6B4A'], ['lilac', 'Lilac', '#B3A0D4'], ['black', 'Black', '#1E1E22']]}
     ],
-    // Order this look — SAMPLE rates, to be confirmed. Costs are USD, shown in EUR; destinations and shipping
-    // come from this page's main order panel (window.SS_EU)
-    custom: {eurPerUsd: .92, wastage: .08, trims: .45, packing: .25, packKg: .06, margin: .12,
-             volume: [[5000, .08], [2000, .04]], smallRun: .25},
+    // Shown under "You may also like"; `alt` is revealed on hover
+    related: [
+      {label: 'Chunky rib sweater',       cat: 'Sweater', moq: '600',   photo: '../images/look-chunkyknit.jpg',  alt: '../images/swatches/ss-k08-cream.webp',        href: 'sweater.html'},
+      {label: 'Cropped denim jacket',     cat: 'Denim',   moq: '1,000', photo: '../images/look-denimjacket.jpg', alt: '../images/swatches/ss-d01-mid-wash.webp',     href: 'denim.html'},
+      {label: 'Cable knit vest',          cat: 'Sweater', moq: '600',   photo: '../images/look-knitvest.jpg',    alt: '../images/swatches/ss-k08-bottle-green.webp', href: 'sweater.html'},
+      {label: 'Sweatshirt & baggy jeans', cat: 'Knit',    moq: '1,000', photo: '../images/look-sweatshirt.jpg',  alt: '../images/swatches/ss-t05-sand.webp',         href: 'knit.html'}
+    ],
+    // Price calculator — SAMPLE rates, to be confirmed by Struggle Style before launch
+    pricing: {
+      wastage: .08,                                  // cutting loss on fabric
+      trims: .45,                                    // buttons, labels, thread per garment
+      packing: .25,                                  // polybag, hangtag, carton share per piece
+      packKg: .06,                                   // packed weight added per piece
+      margin: .12,                                   // factory overhead & margin
+      volume: [[5000, .12], [3000, .08], [1000, .04]],  // [from qty, discount]
+      smallRun: [.25, .40],                          // below MOQ: +25% per MOQ multiple short, capped at 40%
+      gsmRange: [60, 400],
+      shipping: [
+        {id: 'fob',     label: 'FOB Chattogram', perKg: 0,    min: 0,   days: 'Ready at port'},
+        {id: 'sea',     label: 'Sea freight', perKg: 1.1,  min: 350, days: '25–35 days in transit'},
+        {id: 'air',     label: 'Air freight', perKg: 5.2, min: 250, days: '5–8 days in transit'},
+        {id: 'express', label: 'Express courier', perKg: 9.5, min: 60, days: '3–5 days in transit'}
+      ]
+    }
   };
 
-  const root = document.getElementById('builder');
-  const $ = id => document.getElementById('b-' + id);
+  const $ = id => document.getElementById(id);
+  const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hover = matchMedia('(hover: hover)').matches;
 
+  // Site header: menu toggle, as on the home page
+  const hdr = $('hdr');
+  const setMenu = o => { $('mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('burger').setAttribute('aria-expanded', o); };
+  $('burger').onclick = () => setMenu(!$('mnav').classList.contains('open'));
+  document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
   const garment = Object.fromEntries(WOVEN.garments.map(g => [g.id, g]));
   const fabric = Object.fromEntries(WOVEN.fabrics.map(f => [f.id, f]));
   const sel = {full: null, top: WOVEN.initial.top, bottom: WOVEN.initial.bottom, fabric: WOVEN.initial.fabric, colours: {}};
@@ -1007,6 +598,8 @@
       `<button type="button" class="sw" role="radio" data-colour-for="${g.id}" data-colour="${id}" aria-label="${g.label} ${label}" aria-checked="${id === colourOf(g.id)}"><span style="--c:url('${swatchUrl(f.id, id)}')"></span></button>`).join('');
     $('dock').innerHTML = w.map(g =>
       `<span class="dock-grp" role="radiogroup" aria-label="${g.label} colour"><span class="lbl">${g.label}</span>${swatches(g)}</span>`).join('');
+    $('colourRows').innerHTML = w.map(g =>
+      `<div class="colour-row"><span class="who">${g.label}<small data-colour-label="${g.id}">${colourLabelOf(g.id)}</small></span><span class="swatches" role="radiogroup" aria-label="${g.label} colour">${swatches(g)}</span></div>`).join('');
   };
 
   function pickGarment(id) {
@@ -1051,7 +644,7 @@
     resetZoom();
     show.classList.remove('v-look', 'v-detail', 'v-fabric');
     show.classList.add(`v-${v}`);
-    root.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
+    document.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
   }
 
   // Zoom: buttons, wheel, double-click and drag-to-pan on the avatar
@@ -1089,7 +682,7 @@
     zoomTimer = setTimeout(() => fig.classList.remove('zoom-anim'), 400);
   }
 
-  root.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
     const action = b.dataset.zoom;
     smoothZoom();
     if (action === 'in') setZoom(zoom * 1.5);
@@ -1191,117 +784,119 @@
     chip('chipFab', `${f.label} · ${summary}`, mode);
     chip('chipGsm', `${f.gsm} · ${f.comp}`, mode);
 
-    root.querySelectorAll('[data-garment]').forEach(b => {
+    document.querySelectorAll('[data-garment]').forEach(b => {
       const g = garment[b.dataset.garment];
       b.setAttribute('aria-pressed', [sel.full, sel.top, sel.bottom].includes(g.id));
       b.querySelector('img').src = g.type === 'bottom'
         ? lookSrc('none', g.id, sel.fabric, undefined, colourOf(g.id))
         : lookSrc(g.id, 'none', sel.fabric, colourOf(g.id), undefined);
     });
-    root.querySelectorAll('[data-fabric]').forEach(b => {
+    document.querySelectorAll('[data-fabric]').forEach(b => {
       const fb = fabric[b.dataset.fabric], c = fb.colours.some(([id]) => id === firstColour) ? firstColour : fb.colours[0][0];
       b.setAttribute('aria-checked', fb.id === sel.fabric);
       b.querySelector('.tex').style.setProperty('--t', `url('${swatchUrl(fb.id, c)}')`);
     });
-    root.querySelectorAll('[data-colour-for]').forEach(b => {
+    document.querySelectorAll('[data-colour-for]').forEach(b => {
       b.setAttribute('aria-checked', b.dataset.colour === colourOf(b.dataset.colourFor));
     });
-    root.querySelectorAll('[data-colour-label]').forEach(el => {
+    document.querySelectorAll('[data-colour-label]').forEach(el => {
       el.textContent = colourLabelOf(el.dataset.colourLabel);
     });
 
     $('lookName').textContent = name;
+    document.title = `${name} | Struggle Style`;
     $('styleCode').textContent = code;
     $('garmentNames').textContent = w.map(g => g.label).join(' + ');
     $('fabricName').textContent = `${f.label} · ${f.gsm}`;
+    $('colourNames').textContent = summary;
     look = {code, name, colour: summary};
     syncCalc();
     preload();
   }
 
-  // Order this look: per set = each worn garment's fabric (by weight) + cut & make, trims, packing and margin;
-  // volume discount or small-run surcharge against the look's MOQ; delivery by weight to the chosen EU country
-  const C = WOVEN.custom, EU = window.SS_EU;
-  const eur = new Intl.NumberFormat('en-IE', {style: 'currency', currency: 'EUR'});
+  // Price calculator: fabric by weight + cut & make + trims, adjusted for volume, small runs, margin and freight
+  const P = WOVEN.pricing;
+  const usd = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
   const int = new Intl.NumberFormat('en-US');
-  let look = {}, ship = 'sea';
-  $('dest').innerHTML = EU.countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  $('dest').value = 'de';
-  // GSM follows the fabric and MOQ follows the look; both can be overwritten by the buyer
-  const synced = {};
-  const syncCalc = () => {
+  const num = id => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : NaN; };
+  let look = {}, synced = {};
+  $('ship').innerHTML = P.shipping.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
+  $('ship').value = 'sea';
+
+  // GSM follows the fabric and MOQ follows the garments, until the buyer types their own
+  function syncCalc() {
     const f = fabric[sel.fabric], moq = Math.max(...worn().map(g => g.moq));
     if (synced.fabric !== f.id) { $('gsm').value = f.g; synced.fabric = f.id; }
-    if (synced.moq !== moq) { $('moq').value = moq; synced.moq = moq; }
-    $('gsmStd').textContent = `${f.short} standard ${f.g}`;
-    $('moqStd').textContent = `look standard ${int.format(moq)}`;
+    if (synced.moq !== moq) { $('moqIn').value = moq; synced.moq = moq; }
+    const cm = +worn().reduce((a, g) => a + g.cm, 0).toFixed(2);
+    if (synced.cm !== cm) { $('cmIn').value = cm; synced.cm = cm; }
     price();
-  };
+  }
 
   function price() {
-    const w = worn(), f = fabric[sel.fabric], c = EU.countries.find(x => x.id === $('dest').value);
-    const qty = Math.round(+$('qty').value), gsm = +$('gsm').value, moq = Math.round(+$('moq').value);
-    const gsmOk = gsm >= 60 && gsm <= 400, moqOk = moq >= 1, ok = qty >= 1 && gsmOk && moqOk;
-    const belowMoq = ok && qty < moq;
-    $('gsm').parentNode.classList.toggle('bad', !gsmOk);
-    $('moq').parentNode.classList.toggle('bad', !moqOk);
-    $('pairHint').textContent = !gsmOk ? 'Enter a GSM between 60 and 400.' : !moqOk ? 'Enter an MOQ of 1 or more.' : '';
-    const kg = w.reduce((a, g) => a + g.use * (gsmOk ? gsm : f.g) / 1000, 0) + C.packKg;
-    const usd = ((kg - C.packKg) * (1 + C.wastage) * f.perKg + w.reduce((a, g) => a + g.cm, 0) + C.trims * w.length + C.packing) * (1 + C.margin);
-    const per = usd * C.eurPerUsd, unit = w.length > 1 ? 'set' : 'pc';
-    const nextTier = C.volume.map(([q]) => q).filter(q => q > qty).pop();
-    const days = s => s.days || c.sea;
+    const w = worn(), f = fabric[sel.fabric], ship = P.shipping.find(s => s.id === $('ship').value);
+    const qty = Math.round(num('qty')), gsm = num('gsm'), moq = Math.round(num('moqIn')), cmIn = num('cmIn');
+    const [gMin, gMax] = P.gsmRange;
+    const qtyOk = qty >= 1, gsmOk = gsm >= gMin && gsm <= gMax, moqOk = moq >= 1, cmOk = cmIn >= 0;
+    const nextTier = P.volume.map(([q]) => q).filter(q => q > qty).pop();  // tiers run high to low
 
-    $('fromPrice').innerHTML = `From <b>${eur.format(per * (1 - C.volume[0][1]))}</b> / ${unit} · excl. VAT`;
-    $('destFlag').src = `https://flagcdn.com/w40/${c.id}.png`;
-    $('destPort').textContent = {sea: `via ${c.port}`, air: 'via airport', express: 'door to door'}[ship];
-    $('qtyUnit').textContent = `${unit === 'set' ? 'sets' : 'pieces'} · ${w.map(g => g.label.toLowerCase()).join(' + ')}`;
-    $('ship').innerHTML = EU.shipping.map(s =>
-      `<button type="button" role="radio" data-ship="${s.id}" aria-checked="${s.id === ship}"><b>${s.label}</b><small>${range(days(s))}</small></button>`).join('');
-    $('qtyHint').className = 'hint' + (ok && !belowMoq ? '' : ' warn');
-    $('moqUnit').textContent = unit === 'set' ? 'sets' : 'pcs';
-    $('qtyHint').textContent = !(qty >= 1) ? 'Enter a quantity.' : !ok ? ''
-      : belowMoq ? `Below the ${int.format(moq)} MOQ for this look: a small-run surcharge applies.`
-      : nextTier ? `Add ${int.format(nextTier - qty)} for the next volume discount.` : 'Best volume rate.';
-    if (!ok) {
-      ['perSet', 'disc', 'freight', 'total'].forEach(id => { $(id).textContent = '—'; });
-      $('orderNow').removeAttribute('href');
-      $('orderNow').setAttribute('aria-disabled', 'true');
+    $('qtyField').classList.toggle('bad', !qtyOk || (moqOk && qty < moq));
+    // Hints only show when an input needs fixing; the volume nudge sits under the fields
+    const belowMoq = qtyOk && moqOk && qty < moq;
+    $('qtyHint').className = !qtyOk || belowMoq ? 'warn' : '';
+    $('qtyHint').textContent = !qtyOk ? 'Enter 1 or more.' : belowMoq ? `${int.format(moq - qty)} below MOQ · small-run surcharge` : '';
+    $('gsmHint').className = gsmOk ? '' : 'warn';
+    $('gsmHint').textContent = gsmOk ? '' : `Enter ${gMin}–${gMax}.`;
+    $('moqHint').className = moqOk ? '' : 'warn';
+    $('moqHint').textContent = moqOk ? '' : 'Enter 1 or more.';
+    $('cmHint').className = cmOk ? '' : 'warn';
+    $('cmHint').textContent = cmOk ? '' : 'Enter 0 or more.';
+    $('tier').textContent = qtyOk && !belowMoq && nextTier ? `Add ${int.format(nextTier - qty)} pcs to unlock the next volume discount` : '';
+    const lead = [Math.max(...w.map(g => g.lead[0])), Math.max(...w.map(g => g.lead[1]))];
+    $('leadTime').textContent = `Production ${range(lead)} · ${ship.days.replace(' in transit', ' shipping')}`;
+
+    if (!qtyOk || !gsmOk || !moqOk || !cmOk) {
+      $('unitPrice').innerHTML = '—';
+      $('orderTotal').textContent = '—';
+      $('lines').innerHTML = '';
       return;
     }
-    const s = EU.shipping.find(x => x.id === ship);
-    const [, vol = 0] = C.volume.find(([q]) => qty >= q) || [];
-    const small = belowMoq ? Math.min(C.smallRun, (moq / qty - 1) * .1) : 0;
-    const goods = per * qty, adj = goods * (small - vol);
-    const freight = Math.max(s.min, kg * qty * s.perKg);
-    const total = goods + adj + freight;
-    $('perLabel').textContent = `Price per ${unit === 'set' ? 'set' : 'piece'}`;
-    $('perSet').textContent = `${eur.format(per)} × ${int.format(qty)}`;
-    $('discRow').hidden = !adj;
-    $('discLabel').textContent = vol ? `Volume discount · ${vol * 100}%` : `Small-run surcharge · ${Math.round(small * 100)}%`;
-    $('disc').textContent = (adj < 0 ? '−' : '+') + eur.format(Math.abs(adj));
-    $('disc').className = adj < 0 ? 'neg' : 'pos';
-    $('freightLabel').textContent = `${s.label} to ${ship === 'sea' ? c.port : c.name}`;
-    $('freight').textContent = eur.format(freight);
-    $('total').textContent = eur.format(total);
-    $('vatNote').textContent = `· excl. ${c.vat}% VAT`;
-    $('orderNow').removeAttribute('aria-disabled');
+
+    // Per piece (a set counts as one piece)
+    const area = w.reduce((a, g) => a + g.use, 0);
+    const netKg = area * gsm / 1000;
+    const fabricCost = netKg * (1 + P.wastage) * f.perKg;
+    const make = cmIn;  // CM charge per piece (set) from the form
+    const trims = P.trims * w.length + P.packing;
+    const base = fabricCost + make + trims;
+    const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
+    const small = qty < moq ? Math.min(P.smallRun[1], (moq / qty - 1) * P.smallRun[0]) : 0;
+    const adjusted = base * (1 - vol + small);
+    const margin = adjusted * P.margin;
+    const shipKg = (netKg + P.packKg) * qty;
+    const freight = ship.perKg ? Math.max(ship.min, shipKg * ship.perKg) / qty : 0;
+    const unit = adjusted + margin + freight;
+
+    const row = (k, v, cls = '') => `<dt>${k}</dt><dd class="${cls}">${v}</dd>`;
+    $('unitPrice').innerHTML = `${usd.format(unit)} <small>/ ${w.length > 1 ? 'set' : 'pc'}</small>`;
+    $('orderTotal').textContent = `${usd.format(unit * qty)}`;
+    $('lines').innerHTML = [
+      row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
+      row(`CM charge · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
+      row('Trims &amp; packing', usd.format(trims)),
+      vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
+      small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
+      row('Overhead &amp; margin', usd.format(margin)),
+      row(`${ship.label.split(' (')[0]}${ship.perKg ? ` · ${int.format(Math.round(shipKg))} kg` : ''}`, ship.perKg ? usd.format(freight) : 'Included')
+    ].join('');
     $('orderNow').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
-      order: 'now', type: 'custom', style: look.code, look: look.name,
-      garments: w.map(g => `${g.label} (${colourLabelOf(g.id)})`).join(', '), fabric: f.label, gsm, moq,
-      quantity: qty, destination: ship === 'sea' ? `${c.name} (${c.port})` : c.name, shipping: s.label,
-      estimate: `${eur.format(total / qty)} / ${unit}, ${eur.format(total)} total excl. VAT`
+      order: 'now', style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
+      quantity: qty, gsm, moq, cm: make, shipping: ship.label, estimate: usd.format(unit)
     })}`;
   }
+
   $('calcForm').addEventListener('input', price);
   $('calcForm').addEventListener('submit', e => e.preventDefault());
-  $('ship').addEventListener('click', e => {
-    const b = e.target.closest('[data-ship]');
-    if (b && b.dataset.ship !== ship) { ship = b.dataset.ship; price(); $('ship').querySelector(`[data-ship="${ship}"]`).focus(); }
-  });
-  const step = d => { $('qty').value = Math.max(100, Math.round((+$('qty').value || 0) / 100) * 100 + d); price(); };
-  $('minus').onclick = () => step(-100);
-  $('plus').onclick = () => step(100);
 
   // Panel and showcase dock share one handler: garments turn the avatar, fabric and colours drape over it
   const choose = e => {
@@ -1325,7 +920,7 @@
     if (t.dataset.garment && view === 'fabric') setView('look');
     render(t.dataset.garment ? 'turn' : 'drape');
   };
-  root.querySelector('.panel').addEventListener('click', choose);
+  document.querySelector('.panel').addEventListener('click', choose);
   $('dock').addEventListener('click', choose);
   $('rail').addEventListener('click', e => {
     const b = e.target.closest('[data-view]');
@@ -1347,8 +942,12 @@
     });
   }
 
+  $('recs').innerHTML = WOVEN.related.map(r =>
+    `<a class="rec" href="${r.href}"><div class="ph"><span class="tag">${r.cat}</span><img src="${r.photo}" alt="${r.label}" loading="lazy"><img class="alt" src="${r.alt}" alt="" loading="lazy"><span class="go">${ARROW}</span></div>` +
+    `<div class="cap"><small>${r.cat} · MOQ ${r.moq}</small><b>${r.label}</b></div></a>`).join('');
   if (hover && !reduce) {
     tilt(show, show.querySelector('.scene'), 10, () => zoom > 1);
+    document.querySelectorAll('.rec').forEach(r => tilt(r, r, 8));
   }
 
   drawColours();
