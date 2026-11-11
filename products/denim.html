@@ -69,6 +69,29 @@
   .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
   .mnav{display:none}
 
+  /* Style tabs: a quiet strip under the header, as on European fashion sites. Each style is a small portrait and
+     a name; the active one is ink with an underline. It scrolls sideways when there are many styles. */
+  .stylebar{position:sticky;top:var(--hdr);z-index:40;margin-top:var(--hdr);background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:top .38s var(--ease),transform .38s var(--ease)}
+  .stylebar-in{display:flex;align-items:stretch;height:60px;padding:0 32px}
+  .styles{flex:1;min-width:0;display:flex;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none}
+  .styles::-webkit-scrollbar{display:none}
+  .sty{position:relative;flex:none;display:flex;align-items:center;gap:10px;padding:0 20px;font-size:13px;font-weight:500;color:#8A8A85;white-space:nowrap;transition:color .2s}
+  .sty .ph{flex:none;width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--studio);transition:width .3s var(--ease),height .3s var(--ease)}
+  .sty img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+  .sty::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:2px;background:var(--text);transform:scaleX(0);transition:transform .35s var(--ease)}
+  .sty[aria-checked="true"]{color:var(--text)}
+  .sty[aria-checked="true"] .ph{width:48px;height:48px}  /* the active style: a larger photo, no ring */
+  .sty:hover{color:var(--text)}  /* hover takes the active colour */
+  .sty[aria-checked="true"]::after{transform:scaleX(1)}
+  .sty:focus-visible{outline:2px solid var(--green-600);outline-offset:-4px}
+  .sb-nav{flex:none;display:none;align-items:center;gap:4px;padding-left:12px}
+  .stylebar.overflow .sb-nav{display:flex}
+  .sb-nav button{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;color:var(--text);transition:border-color .2s}
+  .sb-nav button:hover{border-color:var(--text)}
+  .sb-nav svg{width:14px;height:14px}
+  /* The style bar sits between the header and the builder; the showcase sticks below both */
+  .stylebar ~ .pdp{margin-top:0}
+  .stylebar ~ .pdp .show{top:calc(var(--hdr) + 60px);height:calc(100vh - var(--hdr) - 60px)}
   /* Product: 3D showcase left, sticky panel right */
   .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin-top:var(--hdr)}
 
@@ -328,6 +351,11 @@
     .wrap{padding:0 16px}
     .mnav.open{padding:8px 16px 24px}
     .pdp{display:block}
+    .stylebar-in{height:52px;padding:0 4px}
+    .sty{padding:0 12px}
+    .stylebar.overflow .sb-nav{display:none}
+    .stylebar.overflow .styles{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+    .sty::after{left:12px;right:12px}
     .show{position:relative;top:0;height:auto;min-height:0;aspect-ratio:4/5.4}
     .show{--feet:24%}
     .fig{height:68%}
@@ -395,6 +423,13 @@
     <a href="../index.html#quote" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
+
+<nav class="stylebar" aria-label="Styles">
+  <div class="stylebar-in">
+    <div class="styles" id="styles" role="radiogroup" aria-label="Style"></div>
+    <div class="sb-nav"><button type="button" id="sbPrev" aria-label="Scroll styles left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" id="sbNext" aria-label="Scroll styles right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  </div>
+</nav>
 
 <main class="pdp">
   <section class="show v-look" id="show" aria-label="Look showcase">
@@ -1052,6 +1087,55 @@
     tilt(show, show.querySelector('.scene'), 10, () => zoom > 1);
     document.querySelectorAll('.rec').forEach(r => tilt(r, r, 8));
   }
+
+  // Style tabs (from the earlier denim page): picking a style puts that look's garments on the avatar.
+  // Placeholder fill: the real styles are repeated so the bar can be judged with many styles. Set REPEAT to 1 to show each once.
+  const STYLES = [
+    {id: 'jacket', label: 'Jacket & jeans', thumb: 'denim/half.webp', top: 'blazer', bottom: 'pants'},
+    {id: 'skirt', label: 'Vest & maxi skirt', thumb: 'denim/skirt/half.webp', top: 'shirt', bottom: 'skirt'},
+  ];
+  const REPEAT = 4;
+  let activeTab = Math.max(0, STYLES.findIndex(v => v.id === location.hash.slice(1)));
+  const tabs = Array.from({length: STYLES.length * REPEAT}, (_, i) => STYLES[i % STYLES.length]);
+  $('styles').innerHTML = tabs.map((v, i) =>
+    `<button type="button" class="sty" role="radio" data-variant="${v.id}" data-tab="${i}" aria-checked="false" tabindex="-1"><span class="ph"><img src="${v.thumb}" alt=""></span>${v.label}</button>`).join('');
+  function useStyle(i, dress) {
+    activeTab = i;
+    const v = tabs[i];
+    document.querySelectorAll('[data-variant]').forEach(b => {
+      const on = +b.dataset.tab === i;
+      b.setAttribute('aria-checked', on);
+      b.tabIndex = on ? 0 : -1;
+    });
+    if (!dress) return;
+    Object.assign(sel, {full: null, top: v.top, bottom: v.bottom});
+    drawColours();
+    render('turn');
+  }
+  $('styles').addEventListener('click', e => {
+    const b = e.target.closest('[data-variant]');
+    if (!b || +b.dataset.tab === activeTab) return;
+    history.replaceState(null, '', `#${b.dataset.variant}`);
+    b.scrollIntoView({block: 'nearest', inline: 'nearest', behavior: 'smooth'});
+    useStyle(+b.dataset.tab, true);
+  });
+  // Arrow keys move between styles (radio group); the side arrows scroll when the styles don't fit
+  $('styles').addEventListener('keydown', e => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const all = [...document.querySelectorAll('[data-variant]')], i = all.indexOf(document.activeElement);
+    const to = e.key === 'Home' ? 0 : e.key === 'End' ? all.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + all.length) % all.length;
+    all[to].focus();
+    all[to].click();
+  });
+  const bar = document.querySelector('.stylebar'), strip = $('styles');
+  const fit = () => bar.classList.toggle('overflow', strip.scrollWidth > strip.clientWidth + 2);
+  addEventListener('resize', fit);
+  fit();
+  $('sbPrev').onclick = () => { strip.scrollLeft -= strip.clientWidth * .7; };
+  $('sbNext').onclick = () => { strip.scrollLeft += strip.clientWidth * .7; };
+  { const v = tabs[activeTab]; Object.assign(sel, {full: null, top: v.top, bottom: v.bottom}); }  // the avatar starts in the active style's look
+  useStyle(activeTab, false);
 
   drawColours();
   render();
