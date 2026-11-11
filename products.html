@@ -752,15 +752,14 @@
         <li><a href="index.html#sustainability">Sustainability</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="news.html">News</a></li>
-        <li><a href="index.html#faq">FAQ</a></li>
       </ul>
     </nav>
-    <a href="index.html#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="quote.html" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="products.html" aria-current="page">Products</a><a href="manufacturing.html">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a><a href="index.html#faq">FAQ</a>
-    <a href="index.html#quote" class="btn btn-primary">Get a Quote</a>
+    <a href="products.html" aria-current="page">Products</a><a href="manufacturing.html">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
+    <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
 
@@ -784,7 +783,7 @@
       <p class="il-cat">Category · <b id="lbCat"></b></p>
       <h4>Pieces in this look</h4>
       <ul class="pieces" id="lbPieces"></ul>
-      <a href="index.html#quote" class="btn btn-primary">Request a quote for this look</a>
+      <a href="quote.html" class="btn btn-primary" id="lbQuote">Request a quote for this look</a>
       <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
     </aside>
   </div>
@@ -930,6 +929,7 @@
       items.forEach((el, k) => el.classList.toggle('front', k === i));
       const L = LOOKS[i];
       $('#lbName').textContent = L.name; $('#lbCat').textContent = L.cat;
+      $('#lbQuote').href = `quote.html?${new URLSearchParams({look: L.name, category: L.cat})}`;
       const w = $('#lbWord'); w.classList.add('swap'); setTimeout(() => { w.textContent = L.cat; w.classList.remove('swap'); }, 220);
       $('#lbCount').innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b> / ${String(N).padStart(2, '0')}`;
       $('#lbPieces').innerHTML = L.items.map(([img, n, d, moq], k) =>
