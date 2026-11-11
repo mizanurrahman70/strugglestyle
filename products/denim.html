@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Woven | Struggle Style</title>
+<title>Denim | Struggle Style</title>
 <meta name="description" content="Build a woven look: shirts, blazers, dresses, trousers and skirts in cotton poplin or satin charmeuse, made to order by Struggle Style.">
 <meta name="theme-color" content="#11402A">
 <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
@@ -125,6 +125,35 @@
   .view span{position:absolute;left:0;right:0;bottom:0;padding:10px 0 4px;background:linear-gradient(transparent,rgba(0,0,0,.55));font-size:9.5px;font-weight:600;color:#fff;text-align:center;letter-spacing:.04em}
   .view:hover{transform:translateX(3px)}
   .view[aria-pressed="true"]{outline-color:var(--text)}
+  /* Option tiles under the views: each opens a flyout beside the rail */
+  .rsep{height:1px;margin:2px 10px;background:rgba(15,31,23,.16)}
+  .ropt{width:60px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:12px;background:#fff;box-shadow:0 6px 16px -8px rgba(15,31,23,.4);outline:2px solid transparent;outline-offset:3px;font-size:9.5px;font-weight:600;letter-spacing:.02em;color:var(--text);transition:outline-color .2s,transform .3s var(--ease)}
+  .ropt:hover{transform:translateX(3px)}
+  .ropt[aria-expanded="true"]{outline-color:var(--text)}
+  .ropt:focus-visible{outline-color:var(--green-600)}
+  .ropt svg{width:22px;height:22px}
+  .ropt .tex{width:22px;height:22px;border-radius:50%;background:var(--t) center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .ropt .dots{display:flex}
+  .ropt .dots i{width:18px;height:18px;border-radius:50%;background:var(--c) center/220%;box-shadow:0 0 0 2px #fff,inset 0 0 0 1px rgba(0,0,0,.12)}
+  .ropt .dots i + i{margin-left:-6px}
+  .fly{position:absolute;left:104px;z-index:6;width:280px;padding:14px;border:1px solid rgba(255,255,255,.8);border-radius:16px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 24px 44px -20px rgba(15,31,23,.5);animation:flyIn .25s var(--ease)}
+  @keyframes flyIn{from{opacity:0;transform:translateX(-8px)}}
+  .fly-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:13px}
+  .fly-x{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;color:var(--muted)}
+  .fly-x:hover{background:rgba(15,31,23,.06);color:var(--text)}
+  .fly-x svg{width:14px;height:14px}
+  .fly-b{display:grid;gap:6px}
+  .fly-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 2px}
+  .fly-row .who{font-size:12px;font-weight:600}
+  .fly-row .who small{display:block;font-weight:400;color:var(--muted)}
+  .fly-row .swatches{display:flex;gap:2px}
+  .fopt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:11px;background:#fff;text-align:left;transition:border-color .2s,box-shadow .2s}
+  .fopt:hover{border-color:#B9C2BD}
+  .fopt[aria-checked="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
+  .fopt .tex{flex:none;width:30px;height:30px;border-radius:8px;background:var(--t) center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+  .fopt b{display:block;font-size:12.5px;font-weight:600}
+  .fopt small{display:block;font-size:11px;color:var(--muted)}
+  .fopt em{margin-left:auto;font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted);white-space:nowrap}
 
   /* Colour dock: one swatch group per worn garment */
   .dock{position:absolute;left:50%;bottom:22px;z-index:4;display:flex;align-items:center;gap:12px;padding:6px 10px 6px 14px;border:1px solid rgba(255,255,255,.75);border-radius:999px;background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 12px 26px -16px rgba(15,31,23,.45);transform:translateX(-50%);font-size:12px;font-weight:600;white-space:nowrap}
@@ -312,6 +341,10 @@
     .rail{left:auto;right:12px;top:auto;bottom:70px;flex-direction:row;transform:none;gap:6px}
     .view{width:38px}
     .view span{display:none}
+    .rsep{width:1px;height:auto;margin:6px 2px}
+    .ropt{width:38px;height:48px}
+    .ropt span:last-child{display:none}
+    .fly{left:12px;right:12px;width:auto;top:auto!important;bottom:130px}
     .dock{bottom:14px}
     .dock .lbl{display:none}
     .zoom{right:12px;top:12px;padding:3px}
@@ -376,10 +409,15 @@
       <div class="chip chip-moq" aria-hidden="true"><div><span>MOQ</span><b id="chipMoq"></b></div></div>
       <div class="chip chip-fab" aria-hidden="true"><span class="dot" id="chipDot"></span><div><b id="chipFab"></b><span id="chipGsm"></span></div></div>
     </div>
-    <div class="rail" id="rail" role="group" aria-label="Views">
-      <button type="button" class="view" data-view="look" aria-pressed="true"><img alt="" id="vLook"><span>Look</span></button>
-      <button type="button" class="view det" data-view="detail" aria-pressed="false"><img alt="" id="vDetail"><span>Detail</span></button>
-      <button type="button" class="view fabv" data-view="fabric" aria-pressed="false"><img alt="" id="vFabric"><span>Fabric</span></button>
+    <div class="rail" id="rail" role="group" aria-label="Options">
+      <button type="button" class="ropt" data-opt="colour" aria-expanded="false" aria-controls="fly"><span class="dots" id="rColour"></span><span>Colour</span></button>
+      <button type="button" class="ropt" data-opt="fabric" aria-expanded="false" aria-controls="fly"><span class="tex" id="rFabric"></span><span>Fabric</span></button>
+      <button type="button" class="ropt" data-opt="wash" aria-expanded="false" aria-controls="fly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3.5c3.2 4 5.5 7 5.5 10a5.5 5.5 0 01-11 0c0-3 2.3-6 5.5-10z"/><path d="M9.3 14.2a2.8 2.8 0 002.7 2.6"/></svg><span>Wash</span></button>
+      <button type="button" class="ropt" data-opt="size" aria-expanded="false" aria-controls="fly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3M10 8v4.5M13.5 8v3M17 8v4.5"/></svg><span>Size type</span></button>
+    </div>
+    <div class="fly" id="fly" role="dialog" aria-labelledby="flyTitle" hidden>
+      <div class="fly-h"><b id="flyTitle"></b><button type="button" class="fly-x" id="flyClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="fly-b" id="flyBody"></div>
     </div>
     <div class="zoom" role="group" aria-label="Zoom the look">
       <button type="button" id="zoomOut" data-zoom="out" aria-label="Zoom out" title="Zoom out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
@@ -391,7 +429,7 @@
   </section>
 
   <section class="panel" aria-labelledby="lookName">
-    <div class="crumbs"><a href="../index.html">Home</a>/<a href="../products.html">Products</a>/<span>Woven</span></div>
+    <div class="crumbs"><a href="../index.html">Home</a>/<a href="../products.html">Products</a>/<span>Denim</span></div>
     <h1 id="lookName"></h1>
     <div class="code" id="styleCode"></div>
     <div class="opt">
@@ -530,6 +568,12 @@
       {label: 'Sweatshirt & baggy jeans', cat: 'Knit',    moq: '1,000', photo: '../images/look-sweatshirt.jpg',  alt: '../images/swatches/ss-t05-sand.webp',         href: 'knit.html'}
     ],
     // Price calculator — SAMPLE rates, to be confirmed by Struggle Style before launch
+    // Wash: [id, label, note, USD per piece]; size type: [id, label, size run, extra fabric]. SAMPLE rates, to be confirmed
+    washes: [['raw', 'Raw / no wash', 'Crisp, as woven', 0], ['rinse', 'Rinse wash', 'Softens, removes sizing', .15],
+             ['enzyme', 'Enzyme wash', 'Soft hand, low water', .35], ['stone', 'Stone wash', 'Worn-in, faded', .55],
+             ['bleach', 'Bleach wash', 'Lightened, vintage look', .6]],
+    sizeTypes: [['standard', 'Standard', 'XS – XL', 0], ['extended', 'Extended', 'XS – 3XL', .06],
+                ['plus', 'Plus', '1X – 4X', .12], ['petite-tall', 'Petite / Tall', 'P XS–L · T S–XL', .04]],
     pricing: {
       wastage: .08,                                  // cutting loss on fabric
       trims: .45,                                    // buttons, labels, thread per garment
@@ -560,7 +604,8 @@
   document.querySelectorAll('#mnav a').forEach(a => a.onclick = () => setMenu(false));
   const garment = Object.fromEntries(WOVEN.garments.map(g => [g.id, g]));
   const fabric = Object.fromEntries(WOVEN.fabrics.map(f => [f.id, f]));
-  const sel = {full: null, top: WOVEN.initial.top, bottom: WOVEN.initial.bottom, fabric: WOVEN.initial.fabric, colours: {}};
+  const sel = {full: null, top: WOVEN.initial.top, bottom: WOVEN.initial.bottom, fabric: WOVEN.initial.fabric, colours: {}, wash: 'rinse', size: 'standard'};
+  const washOf = () => WOVEN.washes.find(x => x[0] === sel.wash), sizeOf = () => WOVEN.sizeTypes.find(x => x[0] === sel.size);
   WOVEN.garments.forEach(g => { sel.colours[g.id] = WOVEN.initial.colour; });
   const fill = (tpl, k) => tpl.replace(/\{(\w+)\}/g, (_, n) => k[n]);
   const range = ([a, b]) => `${a}–${b} days`;
@@ -763,6 +808,7 @@
   }
 
   function render(mode) {
+    railSync();
     const f = fabric[sel.fabric], w = worn(), name = lookName(), summary = colourSummary();
     const firstColour = colourOf(w[0].id);
     const colourCodes = [...new Set(w.map(g => colourOf(g.id).slice(0, 3).toUpperCase()))];
@@ -773,8 +819,6 @@
     const moq = `${Math.max(...w.map(g => g.moq))} pcs`;
     showLook(lookSrc(...current()), alt, mode);
     $('figCap').textContent = `${name} · ${summary}`;
-    $('vLook').src = $('vDetail').src = lookSrc(...current());
-    $('vFabric').src = swatch;
     $('swcard').style.setProperty('--sw', `url('${swatch}')`);
     $('chipDot').style.setProperty('--sw', `url('${swatch.replace('.webp', '-sm.webp')}')`);
     show.style.setProperty('--tint', fabric[sel.fabric].colours.find(([id]) => id === firstColour)[2]);
@@ -863,12 +907,13 @@
     }
 
     // Per piece (a set counts as one piece)
-    const area = w.reduce((a, g) => a + g.use, 0);
+    const [, sizeLabel, sizeRun, sizeExtra] = sizeOf(), [, washLabel, , washCost] = washOf();
+    const area = w.reduce((a, g) => a + g.use, 0) * (1 + sizeExtra);
     const netKg = area * gsm / 1000;
     const fabricCost = netKg * (1 + P.wastage) * f.perKg;
     const make = cmIn;  // CM charge per piece (set) from the form
     const trims = P.trims * w.length + P.packing;
-    const base = fabricCost + make + trims;
+    const base = fabricCost + make + trims + washCost * w.length;
     const [, vol = 0] = P.volume.find(([q]) => qty >= q) || [];
     const small = qty < moq ? Math.min(P.smallRun[1], (moq / qty - 1) * P.smallRun[0]) : 0;
     const adjusted = base * (1 - vol + small);
@@ -884,6 +929,8 @@
       row(`Fabric · ${area.toFixed(1)} m² at ${gsm} GSM`, usd.format(fabricCost)),
       row(`CM charge · ${w.map(g => g.label).join(' + ')}`, usd.format(make)),
       row('Trims &amp; packing', usd.format(trims)),
+      row(`Wash · ${washLabel}`, washCost ? usd.format(washCost * w.length) : 'None'),
+      sizeExtra ? row(`Size type · ${sizeLabel} (${sizeRun})`, `+${Math.round(sizeExtra * 100)}% fabric`) : '',
       vol ? row(`Volume discount · ${vol * 100}%`, `−${usd.format(base * vol)}`, 'neg') : '',
       small ? row(`Small-run surcharge · ${Math.round(small * 100)}%`, `+${usd.format(base * small)}`, 'pos') : '',
       row('Overhead &amp; margin', usd.format(margin)),
@@ -891,7 +938,7 @@
     ].join('');
     $('orderNow').href = `${WOVEN.quoteUrl}?${new URLSearchParams({
       order: 'now', style: look.code, look: look.name, fabric: `${f.label}, ${look.colour}`,
-      quantity: qty, gsm, moq, cm: make, shipping: ship.label, estimate: usd.format(unit)
+      quantity: qty, gsm, moq, cm: make, wash: washLabel, size: `${sizeLabel} ${sizeRun}`, shipping: ship.label, estimate: usd.format(unit)
     })}`;
   }
 
@@ -925,7 +972,63 @@
   $('rail').addEventListener('click', e => {
     const b = e.target.closest('[data-view]');
     if (b) setView(b.dataset.view);
+    const o = e.target.closest('[data-opt]');
+    if (o) flyOpen === o.dataset.opt ? closeFly() : openFly(o.dataset.opt);
   });
+
+  // Rail options: Colour, Fabric, Wash and Size type open a flyout beside the rail
+  const fly = $('fly');
+  let flyOpen = null;
+  function railSync() {
+    const w = worn(), f = fabric[sel.fabric];
+    $('rColour').innerHTML = w.map(g => `<i style="--c:url('${swatchUrl(f.id, colourOf(g.id))}')"></i>`).join('');
+    $('rFabric').style.setProperty('--t', `url('${swatchUrl(f.id, colourOf(w[0].id))}')`);
+    if (flyOpen) drawFly();
+  }
+  function drawFly() {
+    const f = fabric[sel.fabric], w = worn(), k = flyOpen;
+    const opt = (attr, id, checked, inner, extra = '') =>
+      `<button type="button" class="fopt" role="radio" ${attr}="${id}" aria-checked="${checked}">${inner}${extra}</button>`;
+    $('flyTitle').textContent = {colour: 'Colour', fabric: 'Fabric', wash: 'Wash', size: 'Size type'}[k];
+    let html = '';
+    if (k === 'colour') html = w.map(g =>
+      `<div class="fly-row"><span class="who">${g.label}<small>${colourLabelOf(g.id)}</small></span><span class="swatches" role="radiogroup" aria-label="${g.label} colour">` +
+      f.colours.map(([id, label]) => `<button type="button" class="sw" role="radio" data-colour-for="${g.id}" data-colour="${id}" aria-label="${g.label} ${label}" aria-checked="${id === colourOf(g.id)}"><span style="--c:url('${swatchUrl(f.id, id)}')"></span></button>`).join('') +
+      '</span></div>').join('');
+    if (k === 'fabric') html = WOVEN.fabrics.map(x =>
+      opt('data-fabric', x.id, x.id === sel.fabric, `<span class="tex" style="--t:url('${swatchUrl(x.id, x.colours[0][0])}')"></span><span><b>${x.label}</b><small>${x.gsm}</small></span>`));
+    if (k === 'wash') html = WOVEN.washes.map(([id, label, note, cost]) =>
+      opt('data-wash', id, id === sel.wash, `<span><b>${label}</b><small>${note}</small></span>`, `<em>${cost ? '+' + usd.format(cost) : 'Free'}</em>`));
+    if (k === 'size') html = WOVEN.sizeTypes.map(([id, label, run, extra]) =>
+      opt('data-size', id, id === sel.size, `<span><b>${label}</b><small>${run}</small></span>`, `<em>${extra ? '+' + Math.round(extra * 100) + '% fabric' : 'Base'}</em>`));
+    $('flyBody').innerHTML = Array.isArray(html) ? html.join('') : html;
+    $('flyBody').setAttribute('role', k === 'colour' ? 'group' : 'radiogroup');
+  }
+  function openFly(k) {
+    flyOpen = k;
+    document.querySelectorAll('[data-opt]').forEach(b => b.setAttribute('aria-expanded', b.dataset.opt === k));
+    drawFly();
+    fly.hidden = false;
+    // Line the flyout up with its tile, kept inside the showcase
+    const t = document.querySelector(`[data-opt="${k}"]`).getBoundingClientRect(), r = show.getBoundingClientRect();
+    fly.style.top = Math.max(12, Math.min(t.top - r.top - 12, r.height - fly.offsetHeight - 12)) + 'px';
+  }
+  function closeFly() {
+    flyOpen = null; fly.hidden = true;
+    document.querySelectorAll('[data-opt]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+  $('flyClose').addEventListener('click', closeFly);
+  fly.addEventListener('click', e => {
+    const t = e.target.closest('[data-wash],[data-size]');
+    if (t) {
+      if (t.dataset.wash) sel.wash = t.dataset.wash; else sel.size = t.dataset.size;
+      drawFly(); price();
+      return;
+    }
+    choose(e);
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && flyOpen) closeFly(); });
+  document.addEventListener('pointerdown', e => { if (flyOpen && !e.target.closest('#fly,[data-opt]')) closeFly(); });
 
   // The scene and the recommendation cards lean toward the pointer
   function tilt(el, target, deg, skip) {
