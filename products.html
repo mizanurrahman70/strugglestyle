@@ -178,6 +178,10 @@
   .cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .cat .media img{object-position:center top;transition:transform 1.2s var(--ease)}
   .cat:hover .media img{transform:scale(1.06)}
+  /* Category collections: one card at a time eases to its next photo (long, soft cross-fade) */
+  .cat .media img.cyc{opacity:0;transform:scale(1.03);transition:opacity 1.8s cubic-bezier(.45,0,.25,1),transform 7s cubic-bezier(.2,.6,.3,1)}
+  .cat .media img.cyc.on{opacity:1;transform:scale(1)}
+  .cat:hover .media img.cyc.on{transform:scale(1.04)}
   .cat .media video{opacity:0;transition:opacity .5s}
   .cat.playing .media video{opacity:1}
   .cat .media::after{content:"";position:absolute;inset:0;background:rgba(12,42,27,0);transition:background .5s}
@@ -795,23 +799,23 @@
       <p class="lead">Dedicated production teams, responsible material choices and consistent quality checks — from the first sample to the final shipment.</p>
     </div>
     <div class="cats">
-      <a href="products/lingerie.html" class="cat rv" style="--d:0.00s" data-clip="">
+      <a href="products/lingerie.html" data-gallery="images/lingerie.jpg" class="cat rv" style="--d:0.00s" data-clip="">
         <div class="media"><img src="images/cat-lingerie.jpg" alt="Model wearing a lilac silk sleepwear set" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Lingerie</h3><p>Sleepwear, bras &amp; briefs</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="">
+      <a href="products/denim.html" data-gallery="products/denim/model.webp|products/denim/skirt/model.webp|images/look-denimjacket.jpg|products/denim/half.webp|images/denim-folded.jpg" class="cat rv" style="--d:0.06s" data-clip="">
         <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/sweater.html" class="cat rv" style="--d:0.12s" data-clip="">
+      <a href="products/sweater.html" data-gallery="images/look-chunkyknit.jpg|images/look-knitvest.jpg|images/sweater-scissors.jpg" class="cat rv" style="--d:0.12s" data-clip="">
         <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="">
+      <a href="products/woven.html" data-gallery="images/look-linendress.jpg|images/shirts-flannel.jpg" class="cat rv" style="--d:0.18s" data-clip="">
         <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/knit.html" class="cat rv" style="--d:0.24s" data-clip="">
+      <a href="products/knit.html" data-gallery="images/look-sweatshirt.jpg|images/shirts-wood.jpg|images/cotton-cloths.jpg" class="cat rv" style="--d:0.24s" data-clip="">
         <div class="media"><img src="images/cat-knit.jpg" alt="Model wearing a knit sports bra" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Knit</h3><p>Activewear, tees &amp; polos</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -866,6 +870,41 @@
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
   $$('.rv').forEach(el => io.observe(el));
+
+
+  // Category cards: each shows its own collection. Only ONE card changes at a time: every STEP ms the next card
+  // (left to right, round the row) eases to its next photo, so the row never flickers all at once.
+  // A hovered card is skipped; photos only fade in once loaded; nothing changes off screen or with reduced motion.
+  const STEP = 2600;
+  const decks = $$('.cat[data-gallery]').map(card => {
+    const first = card.querySelector('.media img'), imgs = [first];
+    card.dataset.gallery.split('|').forEach(src => {
+      const im = Object.assign(document.createElement('img'), {src, alt: '', decoding: 'async'});
+      im.setAttribute('aria-hidden', 'true');
+      imgs[imgs.length - 1].after(im);
+      imgs.push(im);
+    });
+    imgs.forEach((im, i) => { im.classList.add('cyc'); if (!i) im.classList.add('on'); });
+    return {card, imgs, at: 0};
+  }).filter(d => d.imgs.length > 1);
+  if (!reduce && decks.length) {
+    const row = $('.cats');
+    const onScreen = () => { const r = row.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+    let turn = 0;
+    setInterval(() => {
+      if (document.hidden || !onScreen()) return;
+      for (let tries = 0; tries < decks.length; tries++) {
+        const d = decks[turn];
+        turn = (turn + 1) % decks.length;
+        const next = d.imgs[(d.at + 1) % d.imgs.length];
+        if (d.card.matches(':hover') || !(next.complete && next.naturalWidth)) continue;
+        d.imgs[d.at].classList.remove('on');
+        d.at = (d.at + 1) % d.imgs.length;
+        next.classList.add('on');
+        break;
+      }
+    }, STEP);
+  }
 
   // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
   const hoverable = matchMedia('(hover: hover)').matches;
