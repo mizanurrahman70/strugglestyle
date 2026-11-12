@@ -734,6 +734,12 @@
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   /* Brand logo (images/logo-ss.png, the supplied SS mark in its own green) */
   .logo-img{display:block;height:46px;width:auto}
+  /* Header over the hero: logo in the button green; deep logo green once the header turns light */
+  .logo-img.on-dark{display:none}
+  header .logo-img.on-light{display:none}
+  header .logo-img.on-dark{display:block}
+  header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
+  header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
 </style>
 </head>
@@ -741,7 +747,7 @@
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-ss.png" alt="Struggle Style"></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-ss-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-ss.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="products.html">Products</a></li>
