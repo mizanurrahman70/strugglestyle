@@ -92,6 +92,8 @@
   /* The style bar sits between the header and the builder; the showcase sticks below both */
   .stylebar ~ .pdp{margin-top:0}
   .stylebar ~ .pdp .show{top:calc(var(--hdr) + 60px);height:calc(100vh - var(--hdr) - 60px)}
+  /* Desktop: fit the window below the style bar so the colour dock stays on screen on shorter laptops */
+  @media (min-width:761px){.stylebar ~ .pdp .show{height:calc(100svh - var(--hdr) - 60px);min-height:460px}}
   /* Product: 3D showcase left, sticky panel right */
   .pdp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);align-items:start;margin-top:var(--hdr)}
 
