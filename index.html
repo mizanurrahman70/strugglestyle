@@ -92,7 +92,8 @@
   /* 1. Header */
   /* Transparent over the hero, solid once scrolled (or when the mobile menu is open) */
   header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
-  header .nav ul a{color:#fff;transition:color .35s}
+  header .nav ul a{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5),0 1px 12px rgba(0,0,0,.35);transition:color .35s}
+  header.scrolled .nav ul a,header.open .nav ul a{text-shadow:none}
   header .nav > .btn{background:var(--leaf);color:var(--green-900)}
   header .nav > .btn:hover{background:#fff}
   header .burger{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
@@ -114,15 +115,20 @@
 
   /* 2. Hero */
   .hero{padding:0;--edge:max(32px,calc((100vw - var(--max))/2 + 32px))}
-  .hero-card{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:var(--green-900);color:#fff}
+  .hero-card{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:#1a1a1a;color:#fff}
   .slide{position:absolute;inset:0;width:100%;height:100%}
   .slide{opacity:0;transition:opacity 1.4s ease}
   .slide.on{opacity:1}
   .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease-out}
   .slide.on img{transform:scale(1)}
-  .hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(12,42,27,.55) 0%,rgba(12,42,27,.35) 60%,rgba(12,42,27,.5) 100%),linear-gradient(180deg,rgba(12,42,27,.55) 0%,transparent 22%,transparent 70%,rgba(12,42,27,.6) 100%)}
+  /* Neutral black shade (no green) so white text stays readable on bright photos:
+     darker behind the centred text, the top menu and the bottom slider dots */
+  .hero-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
+    radial-gradient(ellipse 60% 45% at 50% 52%,rgba(0,0,0,.42) 0%,rgba(0,0,0,.18) 70%,transparent 100%),
+    linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.12) 18%,rgba(0,0,0,.12) 78%,rgba(0,0,0,.5) 100%),
+    rgba(0,0,0,.22)}
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero h1{color:rgba(255,255,255,.65);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  .hero h1{color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 28px rgba(0,0,0,.45);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -133,7 +139,7 @@
     .look{width:160px;margin-left:-80px}
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
-  .hero p{font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.7);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
+  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;font-weight:500;text-shadow:0 1px 3px rgba(0,0,0,.55),0 2px 18px rgba(0,0,0,.5);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
   /* Slide text changes with the image */
   .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
   .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
@@ -767,11 +773,11 @@
 <section class="hero" aria-label="Introduction">
     <div class="hero-card" id="hero">
       <!-- Story in a fixed order: each slide carries its own title and text -->
-      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/cotton-cloths.jpg" alt="" style="object-position:center 60%"></div>
-      <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/cotton-trees.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/solar.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/port.jpg" alt="" loading="lazy"></div>
+      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/heros/finished-garments.jpg" alt=""></div>
+      <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/heros/raw-materials.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/heros/production.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/heros/clean-energy.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.jpg" alt="" loading="lazy" style="object-position:62% center"></div>
 
       <div class="hero-content">
         <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
