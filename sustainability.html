@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="images/heros/clean-energy.jpg">
 <style>
   :root{
     /* Palette from the Struggle Style Inc. logo (same tokens as the other pages) */
@@ -94,13 +93,18 @@
   .burger span{display:block;width:18px;height:2px;margin:4px auto;border-radius:2px}
   .mnav{display:none;background:rgba(251,252,248,.97)}
 
-  /* 1. Hero: photo with the page title */
-  .sus-hero{position:relative;min-height:min(62vh,560px);display:flex;align-items:flex-end;padding:0;background:var(--green-900);overflow:hidden}
-  .sus-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .sus-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,42,27,.2) 0%,rgba(12,42,27,.85) 100%)}
-  .sus-hero .wrap{position:relative;z-index:1;width:100%;padding-top:140px;padding-bottom:64px}
-  .sus-hero h1{color:#fff;font-size:clamp(40px,5.4vw,68px);letter-spacing:-.035em;margin-bottom:14px}
-  .sus-hero p{font-size:18px;color:rgba(255,255,255,.85);max-width:600px}
+  /* 1. Page title only (room for the fixed header) */
+  .page-title{padding:148px 0 96px;background:var(--soft);border-bottom:1px solid var(--border)}
+  .pt-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end}
+  .page-title h1{font-size:clamp(40px,5.4vw,68px);letter-spacing:-.035em;margin-top:16px}
+  .page-title .lead{max-width:none}
+  /* Four focus areas: numbered links to each section */
+  .focus{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+  .focus a{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;height:100%;padding:20px;border-radius:var(--r);background:#fff;border:1px solid var(--border);transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+  .focus a:hover{border-color:var(--green-600);box-shadow:var(--shadow);transform:translateY(-2px)}
+  .focus i{grid-row:span 2;width:44px;height:44px;border-radius:12px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;font-style:normal;font-family:var(--head);font-size:15px;font-weight:600}
+  .focus b{font-family:var(--head);font-size:16.5px;font-weight:600;line-height:1.3}
+  .focus span{font-size:14px;color:var(--muted);line-height:1.45}
 
   /* 2. Content rows: text + photo, alternating sides */
   .row{background:var(--bg)}
@@ -157,6 +161,8 @@
     .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0;color:#fff}
   }
   @media (max-width:960px){
+    .pt-head{grid-template-columns:1fr;gap:16px}
+    .focus{grid-template-columns:1fr 1fr}
     .row-grid{grid-template-columns:1fr;gap:40px}
     .row.flip .row-media{order:0}
     .row-media{max-width:620px}
@@ -168,8 +174,8 @@
     .nav{height:72px}
     header .logo-img{height:50px}
     .mnav.open{padding:8px 16px 24px}
-    .sus-hero .wrap{padding-top:120px;padding-bottom:48px}
-    .sus-hero p{font-size:16px}
+    .page-title{padding:116px 0 64px}
+    .focus{grid-template-columns:1fr;margin-top:36px}
     .po-cta{padding:80px 0}
     .po-cta-box{padding:36px 24px}
     .f-grid{grid-template-columns:1fr}
@@ -186,7 +192,7 @@
 <!-- ===== Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-struggle-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-struggle.png" alt=""></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-new-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-new.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -207,12 +213,22 @@
 </header>
 
 <main>
-<!-- ===== 1. Hero ===== -->
-<section class="sus-hero" aria-labelledby="hero-title">
-  <img src="images/heros/clean-energy.jpg" alt="" fetchpriority="high">
+<!-- ===== 1. Page title ===== -->
+<section class="page-title">
   <div class="wrap">
-    <h1 id="hero-title">Sustainability</h1>
-    <p>From the way we dye our fabrics to the way we make every garment, sustainability and social responsibility come first.</p>
+    <div class="pt-head rv">
+      <div>
+        <span class="tag">Responsible manufacturing</span>
+        <h1>Sustainability</h1>
+      </div>
+      <p class="lead">From the way we dye our fabrics to the way we make and pack every garment, sustainability and social responsibility always come first.</p>
+    </div>
+    <ul class="focus rv" style="--d:.1s">
+      <li><a href="#impact"><i>01</i><b>Environmental impact</b><span>Natural, low-water fibres</span></a></li>
+      <li><a href="#emission"><i>02</i><b>Lowering emissions</b><span>Action across the value chain</span></a></li>
+      <li><a href="#waste"><i>03</i><b>Minimizing waste</b><span>Biodegradable materials</span></a></li>
+      <li><a href="#efficiency"><i>04</i><b>Resource efficiency</b><span>Planned, lean production</span></a></li>
+    </ul>
   </div>
 </section>
 
@@ -317,7 +333,7 @@
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-ss.png" alt="Struggle Style"></a>
+        <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-new-leaf.png" alt="Struggle Style"></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
@@ -348,8 +364,7 @@
 
   // Header: transparent over the hero, solid after scrolling; mobile menu
   const hdr = $('#hdr');
-  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 40);
-  onScroll(); addEventListener('scroll', onScroll, {passive: true});
+  hdr.classList.add('scrolled');  // no dark hero here, so the header is always solid
   const setMenu = o => { $('#mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('#burger').setAttribute('aria-expanded', o); };
   $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
   $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
