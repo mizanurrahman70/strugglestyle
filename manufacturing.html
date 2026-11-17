@@ -848,6 +848,11 @@
   .po-bar{flex:1;max-width:280px;height:4px;border-radius:4px;background:var(--border);overflow:hidden}
   .po-bar i{display:block;height:100%;width:calc(var(--p,0) * 100%);background:var(--green-600);border-radius:4px;transition:width .6s var(--ease)}
 
+  /* Production capacity text inside the manufacturing section */
+  .mfg-title{text-transform:uppercase;letter-spacing:-.01em}
+  .mfg-badge .ring{position:relative;inset:auto;flex:none;cursor:default}
+  .mfg-text{font-size:16.5px;line-height:1.75;color:var(--muted);margin-bottom:32px}
+
   /* Major buyers: same "Trusted by brands" layout as the home page (market pills + scrolling logo rows) */
   .reach{overflow:hidden;background:var(--bg)}
   .reach .s-head{align-items:flex-end}
@@ -930,7 +935,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
         <li><a href="manufacturing.html" aria-current="page">Manufacturing</a></li>
-        <li><a href="index.html#sustainability">Sustainability</a></li>
+        <li><a href="sustainability.html">Sustainability</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="news.html">News</a></li>
       </ul>
@@ -939,7 +944,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html" aria-current="page">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
+    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html" aria-current="page">Manufacturing</a><a href="sustainability.html">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -1117,7 +1122,7 @@
 </section>
 
 <!-- Manufacturing -->
-<!-- <section class="mfg" id="manufacturing">
+<section class="mfg" id="manufacturing">
   <div class="wrap mfg-split">
     <div class="mfg-visual rv">
       <div class="mfg-main">
@@ -1129,13 +1134,8 @@
     </div>
 
     <div class="mfg-content rv" style="--d:.1s">
-      <h2>Built for consistent quality</h2>
-      <p class="lead">Dedicated lines, skilled people and one quality system — with clear updates from the first sample to the final shipment.</p>
-      <ul class="mfg-points">
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Dedicated lingerie production lines</li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Photo updates at every production stage</li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Inline quality checks and final AQL inspection</li>
-      </ul>
+      <h2 class="mfg-title">Production Capacity</h2>
+      <p class="mfg-text">Our aim is to become one of the state-of-the-art leading companies, with a focus on responsible business, corporate ethics and protecting the environment. Our mission is to pursue sustainable business growth and continually refine our unique process. We foster a working environment that keeps our people satisfied, cherish the relationship with our stakeholders and are committed to a safe, greener environment. Our goal is to be renowned as a trustworthy and efficient partner for our associates, both local and foreign, by delivering products of high and consistent quality on time, and by engaging in ethical and sustainable business practices.</p>
       <div class="caps">
         <div class="cap"><strong data-count="2">0</strong><span class="l">Production lines</span></div>
         <div class="cap"><strong data-count="34">0</strong><span class="l">Sewing machines</span></div>
@@ -1144,7 +1144,7 @@
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
 <!-- Major buyers: same layout as "Trusted by brands" on the home page. Logos from the previous strugglestyle.net page; show each only with that brand's permission. -->
 <section class="reach" id="buyers">
