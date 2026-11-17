@@ -370,15 +370,21 @@
   /* Brand logo (images/logo-ss.png, the supplied SS mark in its own green) */
   .logo-img{display:block;height:46px;width:auto}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  header .logo-img{height:60px}
+  @media (max-width:640px){header .logo-img{height:50px}}
+  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
+  body::after{content:"";position:fixed;inset:0;background:url(../images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
+   print{body::after{display:none}}
 </style>
 </head>
 <body>
 
 <header id="hdr">
   <div class="wrap nav">
-    <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="../images/logo-ss.png" alt="Struggle Style"></a>
+    <a href="../index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="../images/logo-struggle.png" alt="Struggle Style"></a>
     <nav aria-label="Main">
       <ul>
+        <li><a href="../index.html">Home</a></li>
         <li><a href="../index.html#products" aria-current="page">Products</a></li>
         <li><a href="../manufacturing.html">Manufacturing</a></li>
         <li><a href="../index.html#sustainability">Sustainability</a></li>
@@ -390,7 +396,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="../products.html">Products</a><a href="../manufacturing.html">Manufacturing</a><a href="../index.html#sustainability">Sustainability</a><a href="../index.html#about">About</a><a href="../news.html">News</a>
+    <a href="../index.html">Home</a><a href="../products.html">Products</a><a href="../manufacturing.html">Manufacturing</a><a href="../index.html#sustainability">Sustainability</a><a href="../index.html#about">About</a><a href="../news.html">News</a>
     <a href="../quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -523,7 +529,7 @@
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
       <div class="f-end">
-        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener">Traideas</a></span>
+        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
       </div>
     </div>
   </div>

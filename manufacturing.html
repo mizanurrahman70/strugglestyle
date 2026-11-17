@@ -741,15 +741,172 @@
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  header .logo-img{height:60px}
+  @media (max-width:640px){header .logo-img{height:50px}}
+  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
+  body::after{content:"";position:fixed;inset:0;background:url(images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
+   print{body::after{display:none}}
+
+  /* ===== Order procurement process (manufacturing page focus) ===== */
+  .po-sec{padding:72px 0 112px;background:var(--bg)}
+  .po-head{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
+  .po-head h1{margin:16px 0 0;max-width:620px;text-wrap:balance}
+  .po-head .lead{max-width:none}
+  .po-head .lead b{color:var(--text);font-weight:600}
+
+  /* Flow diagram: order splits into two team lanes, hands off, then merges into delivery */
+  .po-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:start}
+  .po-side{position:sticky;top:108px}
+  .po-flow{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 136px minmax(0,1fr);grid-template-areas:"root root root" "l1 gate l2" "end end end";row-gap:56px}
+  .po-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+  .po-lines path{fill:none;stroke:#C9DDD0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .4s}
+  .po-lines path.done{stroke:var(--green-600)}
+  .po-lines path.live{stroke:var(--green-600);stroke-dasharray:6 7;animation:poFlow .9s linear infinite}
+  @keyframes poFlow{to{stroke-dashoffset:-13}}
+  #po-ah path{fill:#C9DDD0}#po-ah-on path{fill:var(--green-600)}
+  .po-lane{display:flex;flex-direction:column;gap:30px;padding:16px;border:1.5px dashed #CFE3D6;border-radius:var(--r);background:var(--soft)}
+  .po-lane.l1{grid-area:l1}.po-lane.l2{grid-area:l2}
+  .po-lane-h{display:flex;align-items:center;gap:10px;margin:-2px 0 -12px;padding:0 4px}
+  .po-lane-h i{width:30px;height:30px;border-radius:9px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;flex:none}
+  .po-lane-h i svg{width:16px;height:16px}
+  .po-lane-h b{display:block;font-family:var(--head);font-size:14.5px;font-weight:600;color:var(--green-800);line-height:1.2}
+  .po-lane-h span{display:block;font-size:12.5px;color:var(--muted)}
+  .po-node{position:relative;z-index:2;display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;width:100%;padding:10px 14px 10px 10px;background:#fff;border:1.5px solid var(--border);border-radius:16px;text-align:left;box-shadow:var(--shadow);transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}
+  .po-node img{width:52px;height:52px;border-radius:11px;object-fit:cover}
+  .po-node small{display:block;font-family:var(--head);font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--green-600)}
+  .po-node b{display:block;font-family:var(--head);font-size:15px;font-weight:600;line-height:1.25;color:var(--text)}
+  .po-node em{display:block;font-style:normal;font-size:12.5px;line-height:1.35;color:var(--muted);margin-top:2px}
+  .po-node:hover{border-color:var(--green-600);transform:translateY(-2px)}
+  .po-node.on{border-color:var(--green-700);box-shadow:0 0 0 4px var(--green-100),var(--shadow-lg)}
+  .po-node.done::after{content:"";position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:var(--green-600) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat}
+  /* Start and end of the flow: same white card as the stages, marked by a green icon tile and a tag */
+  .po-node.term{justify-self:center;width:min(340px,100%);padding:12px 18px 12px 12px}
+  .po-node.term .ico{width:52px;height:52px;border-radius:14px;background:var(--green-700);color:#fff;display:grid;place-items:center}
+  .po-node.term .ico svg{width:24px;height:24px}
+  .po-node.term small{display:inline-flex;align-items:center;height:20px;padding:0 8px;margin-bottom:4px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-size:11px;letter-spacing:.08em}
+  .po-node.root{grid-area:root}.po-node.end{grid-area:end}
+  .po-gate{grid-area:gate;align-self:center;justify-self:center;position:relative;z-index:2;width:96px;padding:10px 8px;border-radius:14px;background:#fff;border:1.5px solid var(--border);text-align:center;font-size:11.5px;line-height:1.35;color:var(--muted);transition:border-color .3s,color .3s}
+  .po-gate b{display:block;font-family:var(--head);font-size:12px;font-weight:600;color:var(--green-800);margin-bottom:2px}
+  .po-gate svg{width:16px;height:16px;margin:0 auto 4px;color:var(--green-600)}
+  .po-gate.done{border-color:var(--green-600)}
+  .po-hint{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:13px;color:var(--muted)}
+  .po-hint svg{width:16px;height:16px;color:var(--green-600)}
+  @media (min-width:1101px){
+    .po-side .po-panel{grid-template-columns:1fr;min-height:0}
+    .po-side .po-media{aspect-ratio:2/1}
+    .po-side .po-body{padding:32px 36px 30px}
+    .po-side .po-cols{grid-template-columns:1fr;gap:18px;margin-top:22px}
+    .po-side .po-nav{padding:16px 36px}
+  }
+
+  /* Step rail */
+  .po-rail{position:relative;list-style:none;display:none;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:40px;--p:0}
+  .po-rail::before,.po-rail::after{content:"";position:absolute;top:23px;left:calc(100% / 16);height:2px;border-radius:2px}
+  .po-rail::before{right:calc(100% / 16);background:var(--border)}
+  .po-rail::after{width:calc((100% - 100% / 8) * var(--p));background:var(--green-600);transition:width .6s var(--ease)}
+  .po-step{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 4px 4px;text-align:center}
+  .po-step .dot{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid var(--border);color:var(--muted);font-family:var(--head);font-size:15px;font-weight:600;transition:background .3s,border-color .3s,color .3s,transform .3s var(--ease),box-shadow .3s}
+  .po-step .dot svg{width:20px;height:20px}
+  .po-step .lbl{font-size:14px;font-weight:600;line-height:1.3;color:var(--muted);transition:color .3s}
+  .po-step:hover .dot{border-color:var(--green-600);color:var(--green-700)}
+  .po-step.done .dot{background:var(--green-100);border-color:var(--green-600);color:var(--green-700)}
+  .po-step[aria-selected="true"] .dot{background:var(--green-700);border-color:var(--green-700);color:#fff;transform:scale(1.08);box-shadow:0 0 0 6px var(--green-100)}
+  .po-step[aria-selected="true"] .lbl,.po-step.done .lbl{color:var(--text)}
+
+  /* Detail card */
+  .po-stage{position:relative;border-radius:var(--r-lg);background:var(--soft);border:1px solid var(--border);overflow:hidden}
+  .po-panel{display:grid;grid-template-columns:1fr 1.1fr;min-height:460px}
+  .po-panel[hidden]{display:none}
+  .po-panel.enter .po-media img{animation:poZoom .9s var(--ease)}
+  .po-panel.enter .po-body > *{animation:poUp .55s var(--ease) both}
+  .po-panel.enter .po-body > :nth-child(2){animation-delay:.05s}
+  .po-panel.enter .po-body > :nth-child(3){animation-delay:.1s}
+  .po-panel.enter .po-body > :nth-child(4){animation-delay:.15s}
+  @keyframes poUp{from{opacity:0;transform:translateY(12px)}}
+  @keyframes poZoom{from{transform:scale(1.06)}}
+  .po-media{position:relative;margin:0;overflow:hidden;background:var(--green-900)}
+  .po-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .po-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,42,27,.6) 0%,transparent 45%)}
+  .po-media figcaption{position:absolute;left:20px;bottom:20px;z-index:2;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600}
+  .po-media figcaption::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--leaf)}
+  .po-big{position:absolute;right:18px;top:6px;z-index:2;font-family:var(--head);font-size:120px;font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
+  .po-body{display:flex;flex-direction:column;padding:48px 48px 40px}
+  .po-count{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-600)}
+  .po-body h3{font-size:clamp(26px,2.4vw,34px);margin:10px 0 14px}
+  .po-body > p{font-size:16.5px;color:var(--muted);max-width:560px}
+  .po-cols{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:28px}
+  .po-cols h4{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .po-cols ul{list-style:none;display:grid;gap:10px}
+  .po-cols li{display:flex;gap:10px;font-size:15px;line-height:1.45;color:#24382D}
+  .po-cols li::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;background:var(--green-100) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A7F4B' stroke-width='3.5'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat}
+  .po-you{align-self:start;padding:18px 20px;border-radius:var(--r-sm);background:#fff;border:1px solid var(--border);box-shadow:var(--shadow)}
+  .po-you h4{display:flex;align-items:center;gap:8px;color:var(--green-700)}
+  .po-you h4 svg{width:16px;height:16px}
+  .po-you p{font-size:15px;line-height:1.5;color:var(--text);font-weight:500}
+  .po-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 48px;border-top:1px solid var(--border);background:#fff}
+  .po-nav .btn[disabled]{opacity:.4;pointer-events:none}
+  .po-bar{flex:1;max-width:280px;height:4px;border-radius:4px;background:var(--border);overflow:hidden}
+  .po-bar i{display:block;height:100%;width:calc(var(--p,0) * 100%);background:var(--green-600);border-radius:4px;transition:width .6s var(--ease)}
+
+  /* Factory at a glance */
+  .glance{background:var(--bg)}
+  .glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
+  .glance-grid div{padding:22px 24px 22px 0;border-bottom:1px solid var(--border)}
+  .glance-grid dt{font-size:13.5px;color:var(--muted)}
+  .glance-grid dd{font-family:var(--head);font-size:19px;font-weight:600;color:var(--text);margin-top:4px;line-height:1.35}
+
+  /* Closing call to action */
+  .po-cta{padding:0 0 112px;background:var(--bg)}
+  .po-cta-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding:56px;border-radius:var(--r-lg);background:var(--green-800);color:#fff;position:relative;overflow:hidden}
+  .po-cta-box::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;border:1px dashed rgba(61,220,132,.35)}
+  .po-cta-box h2{color:#fff;font-size:clamp(28px,3vw,40px);margin-bottom:10px}
+  .po-cta-box p{color:rgba(255,255,255,.75);max-width:520px}
+  .po-cta-box .btn{position:relative;z-index:1;background:var(--leaf);color:var(--green-900)}
+  .po-cta-box .btn:hover{background:#fff}
+
+  @media (max-width:1100px){
+    .po-head{grid-template-columns:1fr;gap:20px}
+    .po-layout{grid-template-columns:minmax(0,1fr);gap:40px}
+    .po-side{position:static}
+
+    .po-panel{grid-template-columns:1fr}
+    .po-media{aspect-ratio:auto;height:320px}
+    .po-step .lbl{font-size:13px}
+    .glance-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:760px){
+    .po-sec{padding:48px 0 80px}
+    .po-flow-wrap{display:none}
+    /* Rail becomes a swipeable row of chips */
+    .po-rail{display:flex;overflow-x:auto;gap:8px;margin:0 -16px 24px;padding:4px 16px 8px;scroll-snap-type:x mandatory;scroll-padding-inline:16px;scrollbar-width:none}
+    .po-rail::before,.po-rail::after{display:none}
+    .po-rail li{flex:none;scroll-snap-align:start}
+    .po-step{flex-direction:row;gap:8px;height:44px;padding:0 16px 0 6px;border-radius:999px;border:1px solid var(--border);background:#fff}
+    .po-step .dot{width:32px;height:32px;font-size:13px;border-width:1.5px}
+    .po-step[aria-selected="true"]{border-color:var(--green-700)}
+    .po-step[aria-selected="true"] .dot{transform:none;box-shadow:none}
+    .po-step .lbl{white-space:nowrap}
+    .po-media{height:220px}
+    .po-body{padding:28px 20px 24px}
+    .po-big{font-size:84px}
+    .po-cols{grid-template-columns:1fr}
+    .po-nav{padding:14px 20px}
+    .po-nav .btn span{display:none}
+    .po-nav .btn{width:44px;padding:0}
+    .glance-grid{grid-template-columns:1fr}
+    .po-cta{padding-bottom:80px}
+    .po-cta-box{padding:36px 24px}
+  }
 </style>
 </head>
 <body>
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-ss-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-ss.png" alt=""></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-struggle-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-struggle.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
+        <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
         <li><a href="manufacturing.html" aria-current="page">Manufacturing</a></li>
         <li><a href="index.html#sustainability">Sustainability</a></li>
@@ -761,12 +918,183 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="products.html">Products</a><a href="manufacturing.html" aria-current="page">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
+    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html" aria-current="page">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
 
 <main class="mfg-page">
+<!-- Order procurement process -->
+<section class="po-sec" id="procurement" aria-labelledby="po-title">
+  <div class="wrap">
+    <div class="po-head rv">
+      <div>
+        <span class="tag">Order procurement process</span>
+        <h1 id="po-title">From purchase order to shipped cartons</h1>
+      </div>
+      <p class="lead">Every order moves through <b>eight stages</b>, run by two teams: our <b>merchandising team</b> prepares the order, then the <b>production floor</b> makes and ships it. You get one point of contact and a clear sign-off at each stage.</p>
+    </div>
+
+    <div class="po-layout">
+    <div class="po-flow-wrap rv">
+    <div class="po-flow" id="po-flow" role="group" aria-label="Order procurement flow chart">
+      <svg class="po-lines" id="po-lines" aria-hidden="true"><defs>
+        <marker id="po-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker>
+        <marker id="po-ah-on" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker>
+      </defs><g></g></svg>
+
+      <button class="po-node term root" data-step="0" aria-controls="po-p1"><i class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></i><span><small>01 · START</small><b>Order procurement</b><em>Purchase order, costing &amp; T&amp;A plan</em></span></button>
+
+      <div class="po-lane l1" id="po-l1">
+        <div class="po-lane-h"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M6 16l9-9 3 3-9 9H6z"/></svg></i><div><b>Pre-production</b><span>Merchandising team</span></div></div>
+        <button class="po-node" data-step="1" aria-controls="po-p2"><img src="images/swatches/ss-l04-blush-sm.webp" alt=""><span><small>02</small><b>Design &amp; tech pack</b><em>Patterns, grading, lab dips</em></span></button>
+        <button class="po-node" data-step="2" aria-controls="po-p3"><img src="images/sew-woman.jpg" alt=""><span><small>03</small><b>Sampling</b><em>Proto → fit → PP sample</em></span></button>
+        <button class="po-node" data-step="3" aria-controls="po-p4"><img src="images/fabric-rolls.jpg" alt=""><span><small>04</small><b>Raw material sourcing</b><em>Fabric &amp; trims inspected</em></span></button>
+      </div>
+
+      <div class="po-gate" id="po-gate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><b>Handoff</b>PP approved + materials in-house</div>
+
+      <div class="po-lane l2" id="po-l2">
+        <div class="po-lane-h"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V9l5 3V9l5 3V6l4 2v13"/></svg></i><div><b>Production</b><span>Production floor</span></div></div>
+        <button class="po-node" data-step="4" aria-controls="po-p5"><img src="images/cotton-cloths.jpg" alt=""><span><small>05</small><b>Cutting</b><em>Markers, spreading, bundles</em></span></button>
+        <button class="po-node" data-step="5" aria-controls="po-p6"><img src="images/heros/production.jpg" alt=""><span><small>06</small><b>Sewing</b><em>2 lines · 34 machines</em></span></button>
+        <button class="po-node" data-step="6" aria-controls="po-p7"><img src="images/heros/finished-garments.jpg" alt=""><span><small>07</small><b>Finishing &amp; quality</b><em>Packing + final AQL</em></span></button>
+      </div>
+
+      <button class="po-node term end" data-step="7" aria-controls="po-p8"><i class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5 3h15L21 17M5 17V11h14v6M8 11V7h8v4M12 7V4"/><path d="M2 21c1.5 0 1.5-1 3-1s1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1"/></svg></i><span><small>08 · DELIVERY</small><b>Shipping &amp; storage</b><em>Export docs, air or sea freight</em></span></button>
+    </div>
+    <p class="po-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11V5a2 2 0 014 0v6l4 1a2 2 0 011.5 2.3L17 20H9l-4-5 1.5-1.5L9 15"/></svg>Click any stage to see what happens and what you approve.</p>
+    </div>
+
+    <div class="po-side">
+
+    <ol class="po-rail rv" role="tablist" aria-label="Order procurement stages">
+      <li><button class="po-step" role="tab" id="po-t1" aria-controls="po-p1" aria-selected="true" data-phase="1"><span class="dot">01</span><span class="lbl">Order &amp; merchandising</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t2" aria-controls="po-p2" aria-selected="false" tabindex="-1" data-phase="1"><span class="dot">02</span><span class="lbl">Design &amp; tech pack</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t3" aria-controls="po-p3" aria-selected="false" tabindex="-1" data-phase="1"><span class="dot">03</span><span class="lbl">Sampling</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t4" aria-controls="po-p4" aria-selected="false" tabindex="-1" data-phase="1"><span class="dot">04</span><span class="lbl">Raw material sourcing</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t5" aria-controls="po-p5" aria-selected="false" tabindex="-1" data-phase="2"><span class="dot">05</span><span class="lbl">Cutting</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t6" aria-controls="po-p6" aria-selected="false" tabindex="-1" data-phase="2"><span class="dot">06</span><span class="lbl">Sewing</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t7" aria-controls="po-p7" aria-selected="false" tabindex="-1" data-phase="2"><span class="dot">07</span><span class="lbl">Finishing &amp; quality</span></button></li>
+      <li><button class="po-step" role="tab" id="po-t8" aria-controls="po-p8" aria-selected="false" tabindex="-1" data-phase="3"><span class="dot">08</span><span class="lbl">Shipping &amp; storage</span></button></li>
+    </ol>
+
+    <div class="po-stage rv">
+      <article class="po-panel" role="tabpanel" id="po-p1" aria-labelledby="po-t1" tabindex="0">
+        <figure class="po-media"><img src="images/shirts-wood.jpg" alt="Folded garments in a range of colours" loading="lazy"><span class="po-big" aria-hidden="true">01</span><figcaption>Pre-production · Merchandising</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 01 of 08</span>
+          <h3>Order &amp; merchandising</h3>
+          <p>Your merchandiser takes the inquiry or purchase order and confirms styles, quantities, size ratio, target price and delivery date. Then they plan every milestone to that delivery date.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Review your tech pack and bill of materials</li><li>Costing and price confirmation</li><li>Time &amp; action calendar with milestone dates</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Your sign-off</h4><p>Purchase order, unit price and delivery date</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p2" aria-labelledby="po-t2" tabindex="0">
+        <figure class="po-media"><img src="images/swatches/ss-l04-blush.webp" alt="Lingerie fabric swatch" loading="lazy"><span class="po-big" aria-hidden="true">02</span><figcaption>Pre-production · Design</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 02 of 08</span>
+          <h3>Design &amp; tech pack</h3>
+          <p>Our design team turns your brief into production patterns graded across your size range. They also specify every trim, label and packaging detail.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Pattern making and size grading</li><li>Trim, label and packaging specs</li><li>Colour standards and lab dips</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Your sign-off</h4><p>Lab dips and trim cards</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p3" aria-labelledby="po-t3" tabindex="0">
+        <figure class="po-media"><img src="images/sew-woman.jpg" alt="Sample maker at an industrial sewing machine" loading="lazy"><span class="po-big" aria-hidden="true">03</span><figcaption>Pre-production · Sample section</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 03 of 08</span>
+          <h3>Sampling</h3>
+          <p>The sample section sews proto, fit and size-set samples until the garment is right. The approved pre-production sample becomes the standard the whole order is checked against.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Proto and fit samples</li><li>Size-set samples across the range</li><li>Sealed pre-production (PP) sample</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Your sign-off</h4><p>Fit comments and PP sample approval</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p4" aria-labelledby="po-t4" tabindex="0">
+        <figure class="po-media"><img src="images/fabric-rolls.jpg" alt="Rolls of fabric ready for production" loading="lazy"><span class="po-big" aria-hidden="true">04</span><figcaption>Pre-production · Raw sourcing</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 04 of 08</span>
+          <h3>Raw material sourcing</h3>
+          <p>We book fabric, lace, elastic, hooks and cup mouldings from vetted mills and suppliers. Everything is checked on arrival, before it reaches the cutting table.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Bulk fabric and trim booking</li><li>Incoming fabric and trim inspection</li><li>Shade and shrinkage testing</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Your sign-off</h4><p>Bulk fabric shade and quality</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p5" aria-labelledby="po-t5" tabindex="0">
+        <figure class="po-media"><img src="images/cotton-cloths.jpg" alt="Stacked fabric prepared for cutting" loading="lazy"><span class="po-big" aria-hidden="true">05</span><figcaption>Production · Cutting</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 05 of 08</span>
+          <h3>Cutting</h3>
+          <p>Markers are planned to waste as little fabric as possible. The fabric is relaxed, spread and cut, and the panels are bundled by size and shade so every garment matches.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Marker planning for low fabric waste</li><li>Fabric relaxing, spreading and cutting</li><li>Bundles numbered by size and shade</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>You receive</h4><p>Cutting report and photos</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p6" aria-labelledby="po-t6" tabindex="0">
+        <figure class="po-media"><img src="images/heros/production.jpg" alt="Operators sewing garments on a production line" loading="lazy"><span class="po-big" aria-hidden="true">06</span><figcaption>Production · Sewing</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 06 of 08</span>
+          <h3>Sewing</h3>
+          <p>Bundles go to two dedicated lines with 34 sewing machines (Juki, Brother, Yamato and Sew Power) and 5 moulding machines for cups. Quality checks run on every line while the order is sewn.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Line balancing for your styles</li><li>Cup moulding and assembly</li><li>Inline quality checks on every line</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>You receive</h4><p>Production photos and progress updates</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p7" aria-labelledby="po-t7" tabindex="0">
+        <figure class="po-media"><img src="images/heros/finished-garments.jpg" alt="Finished garments ready for packing" loading="lazy"><span class="po-big" aria-hidden="true">07</span><figcaption>Production · Finishing</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 07 of 08</span>
+          <h3>Finishing &amp; quality</h3>
+          <p>Each garment is trimmed, pressed, measured and labelled, then folded and packed to your packing list. A final AQL inspection checks the order against the approved PP sample before it ships.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Thread trimming, pressing and measurement checks</li><li>Labelling, folding and packing to your list</li><li>Final AQL inspection</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Your sign-off</h4><p>Final inspection report. Your own third-party inspector is welcome.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="po-panel" role="tabpanel" id="po-p8" aria-labelledby="po-t8" tabindex="0">
+        <figure class="po-media"><img src="images/heros/shipping.jpg" alt="Cartons being prepared for shipment" loading="lazy"><span class="po-big" aria-hidden="true">08</span><figcaption>Delivery · Shipping &amp; storage</figcaption></figure>
+        <div class="po-body">
+          <span class="po-count">Step 08 of 08</span>
+          <h3>Shipping &amp; storage</h3>
+          <p>Packed cartons are stored dry until they ship. We handle booking and export documents, and the factory is only 21 km from Hazrat Shahjalal International Airport, which suits air shipments.</p>
+          <div class="po-cols">
+            <div><h4>What we do</h4><ul><li>Dry, secure carton storage</li><li>Freight booking by air or sea</li><li>Export documentation</li></ul></div>
+            <div class="po-you"><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg>You receive</h4><p>Shipping documents and tracking</p></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="po-nav">
+        <button class="btn btn-outline btn-sm" id="po-prev" aria-label="Previous stage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:scaleX(-1)"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Previous</span></button>
+        <div class="po-bar" aria-hidden="true"><i></i></div>
+        <button class="btn btn-primary btn-sm" id="po-next" aria-label="Next stage"><span>Next stage</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    </div><!-- /.po-side -->
+    </div><!-- /.po-layout -->
+  </div>
+</section>
+
 <!-- Manufacturing -->
 <section class="mfg" id="manufacturing">
   <div class="wrap mfg-split">
@@ -780,7 +1108,7 @@
     </div>
 
     <div class="mfg-content rv" style="--d:.1s">
-      <h1>Built for consistent quality</h1>
+      <h2>Built for consistent quality</h2>
       <p class="lead">Dedicated lines, skilled people and one quality system — with clear updates from the first sample to the final shipment.</p>
       <ul class="mfg-points">
         <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Dedicated lingerie production lines</li>
@@ -793,6 +1121,37 @@
         <div class="cap"><strong data-count="40">0</strong><span class="l">Skilled people</span></div>
         <div class="cap"><strong><span data-count="100">0</span>K</strong><span class="l">Pieces per month</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Factory at a glance -->
+<section class="glance" id="factory">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div><span class="tag">Factory profile</span><h2 style="margin-top:16px">Holy Intimates at a glance</h2></div>
+      <p class="lead">Our export-oriented lingerie factory in Bangladesh.</p>
+    </div>
+    <dl class="glance-grid rv">
+      <div><dt>Established</dt><dd>2023</dd></div>
+      <div><dt>Company type</dt><dd>Export-oriented lingerie manufacturer</dd></div>
+      <div><dt>Factory area</dt><dd>5,200 sq ft</dd></div>
+      <div><dt>Location</dt><dd>21 km from Hazrat Shahjalal International Airport</dd></div>
+      <div><dt>Categories</dt><dd>Infant, children's, ladies' and men's underwear</dd></div>
+      <div><dt>Products</dt><dd>Bra, panty, brief, boxer, trunk, swimwear</dd></div>
+      <div><dt>Machinery</dt><dd>34 sewing machines, 5 moulding machines</dd></div>
+      <div><dt>Machine brands</dt><dd>Juki, Brother, Yamato, Sew Power</dd></div>
+      <div><dt>Monthly capacity</dt><dd>100,000 pieces</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- Closing call to action -->
+<section class="po-cta">
+  <div class="wrap">
+    <div class="po-cta-box rv">
+      <div><h2>Ready to place an order?</h2><p>Send your tech pack or a short brief. Your merchandiser will reply with costing and a delivery plan.</p></div>
+      <a href="quote.html" class="btn">Start your order <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
@@ -824,7 +1183,7 @@
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
       <div class="f-end">
-        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener">Traideas</a></span>
+        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
       </div>
     </div>
   </div>
@@ -853,6 +1212,91 @@
     requestAnimationFrame(step);
   }), {threshold: .6});
   $$('[data-count]').forEach(el => countIO.observe(el));
+
+  // Order procurement: flow chart (desktop) + chip rail (mobile) both drive one detail card
+  (() => {
+    const tabs = $$('.po-step'), panels = $$('.po-panel'), nodes = $$('.po-node');
+    const rail = $('.po-rail'), stage = $('.po-stage'), prev = $('#po-prev'), next = $('#po-next');
+    const flow = $('#po-flow'), g = $('#po-lines g'), gate = $('#po-gate');
+    if (!tabs.length) return;
+    let cur = -1, edges = [];
+
+    // Connector geometry, measured from the live layout so it survives any resize
+    const NS = 'http://www.w3.org/2000/svg';
+    const elbow = (x1, y1, x2, y2, ym, rad = 14) => {
+      if (Math.abs(x2 - x1) < 1) return `M${x1} ${y1}V${y2}`;
+      const s = Math.sign(x2 - x1), k = Math.min(rad, Math.abs(x2 - x1) / 2, Math.abs(ym - y1), Math.abs(y2 - ym));
+      return `M${x1} ${y1}V${ym - k}Q${x1} ${ym} ${x1 + s * k} ${ym}H${x2 - s * k}Q${x2} ${ym} ${x2} ${ym + k}V${y2}`;
+    };
+    const draw = () => {
+      if (!flow || !flow.offsetParent) return;           // hidden on phones
+      const box = flow.getBoundingClientRect();
+      const r = el => { const b = el.getBoundingClientRect(); return {l: b.left - box.left, r: b.right - box.left, t: b.top - box.top, b: b.bottom - box.top, cx: (b.left + b.right) / 2 - box.left, cy: (b.top + b.bottom) / 2 - box.top}; };
+      const N = nodes.map(r), L1 = r($('#po-l1')), L2 = r($('#po-l2')), G = r(gate), A = 3;  // A: room for the arrowhead
+      const top = (N[0].b + L1.t) / 2, bot = (L1.b + N[7].t) / 2;
+      const list = [
+        // later-stage edges first, so shared trunks show the progressed colour on top
+        [4, elbow(N[0].cx, N[0].b, L2.cx, L2.t - A, top)],
+        [1, elbow(N[0].cx, N[0].b, L1.cx, L1.t - A, top)],
+        [2, `M${N[1].cx} ${N[1].b}V${N[2].t - A}`],
+        [3, `M${N[2].cx} ${N[2].b}V${N[3].t - A}`],
+        [4, `M${L1.r} ${G.cy}H${L2.l - A}`],
+        [5, `M${N[4].cx} ${N[4].b}V${N[5].t - A}`],
+        [6, `M${N[5].cx} ${N[5].b}V${N[6].t - A}`],
+        [7, elbow(L1.cx, L1.b, N[7].cx, N[7].t - A, bot)],
+        [7, elbow(L2.cx, L2.b, N[7].cx, N[7].t - A, bot)]
+      ];
+      g.textContent = '';
+      edges = list.map(([to, d]) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.dataset.to = to; g.appendChild(p); return p; });
+      paint();
+    };
+    const paint = () => edges.forEach(p => {
+      const to = +p.dataset.to;
+      p.classList.toggle('done', to < cur); p.classList.toggle('live', to === cur);
+      p.setAttribute('marker-end', to <= cur ? 'url(#po-ah-on)' : 'url(#po-ah)');
+    });
+
+    const go = (i, focus) => {
+      i = Math.max(0, Math.min(tabs.length - 1, i));
+      const changed = i !== cur; cur = i;
+      tabs.forEach((t, k) => { const on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; t.classList.toggle('done', k < i); });
+      nodes.forEach((n, k) => {
+        n.classList.toggle('on', k === i); n.classList.toggle('done', k < i);
+        if (k === i) n.setAttribute('aria-current', 'step'); else n.removeAttribute('aria-current');
+      });
+      gate.classList.toggle('done', i >= 4);
+      panels.forEach((pn, k) => {
+        pn.hidden = k !== i;
+        if (k === i && changed && !reduce) { pn.classList.remove('enter'); void pn.offsetWidth; pn.classList.add('enter'); }
+      });
+      stage.style.setProperty('--p', i / (tabs.length - 1));
+      prev.disabled = i === 0; next.disabled = i === tabs.length - 1;
+      paint();
+      // Keep the active chip visible in the swipeable mobile rail without scrolling the page
+      if (rail.scrollWidth > rail.clientWidth) {
+        const li = tabs[i].parentElement;
+        rail.scrollTo({left: li.offsetLeft - (rail.clientWidth - li.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth'});
+      }
+      if (focus) tabs[i].focus();
+    };
+
+    tabs.forEach((t, k) => {
+      t.onclick = () => go(k);
+      t.onkeydown = e => {
+        const m = {ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1}[e.key];
+        if (m) { e.preventDefault(); go(cur + m, true); }
+        else if (e.key === 'Home') { e.preventDefault(); go(0, true); }
+        else if (e.key === 'End') { e.preventDefault(); go(tabs.length - 1, true); }
+      };
+    });
+    nodes.forEach(n => n.onclick = () => go(+n.dataset.step));
+    prev.onclick = () => go(cur - 1);
+    next.onclick = () => go(cur + 1);
+
+    go(0); draw();
+    if (flow) new ResizeObserver(draw).observe(flow);
+    if (document.fonts) document.fonts.ready.then(draw);
+  })();
 </script>
 </body>
 </html>

@@ -92,6 +92,9 @@
   /* 1. Header */
   /* Transparent over the hero, solid once scrolled (or when the mobile menu is open) */
   header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
+  /* Dark shade behind the transparent header only, so the logo and links read on any photo */
+  header::before{content:"";position:absolute;inset:0 0 -40px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.32) 60%,transparent 100%);transition:opacity .35s}
+  header.scrolled::before,header.open::before{opacity:0}
   header .nav ul a{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5),0 1px 12px rgba(0,0,0,.35);transition:color .35s}
   header.scrolled .nav ul a,header.open .nav ul a{text-shadow:none}
   header .nav > .btn{background:var(--leaf);color:var(--green-900)}
@@ -126,10 +129,10 @@
      whether the header is transparent or turns light on scroll; only a soft extra
      shade sits behind the centred text. */
   .hero-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
-    radial-gradient(ellipse 55% 40% at 50% 52%,rgba(0,0,0,.28) 0%,rgba(0,0,0,.1) 70%,transparent 100%),
-    rgba(0,0,0,.24)}
+    radial-gradient(ellipse 50% 38% at 50% 50%,rgba(0,0,0,.52) 0%,rgba(0,0,0,.34) 45%,rgba(0,0,0,.1) 80%,transparent 100%),
+    rgba(0,0,0,.1)}
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero h1{color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 28px rgba(0,0,0,.45);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  .hero h1{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5),0 2px 12px rgba(0,0,0,.45),0 6px 36px rgba(0,0,0,.4);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -140,7 +143,7 @@
     .look{width:160px;margin-left:-80px}
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
-  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;font-weight:500;text-shadow:0 1px 3px rgba(0,0,0,.55),0 2px 18px rgba(0,0,0,.5);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
+  .hero p{font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.94);font-weight:500;text-shadow:0 1px 2px rgba(0,0,0,.7),0 2px 14px rgba(0,0,0,.55);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
   /* Slide text changes with the image */
   .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
   .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
@@ -197,6 +200,11 @@
   .clip-tag{position:absolute;left:12px;bottom:12px;z-index:2;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;color:var(--green-800);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease)}
   .clip-tag i{width:6px;height:6px;border-radius:50%;background:var(--green-600)}
   .cat:hover .clip-tag{opacity:1;transform:none}
+  .cat:not([data-clip]) .play-hint,.cat[data-clip=""] .play-hint,.cat:not([data-clip]) .clip-tag,.cat[data-clip=""] .clip-tag{display:none}
+  .cat.playing .clip-tag{opacity:0}
+  .clip-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.4);opacity:0;transition:opacity .3s}
+  .clip-bar i{display:block;height:100%;background:var(--green-600);transform-origin:left;transform:scaleX(0)}
+  .cat.playing .clip-bar{opacity:1}
   .cat-info{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px 0}
   .cat-info h3{font-size:22px}
   .cat-info p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
@@ -743,6 +751,11 @@
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  header .logo-img{height:60px}
+  @media (max-width:640px){header .logo-img{height:50px}}
+  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
+  body::after{content:"";position:fixed;inset:0;background:url(images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
+   print{body::after{display:none}}
 </style>
 </head>
 <body>
@@ -750,9 +763,10 @@
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-ss-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-ss.png" alt=""></a>
+    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-struggle-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-struggle.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="products.html">Products</a></li>
         <li><a href="manufacturing.html">Manufacturing</a></li>
         <li><a href="#sustainability">Sustainability</a></li>
@@ -764,7 +778,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="#sustainability">Sustainability</a><a href="#about">About</a><a href="news.html">News</a>
+    <a href="index.html" aria-current="page">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="#sustainability">Sustainability</a><a href="#about">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -774,11 +788,11 @@
 <section class="hero" aria-label="Introduction">
     <div class="hero-card" id="hero">
       <!-- Story in a fixed order: each slide carries its own title and text -->
-      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/heros/finished-garments.jpg" alt=""></div>
+      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/heros/finished-garments.jpg" alt="" fetchpriority="high" decoding="async"></div>
       <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/heros/raw-materials.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/heros/production.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/heros/clean-energy.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.jpg" alt="" loading="lazy" style="object-position:62% center"></div>
+      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.jpg" alt="" loading="lazy"></div>
 
       <div class="hero-content">
         <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
@@ -815,7 +829,7 @@
         <div class="media"><img src="images/cat-lingerie.jpg" alt="Model wearing a lilac silk sleepwear set" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Lingerie</h3><p>Sleepwear, bras &amp; briefs</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="">
+      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="media/clips/denim.mp4">
         <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -823,7 +837,7 @@
         <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="">
+      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="media/clips/woven.mp4">
         <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -1067,7 +1081,7 @@
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
       <div class="f-end">
-        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener">Traideas</a></span>
+        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
       </div>
     </div>
   </div>
@@ -1136,17 +1150,20 @@
 
 
 
-  // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
-  const hoverable = matchMedia('(hover: hover)').matches;
+  // Category cards: autoplay the clip whenever the card is on screen, pause it when scrolled away
   const clipCards = $$('.cat').filter(card => card.dataset.clip);
-  const stopAll = except => clipCards.forEach(c => { if (c !== except) { c.classList.remove('playing'); c.clip.pause(); } });
   clipCards.forEach(card => {
-    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'none'});
-    card.querySelector('.media').append(v); card.clip = v;
-    const play = () => { stopAll(card); v.play().then(() => card.classList.add('playing')).catch(() => {}); };
+    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, autoplay: true, preload: 'auto'});
+    const bar = Object.assign(document.createElement('span'), {className: 'clip-bar', innerHTML: '<i></i>'});
+    card.querySelector('.media').append(v, bar); card.clip = v;
+    // progress bar along the bottom edge so it reads as a playing video
+    let raf;
+    const tick = () => { bar.firstChild.style.transform = `scaleX(${v.duration ? v.currentTime / v.duration : 0})`; raf = requestAnimationFrame(tick); };
+    v.addEventListener('play', () => { cancelAnimationFrame(raf); tick(); });
+    v.addEventListener('pause', () => cancelAnimationFrame(raf));
+    const play = () => v.play().then(() => card.classList.add('playing')).catch(() => {});
     const stop = () => { card.classList.remove('playing'); v.pause(); };
-    if (hoverable) { card.addEventListener('mouseenter', play); card.addEventListener('mouseleave', stop); }
-    else new IntersectionObserver(([e]) => e.intersectionRatio > .6 ? play() : stop(), {threshold: [0, .6]}).observe(card);
+    new IntersectionObserver(([e]) => e.isIntersecting ? play() : stop(), {threshold: .25}).observe(card);
   });
 
   // Brand logos (from the current site)

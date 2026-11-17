@@ -194,6 +194,11 @@
   .clip-tag{position:absolute;left:12px;bottom:12px;z-index:2;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;color:var(--green-800);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease)}
   .clip-tag i{width:6px;height:6px;border-radius:50%;background:var(--green-600)}
   .cat:hover .clip-tag{opacity:1;transform:none}
+  .cat:not([data-clip]) .play-hint,.cat[data-clip=""] .play-hint,.cat:not([data-clip]) .clip-tag,.cat[data-clip=""] .clip-tag{display:none}
+  .cat.playing .clip-tag{opacity:0}
+  .clip-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.4);opacity:0;transition:opacity .3s}
+  .clip-bar i{display:block;height:100%;background:var(--green-600);transform-origin:left;transform:scaleX(0)}
+  .cat.playing .clip-bar{opacity:1}
   .cat-info{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px 0}
   .cat-info h3{font-size:22px}
   .cat-info p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
@@ -744,15 +749,21 @@
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  header .logo-img{height:60px}
+  @media (max-width:640px){header .logo-img{height:50px}}
+  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
+  body::after{content:"";position:fixed;inset:0;background:url(images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
+   print{body::after{display:none}}
 </style>
 </head>
 <body>
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-ss-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-ss.png" alt=""></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-struggle-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-struggle.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
+        <li><a href="index.html">Home</a></li>
         <li><a href="products.html" aria-current="page">Products</a></li>
         <li><a href="manufacturing.html">Manufacturing</a></li>
         <li><a href="index.html#sustainability">Sustainability</a></li>
@@ -764,7 +775,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="products.html" aria-current="page">Products</a><a href="manufacturing.html">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
+    <a href="index.html">Home</a><a href="products.html" aria-current="page">Products</a><a href="manufacturing.html">Manufacturing</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -808,7 +819,7 @@
         <div class="media"><img src="images/cat-lingerie.jpg" alt="Model wearing a lilac silk sleepwear set" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Lingerie</h3><p>Sleepwear, bras &amp; briefs</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/denim.html" data-gallery="products/denim/model.webp|products/denim/skirt/model.webp|images/look-denimjacket.jpg|products/denim/half.webp|images/denim-folded.jpg" class="cat rv" style="--d:0.06s" data-clip="">
+      <a href="products/denim.html" data-gallery="products/denim/model.webp|products/denim/skirt/model.webp|images/look-denimjacket.jpg|products/denim/half.webp|images/denim-folded.jpg" class="cat rv" style="--d:0.06s" data-clip="media/clips/denim.mp4">
         <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -816,7 +827,7 @@
         <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/woven.html" data-gallery="images/look-linendress.jpg|images/shirts-flannel.jpg" class="cat rv" style="--d:0.18s" data-clip="">
+      <a href="products/woven.html" data-gallery="images/look-linendress.jpg|images/shirts-flannel.jpg" class="cat rv" style="--d:0.18s" data-clip="media/clips/woven.mp4">
         <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -855,7 +866,7 @@
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
       <div class="f-end">
-        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener">Traideas</a></span>
+        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
       </div>
     </div>
   </div>
@@ -911,17 +922,20 @@
     }, STEP);
   }
 
-  // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
-  const hoverable = matchMedia('(hover: hover)').matches;
+  // Category cards: autoplay the clip whenever the card is on screen, pause it when scrolled away
   const clipCards = $$('.cat').filter(card => card.dataset.clip);
-  const stopAll = except => clipCards.forEach(c => { if (c !== except) { c.classList.remove('playing'); c.clip.pause(); } });
   clipCards.forEach(card => {
-    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'none'});
-    card.querySelector('.media').append(v); card.clip = v;
-    const play = () => { stopAll(card); v.play().then(() => card.classList.add('playing')).catch(() => {}); };
+    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, autoplay: true, preload: 'auto'});
+    const bar = Object.assign(document.createElement('span'), {className: 'clip-bar', innerHTML: '<i></i>'});
+    card.querySelector('.media').append(v, bar); card.clip = v;
+    // progress bar along the bottom edge so it reads as a playing video
+    let raf;
+    const tick = () => { bar.firstChild.style.transform = `scaleX(${v.duration ? v.currentTime / v.duration : 0})`; raf = requestAnimationFrame(tick); };
+    v.addEventListener('play', () => { cancelAnimationFrame(raf); tick(); });
+    v.addEventListener('pause', () => cancelAnimationFrame(raf));
+    const play = () => v.play().then(() => card.classList.add('playing')).catch(() => {});
     const stop = () => { card.classList.remove('playing'); v.pause(); };
-    if (hoverable) { card.addEventListener('mouseenter', play); card.addEventListener('mouseleave', stop); }
-    else new IntersectionObserver(([e]) => e.intersectionRatio > .6 ? play() : stop(), {threshold: [0, .6]}).observe(card);
+    new IntersectionObserver(([e]) => e.isIntersecting ? play() : stop(), {threshold: .25}).observe(card);
   });
 
   // Lookbook ring: drag/swipe to rotate, arrows step, auto-spins until touched
