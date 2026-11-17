@@ -848,6 +848,27 @@
   .po-bar{flex:1;max-width:280px;height:4px;border-radius:4px;background:var(--border);overflow:hidden}
   .po-bar i{display:block;height:100%;width:calc(var(--p,0) * 100%);background:var(--green-600);border-radius:4px;transition:width .6s var(--ease)}
 
+  /* Major buyers: same "Trusted by brands" layout as the home page (market pills + scrolling logo rows) */
+  .reach{overflow:hidden;background:var(--bg)}
+  .reach .s-head{align-items:flex-end}
+  .market-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:520px}
+  .mpill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px 0 6px;border-radius:999px;background:#fff;border:1px solid var(--border);font-size:14.5px;font-weight:600;box-shadow:var(--shadow);transition:transform .3s var(--ease)}
+  .mpill:hover{transform:translateY(-2px)}
+  .mpill img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
+  .mpill .flagstack{display:flex}
+  .mpill .flagstack img{border:2px solid #fff;box-shadow:0 0 0 1px var(--border)}
+  .mpill .flagstack img + img{margin-left:-9px}
+  .marquee{position:relative;display:grid;gap:16px;margin-top:8px;mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+  .mq-row{display:flex;width:max-content;gap:16px;animation:mq 50s linear infinite}
+  .mq-row.rev{animation-direction:reverse;animation-duration:58s}
+  .marquee:hover .mq-row{animation-play-state:paused}
+  @keyframes mq{to{transform:translateX(calc(-50% - 8px))}}
+  .brand{position:relative;flex:none;width:220px;height:112px;border-radius:var(--r);background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+  .brand:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .brand img{max-width:66%;max-height:58%;object-fit:contain}
+  @media (max-width:960px){.market-pills{justify-content:flex-start}}
+  @media (max-width:640px){.brand{width:160px;height:84px}.mpill{height:40px;font-size:13.5px}.mpill img{width:28px;height:28px}}
+
   /* Factory at a glance */
   .glance{background:var(--bg)}
   .glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
@@ -1096,7 +1117,7 @@
 </section>
 
 <!-- Manufacturing -->
-<section class="mfg" id="manufacturing">
+<!-- <section class="mfg" id="manufacturing">
   <div class="wrap mfg-split">
     <div class="mfg-visual rv">
       <div class="mfg-main">
@@ -1122,6 +1143,29 @@
         <div class="cap"><strong><span data-count="100">0</span>K</strong><span class="l">Pieces per month</span></div>
       </div>
     </div>
+  </div>
+</section> -->
+
+<!-- Major buyers: same layout as "Trusted by brands" on the home page. Logos from the previous strugglestyle.net page; show each only with that brand's permission. -->
+<section class="reach" id="buyers">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div>
+        <h2>MAJOR BUYER</h2>
+        <p class="lead">We produce for brands and retailers in North America, Europe and Latin America.</p>
+      </div>
+      <div class="market-pills">
+        <span class="mpill"><img src="https://flagcdn.com/w80/us.png" alt="">United States</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</span>
+        <span class="mpill"><img src="https://flagcdn.com/w80/fr.png" alt="">France</span>
+        <span class="mpill"><span class="flagstack" title="Chile, Brazil"><img src="https://flagcdn.com/w80/cl.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""></span>Latin America</span>
+      </div>
+    </div>
+  </div>
+  <div class="marquee rv" aria-label="Major buyers">
+    <div class="mq-row"><div class="brand"><img src="images/buyers/gemo.png" alt="Gémo" loading="lazy"></div><div class="brand"><img src="images/buyers/jd-williams.png" alt="JD Williams, N Brown Group" loading="lazy"></div><div class="brand"><img src="images/buyers/bluenotes.png" alt="Bluenotes" loading="lazy"></div><div class="brand"><img src="images/buyers/cencosud.png" alt="Cencosud" loading="lazy"></div><div class="brand"><img src="images/buyers/ardene.png" alt="Ardene" loading="lazy"></div><div class="brand"><img src="images/buyers/ben-sherman.png" alt="Ben Sherman" loading="lazy"></div><div class="brand"><img src="images/buyers/renner.png" alt="Renner" loading="lazy"></div><div class="brand"><img src="images/buyers/next.png" alt="Next" loading="lazy"></div><div class="brand"><img src="images/buyers/us-polo.png" alt="U.S. Polo Assn." loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand"><img src="images/buyers/gemo.png" alt="Gémo" loading="lazy"></div><div class="brand"><img src="images/buyers/jd-williams.png" alt="JD Williams, N Brown Group" loading="lazy"></div><div class="brand"><img src="images/buyers/bluenotes.png" alt="Bluenotes" loading="lazy"></div><div class="brand"><img src="images/buyers/cencosud.png" alt="Cencosud" loading="lazy"></div><div class="brand"><img src="images/buyers/ardene.png" alt="Ardene" loading="lazy"></div><div class="brand"><img src="images/buyers/ben-sherman.png" alt="Ben Sherman" loading="lazy"></div><div class="brand"><img src="images/buyers/renner.png" alt="Renner" loading="lazy"></div><div class="brand"><img src="images/buyers/next.png" alt="Next" loading="lazy"></div><div class="brand"><img src="images/buyers/us-polo.png" alt="U.S. Polo Assn." loading="lazy"></div></div></div>
+    <div class="mq-row rev"><div class="brand"><img src="images/buyers/us-polo.png" alt="U.S. Polo Assn." loading="lazy"></div><div class="brand"><img src="images/buyers/next.png" alt="Next" loading="lazy"></div><div class="brand"><img src="images/buyers/renner.png" alt="Renner" loading="lazy"></div><div class="brand"><img src="images/buyers/ben-sherman.png" alt="Ben Sherman" loading="lazy"></div><div class="brand"><img src="images/buyers/ardene.png" alt="Ardene" loading="lazy"></div><div class="brand"><img src="images/buyers/cencosud.png" alt="Cencosud" loading="lazy"></div><div class="brand"><img src="images/buyers/bluenotes.png" alt="Bluenotes" loading="lazy"></div><div class="brand"><img src="images/buyers/jd-williams.png" alt="JD Williams, N Brown Group" loading="lazy"></div><div class="brand"><img src="images/buyers/gemo.png" alt="Gémo" loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand"><img src="images/buyers/us-polo.png" alt="U.S. Polo Assn." loading="lazy"></div><div class="brand"><img src="images/buyers/next.png" alt="Next" loading="lazy"></div><div class="brand"><img src="images/buyers/renner.png" alt="Renner" loading="lazy"></div><div class="brand"><img src="images/buyers/ben-sherman.png" alt="Ben Sherman" loading="lazy"></div><div class="brand"><img src="images/buyers/ardene.png" alt="Ardene" loading="lazy"></div><div class="brand"><img src="images/buyers/cencosud.png" alt="Cencosud" loading="lazy"></div><div class="brand"><img src="images/buyers/bluenotes.png" alt="Bluenotes" loading="lazy"></div><div class="brand"><img src="images/buyers/jd-williams.png" alt="JD Williams, N Brown Group" loading="lazy"></div><div class="brand"><img src="images/buyers/gemo.png" alt="Gémo" loading="lazy"></div></div></div>
   </div>
 </section>
 
