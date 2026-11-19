@@ -92,7 +92,11 @@
   /* 1. Header */
   /* Transparent over the hero, solid once scrolled (or when the mobile menu is open) */
   header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
-  header .nav ul a{color:#fff;transition:color .35s}
+  /* Dark shade behind the transparent header only, so the logo and links read on any photo */
+  header::before{content:"";position:absolute;inset:0 0 -40px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.32) 60%,transparent 100%);transition:opacity .35s}
+  header.scrolled::before,header.open::before{opacity:0}
+  header .nav ul a{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5),0 1px 12px rgba(0,0,0,.35);transition:color .35s}
+  header.scrolled .nav ul a,header.open .nav ul a{text-shadow:none}
   header .nav > .btn{background:var(--leaf);color:var(--green-900)}
   header .nav > .btn:hover{background:#fff}
   header .burger{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
@@ -114,19 +118,18 @@
 
   /* 2. Hero */
   .hero{padding:0;--edge:max(32px,calc((100vw - var(--max))/2 + 32px))}
-  .hero-card{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:var(--green-900);color:#fff}
-  .slide,.hero-card video{position:absolute;inset:0;width:100%;height:100%}
+  .hero-card{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:#1a1a1a;color:#fff}
+  .slide{position:absolute;inset:0;width:100%;height:100%}
   .slide{opacity:0;transition:opacity 1.4s ease}
   .slide.on{opacity:1}
   .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease-out}
   .slide.on img{transform:scale(1)}
-  .hero-card video{object-fit:cover;opacity:0;transition:opacity 1s}
-  .hero-card.has-video video{opacity:1}
-  .hero-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(12,42,27,.55) 0%,rgba(12,42,27,.35) 60%,rgba(12,42,27,.5) 100%),linear-gradient(180deg,rgba(12,42,27,.55) 0%,transparent 22%,transparent 70%,rgba(12,42,27,.6) 100%)}
+  /* Neutral black shade (no green) so white text stays readable on bright photos.
+     Even from top to bottom (no darker top band), so the photo looks the same colour
+     whether the header is transparent or turns light on scroll; only a soft extra
+     shade sits behind the centred text. */
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero-badge{display:inline-flex;align-items:center;gap:10px;height:36px;padding:0 16px 0 6px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);font-size:13.5px;font-weight:500;margin-bottom:24px}
-  .hero-badge b{background:var(--leaf);color:var(--green-900);font-size:12px;padding:4px 10px;border-radius:999px}
-  .hero h1{color:#fff;font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:600;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  .hero h1{color:#fff;opacity:.8;text-shadow:0 1px 2px rgba(0,0,0,.75),0 2px 10px rgba(0,0,0,.65),0 4px 24px rgba(0,0,0,.55),0 8px 48px rgba(0,0,0,.45);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:700;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -137,18 +140,23 @@
     .look{width:160px;margin-left:-80px}
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
-  .hero p{font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.88);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
-  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;align-items:center;gap:14px;padding:8px 8px 8px 20px;border-radius:999px;background:rgba(12,42,27,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
-  .hero-ctrl .lbl{font-size:13px;font-weight:500;min-width:130px}
-  .dots{display:flex;gap:6px}
-  .dots button{width:26px;height:4px;border-radius:4px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
-  .dots button::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-  .dots button.on::after{animation:fill 6s linear forwards}
-  .paused .dots button.on::after{animation-play-state:paused}
-  @keyframes fill{to{transform:scaleX(1)}}
-  .pp{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--green-900);display:grid;place-items:center}
-  .pp svg{width:14px;height:14px}
+  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;opacity:.7;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 8px rgba(0,0,0,.7),0 4px 22px rgba(0,0,0,.6),0 6px 36px rgba(0,0,0,.45);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
+  /* Slide text changes with the image */
+  .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
+  .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
+  /* Slide control: simple bullet points */
+  .hero-ctrl{position:absolute;left:50%;transform:translateX(-50%);bottom:36px;z-index:3;display:flex;align-items:center;gap:12px}
+  #dots{display:flex;gap:4px}
+  #dots button{display:grid;place-items:center;width:24px;height:24px}
+  #dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:background .25s,transform .25s}
+  #dots button:hover::before{background:rgba(255,255,255,.8)}
+  #dots button.on::before{background:#fff;transform:scale(1.25)}
+  .hero-ctrl button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:50%}
+  .hero-pp{display:grid;place-items:center;width:24px;height:24px;color:rgba(255,255,255,.75);transition:color .2s}
+  .hero-pp:hover{color:#fff}
+  .hero-pp svg{width:12px;height:12px;fill:currentColor}
+  .hero-pp .i-play,.hero-pp.paused .i-pause{display:none}
+  .hero-pp.paused .i-play{display:block}
 
   /* 3. Proof — soft sage band with leaf accents */
   .proof{position:relative;padding:64px 0 56px;background:linear-gradient(180deg,#E3F5EA 0%,var(--soft) 100%);overflow:hidden}
@@ -189,6 +197,11 @@
   .clip-tag{position:absolute;left:12px;bottom:12px;z-index:2;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);font-size:12px;font-weight:600;color:var(--green-800);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease)}
   .clip-tag i{width:6px;height:6px;border-radius:50%;background:var(--green-600)}
   .cat:hover .clip-tag{opacity:1;transform:none}
+  .cat:not([data-clip]) .play-hint,.cat[data-clip=""] .play-hint,.cat:not([data-clip]) .clip-tag,.cat[data-clip=""] .clip-tag{display:none}
+  .cat.playing .clip-tag{opacity:0}
+  .clip-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;height:3px;background:rgba(255,255,255,.4);opacity:0;transition:opacity .3s}
+  .clip-bar i{display:block;height:100%;background:var(--green-600);transform-origin:left;transform:scaleX(0)}
+  .cat.playing .clip-bar{opacity:1}
   .cat-info{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 4px 0}
   .cat-info h3{font-size:22px}
   .cat-info p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
@@ -508,7 +521,7 @@
 
   /* 12. Footer */
   footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
-  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
   .f-about p{margin:20px 0 24px;max-width:320px}
   footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
   footer ul{list-style:none;display:grid;gap:11px}
@@ -524,6 +537,8 @@
   .f-bot nav{display:flex;gap:24px}
   .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
   .f-bot select option{color:var(--text)}
+  .f-end{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .f-credit a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
   /* 4b. Swatch studio */
   .swatch-sec{background:var(--soft)}
@@ -685,11 +700,8 @@
     .hero{--edge:16px}
     .hero-card{height:auto;min-height:100svh}
     .hero-content{position:relative;inset:auto;min-height:100svh;padding:100px 16px 112px}
-    .hero-badge{height:auto;min-height:34px;padding:4px 14px 4px 4px;font-size:12.5px;line-height:1.35;text-align:left;margin-bottom:20px}
     .hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.1}
     .hero-ctrl{bottom:24px}
-    .hero-ctrl .lbl{display:none}
-    .hero-ctas .btn{flex:1}
     .cats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
     .cat,.cat:nth-child(n){margin-top:0;scroll-snap-align:start}
     .clip-tag{opacity:1;transform:none}
@@ -727,6 +739,20 @@
     *,*::before,*::after{transition:none!important;animation:none!important}
     .rv{opacity:1;transform:none}
   }
+  /* Brand logo (images/logo-ss.png, the supplied SS mark in its own green) */
+  .logo-img{display:block;height:46px;width:auto}
+  /* Header over the hero: logo in the button green; deep logo green once the header turns light */
+  .logo-img.on-dark{display:none}
+  header .logo-img.on-light{display:none}
+  header .logo-img.on-dark{display:block}
+  header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
+  header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
+  footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  header .logo-img{height:60px}
+  @media (max-width:640px){header .logo-img{height:50px}}
+  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
+  body::after{content:"";position:fixed;inset:0;background:url(images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
+   print{body::after{display:none}}
 </style>
 </head>
 <body>
@@ -734,23 +760,23 @@
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+    <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-new-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-new.png" alt=""></a>
     <nav aria-label="Main">
       <ul>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#manufacturing">Manufacturing</a></li>
-        <li><a href="#sustainability">Sustainability</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="manufacturing.html">Manufacturing</a></li>
+        <li><a href="sustainability.html">Sustainability</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="news.html">News</a></li>
       </ul>
     </nav>
-    <a href="#quote" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a href="quote.html" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="#products">Products</a><a href="#manufacturing">Manufacturing</a><a href="#sustainability">Sustainability</a><a href="#about">About</a><a href="#news">News</a><a href="#faq">FAQ</a>
-    <a href="#quote" class="btn btn-primary">Get a Quote</a>
+    <a href="index.html" aria-current="page">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html">Sustainability</a><a href="#about">About</a><a href="news.html">News</a>
+    <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
 
@@ -758,32 +784,19 @@
 <!-- ===== 2. Hero ===== -->
 <section class="hero" aria-label="Introduction">
     <div class="hero-card" id="hero">
-      <!-- Storyboard images; the sustainability film (media/hero.mp4) replaces them once supplied -->
-      <div class="slide on" data-label="Global shipping"><img src="images/port.jpg" alt=""></div>
-      <div class="slide" data-label="Sustainable raw materials"><img src="images/cotton-trees.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Responsible production"><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Energy efficiency"><img src="images/solar.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Finished garments"><img src="images/cotton-cloths.jpg" alt="" loading="lazy" style="object-position:center 60%"></div>
-      <video id="film" muted loop playsinline preload="none" aria-hidden="true">
-        <source src="media/hero.webm" type="video/webm">
-        <source src="media/hero.mp4" type="video/mp4">
-      </video>
+      <!-- Story in a fixed order: each slide carries its own title and text -->
+      <div class="slide on" data-label="Finished garments" data-title="Finished garments made<br> to your specification" data-text="Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step."><img src="images/heros/finished-garments.jpg" alt="" fetchpriority="high" decoding="async"></div>
+      <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/heros/raw-materials.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/heros/production.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/heros/clean-energy.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.jpg" alt="" loading="lazy"></div>
 
       <div class="hero-content">
-        <span class="hero-badge"><b>New</b> Preview key styles on 3D avatars before sampling</span>
-        <h1>Responsible apparel manufacturing<br> for growing brands</h1>
-        <p>Lingerie, denim, sweaters, wovens and knits — produced to your specification with transparent costing and a quotation within one business day.</p>
-        <div class="hero-ctas">
-          <a href="#quote" class="btn btn-white">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#sustainability" class="btn btn-glass">Our Sustainability</a>
-        </div>
+        <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
+        <p id="heroText">Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step.</p>
       </div>
 
-      <div class="hero-ctrl">
-        <span class="lbl" id="slideLbl">Sustainable raw materials</span>
-        <div class="dots" id="dots"><button class="on" aria-label="Slide 1"></button><button aria-label="Slide 2"></button><button aria-label="Slide 3"></button><button aria-label="Slide 4"></button><button aria-label="Slide 5"></button></div>
-        <button class="pp" id="pp" aria-label="Pause"><svg id="ppIco" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
-      </div>
+      <div class="hero-ctrl"><div id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div><button class="hero-pp" id="heroPP" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx=".6"/><rect x="7.4" y="1.5" width="2.6" height="9" rx=".6"/></svg><svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button></div>
     </div>
 </section>
 
@@ -802,7 +815,7 @@
 
 <!-- ===== 4. Products ===== -->
 <!-- Add data-clip="media/clips/denim.mp4" on a card to play its 3D avatar clip on hover (desktop) -->
-<section id="products">
+<!-- <section id="products">
   <div class="wrap">
     <div class="cats-head rv">
       <h2>Offering a diverse range of products</h2>
@@ -813,7 +826,7 @@
         <div class="media"><img src="images/cat-lingerie.jpg" alt="Model wearing a lilac silk sleepwear set" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Lingerie</h3><p>Sleepwear, bras &amp; briefs</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="">
+      <a href="products/denim.html" class="cat rv" style="--d:0.06s" data-clip="media/clips/denim.mp4">
         <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -821,7 +834,7 @@
         <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="">
+      <a href="products/woven.html" class="cat rv" style="--d:0.18s" data-clip="media/clips/woven.mp4">
         <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -831,10 +844,10 @@
       </a>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ===== 5. New collection ===== -->
-<section class="edit" id="collection">
+<!-- <section class="edit" id="collection">
   <div class="wrap edit-head rv">
     <div><h2>The new collection</h2><p>Pieces from our current production lines. Hover any piece to see its fabric up close.</p></div>
     <div class="edit-tabs" role="tablist" aria-label="Filter"><button class="on" data-f="all">All</button><button data-f="Woven">Woven</button><button data-f="Sweater">Sweater</button><button data-f="Denim">Denim</button><button data-f="Lingerie">Lingerie</button></div>
@@ -846,37 +859,10 @@
   </div>
   <div class="edit-grid" id="editGrid"><a href="#" class="prod"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky rib sweater" loading="lazy"><img class="alt" src="images/swatches/ss-k08-cream.webp" alt="" loading="lazy"><span class="swatchdot">Wool blend, cream</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Chunky rib sweater</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" loading="lazy"><img class="alt" src="images/swatches/ss-s07-lilac.webp" alt="" loading="lazy"><span class="swatchdot">Silk satin, lilac</span></div><div class="cap"><small>Lingerie · MOQ 500</small><b>Silk sleep set</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Cropped denim jacket" loading="lazy"><img class="alt" src="images/swatches/ss-d01-mid-wash.webp" alt="" loading="lazy"><span class="swatchdot">Denim, mid wash</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Cropped denim jacket</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" loading="lazy"><img class="alt" src="images/swatches/ss-k08-bottle-green.webp" alt="" loading="lazy"><span class="swatchdot">Organic cotton, 5GG</span></div><div class="cap"><small>Sweater · MOQ 600</small><b>Cable knit vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" loading="lazy"><img class="alt" src="images/swatches/ss-d01-indigo.webp" alt="" loading="lazy"><span class="swatchdot">Denim, indigo</span></div><div class="cap"><small>Denim · MOQ 1,000</small><b>Rib denim vest</b><span>View the piece</span></div></a><a href="#" class="prod"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" loading="lazy"><img class="alt" src="images/swatches/ss-r03-dusty-rose.webp" alt="" loading="lazy"><span class="swatchdot">Recycled nylon, rose</span></div><div class="cap"><small>Knit · MOQ 1,000</small><b>Active set</b><span>View the piece</span></div></a></div>
   <div class="edit-more"><a href="products.html" class="btn btn-outline">View all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-</section>
-
-<!-- ===== 6. Lookbook (360° ring) ===== -->
-<section class="lookbook-sec" id="lookbook">
-  <div class="wrap">
-    <div class="s-head rv"><div><h2>Explore the lookbook</h2><p class="lead">Drag to turn the stage. The look in front shows every piece we make for it.</p></div></div>
-  </div>
-  <div class="lb-stage rv">
-    <div class="lb-left">
-    <div class="lb-word" id="lbWord" aria-hidden="true">Lingerie</div>
-    <div class="ring" id="ring" aria-roledescription="carousel" aria-label="Lookbook">
-      <div class="platform" aria-hidden="true"><i id="lbSpin"></i></div>
-      <div class="look" data-i="0"><div class="ph"><img src="images/cat-lingerie.jpg" alt="Silk sleep set" draggable="false" loading="lazy"><span class="lbl">Silk sleep set</span></div><span class="shadow"></span></div><div class="look" data-i="1"><div class="ph"><img src="images/cat-denim.jpg" alt="Rib denim vest" draggable="false" loading="lazy"><span class="lbl">Rib denim vest</span></div><span class="shadow"></span></div><div class="look" data-i="2"><div class="ph"><img src="images/cat-sweater.jpg" alt="Soft knit set" draggable="false" loading="lazy"><span class="lbl">Soft knit set</span></div><span class="shadow"></span></div><div class="look" data-i="3"><div class="ph"><img src="images/cat-woven.jpg" alt="Satin shirt suit" draggable="false" loading="lazy"><span class="lbl">Satin shirt suit</span></div><span class="shadow"></span></div><div class="look" data-i="4"><div class="ph"><img src="images/cat-knit.jpg" alt="Active set" draggable="false" loading="lazy"><span class="lbl">Active set</span></div><span class="shadow"></span></div><div class="look" data-i="5"><div class="ph"><img src="images/look-knitvest.jpg" alt="Cable knit vest" draggable="false" loading="lazy"><span class="lbl">Cable knit vest</span></div><span class="shadow"></span></div><div class="look" data-i="6"><div class="ph"><img src="images/look-denimjacket.jpg" alt="Denim jacket set" draggable="false" loading="lazy"><span class="lbl">Denim jacket set</span></div><span class="shadow"></span></div><div class="look" data-i="7"><div class="ph"><img src="images/look-linendress.jpg" alt="Linen maxi dress" draggable="false" loading="lazy"><span class="lbl">Linen maxi dress</span></div><span class="shadow"></span></div><div class="look" data-i="8"><div class="ph"><img src="images/look-sweatshirt.jpg" alt="Sweatshirt & baggy jeans" draggable="false" loading="lazy"><span class="lbl">Sweatshirt & baggy jeans</span></div><span class="shadow"></span></div><div class="look" data-i="9"><div class="ph"><img src="images/look-chunkyknit.jpg" alt="Chunky knit sweater" draggable="false" loading="lazy"><span class="lbl">Chunky knit sweater</span></div><span class="shadow"></span></div>
-    </div>
-    <div class="ring-ui"><div class="lb-pad"><span class="hint"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4"/></svg></i>Drag to rotate</span>
-          <div class="ring-nav"><span id="lbCount"></span><button id="lbPrev" aria-label="Previous look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="lbNext" aria-label="Next look"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div></div>
-    </div>
-    <aside class="inlook" aria-live="polite">
-      <div class="il-top"><span class="il-no" id="lbNo"></span><span class="count" id="lbPcs"></span></div>
-      <h3 id="lbName"></h3>
-      <p class="il-cat">Category · <b id="lbCat"></b></p>
-      <h4>Pieces in this look</h4>
-      <ul class="pieces" id="lbPieces"></ul>
-      <a href="#quote" class="btn btn-primary">Request a quote for this look</a>
-      <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
-    </aside>
-  </div>
-</section>
+</section> -->
 
 <!-- ===== 7. Build the look (outfit builder) ===== -->
-<section class="ob-sec" id="preview">
+<!-- <section class="ob-sec" id="preview">
   <div class="wrap">
     <div class="ob-head rv">
       <h2>Build the look, then request the sample</h2>
@@ -884,7 +870,7 @@
     </div>
     <outfit-builder></outfit-builder>
   </div>
-</section>
+</section> -->
 
 <!-- ===== 8. Swatch studio (hidden) ===== -->
 <section class="swatch-sec" id="fabrics" hidden>
@@ -925,37 +911,6 @@
   <p class="wrap sw-note">Sample fabric specifications — to be confirmed by Struggle Style before launch.</p>
 </section>
 
-<!-- ===== 9. Manufacturing ===== -->
-<section class="mfg" id="manufacturing">
-  <div class="wrap mfg-split">
-    <div class="mfg-visual rv">
-      <div class="mfg-main">
-        <img src="images/sew-line.jpg" alt="Operators working on a clean, well-lit sewing line" loading="lazy">
-        <div class="mfg-label"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l5 3V9l5 3V6l4 2v13"/></svg></i><div><b>Holy Intimates, Bangladesh</b><span>Lingerie production facility · Est. 2023</span></div></div>
-      </div>
-      <div class="mfg-inset"><img src="images/sew-woman.jpg" alt="Operator at an industrial sewing machine" loading="lazy"></div>
-      <div class="mfg-badge"><span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><b>One quality system</b><span>Inline &amp; final AQL checks</span></div></div>
-    </div>
-
-    <div class="mfg-content rv" style="--d:.1s">
-      <h2>Built for consistent quality</h2>
-      <p class="lead">Dedicated lines, skilled people and one quality system — with clear updates from the first sample to the final shipment.</p>
-      <ul class="mfg-points">
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Dedicated lingerie production lines</li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Photo updates at every production stage</li>
-        <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></i>Inline quality checks and final AQL inspection</li>
-      </ul>
-      <div class="caps">
-        <div class="cap"><strong data-count="2">0</strong><span class="l">Production lines</span></div>
-        <div class="cap"><strong data-count="34">0</strong><span class="l">Sewing machines</span></div>
-        <div class="cap"><strong data-count="40">0</strong><span class="l">Skilled people</span></div>
-        <div class="cap"><strong><span data-count="100">0</span>K</strong><span class="l">Pieces per month</span></div>
-      </div>
-      <a href="manufacturing.html" class="btn btn-primary">Explore our manufacturing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 10. Order process ===== -->
 <!-- Order process — simple numbered list -->
 <section class="process-sec" id="process">
@@ -979,7 +934,7 @@
 </section>
 
 <!-- ===== 11. Sustainability ===== -->
-<section class="sus" id="sustainability">
+<!-- <section class="sus" id="sustainability">
   <div class="wrap sus-grid">
     <div class="sus-content rv">
       <h2>Responsible by practice, transparent by default</h2>
@@ -1005,7 +960,7 @@
       </article>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- ===== 12. Certifications ===== -->
 <section class="certs-sec" id="certifications">
@@ -1043,7 +998,6 @@
     <div class="mq-row" id="mqA"></div>
     <div class="mq-row rev" id="mqB"></div>
   </div>
-  <p class="reach-note">Brands &amp; licenses we have produced for · Logos shown with permission</p>
 </section>
 
 <!-- ===== 14. Testimonials ===== -->
@@ -1056,25 +1010,6 @@
   <div class="wall rv" aria-label="Buyer reviews">
     <div class="wall-row" id="wallA"></div>
     <div class="wall-row rev" id="wallB"></div>
-  </div>
-  <p class="t-note">Sample testimonials with stock photos — to be replaced with verified, client-approved buyer feedback.</p>
-</section>
-
-<!-- ===== 15. News & insights ===== -->
-<section id="news" style="padding-top:0">
-  <div class="wrap">
-    <div class="s-head rv">
-      <div>
-        <h2>Latest from Struggle Style</h2>
-      </div>
-      <a href="#" class="btn btn-outline">View all articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-    <div class="posts">
-      <a href="#" class="post rv"><div class="img"><img src="images/denim-close.jpg" alt="Denim pocket stitching" loading="lazy"></div><div class="body"><div class="meta"><b>Denim</b>12 Oct 2026</div><h3>How low-water washing changes denim finishing</h3><span class="link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-      <a href="#" class="post rv" style="--d:.08s"><div class="img"><img src="images/fabric-rolls.jpg" alt="Stacked fabric rolls" loading="lazy"></div><div class="body"><div class="meta"><b>Materials</b>28 Sep 2026</div><h3>Choosing between organic, recycled and blended cotton</h3><span class="link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-      <a href="#" class="post rv" style="--d:.16s"><div class="img"><img src="images/sweater-white.jpg" alt="Folded white sweater on a chair" loading="lazy"></div><div class="body"><div class="meta"><b>Buyer Guide</b>09 Sep 2026</div><h3>MOQs, lead times and Incoterms explained for new importers</h3><span class="link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-      <a href="#" class="post rv" style="--d:.24s"><div class="img"><img src="images/sew-woman.jpg" alt="Operator checking stitching on a sewing line" loading="lazy"></div><div class="body"><div class="meta"><b>Quality</b>21 Aug 2026</div><h3>Inside our inline quality checks, from cutting to packing</h3><span class="link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a>
-    </div>
   </div>
 </section>
 
@@ -1117,11 +1052,11 @@
 </main>
 
 <!-- ===== 17. Footer ===== -->
-<footer>
+<footer id="faq">
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><span class="wm"><em>Struggle</em><span>Style<svg class="thread" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 Q30 12 60 7 T88 5" fill="none" stroke="#F5A00F" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><sup>INC.</sup></span></a>
+        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-new-leaf.png" alt="Struggle Style"></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
@@ -1130,8 +1065,7 @@
           <a href="https://x.com/struggl86081532" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L.7 3h6.8l4.7 6.2zm-1.2 16h1.8L6.6 4.9H4.7z"/></svg></a>
         </div>
       </div>
-      <div><h5>Products</h5><ul><li><a href="#">Lingerie</a></li><li><a href="#">Denim</a></li><li><a href="#">Sweater</a></li><li><a href="#">Woven</a></li><li><a href="#">Knit</a></li></ul></div>
-      <div><h5>Company</h5><ul><li><a href="#">About Us</a></li><li><a href="#">Manufacturing</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Certifications</a></li><li><a href="#">News</a></li><li><a href="#" id="faq">FAQ</a></li></ul></div>
+      <div><h5>Information</h5><ul><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookies</a></li><li><a href="#">Contact</a></li></ul></div>
       <div>
         <h5>Contact</h5>
         <ul class="contact">
@@ -1143,8 +1077,9 @@
     </div>
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
-      <nav aria-label="Legal"><a href="#">Terms &amp; Conditions</a><a href="#">Privacy Policy</a><a href="#">Cookies</a><a href="#">Contact</a></nav>
-      <select aria-label="Language"><option>English</option></select>
+      <div class="f-end">
+        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
+      </div>
     </div>
   </div>
 </footer>
@@ -1161,33 +1096,41 @@
   $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
   $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
 
-  // Hero slideshow (replaced by the film when media/hero.mp4 is available)
-  const slides = $$('.slide'), dots = $$('#dots button'), hero = $('#hero'), film = $('#film');
-  let cur = 0, playing = !reduce, timer;
+  // Hero slideshow: a fixed order, each slide with its own title and text; bullets jump to a slide.
+  // It pauses while the pointer or keyboard focus is on the hero.
+  const slides = $$('.slide'), dots = $$('#dots button'), hero = $('#hero'), content = hero.querySelector('.hero-content');
+  let cur = 0, timer, held = false, paused = false;
   const show = i => {
-    slides[cur].classList.remove('on'); dots[cur].classList.remove('on');
+    slides[cur].classList.remove('on');
+    dots[cur].classList.remove('on'); dots[cur].setAttribute('aria-selected', 'false');
     cur = (i + slides.length) % slides.length;
-    slides[cur].classList.add('on'); void dots[cur].offsetWidth; dots[cur].classList.add('on');
-    $('#slideLbl').textContent = slides[cur].dataset.label;
+    slides[cur].classList.add('on');
+    dots[cur].classList.add('on'); dots[cur].setAttribute('aria-selected', 'true');
+    content.classList.add('swap');
+    setTimeout(() => {
+      $('#heroTitle').innerHTML = slides[cur].dataset.title;
+      $('#heroText').textContent = slides[cur].dataset.text;
+      content.classList.remove('swap');
+    }, reduce ? 0 : 450);
     schedule();
   };
-  const schedule = () => { clearTimeout(timer); if (playing) timer = setTimeout(() => show(cur + 1), 6000); };
-  const setIcon = () => {
-    hero.classList.toggle('paused', !playing);
-    $('#ppIco').innerHTML = playing ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>' : '<path d="M8 5v14l11-7z"/>';
-    $('#pp').setAttribute('aria-label', playing ? 'Pause' : 'Play');
-  };
+  const schedule = () => { clearTimeout(timer); if (!held && !paused) timer = setTimeout(() => show(cur + 1), 6000); };
   dots.forEach((d, i) => d.onclick = () => show(i));
-  $('#pp').onclick = () => {
-    playing = !playing; setIcon();
-    if (hero.classList.contains('has-video')) playing ? film.play() : film.pause(); else schedule();
+  const hold = on => { held = on; schedule(); };
+  const pp = $('#heroPP');
+  pp.onclick = () => {
+    paused = !paused;
+    pp.classList.toggle('paused', paused);
+    pp.setAttribute('aria-pressed', paused);
+    pp.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    schedule();
   };
-  setIcon(); schedule();
-  const c = navigator.connection;
-  if (!reduce && innerWidth > 640 && !(c && (c.saveData || /2g/.test(c.effectiveType)))) {
-    film.addEventListener('canplay', () => { hero.classList.add('has-video'); clearTimeout(timer); film.play().catch(() => {}); }, {once: true});
-    film.load();
-  }
+  if (reduce) { paused = true; pp.classList.add('paused'); pp.setAttribute('aria-pressed', 'true'); pp.setAttribute('aria-label', 'Play slideshow'); }
+  hero.addEventListener('mouseenter', () => hold(true));
+  hero.addEventListener('mouseleave', () => hold(false));
+  hero.addEventListener('focusin', () => hold(true));
+  hero.addEventListener('focusout', () => hold(false));
+  schedule();
 
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
@@ -1204,17 +1147,20 @@
 
 
 
-  // Category cards: play the 3D avatar clip on hover (desktop), or while in view (touch) — one clip at a time
-  const hoverable = matchMedia('(hover: hover)').matches;
+  // Category cards: autoplay the clip whenever the card is on screen, pause it when scrolled away
   const clipCards = $$('.cat').filter(card => card.dataset.clip);
-  const stopAll = except => clipCards.forEach(c => { if (c !== except) { c.classList.remove('playing'); c.clip.pause(); } });
   clipCards.forEach(card => {
-    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'none'});
-    card.querySelector('.media').append(v); card.clip = v;
-    const play = () => { stopAll(card); v.play().then(() => card.classList.add('playing')).catch(() => {}); };
+    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, autoplay: true, preload: 'auto'});
+    const bar = Object.assign(document.createElement('span'), {className: 'clip-bar', innerHTML: '<i></i>'});
+    card.querySelector('.media').append(v, bar); card.clip = v;
+    // progress bar along the bottom edge so it reads as a playing video
+    let raf;
+    const tick = () => { bar.firstChild.style.transform = `scaleX(${v.duration ? v.currentTime / v.duration : 0})`; raf = requestAnimationFrame(tick); };
+    v.addEventListener('play', () => { cancelAnimationFrame(raf); tick(); });
+    v.addEventListener('pause', () => cancelAnimationFrame(raf));
+    const play = () => v.play().then(() => card.classList.add('playing')).catch(() => {});
     const stop = () => { card.classList.remove('playing'); v.pause(); };
-    if (hoverable) { card.addEventListener('mouseenter', play); card.addEventListener('mouseleave', stop); }
-    else new IntersectionObserver(([e]) => e.intersectionRatio > .6 ? play() : stop(), {threshold: [0, .6]}).observe(card);
+    new IntersectionObserver(([e]) => e.isIntersecting ? play() : stop(), {threshold: .25}).observe(card);
   });
 
   // Brand logos (from the current site)
@@ -1524,65 +1470,6 @@
   big.addEventListener('pointerleave', () => big.classList.remove('zoom'));
 
   setSwatch(0); renderKit();
-
-  // Lookbook ring: drag/swipe to rotate, arrows step, auto-spins until touched
-  (() => {
-    const LOOKS = [{"name": "Silk sleep set", "cat": "Lingerie", "items": [["swatches/ss-s07-lilac-sm.webp", "Satin shirt top", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-s07-lilac-sm.webp", "Wide sleep trousers", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-w06-white-sm.webp", "Piped trims", "Organic cotton piping", "Included"]]}, {"name": "Rib denim vest", "cat": "Denim", "items": [["swatches/ss-d01-indigo-sm.webp", "Rib-knit denim vest", "Cotton denim, 10 oz", "1,000 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Relaxed jeans", "Cotton denim, 12 oz, eco-wash", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Denim shoulder bag", "Denim offcuts, upcycled", "1,000 pcs"]]}, {"name": "Soft knit set", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Boxy knit top", "Recycled wool blend, 7GG", "600 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Wide-leg jeans", "Cotton denim, 12 oz", "1,000 pcs"], ["swatches/ss-j02-off-white-sm.webp", "Knit care label", "Organic cotton label", "Included"]]}, {"name": "Satin shirt suit", "cat": "Woven", "items": [["swatches/ss-s07-champagne-sm.webp", "Oversized satin shirt", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-s07-champagne-sm.webp", "Straight trousers", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-w06-white-sm.webp", "Shell buttons", "Natural shell, 4-hole", "Included"]]}, {"name": "Active set", "cat": "Knit", "items": [["swatches/ss-r03-dusty-rose-sm.webp", "Sports bra", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-r03-dusty-rose-sm.webp", "High-rise leggings", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-k08-charcoal-sm.webp", "Logo waistband", "Jacquard elastic", "Included"]]}, {"name": "Cable knit vest", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Cable knit vest", "Organic cotton, 5GG", "600 pcs"], ["swatches/ss-t05-sand-sm.webp", "Pleated chinos", "Cotton twill, 260 GSM", "800 pcs"], ["swatches/ss-k08-bottle-green-sm.webp", "Contrast tipping", "Recycled yarn trim", "Included"]]}, {"name": "Denim jacket set", "cat": "Denim", "items": [["swatches/ss-d01-mid-wash-sm.webp", "Cropped denim jacket", "Cotton denim, 12 oz", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Straight jeans", "Cotton denim, 12 oz, eco-wash", "1,000 pcs"], ["swatches/ss-j02-off-white-sm.webp", "Ribbed crop top", "Organic jersey, 180 GSM", "1,000 pcs"]]}, {"name": "Linen maxi dress", "cat": "Woven", "items": [["swatches/ss-w06-sage-sm.webp", "Linen maxi dress", "Linen-cotton blend, 150 GSM", "800 pcs"], ["swatches/ss-w06-white-sm.webp", "Self-fabric belt", "Linen-cotton blend", "Included"], ["swatches/ss-j02-terracotta-sm.webp", "Dye options", "Low-impact reactive dyes", "Included"]]}, {"name": "Sweatshirt & baggy jeans", "cat": "Knit", "items": [["swatches/ss-t05-sand-sm.webp", "Crewneck sweatshirt", "Recycled French terry, 320 GSM", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Baggy jeans", "Cotton denim, 13 oz", "1,000 pcs"], ["swatches/ss-t05-black-sm.webp", "Chest print", "Water-based ink", "Included"]]}, {"name": "Chunky knit sweater", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Chunky rib sweater", "Wool blend, 3GG", "600 pcs"], ["swatches/ss-k08-camel-sm.webp", "Colour option", "Wool blend, 3GG", "600 pcs"], ["swatches/ss-w06-white-sm.webp", "Woven brand label", "Recycled polyester", "Included"]]}];
-    const ring = $('#ring'), items = $$('#ring .look'), N = items.length, STEP = 360 / N;
-    let rot = 0, target = 0, vel = 0, dragging = false, lastX = 0, idle = !reduce, front = -1;
-    const radius = () => Math.min(ring.clientWidth * .44, 640);
-    const setFront = i => {
-      if (i === front) return; front = i;
-      items.forEach((el, k) => el.classList.toggle('front', k === i));
-      const L = LOOKS[i];
-      $('#lbName').textContent = L.name; $('#lbCat').textContent = L.cat;
-      const w = $('#lbWord'); w.classList.add('swap'); setTimeout(() => { w.textContent = L.cat; w.classList.remove('swap'); }, 220);
-      $('#lbCount').innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b> / ${String(N).padStart(2, '0')}`;
-      $('#lbPieces').innerHTML = L.items.map(([img, n, d, moq], k) =>
-        `<li style="--k:${k}"><img src="images/${img}" alt=""><div><b>${n}</b><span>${d}</span></div><em>MOQ<strong>${moq.replace(' pcs', '')}</strong></em></li>`).join('');
-      $('#lbPcs').textContent = `${L.items.length} pieces`;
-      $('#lbNo').textContent = `Look ${String(i + 1).padStart(2, '0')} of ${String(N).padStart(2, '0')}`;
-      const h = $('#lbName'); h.style.animation = 'none'; void h.offsetWidth; h.style.animation = '';
-      $$('#lbThumbs button').forEach((t, k) => t.classList.toggle('on', k === i));
-    };
-    const render = () => {
-      const R = radius();
-      let best = 0, bestZ = -Infinity;
-      items.forEach((el, i) => {
-        const a = (i * STEP + rot) * Math.PI / 180, x = Math.sin(a) * R, z = Math.cos(a);
-        const sc = .46 + Math.pow((z + 1) / 2, 3) * .86;  // front look is clearly larger than the rest
-        el.style.transform = `translateX(${x}px) translateY(${(1 - z) * -ring.clientHeight * .24}px) scale(${sc})`;
-        el.style.zIndex = Math.round((z + 1) * 100);
-        el.style.opacity = .55 + (z + 1) * .225;
-        el.style.filter = z < .5 ? `blur(${(.5 - z) * .9}px) saturate(${.75 + (z + 1) * .12})` : 'none';
-        if (z > bestZ) { bestZ = z; best = i; }
-      });
-      setFront(best);
-      $('#lbSpin').style.setProperty('--spin', `${-rot}deg`);
-    };
-    const snap = () => { target = Math.round(rot / STEP) * STEP; };
-    const tick = () => {
-      if (!dragging) {
-        if (idle) target -= .08;
-        if (Math.abs(vel) > .05) { target += vel; vel *= .92; if (Math.abs(vel) <= .05) snap(); }
-        rot += (target - rot) * .1;
-      }
-      render(); requestAnimationFrame(tick);
-    };
-    const stopIdle = () => { idle = false; };
-    ring.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; dragging = true; stopIdle(); lastX = e.clientX; vel = 0; ring.classList.add('dragging'); ring.setPointerCapture(e.pointerId); });
-    ring.addEventListener('pointermove', e => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; rot += dx * .25; target = rot; vel = dx * .25; });
-    const end = () => { if (!dragging) return; dragging = false; ring.classList.remove('dragging'); if (Math.abs(vel) <= .05) snap(); };
-    ring.addEventListener('pointerup', end); ring.addEventListener('pointercancel', end);
-    const go = d => { stopIdle(); vel = 0; target = Math.round(target / STEP) * STEP + d * STEP; };
-    $('#lbPrev').onclick = () => go(1);
-    $('#lbNext').onclick = () => go(-1);
-    items.forEach((el, i) => el.addEventListener('click', () => { if (i !== front && !dragging) { stopIdle(); vel = 0; const cur = Math.round(target / STEP); let d = (-i - cur) % N; if (d > N / 2) d -= N; if (d < -N / 2) d += N; target = (cur + d) * STEP; } }));
-    ring.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1); });
-    ring.tabIndex = 0;
-    $$('#lbThumbs button').forEach(t => t.onclick = () => items[+t.dataset.k].click());
-    render(); requestAnimationFrame(tick);
-  })();
 
   // Editorial collection: filter tiles by category
   $$('.edit-tabs button').forEach(b => b.onclick = () => {
