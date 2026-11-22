@@ -540,6 +540,10 @@
   .soc svg{width:16px;height:16px}
   .contact li{display:flex;gap:12px;align-items:flex-start}
   .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
+  .f-locrow{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:center;gap:32px;padding:36px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-locrow h5{font-size:clamp(24px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;margin:0;padding-right:16px}
+  .f-locrow address{font-style:normal;font-size:14px;line-height:1.6;padding-left:18px;border-left:3px solid var(--leaf)}
+  .f-locrow b{display:block;color:#fff;font-weight:600}
   .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
   .f-bot nav{display:flex;gap:24px}
   .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
@@ -690,6 +694,8 @@
     .posts{grid-template-columns:1fr 1fr}
     .market-pills{justify-content:flex-start}
     .f-grid{grid-template-columns:1fr 1fr}
+    .f-locrow{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .f-locrow h5{grid-column:1/-1}
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
@@ -736,6 +742,7 @@
     .mpill img{width:28px;height:28px}
     .rfq{padding:80px 0}
     .f-grid{grid-template-columns:1fr}
+    .f-locrow{grid-template-columns:1fr;gap:22px}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition:none!important;animation:none!important}
@@ -864,9 +871,15 @@
         <ul class="contact">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:info@strugglestyle.net">info@strugglestyle.net</a></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><a href="tel:+12675368321">+1 (267) 536-8321</a></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Holy Intimates, Bangladesh<br><small>Full address to be added</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>2221 Powel Avenue, 1st Floor<br>Bronx, NY 10462</span></li>
         </ul>
       </div>
+    </div>
+    <div class="f-locrow">
+      <h5>Location</h5>
+      <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
+      <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
+      <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
     </div>
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
