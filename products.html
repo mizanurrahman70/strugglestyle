@@ -171,13 +171,20 @@
   .cats-head{text-align:center;max-width:720px;margin:0 auto 64px}
   .cats-head h2{margin:0 0 14px;text-wrap:balance}
   .cats-head .lead{margin:0 auto}
-  .cats{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:start}
-  .cat{display:block;color:var(--text)}
-  .cat:nth-child(even){margin-top:64px}
-  .cat .media{position:relative;aspect-ratio:3/4;border-radius:var(--r);overflow:hidden;background:var(--soft)}
+  .cats{--cw:220px;--gap:16px;position:relative;overflow:hidden;height:calc(var(--cw) * 1.66 + 130px);touch-action:pan-y;user-select:none}
+  .cat{position:absolute;left:50%;top:50%;width:var(--cw);color:var(--text);transform:translate(calc(-50% + var(--x) * (var(--cw) + var(--gap))),-50%);transition:transform .7s var(--ease),opacity .4s}
+  .cat.jump{transition:none}
+  .cat.far{opacity:0;pointer-events:none}
+  .cat img{-webkit-user-drag:none}
+  .cat .media{position:relative;height:calc(var(--cw) * 1.3);border-radius:var(--r);overflow:hidden;background:var(--soft);transition:height .55s var(--ease)}
+  .cat.active .media{height:calc(var(--cw) * 1.66)}
+  .cats-nav{display:flex;justify-content:center;gap:10px;margin-top:28px}
+  .cats-nav button{width:50px;height:50px;border-radius:50%;background:#fff;color:var(--green-800);border:1px solid var(--border);display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
+  .cats-nav button:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
+  .cats-nav svg{width:18px;height:18px}
   .cat .media img,.cat .media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .cat .media img{object-position:center top;transition:transform 1.2s var(--ease)}
-  .cat:hover .media img{transform:scale(1.06)}
+  .cat.active .media img{transform:scale(1.04)}
   /* Category collections: one card at a time eases to its next photo (long, soft cross-fade) */
   .cat .media img.cyc{opacity:0;transform:scale(1.03);transition:opacity 1.8s cubic-bezier(.45,0,.25,1),transform 7s cubic-bezier(.2,.6,.3,1)}
   .cat .media img.cyc.on{opacity:1;transform:scale(1)}
@@ -204,7 +211,8 @@
   .cat-info p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.45}
   .cat-info .go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
   .cat-info .go svg{width:15px;height:15px}
-  .cat:hover .cat-info .go{background:var(--green-800);border-color:var(--green-800);color:#fff;transform:rotate(-45deg)}
+  .cat.active .cat-info .go{background:var(--green-800);border-color:var(--green-800);color:#fff;transform:rotate(-45deg)}
+  .cat .play-hint,.cat .clip-tag{display:none!important}
 
   /* 4c. Lookbook — full-width turntable stage, drag to rotate */
   .lookbook-sec{padding:112px 0}
@@ -654,9 +662,6 @@
     .lb-left{height:540px}
     .inlook{border-left:0;border-top:1px solid var(--border);padding:28px 32px}
 
-    .cats{grid-template-columns:repeat(3,1fr);row-gap:40px}
-    .cat:nth-child(even){margin-top:0}
-    .cat:nth-child(3n+2){margin-top:48px}
     .cert-layout{grid-template-columns:1fr;gap:40px}
     .viewer-box{grid-template-columns:1fr;overflow:auto}
     .viewer-doc svg{height:auto;width:100%;max-width:420px}
@@ -701,9 +706,7 @@
     .hero-content{position:relative;inset:auto;min-height:100svh;padding:100px 16px 112px}
     .hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.1}
     .hero-ctrl{bottom:24px}
-    .cats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 8px;scrollbar-width:none}
-    .cat,.cat:nth-child(n){margin-top:0;scroll-snap-align:start}
-    .clip-tag{opacity:1;transform:none}
+    .cats{--gap:12px}
     .posts{grid-template-columns:1fr}
     .hangtag{padding:70px 22px 24px}
     .tag-rows li{grid-template-columns:28px 1fr;gap:10px}
@@ -824,7 +827,7 @@
         <div class="media"><img src="images/cat-denim.jpg" alt="Model wearing a denim vest" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Denim</h3><p>Jeans, jackets &amp; vests</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/sweater.html" data-gallery="images/look-chunkyknit.jpg|images/look-knitvest.jpg|images/sweater-scissors.jpg" class="cat rv" style="--d:0.12s" data-clip="">
+      <a href="products/sweater.html" data-gallery="images/look-chunkyknit.jpg|images/look-knitvest.jpg|images/sweater-scissors.jpg" class="cat rv" style="--d:0.12s" data-clip="products/denim/jacketVideo/jacket.mp4">
         <div class="media"><img src="images/cat-sweater.jpg" alt="Model wearing a pink knit top" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Sweater</h3><p>Pullovers &amp; knit tops</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
@@ -832,11 +835,12 @@
         <div class="media"><img src="images/cat-woven.jpg" alt="Model wearing a cream woven shirt" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Woven</h3><p>Shirts, trousers &amp; sets</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="products/knit.html" data-gallery="images/look-sweatshirt.jpg|images/shirts-wood.jpg|images/cotton-cloths.jpg" class="cat rv" style="--d:0.24s" data-clip="">
+      <a href="products/knit.html" data-gallery="images/look-sweatshirt.jpg|images/shirts-wood.jpg|images/cotton-cloths.jpg" class="cat rv" style="--d:0.24s" data-clip="products/denim/look.mp4">
         <div class="media"><img src="images/cat-knit.jpg" alt="Model wearing a knit sports bra" loading="lazy"><span class="play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="clip-tag"><i></i>3D avatar clip</span></div>
         <div class="cat-info"><div><h3>Knit</h3><p>Activewear, tees &amp; polos</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
     </div>
+    <div class="cats-nav"><button id="catPrev" aria-label="Previous category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="catNext" aria-label="Next category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
   </div>
 </section>
 </main>
@@ -889,61 +893,80 @@
   $$('.rv').forEach(el => io.observe(el));
 
 
-  // Category cards: each shows its own collection. Only ONE card changes at a time: every STEP ms the next card
-  // (left to right, round the row) eases to its next photo, so the row never flickers all at once.
-  // A hovered card is skipped; photos only fade in once loaded; nothing changes off screen or with reduced motion.
-  const STEP = 2600;
-  const decks = $$('.cat[data-gallery]').map(card => {
-    const first = card.querySelector('.media img'), imgs = [first];
-    card.dataset.gallery.split('|').forEach(src => {
-      const im = Object.assign(document.createElement('img'), {src, alt: '', decoding: 'async'});
-      im.setAttribute('aria-hidden', 'true');
-      imgs[imgs.length - 1].after(im);
-      imgs.push(im);
-    });
-    imgs.forEach((im, i) => { im.classList.add('cyc'); if (!i) im.classList.add('on'); });
-    return {card, imgs, at: 0};
-  }).filter(d => d.imgs.length > 1);
-  if (!reduce && decks.length) {
-    const row = $('.cats');
-    const onScreen = () => { const r = row.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
-    let turn = 0;
-    setInterval(() => {
-      if (document.hidden || !onScreen()) return;
-      for (let tries = 0; tries < decks.length; tries++) {
-        const d = decks[turn];
-        turn = (turn + 1) % decks.length;
-        const next = d.imgs[(d.at + 1) % d.imgs.length];
-        if (d.card.matches(':hover') || !(next.complete && next.naturalWidth)) continue;
-        d.imgs[d.at].classList.remove('on');
-        d.at = (d.at + 1) % d.imgs.length;
-        next.classList.add('on');
-        break;
-      }
-    }, STEP);
-  }
-
-  // Category cards: autoplay the clip whenever the card is on screen, pause it when scrolled away
-  const clipCards = $$('.cat').filter(card => card.dataset.clip);
-  clipCards.forEach(card => {
-    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, autoplay: true, preload: 'auto'});
-    const bar = Object.assign(document.createElement('span'), {className: 'clip-bar', innerHTML: '<i></i>'});
-    card.querySelector('.media').append(v, bar); card.clip = v;
-    // progress bar along the bottom edge so it reads as a playing video
-    let raf;
-    const tick = () => { bar.firstChild.style.transform = `scaleX(${v.duration ? v.currentTime / v.duration : 0})`; raf = requestAnimationFrame(tick); };
-    v.addEventListener('play', () => { cancelAnimationFrame(raf); tick(); });
-    v.addEventListener('pause', () => cancelAnimationFrame(raf));
-    const play = () => v.play().then(() => card.classList.add('playing')).catch(() => {});
-    const stop = () => { card.classList.remove('playing'); v.pause(); };
-    new IntersectionObserver(([e]) => e.isIntersecting ? play() : stop(), {threshold: .25}).observe(card);
+  // Category carousel: an endless loop. The centre card is always flanked by the same number of cards on
+  // each side; a card leaving one edge jumps (hidden) to the other edge, so the gap is always filled.
+  // The centred (or hovered) card grows and plays its clip; the rest show a still photo.
+  const track = $('.cats'), originals = $$('.cat');
+  originals.forEach(c => c.classList.remove('rv'));
+  // three copies of the set, so there are always enough cards to fill a wide screen
+  for (let k = 0; k < 2; k++) originals.forEach(c => {
+    const cl = c.cloneNode(true);
+    cl.setAttribute('aria-hidden', 'true'); cl.tabIndex = -1;
+    track.append(cl);
   });
+  const cards = $$('.cat'), N = cards.length;
+  cards.forEach(card => {
+    if (!card.dataset.clip) { card.clip = {play: () => Promise.reject(), pause() {}}; return; }   // photo-only card
+    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'metadata'});
+    card.querySelector('.media').append(v); card.clip = v;
+  });
+  let cur = 2, hovered = null, inView = false;   // start on the 3rd category (Sweater) in the middle
+  const half = Math.floor(N / 2);
+  const slot = i => { let x = (i - cur) % N; if (x > half) x -= N; if (x < -half) x += N; return x; };
+  const setActive = () => {
+    const a = hovered || cards[((cur % N) + N) % N];
+    cards.forEach(c => {
+      const on = c === a && inView;
+      c.classList.toggle('active', c === a);
+      if (on) c.clip.play().then(() => c.classList.add('playing')).catch(() => {});
+      else { c.classList.remove('playing'); c.clip.pause(); }
+    });
+  };
+  const layout = () => {
+    // fit exactly 5 cards (3 on tablets, 1 on phones) inside the page width, leaving the side margins empty
+    const W = track.clientWidth, gap = parseFloat(getComputedStyle(track).getPropertyValue('--gap')) || 16;
+    const count = W >= 860 ? 5 : W >= 520 ? 3 : 1;
+    track.style.setProperty('--cw', Math.min(count === 1 ? 300 : 320, (W - (count - 1) * gap) / count) + 'px');
+    const edge = (count - 1) / 2;
+    cards.forEach((c, i) => {
+      const x = slot(i), old = +c.style.getPropertyValue('--x');
+      // a card wrapping from one side to the other moves instantly while hidden, so it never sweeps across
+      c.classList.toggle('jump', Math.abs(x - old) > 1);
+      c.classList.toggle('far', Math.abs(x) > edge);
+      c.style.setProperty('--x', x);
+    });
+    void track.offsetWidth;   // apply the instant jumps before turning transitions back on
+    cards.forEach(c => c.classList.remove('jump'));
+    setActive();
+  };
+  const step = d => { cur = (cur + d + N) % N; layout(); };
+  cards.forEach(c => {
+    c.addEventListener('mouseenter', () => { hovered = c; setActive(); });
+    c.addEventListener('mouseleave', () => { hovered = null; setActive(); });
+  });
+  // swipe / drag
+  let sx = null, moved = false;
+  track.addEventListener('pointerdown', e => { sx = e.clientX; moved = false; });
+  track.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx; sx = null;
+    if (Math.abs(dx) > 40) { moved = true; step(dx < 0 ? 1 : -1); restartAuto(); }
+  });
+  track.addEventListener('click', e => { if (moved) { e.preventDefault(); moved = false; } }, true);
+  const restartAuto = () => {};   // no auto-advance: the carousel only moves with the arrows or a swipe
+  $('#catPrev').onclick = () => { step(-1); restartAuto(); };
+  $('#catNext').onclick = () => { step(1); restartAuto(); };
+  cards.forEach(c => c.classList.add('jump'));
+  layout();
+  addEventListener('resize', layout);
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; setActive(); }, {threshold: .1}).observe(track);
+  restartAuto();
 
-  // Lookbook ring: drag/swipe to rotate, arrows step, auto-spins until touched
+  // Lookbook ring: drag/swipe to rotate, arrows step
   (() => {
     const LOOKS = [{"name": "Silk sleep set", "cat": "Lingerie", "items": [["swatches/ss-s07-lilac-sm.webp", "Satin shirt top", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-s07-lilac-sm.webp", "Wide sleep trousers", "Mulberry silk, 19 momme", "500 pcs"], ["swatches/ss-w06-white-sm.webp", "Piped trims", "Organic cotton piping", "Included"]]}, {"name": "Rib denim vest", "cat": "Denim", "items": [["swatches/ss-d01-indigo-sm.webp", "Rib-knit denim vest", "Cotton denim, 10 oz", "1,000 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Relaxed jeans", "Cotton denim, 12 oz, eco-wash", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Denim shoulder bag", "Denim offcuts, upcycled", "1,000 pcs"]]}, {"name": "Soft knit set", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Boxy knit top", "Recycled wool blend, 7GG", "600 pcs"], ["swatches/ss-d01-mid-wash-sm.webp", "Wide-leg jeans", "Cotton denim, 12 oz", "1,000 pcs"], ["swatches/ss-j02-off-white-sm.webp", "Knit care label", "Organic cotton label", "Included"]]}, {"name": "Satin shirt suit", "cat": "Woven", "items": [["swatches/ss-s07-champagne-sm.webp", "Oversized satin shirt", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-s07-champagne-sm.webp", "Straight trousers", "Silk-touch satin, 120 GSM", "800 pcs"], ["swatches/ss-w06-white-sm.webp", "Shell buttons", "Natural shell, 4-hole", "Included"]]}, {"name": "Active set", "cat": "Knit", "items": [["swatches/ss-r03-dusty-rose-sm.webp", "Sports bra", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-r03-dusty-rose-sm.webp", "High-rise leggings", "Recycled nylon-elastane", "1,000 pcs"], ["swatches/ss-k08-charcoal-sm.webp", "Logo waistband", "Jacquard elastic", "Included"]]}, {"name": "Cable knit vest", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Cable knit vest", "Organic cotton, 5GG", "600 pcs"], ["swatches/ss-t05-sand-sm.webp", "Pleated chinos", "Cotton twill, 260 GSM", "800 pcs"], ["swatches/ss-k08-bottle-green-sm.webp", "Contrast tipping", "Recycled yarn trim", "Included"]]}, {"name": "Denim jacket set", "cat": "Denim", "items": [["swatches/ss-d01-mid-wash-sm.webp", "Cropped denim jacket", "Cotton denim, 12 oz", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Straight jeans", "Cotton denim, 12 oz, eco-wash", "1,000 pcs"], ["swatches/ss-j02-off-white-sm.webp", "Ribbed crop top", "Organic jersey, 180 GSM", "1,000 pcs"]]}, {"name": "Linen maxi dress", "cat": "Woven", "items": [["swatches/ss-w06-sage-sm.webp", "Linen maxi dress", "Linen-cotton blend, 150 GSM", "800 pcs"], ["swatches/ss-w06-white-sm.webp", "Self-fabric belt", "Linen-cotton blend", "Included"], ["swatches/ss-j02-terracotta-sm.webp", "Dye options", "Low-impact reactive dyes", "Included"]]}, {"name": "Sweatshirt & baggy jeans", "cat": "Knit", "items": [["swatches/ss-t05-sand-sm.webp", "Crewneck sweatshirt", "Recycled French terry, 320 GSM", "1,000 pcs"], ["swatches/ss-d01-indigo-sm.webp", "Baggy jeans", "Cotton denim, 13 oz", "1,000 pcs"], ["swatches/ss-t05-black-sm.webp", "Chest print", "Water-based ink", "Included"]]}, {"name": "Chunky knit sweater", "cat": "Sweater", "items": [["swatches/ss-k08-cream-sm.webp", "Chunky rib sweater", "Wool blend, 3GG", "600 pcs"], ["swatches/ss-k08-camel-sm.webp", "Colour option", "Wool blend, 3GG", "600 pcs"], ["swatches/ss-w06-white-sm.webp", "Woven brand label", "Recycled polyester", "Included"]]}];
     const ring = $('#ring'), items = $$('#ring .look'), N = items.length, STEP = 360 / N;
-    let rot = 0, target = 0, vel = 0, dragging = false, lastX = 0, idle = !reduce, front = -1;
+    let rot = 0, target = 0, vel = 0, dragging = false, lastX = 0, idle = false, front = -1;   // no auto-spin: moves only on drag, arrows or click
     const radius = () => Math.min(ring.clientWidth * .44, 640);
     const setFront = i => {
       if (i === front) return; front = i;
