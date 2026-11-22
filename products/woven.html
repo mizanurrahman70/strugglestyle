@@ -372,9 +372,6 @@
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
   header .logo-img{height:60px}
   @media (max-width:640px){header .logo-img{height:50px}}
-  /* Brand watermark: faint logo fixed in the middle of the screen, never blocks clicks */
-  body::after{content:"";position:fixed;inset:0;background:url(../images/logo-watermark.png) center/min(70vw,720px) auto no-repeat;opacity:.05;pointer-events:none;z-index:9999}
-   print{body::after{display:none}}
 </style>
 </head>
 <body>
