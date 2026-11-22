@@ -258,12 +258,14 @@
   .pieces em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted);text-align:right;line-height:1.3;white-space:nowrap}
   .pieces em strong{display:block;font-size:13.5px;color:var(--text)}
   .inlook .btn{width:100%}
-  .il-more{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
-  .lb-thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:10px}
-  .lb-thumbs button{aspect-ratio:1;border-radius:10px;overflow:hidden;outline:2px solid transparent;outline-offset:2px;opacity:.55;transition:opacity .25s,outline-color .25s}
-  .lb-thumbs button:hover{opacity:.9}
-  .lb-thumbs button.on{opacity:1;outline-color:var(--green-600)}
-  .lb-thumbs img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+  .il-facts{margin-top:18px;border-top:1px solid var(--border)}
+  .il-facts div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .il-facts dt{font-size:13px;color:var(--muted)}
+  .il-facts dd{font-size:13.5px;font-weight:600;line-height:1.3;text-align:right}
+  .inlook .il-inc-h{margin:18px 0 8px}
+  .il-inc{list-style:none;display:grid;gap:8px}
+  .il-inc li{position:relative;padding-left:22px;font-size:13.5px;line-height:1.4}
+  .il-inc li::before{content:"";position:absolute;left:0;top:.35em;width:12px;height:7px;border-left:2px solid var(--green-600);border-bottom:2px solid var(--green-600);transform:rotate(-45deg) scale(.9)}
 
   /* 4d. Editorial collection — large imagery, minimal text, fabric on hover */
   .edit{padding:112px 0 120px;background:#fff}
@@ -798,7 +800,9 @@
       <h4>Pieces in this look</h4>
       <ul class="pieces" id="lbPieces"></ul>
       <a href="quote.html" class="btn btn-primary" id="lbQuote">Request a quote for this look</a>
-      <div class="il-more"><h4>More looks</h4><div class="lb-thumbs" id="lbThumbs"><button data-k="0" aria-label="Show Silk sleep set"><img src="images/cat-lingerie.jpg" alt=""></button><button data-k="1" aria-label="Show Rib denim vest"><img src="images/cat-denim.jpg" alt=""></button><button data-k="2" aria-label="Show Soft knit set"><img src="images/cat-sweater.jpg" alt=""></button><button data-k="3" aria-label="Show Satin shirt suit"><img src="images/cat-woven.jpg" alt=""></button><button data-k="4" aria-label="Show Active set"><img src="images/cat-knit.jpg" alt=""></button><button data-k="5" aria-label="Show Cable knit vest"><img src="images/look-knitvest.jpg" alt=""></button><button data-k="6" aria-label="Show Denim jacket set"><img src="images/look-denimjacket.jpg" alt=""></button><button data-k="7" aria-label="Show Linen maxi dress"><img src="images/look-linendress.jpg" alt=""></button><button data-k="8" aria-label="Show Sweatshirt & baggy jeans"><img src="images/look-sweatshirt.jpg" alt=""></button><button data-k="9" aria-label="Show Chunky knit sweater"><img src="images/look-chunkyknit.jpg" alt=""></button></div></div>
+      <dl class="il-facts"><div><dt>Lowest MOQ</dt><dd id="lbMoq"></dd></div><div><dt>Style code</dt><dd id="lbCode"></dd></div><div><dt>Quote reply</dt><dd>Within 1 business day</dd></div><div><dt>Shipping</dt><dd>FOB Chattogram or to your port</dd></div></dl>
+      <h4 class="il-inc-h">Included with every quote</h4>
+      <ul class="il-inc"><li>Style code, MOQ and lead time</li><li>Detailed quotation, ready for merchandising</li><li>Fabric and colour options for each piece</li></ul>
     </aside>
   </div>
 </section>
@@ -954,7 +958,8 @@
       $('#lbPcs').textContent = `${L.items.length} pieces`;
       $('#lbNo').textContent = `Look ${String(i + 1).padStart(2, '0')} of ${String(N).padStart(2, '0')}`;
       const h = $('#lbName'); h.style.animation = 'none'; void h.offsetWidth; h.style.animation = '';
-      $$('#lbThumbs button').forEach((t, k) => t.classList.toggle('on', k === i));
+      $('#lbMoq').textContent = Math.min(...L.items.map(x => parseInt(x[3]) || Infinity)).toLocaleString() + ' pcs';
+      $('#lbCode').textContent = 'SS-L' + String(i + 1).padStart(2, '0');
     };
     const render = () => {
       const R = radius();
@@ -991,7 +996,6 @@
     items.forEach((el, i) => el.addEventListener('click', () => { if (i !== front && !dragging) { stopIdle(); vel = 0; const cur = Math.round(target / STEP); let d = (-i - cur) % N; if (d > N / 2) d -= N; if (d < -N / 2) d += N; target = (cur + d) * STEP; } }));
     ring.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1); });
     ring.tabIndex = 0;
-    $$('#lbThumbs button').forEach(t => t.onclick = () => items[+t.dataset.k].click());
     render(); requestAnimationFrame(tick);
   })();
 </script>
