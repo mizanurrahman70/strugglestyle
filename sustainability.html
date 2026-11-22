@@ -63,7 +63,9 @@
   /* Header: transparent over the hero, solid once scrolled */
   .logo{display:inline-flex;align-items:center}
   .logo-img{display:block;height:46px;width:auto}
-  header .logo-img{height:60px}
+  header .logo-img{height:64px;width:auto}
+  /* Gold logo: bright gold + soft shadow over the dark hero, deep gold on the white header */
+  header .logo-img.on-dark{filter:drop-shadow(0 1px 2px rgba(0,0,0,.45)) drop-shadow(0 2px 10px rgba(0,0,0,.3))}
   .logo-img.on-dark{display:none}
   header .logo-img.on-light{display:none}
   header .logo-img.on-dark{display:block}
@@ -176,7 +178,7 @@
     .wrap{padding:0 16px}
     section{padding:80px 0}
     .nav{height:72px}
-    header .logo-img{height:50px}
+    header .logo-img{height:52px}
     .mnav.open{padding:8px 16px 24px}
     .page-title{padding:116px 0 64px}
     .focus{grid-template-columns:1fr;margin-top:36px}
@@ -197,7 +199,7 @@
 <!-- ===== Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-new-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-new.png" alt=""></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"><img class="logo-img on-light" src="images/logo-gold.svg" alt="" width="3700" height="1524"></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="index.html">Home</a></li>

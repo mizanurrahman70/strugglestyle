@@ -748,8 +748,10 @@
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
   footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
-  header .logo-img{height:60px}
-  @media (max-width:640px){header .logo-img{height:50px}}
+  header .logo-img{height:64px;width:auto}
+  /* Gold logo: bright gold + soft shadow over the dark hero, deep gold on the white header */
+  header .logo-img.on-dark{filter:drop-shadow(0 1px 2px rgba(0,0,0,.45)) drop-shadow(0 2px 10px rgba(0,0,0,.3))}
+  @media (max-width:640px){header .logo-img{height:52px}}
 
   /* ===== Order procurement process (manufacturing page focus) ===== */
   .po-sec{padding:72px 0 112px;background:var(--bg)}
@@ -933,7 +935,7 @@
 <!-- ===== 1. Header ===== -->
 <header id="hdr">
   <div class="wrap nav">
-    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-new-leaf.png" alt="Struggle Style"><img class="logo-img on-light" src="images/logo-new.png" alt=""></a>
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"><img class="logo-img on-light" src="images/logo-gold.svg" alt="" width="3700" height="1524"></a>
     <nav aria-label="Main">
       <ul>
         <li><a href="index.html">Home</a></li>
