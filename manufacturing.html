@@ -842,7 +842,7 @@
   .po-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,42,27,.6) 0%,transparent 45%)}
   .po-media figcaption{position:absolute;left:20px;bottom:20px;z-index:2;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600}
   .po-media figcaption::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--leaf)}
-  .po-big{position:absolute;right:18px;top:6px;z-index:2;font-family:var(--head);font-size:120px;font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
+  .po-big{display:none;position:absolute;right:20px;top:14px;z-index:2;font-family:var(--head);font-size:72px;font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.6)}
   .po-body{display:flex;flex-direction:column;padding:48px 48px 40px}
   .po-count{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-600)}
   .po-body h3{font-size:clamp(26px,2.4vw,34px);margin:10px 0 14px}
@@ -886,6 +886,19 @@
   .brand img{max-width:66%;max-height:58%;object-fit:contain}
   @media (max-width:960px){.market-pills{justify-content:flex-start}}
   @media (max-width:640px){.brand{width:160px;height:84px}.mpill{height:40px;font-size:13.5px}.mpill img{width:28px;height:28px}}
+  /* Country filter: pills act as toggles; a filtered marquee stops and shows only matching logos */
+  .mpill{cursor:pointer;color:var(--text)}
+  .mpill{transition:transform .3s var(--ease),background .25s,border-color .25s}
+  .mpill:hover{background:var(--soft)}
+  .mpill[aria-pressed="true"]{background:var(--soft)}
+  .mpill[aria-pressed="true"] .flagstack img{border-color:var(--soft)}
+  .marquee.filtered{mask-image:none;-webkit-mask-image:none}
+  .marquee.filtered .mq-row{animation:none;width:auto;flex-wrap:wrap;justify-content:center;padding:0 32px}
+  .marquee.filtered [aria-hidden="true"]{display:none !important}
+  .marquee.filtered .brand:not(.match),.marquee.filtered .brand.dup{display:none}
+  .marquee.filtered .mq-row:not(:has(.match)){display:none}
+  .marquee.filtered .brand.match{animation:mqIn .45s var(--ease) both}
+  @keyframes mqIn{from{opacity:0;transform:translateY(8px)}}
 
   /* Factory at a glance */
   .glance{background:var(--soft)}
@@ -961,7 +974,7 @@
     .po-step .lbl{white-space:nowrap}
     .po-media{height:220px}
     .po-body{padding:28px 20px 24px}
-    .po-big{font-size:84px}
+    .po-big{font-size:52px;right:16px;top:12px}
     .po-cols{grid-template-columns:1fr}
     .po-nav{padding:14px 20px}
     .po-nav .btn span{display:none}
@@ -1214,11 +1227,21 @@
         <h2>OUR PARTNERS</h2>
         <p class="lead">The machine makers and brands we work with.</p>
       </div>
+      <div class="market-pills">
+        <!-- Country filter: All countries is the default (scrolling); click a country to show only its logos, click it again or All countries to reset -->
+        <button class="mpill" data-m="all" aria-pressed="true"><span class="flagstack"><img src="https://flagcdn.com/w80/jp.png" alt=""><img src="https://flagcdn.com/w80/it.png" alt=""><img src="https://flagcdn.com/w80/fr.png" alt=""></span>All countries</button>
+        <button class="mpill" data-m="jp" aria-pressed="false"><img src="https://flagcdn.com/w80/jp.png" alt="">Japan</button>
+        <button class="mpill" data-m="de" aria-pressed="false"><img src="https://flagcdn.com/w80/de.png" alt="">Germany</button>
+        <button class="mpill" data-m="it" aria-pressed="false"><img src="https://flagcdn.com/w80/it.png" alt="">Italy</button>
+        <button class="mpill" data-m="sg" aria-pressed="false"><img src="https://flagcdn.com/w80/sg.png" alt="">Singapore</button>
+        <button class="mpill" data-m="fr" aria-pressed="false"><img src="https://flagcdn.com/w80/fr.png" alt="">France</button>
+        <button class="mpill" data-m="dk" aria-pressed="false"><img src="https://flagcdn.com/w80/dk.png" alt="">Denmark</button>
+      </div>
     </div>
   </div>
   <div class="marquee rv" aria-label="Our partners">
-    <div class="mq-row"><div class="brand"><img src="images/partners/juki.png" alt="JUKI" loading="lazy"></div><div class="brand"><img src="images/partners/veit.png" alt="Veit" loading="lazy"></div><div class="brand"><img src="images/partners/kansai.png" alt="Kansai Special" loading="lazy"></div><div class="brand"><img src="images/partners/euromac.png" alt="Euromac" loading="lazy"></div><div class="brand"><img src="images/partners/nisho.png" alt="Nisho Apparel Machinery" loading="lazy"></div><div class="brand"><img src="images/partners/focus.png" alt="Focus Garment Tech" loading="lazy"></div><div class="brand"><img src="images/partners/juki.png" alt="JUKI" loading="lazy"></div><div class="brand"><img src="images/partners/veit.png" alt="Veit" loading="lazy"></div><div class="brand"><img src="images/partners/kansai.png" alt="Kansai Special" loading="lazy"></div><div class="brand"><img src="images/partners/euromac.png" alt="Euromac" loading="lazy"></div><div class="brand"><img src="images/partners/nisho.png" alt="Nisho Apparel Machinery" loading="lazy"></div><div class="brand"><img src="images/partners/focus.png" alt="Focus Garment Tech" loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand"><img src="images/partners/juki.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/veit.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/kansai.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/euromac.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/nisho.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/focus.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/juki.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/veit.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/kansai.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/euromac.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/nisho.png" alt="" loading="lazy"></div><div class="brand"><img src="images/partners/focus.png" alt="" loading="lazy"></div></div></div>
-    <div class="mq-row rev"><div class="brand"><img src="images/buyers/trussardi.png" alt="Trussardi" loading="lazy"></div><div class="brand"><img src="images/buyers/silvian-heach.png" alt="Silvian Heach" loading="lazy"></div><div class="brand"><img src="images/buyers/john-richmond.png" alt="John Richmond" loading="lazy"></div><div class="brand"><img src="images/buyers/christian-dior.png" alt="Christian Dior" loading="lazy"></div><div class="brand"><img src="images/buyers/bestseller.png" alt="Bestseller" loading="lazy"></div><div class="brand"><img src="images/buyers/peek-cloppenburg.png" alt="Peek &amp; Cloppenburg" loading="lazy"></div><div class="brand"><img src="images/buyers/du-pareil-au-meme.png" alt="Du Pareil au Même" loading="lazy"></div><div class="brand"><img src="images/buyers/sergent-major.png" alt="Sergent Major" loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand"><img src="images/buyers/trussardi.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/silvian-heach.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/john-richmond.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/christian-dior.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/bestseller.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/peek-cloppenburg.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/du-pareil-au-meme.png" alt="" loading="lazy"></div><div class="brand"><img src="images/buyers/sergent-major.png" alt="" loading="lazy"></div></div></div>
+    <div class="mq-row"><div class="brand" data-m="jp"><img src="images/partners/juki.png" alt="JUKI" loading="lazy"></div><div class="brand" data-m="de"><img src="images/partners/veit.png" alt="Veit" loading="lazy"></div><div class="brand" data-m="jp"><img src="images/partners/kansai.png" alt="Kansai Special" loading="lazy"></div><div class="brand" data-m="it"><img src="images/partners/euromac.png" alt="Euromac" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/nisho.png" alt="Nisho Apparel Machinery" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/focus.png" alt="Focus Garment Tech" loading="lazy"></div><div class="brand dup" data-m="jp"><img src="images/partners/juki.png" alt="JUKI" loading="lazy"></div><div class="brand dup" data-m="de"><img src="images/partners/veit.png" alt="Veit" loading="lazy"></div><div class="brand dup" data-m="jp"><img src="images/partners/kansai.png" alt="Kansai Special" loading="lazy"></div><div class="brand dup" data-m="it"><img src="images/partners/euromac.png" alt="Euromac" loading="lazy"></div><div class="brand dup" data-m="sg"><img src="images/partners/nisho.png" alt="Nisho Apparel Machinery" loading="lazy"></div><div class="brand dup" data-m="sg"><img src="images/partners/focus.png" alt="Focus Garment Tech" loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand" data-m="jp"><img src="images/partners/juki.png" alt="" loading="lazy"></div><div class="brand" data-m="de"><img src="images/partners/veit.png" alt="" loading="lazy"></div><div class="brand" data-m="jp"><img src="images/partners/kansai.png" alt="" loading="lazy"></div><div class="brand" data-m="it"><img src="images/partners/euromac.png" alt="" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/nisho.png" alt="" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/focus.png" alt="" loading="lazy"></div><div class="brand" data-m="jp"><img src="images/partners/juki.png" alt="" loading="lazy"></div><div class="brand" data-m="de"><img src="images/partners/veit.png" alt="" loading="lazy"></div><div class="brand" data-m="jp"><img src="images/partners/kansai.png" alt="" loading="lazy"></div><div class="brand" data-m="it"><img src="images/partners/euromac.png" alt="" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/nisho.png" alt="" loading="lazy"></div><div class="brand" data-m="sg"><img src="images/partners/focus.png" alt="" loading="lazy"></div></div></div>
+    <div class="mq-row rev"><div class="brand" data-m="it"><img src="images/buyers/trussardi.png" alt="Trussardi" loading="lazy"></div><div class="brand" data-m="it"><img src="images/buyers/silvian-heach.png" alt="Silvian Heach" loading="lazy"></div><div class="brand" data-m="it"><img src="images/buyers/john-richmond.png" alt="John Richmond" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/christian-dior.png" alt="Christian Dior" loading="lazy"></div><div class="brand" data-m="dk"><img src="images/buyers/bestseller.png" alt="Bestseller" loading="lazy"></div><div class="brand" data-m="de"><img src="images/buyers/peek-cloppenburg.png" alt="Peek &amp; Cloppenburg" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/du-pareil-au-meme.png" alt="Du Pareil au Même" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/sergent-major.png" alt="Sergent Major" loading="lazy"></div><div style="display:contents" aria-hidden="true"><div class="brand" data-m="it"><img src="images/buyers/trussardi.png" alt="" loading="lazy"></div><div class="brand" data-m="it"><img src="images/buyers/silvian-heach.png" alt="" loading="lazy"></div><div class="brand" data-m="it"><img src="images/buyers/john-richmond.png" alt="" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/christian-dior.png" alt="" loading="lazy"></div><div class="brand" data-m="dk"><img src="images/buyers/bestseller.png" alt="" loading="lazy"></div><div class="brand" data-m="de"><img src="images/buyers/peek-cloppenburg.png" alt="" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/du-pareil-au-meme.png" alt="" loading="lazy"></div><div class="brand" data-m="fr"><img src="images/buyers/sergent-major.png" alt="" loading="lazy"></div></div></div>
   </div>
 </section>
 
@@ -1365,6 +1388,19 @@
     requestAnimationFrame(step);
   }), {threshold: .6});
   $$('[data-count]').forEach(el => countIO.observe(el));
+
+  // Our partners: filter logos by country
+  (() => {
+    const pills = $$('.mpill[data-m]'), mq = $('#buyers .marquee');
+    if (!mq) return;
+    const brands = $$('#buyers .brand');
+    const set = m => {
+      pills.forEach(p => p.setAttribute('aria-pressed', p.dataset.m === m));
+      mq.classList.toggle('filtered', m !== 'all');
+      brands.forEach(b => b.classList.toggle('match', b.dataset.m === m));
+    };
+    pills.forEach(p => p.onclick = () => set(p.getAttribute('aria-pressed') === 'true' && p.dataset.m !== 'all' ? 'all' : p.dataset.m));
+  })();
 
   // Factory profiles: two-tab switcher
   (() => {
