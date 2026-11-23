@@ -129,7 +129,9 @@
      whether the header is transparent or turns light on scroll; only a soft extra
      shade sits behind the centred text. */
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero h1{color:#fff;opacity:.8;text-shadow:0 1px 2px rgba(0,0,0,.75),0 2px 10px rgba(0,0,0,.65),0 4px 24px rgba(0,0,0,.55),0 8px 48px rgba(0,0,0,.45);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:700;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  /* Plain hero text: no blur or panel, readability comes from the text-shadow only */
+  .hero-glass{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:100%}
+  .hero h1{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6),0 3px 16px rgba(0,0,0,.5),0 8px 40px rgba(0,0,0,.4);font-size:clamp(34px,min(4.6vw,8vh),72px);overflow-wrap:break-word;font-weight:700;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -140,7 +142,7 @@
     .look{width:160px;margin-left:-80px}
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
-  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;opacity:.7;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 8px rgba(0,0,0,.7),0 4px 22px rgba(0,0,0,.6),0 6px 36px rgba(0,0,0,.45);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
+  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.75),0 2px 12px rgba(0,0,0,.6),0 4px 28px rgba(0,0,0,.45);max-width:720px;margin:0 auto;text-wrap:pretty}
   /* Slide text changes with the image */
   .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
   .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
@@ -891,8 +893,10 @@
       <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.png" alt="" loading="lazy"></div>
 
       <div class="hero-content">
+        <div class="hero-glass">
         <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
         <p id="heroText">Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step.</p>
+        </div>
       </div>
 
       <div class="hero-ctrl"><div id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div><button class="hero-pp" id="heroPP" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx=".6"/><rect x="7.4" y="1.5" width="2.6" height="9" rx=".6"/></svg><svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button></div>
