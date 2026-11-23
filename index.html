@@ -524,6 +524,17 @@
   .brand{position:relative;flex:none;width:220px;height:112px;border-radius:var(--r);background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
   .brand:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
   .brand img{max-width:66%;max-height:58%;object-fit:contain}
+  /* Market filter: pills act as toggles; a filtered marquee stops and shows each matching logo once */
+  .mpill{cursor:pointer;color:var(--text);transition:transform .3s var(--ease),background .25s}
+  .mpill:hover,.mpill[aria-pressed="true"]{background:var(--soft)}
+  .mpill[aria-pressed="true"] .flagstack img{border-color:var(--soft)}
+  .marquee.filtered{mask-image:none;-webkit-mask-image:none}
+  .marquee.filtered .mq-row{animation:none;width:auto;flex-wrap:wrap;justify-content:center;padding:0 32px}
+  .marquee.filtered .mq-row.rev,.marquee.filtered [aria-hidden="true"]{display:none !important}
+  .marquee.filtered .brand:not(.match){display:none}
+  .marquee.filtered .brand.match{animation:mqIn .45s var(--ease) both}
+  @keyframes mqIn{from{opacity:0;transform:translateY(8px)}}
+  .mq-empty{text-align:center;color:var(--muted);font-size:15px;margin-top:8px}
   .reach-note{text-align:center;font-size:13px;color:var(--muted);margin-top:28px}
 
   /* 8. Certifications — wall of certificate documents + viewer */
@@ -1214,15 +1225,15 @@
   <div class="wrap">
     <div class="s-head rv">
       <div>
-        <h2>Trusted by brands across five markets</h2>
-        <p class="lead">We produce for brands and retailers in North America, Europe and Latin America.</p>
+        <h2>Trusted by brands worldwide</h2>
+        <p class="lead">We produce for brands and retailers in North America and Europe.</p>
       </div>
       <div class="market-pills">
-        <span class="mpill"><img src="https://flagcdn.com/w80/us.png" alt="">United States</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</span>
-        <span class="mpill"><span class="flagstack" title="Mexico, Brazil, Colombia"><img src="https://flagcdn.com/w80/mx.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""><img src="https://flagcdn.com/w80/co.png" alt=""></span>Latin America</span>
+        <!-- Market filter: All markets is the default (scrolling); click a market to show only its logos, click it again or All markets to reset -->
+        <button class="mpill" data-m="all" aria-pressed="true"><span class="flagstack"><img src="https://flagcdn.com/w80/us.png" alt=""><img src="https://flagcdn.com/w80/ca.png" alt=""><img src="https://flagcdn.com/w80/eu.png" alt=""></span>All markets</button>
+        <button class="mpill" data-m="us" aria-pressed="false"><img src="https://flagcdn.com/w80/us.png" alt="">United States</button>
+        <button class="mpill" data-m="ca" aria-pressed="false"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</button>
+        <button class="mpill" data-m="eu" aria-pressed="false"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</button>
       </div>
     </div>
   </div>
@@ -1230,6 +1241,7 @@
     <div class="mq-row" id="mqA"></div>
     <div class="mq-row rev" id="mqB"></div>
   </div>
+  <p class="mq-empty" hidden>No logos listed for this market yet.</p>
 </section>
 
 <!-- ===== 16. Quote band ===== -->
@@ -1390,14 +1402,28 @@
 
   // Brand logos (from the current site)
   const BRANDS = [
-    ['H&M', 1], ['La Senza', 2], ['Etam', 3], ['Gisela', 4], ['ICA', 5], ["Women'secret", 6],
-    ['HEMA', 7], ['Sielei', 8], ['TenCate', 9], ['Triumph', 10], ['U.S. Polo Assn.', 11], ['Diesel', 12]
+    ['H&M', 1, 'eu'], ['La Senza', 2, 'ca'], ['Etam', 3, 'eu'], ['Gisela', 4, 'eu'], ['ICA', 5, 'eu'], ["Women'secret", 6, 'eu'],
+    ['HEMA', 7, 'eu'], ['Sielei', 8, 'eu'], ['TenCate', 9, 'eu'], ['Triumph', 10, 'eu'], ['U.S. Polo Assn.', 11, 'us'], ['Diesel', 12, 'eu']
   ];
-  const brandCard = ([name, n]) => `<div class="brand"><img src="https://www.strugglestyle.net/images/license/img${n}.png" alt="${name}" loading="lazy"></div>`;
+  const brandCard = ([name, n, m]) => `<div class="brand" data-m="${m}"><img src="https://www.strugglestyle.net/images/license/img${n}.png" alt="${name}" loading="lazy"></div>`;
   const rowA = BRANDS.map(brandCard).join(''), rowB = [...BRANDS].reverse().map(brandCard).join('');
   // Each row is duplicated so the loop is seamless; the copy is hidden from screen readers
   $('#mqA').innerHTML = rowA + `<div style="display:contents" aria-hidden="true">${rowA}</div>`;
   $('#mqB').innerHTML = rowB + `<div style="display:contents" aria-hidden="true">${rowB}</div>`;
+
+  // Brand logos: filter by market (All markets is the default)
+  (() => {
+    const pills = $$('.mpill[data-m]'), mq = $('.reach .marquee'), empty = $('.mq-empty');
+    const brands = $$('.reach .brand');
+    const set = m => {
+      pills.forEach(p => p.setAttribute('aria-pressed', p.dataset.m === m));
+      mq.classList.toggle('filtered', m !== 'all');
+      let n = 0;
+      brands.forEach(b => { const on = b.dataset.m === m; b.classList.toggle('match', on); if (on && !b.closest('.rev,[aria-hidden]')) n++; });
+      empty.hidden = m === 'all' || n > 0;
+    };
+    pills.forEach(p => p.onclick = () => set(p.getAttribute('aria-pressed') === 'true' && p.dataset.m !== 'all' ? 'all' : p.dataset.m));
+  })();
 
   // Certifications — DEMO DATA. Replace with the client's certificates from the CMS.
   const CERTS = [
