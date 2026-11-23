@@ -328,6 +328,13 @@
   .caps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:28px;margin-bottom:36px;border-top:1px solid var(--border)}
   .cap strong{display:block;font-family:var(--head);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
   .cap span.l{display:block;font-size:14px;color:var(--muted);margin-top:8px}
+  /* Capacity per factory: labelled rows */
+  .caps-fac{row-gap:22px}
+  .caps-row{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;font-size:13px;color:var(--muted);margin-bottom:-6px}
+  .caps-row b{font-family:var(--head);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-600)}
+  .caps-row:not(:first-child){padding-top:22px;border-top:1px dashed var(--border)}
+  .caps-total{grid-column:1/-1;padding:14px 18px;border-radius:var(--r-sm);background:var(--white);border:1px solid var(--border);font-size:14.5px;color:var(--muted)}
+  .caps-total strong{font-family:var(--head);font-size:18px;font-weight:600;color:var(--green-800);margin-right:4px}
 
   /* Process — simple numbered list */
   .process-sec{padding:112px 0}
@@ -1172,7 +1179,7 @@
     <div class="mfg-visual rv">
       <div class="mfg-main">
         <img src="images/sew-line.jpg" alt="Operators working on a clean, well-lit sewing line" loading="lazy">
-        <div class="mfg-label"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l5 3V9l5 3V6l4 2v13"/></svg></i><div><b>Holy Intimates, Bangladesh</b><span>Lingerie production facility · Est. 2023</span></div></div>
+        <div class="mfg-label"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l5 3V9l5 3V6l4 2v13"/></svg></i><div><b>Gazipur, Bangladesh</b><span>Holy Intimates · NASA Hitech Style</span></div></div>
       </div>
       <div class="mfg-inset"><img src="images/sew-woman.jpg" alt="Operator at an industrial sewing machine" loading="lazy"></div>
       <div class="mfg-badge"><span class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><b>One quality system</b><span>Inline &amp; final AQL checks</span></div></div>
@@ -1181,11 +1188,19 @@
     <div class="mfg-content rv" style="--d:.1s">
       <h2 class="mfg-title">Production Capacity</h2>
       <p class="mfg-text">Our aim is to become one of the state-of-the-art leading companies, with a focus on responsible business, corporate ethics and protecting the environment. Our mission is to pursue sustainable business growth and continually refine our unique process. We foster a working environment that keeps our people satisfied, cherish the relationship with our stakeholders and are committed to a safe, greener environment. Our goal is to be renowned as a trustworthy and efficient partner for our associates, both local and foreign, by delivering products of high and consistent quality on time, and by engaging in ethical and sustainable business practices.</p>
-      <div class="caps">
-        <div class="cap"><strong data-count="2">0</strong><span class="l">Production lines</span></div>
-        <div class="cap"><strong data-count="34">0</strong><span class="l">Sewing machines</span></div>
-        <div class="cap"><strong data-count="40">0</strong><span class="l">Skilled people</span></div>
+      <!-- One row of figures per factory; the first two columns line up (pieces, machines) -->
+      <div class="caps caps-fac">
+        <p class="caps-row"><b>Holy Intimates</b>Lingerie</p>
         <div class="cap"><strong><span data-count="100">0</span>K</strong><span class="l">Pieces per month</span></div>
+        <div class="cap"><strong data-count="34">0</strong><span class="l">Sewing machines</span></div>
+        <div class="cap"><strong data-count="2">0</strong><span class="l">Production lines</span></div>
+        <div class="cap"><strong data-count="40">0</strong><span class="l">Skilled people</span></div>
+        <p class="caps-row"><b>NASA Hitech Style</b>Woven bottoms &amp; denim</p>
+        <div class="cap"><strong><span data-count="350">0</span>K</strong><span class="l">Pieces per month</span></div>
+        <div class="cap"><strong><span data-count="1200">0</span>+</strong><span class="l">Machines</span></div>
+        <div class="cap"><strong data-count="7">0</strong><span class="l">Certifications</span></div>
+        <div class="cap"><strong>2018</strong><span class="l">Established</span></div>
+        <p class="caps-total"><strong>450K</strong> pieces a month across both factories</p>
       </div>
     </div>
   </div>
