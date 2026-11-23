@@ -1226,14 +1226,16 @@
     <div class="s-head rv">
       <div>
         <h2>Trusted by brands worldwide</h2>
-        <p class="lead">We produce for brands and retailers in North America and Europe.</p>
+        <p class="lead">We produce for brands and retailers in North America, Europe and Latin America.</p>
       </div>
       <div class="market-pills">
         <!-- Market filter: All markets is the default (scrolling); click a market to show only its logos, click it again or All markets to reset -->
         <button class="mpill" data-m="all" aria-pressed="true"><span class="flagstack"><img src="https://flagcdn.com/w80/us.png" alt=""><img src="https://flagcdn.com/w80/ca.png" alt=""><img src="https://flagcdn.com/w80/eu.png" alt=""></span>All markets</button>
         <button class="mpill" data-m="us" aria-pressed="false"><img src="https://flagcdn.com/w80/us.png" alt="">United States</button>
         <button class="mpill" data-m="ca" aria-pressed="false"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</button>
+        <button class="mpill" data-m="gb" aria-pressed="false"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</button>
         <button class="mpill" data-m="eu" aria-pressed="false"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</button>
+        <button class="mpill" data-m="latam" aria-pressed="false"><span class="flagstack" title="Chile, Brazil"><img src="https://flagcdn.com/w80/cl.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""></span>Latin America</button>
       </div>
     </div>
   </div>
@@ -1403,9 +1405,12 @@
   // Brand logos (from the current site)
   const BRANDS = [
     ['H&M', 1, 'eu'], ['La Senza', 2, 'ca'], ['Etam', 3, 'eu'], ['Gisela', 4, 'eu'], ['ICA', 5, 'eu'], ["Women'secret", 6, 'eu'],
-    ['HEMA', 7, 'eu'], ['Sielei', 8, 'eu'], ['TenCate', 9, 'eu'], ['Triumph', 10, 'eu'], ['U.S. Polo Assn.', 11, 'us'], ['Diesel', 12, 'eu']
+    ['HEMA', 7, 'eu'], ['Sielei', 8, 'eu'], ['TenCate', 9, 'eu'], ['Triumph', 10, 'eu'], ['U.S. Polo Assn.', 11, 'us'], ['Diesel', 12, 'eu'],
+    // Major buyers (local files): [name, file, market]
+    ['Gémo', 'gemo', 'eu'], ['JD Williams, N Brown Group', 'jd-williams', 'gb'], ['Bluenotes', 'bluenotes', 'ca'], ['Cencosud', 'cencosud', 'latam'],
+    ['Ardene', 'ardene', 'ca'], ['Ben Sherman', 'ben-sherman', 'gb'], ['Renner', 'renner', 'latam'], ['Next', 'next', 'gb']
   ];
-  const brandCard = ([name, n, m]) => `<div class="brand" data-m="${m}"><img src="https://www.strugglestyle.net/images/license/img${n}.png" alt="${name}" loading="lazy"></div>`;
+  const brandCard = ([name, n, m]) => `<div class="brand" data-m="${m}"><img src="${typeof n === 'number' ? `https://www.strugglestyle.net/images/license/img${n}.png` : `images/buyers/${n}.png`}" alt="${name}" loading="lazy"></div>`;
   const rowA = BRANDS.map(brandCard).join(''), rowB = [...BRANDS].reverse().map(brandCard).join('');
   // Each row is duplicated so the loop is seamless; the copy is hidden from screen readers
   $('#mqA').innerHTML = rowA + `<div style="display:contents" aria-hidden="true">${rowA}</div>`;
