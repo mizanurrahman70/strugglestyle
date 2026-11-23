@@ -881,11 +881,37 @@
   @media (max-width:640px){.brand{width:160px;height:84px}.mpill{height:40px;font-size:13.5px}.mpill img{width:28px;height:28px}}
 
   /* Factory at a glance */
-  .glance{background:var(--bg)}
+  .glance{background:var(--soft)}
   .glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
   .glance-grid div{padding:22px 24px 22px 0;border-bottom:1px solid var(--border)}
   .glance-grid dt{font-size:13.5px;color:var(--muted)}
   .glance-grid dd{font-family:var(--head);font-size:19px;font-weight:600;color:var(--text);margin-top:4px;line-height:1.35}
+  /* Two-factory switcher: spec card + spec sheet per factory */
+  .gl-switch{display:flex;gap:6px;padding:6px;border-radius:999px;background:var(--white);border:1px solid var(--border)}
+  .gl-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:56px;padding:0 24px;border-radius:999px;font-family:var(--head);font-size:15.5px;font-weight:600;line-height:1.15;color:var(--green-800);transition:background .25s,color .25s,box-shadow .25s}
+  .gl-tab small{font-family:var(--body);font-size:12px;font-weight:500;color:var(--muted);transition:color .25s}
+  .gl-tab[aria-selected="true"]{background:var(--green-700);color:#fff}
+  .gl-tab[aria-selected="true"] small,.gl-tab:hover small{color:rgba(255,255,255,.8)}
+  /* Hover matches .btn-primary:hover */
+  .gl-tab:hover{background:var(--green-800);color:#fff;box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .gl-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:56px;align-items:start}
+  .gl-panel[hidden]{display:none}
+  .gl-panel.enter{animation:glIn .5s var(--ease)}
+  @keyframes glIn{from{opacity:0;transform:translateY(10px)}}
+  .gl-card{position:relative;padding:36px;border-radius:var(--r-lg);background:var(--white);border:1px solid var(--border)}
+  /* Stitched edge: same dashed thread as the wordmark */
+  .gl-card::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(26,127,75,.28);border-radius:calc(var(--r-lg) - 8px);pointer-events:none}
+  .gl-no{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-600)}
+  .gl-card h3{font-size:clamp(26px,2.4vw,32px);margin:10px 0 12px}
+  .gl-card p{font-size:15.5px;color:var(--muted)}
+  .gl-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;padding:24px 0;border-block:1px solid var(--border)}
+  .gl-nums strong{display:block;font-family:var(--head);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
+  .gl-nums span{display:block;font-size:14px;color:var(--muted);margin-top:8px}
+  .gl-certs{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .gl-certs b{width:100%;font-size:13.5px;font-weight:600;margin-bottom:2px}
+  .gl-certs span{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;background:var(--soft);border:1px solid var(--border);font-size:13px;font-weight:500;color:var(--green-800)}
+  .gl-certs .gl-pend{border-style:dashed;color:var(--muted)}
+  .gl-panel .glance-grid{grid-template-columns:1fr 1fr}
 
   /* Closing call to action */
   .po-cta{padding:0 0 112px;background:var(--bg)}
@@ -905,6 +931,7 @@
     .po-media{aspect-ratio:auto;height:320px}
     .po-step .lbl{font-size:13px}
     .glance-grid{grid-template-columns:1fr 1fr}
+    .gl-panel{grid-template-columns:1fr;gap:32px}
   }
   @media (max-width:760px){
     .po-sec{padding:48px 0 80px}
@@ -925,7 +952,11 @@
     .po-nav{padding:14px 20px}
     .po-nav .btn span{display:none}
     .po-nav .btn{width:44px;padding:0}
-    .glance-grid{grid-template-columns:1fr}
+    .glance-grid,.gl-panel .glance-grid{grid-template-columns:1fr}
+    .gl-switch{width:100%}
+    .gl-tab{flex:1;padding:0 16px;font-size:14.5px}
+    .gl-card{padding:28px 22px}
+    .gl-nums strong{font-size:24px}
     .po-cta{padding-bottom:80px}
     .po-cta-box{padding:36px 24px}
   }
@@ -1175,24 +1206,64 @@
   </div>
 </section>
 
-<!-- Factory at a glance -->
+<!-- Factory at a glance: two partner factories, one spec sheet each (data from each factory's company profile) -->
 <section class="glance" id="factory">
   <div class="wrap">
     <div class="s-head rv">
-      <div><span class="tag">Factory profile</span><h2 style="margin-top:16px">Holy Intimates at a glance</h2></div>
-      <p class="lead">Our export-oriented lingerie factory in Bangladesh.</p>
+      <div><span class="tag">Factory profiles</span><h2 style="margin-top:16px">Our factories at a glance</h2><p class="lead">Two export factories in Gazipur, Bangladesh: one for lingerie and underwear, one for woven bottoms and denim.</p></div>
+      <div class="gl-switch" role="tablist" aria-label="Choose a factory">
+        <button class="gl-tab" role="tab" id="gl-t1" aria-controls="gl-p1" aria-selected="true">Holy Intimates<small>Lingerie</small></button>
+        <button class="gl-tab" role="tab" id="gl-t2" aria-controls="gl-p2" aria-selected="false" tabindex="-1">NASA Hitech Style<small>Woven &amp; denim</small></button>
+      </div>
     </div>
-    <dl class="glance-grid rv">
-      <div><dt>Established</dt><dd>2023</dd></div>
-      <div><dt>Company type</dt><dd>Export-oriented lingerie manufacturer</dd></div>
-      <div><dt>Factory area</dt><dd>5,200 sq ft</dd></div>
-      <div><dt>Location</dt><dd>21 km from Hazrat Shahjalal International Airport</dd></div>
-      <div><dt>Categories</dt><dd>Infant, children's, ladies' and men's underwear</dd></div>
-      <div><dt>Products</dt><dd>Bra, panty, brief, boxer, trunk, swimwear</dd></div>
-      <div><dt>Machinery</dt><dd>34 sewing machines, 5 moulding machines</dd></div>
-      <div><dt>Machine brands</dt><dd>Juki, Brother, Yamato, Sew Power</dd></div>
-      <div><dt>Monthly capacity</dt><dd>100,000 pieces</dd></div>
-    </dl>
+
+    <article class="gl-panel rv" role="tabpanel" id="gl-p1" aria-labelledby="gl-t1" tabindex="0">
+      <div class="gl-card">
+        <span class="gl-no">Factory 01</span>
+        <h3>Holy Intimates</h3>
+        <p>A lingerie maker founded in 2023, with its own fabric moulding section. Ships to Africa, Canada and the UAE.</p>
+        <div class="gl-nums">
+          <div><strong>5,200</strong><span>Sq ft floor</span></div>
+          <div><strong>5</strong><span>Moulding machines</span></div>
+          <div><strong>3</strong><span>Export regions</span></div>
+        </div>
+        <div class="gl-certs"><b>Certification</b><span class="gl-pend">In process</span></div>
+      </div>
+      <dl class="glance-grid">
+        <div><dt>Established</dt><dd>2023</dd></div>
+        <div><dt>Company type</dt><dd>Export-oriented lingerie manufacturer</dd></div>
+        <div><dt>Products</dt><dd>Bra, panty, brief, boxer, trunk, swimwear</dd></div>
+        <div><dt>Categories</dt><dd>Infant, children's, ladies' and men's underwear</dd></div>
+        <div><dt>Production</dt><dd>2 lines, 40 people, 5,200 sq ft</dd></div>
+        <div><dt>Machine brands</dt><dd>Juki, Brother, Yamato, Sew Power</dd></div>
+        <div><dt>Location</dt><dd>South Chandona, Gazipur, 21 km from Dhaka airport</dd></div>
+        <div><dt>Export markets</dt><dd>Africa, Canada, UAE</dd></div>
+      </dl>
+    </article>
+
+    <article class="gl-panel" role="tabpanel" id="gl-p2" aria-labelledby="gl-t2" tabindex="0" hidden>
+      <div class="gl-card">
+        <span class="gl-no">Factory 02</span>
+        <h3>NASA Hitech Style Ltd.</h3>
+        <p>A privately owned maker of woven bottoms and jackets, running since July 2018 from a LEED Gold building. It has its own training centre and a sister washing plant with an effluent treatment plant.</p>
+        <div class="gl-nums">
+          <div><strong>350K</strong><span>Pieces per month</span></div>
+          <div><strong>1,200+</strong><span>Machines</span></div>
+          <div><strong>7</strong><span>Certifications</span></div>
+        </div>
+        <div class="gl-certs"><b>Certifications</b><span>LEED Gold</span><span>BSCI</span><span>Sedex</span><span>RSC</span><span>ISO 9001:2015</span><span>OEKO-TEX 100</span><span>WRAP</span></div>
+      </div>
+      <dl class="glance-grid">
+        <div><dt>Established</dt><dd>July 2018</dd></div>
+        <div><dt>Company type</dt><dd>Export-oriented woven bottoms manufacturer</dd></div>
+        <div><dt>Products</dt><dd>Denim, cargo, capri and Bermuda pants, joggers, jeggings, denim jackets</dd></div>
+        <div><dt>Categories</dt><dd>Men's, women's, girls', boys' and children's</dd></div>
+        <div><dt>In-house processes</dt><dd>Wet &amp; dry wash, print, embroidery, seam and heat sealing</dd></div>
+        <div><dt>Machine brands</dt><dd>Juki, Veit, Kansai Special, Euromac, Nisho, Focus</dd></div>
+        <div><dt>Location</dt><dd>Madhokhola, Sreepur, Gazipur</dd></div>
+        <div><dt>Worker facilities</dt><dd>Child care, doctor's office, dining hall, lockers</dd></div>
+      </dl>
+    </article>
   </div>
 </section>
 
@@ -1268,6 +1339,26 @@
     requestAnimationFrame(step);
   }), {threshold: .6});
   $$('[data-count]').forEach(el => countIO.observe(el));
+
+  // Factory profiles: two-tab switcher
+  (() => {
+    const tabs = $$('.gl-tab'), panels = $$('.gl-panel');
+    const go = (i, focus) => {
+      tabs.forEach((t, k) => { const on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+      panels.forEach((p, k) => {
+        const was = p.hidden; p.hidden = k !== i;
+        if (k === i && was && !reduce) { p.classList.remove('enter'); void p.offsetWidth; p.classList.add('enter'); }
+      });
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, k) => {
+      t.onclick = () => go(k);
+      t.onkeydown = e => {
+        const n = tabs.length, to = {ArrowRight: (k + 1) % n, ArrowLeft: (k - 1 + n) % n, Home: 0, End: n - 1}[e.key];
+        if (to !== undefined) { e.preventDefault(); go(to, true); }
+      };
+    });
+  })();
 
   // Order procurement: flow chart (desktop) + chip rail (mobile) both drive one detail card
   (() => {
