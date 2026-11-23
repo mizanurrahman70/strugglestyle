@@ -539,18 +539,19 @@
 
   /* 8. Certifications — wall of certificate documents + viewer */
   .certs-sec{background:var(--soft)}
-  .certs-sec .s-head{align-items:flex-end}
   .cert-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start}
   .cert-intro h2{margin:0 0 16px}
-  .cert-sum{display:grid;grid-template-columns:repeat(3,1fr);margin:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .cert-sum{display:grid;grid-template-columns:repeat(3,1fr);margin:36px 0 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   .cert-sum div{padding:20px 0}
   .cert-sum div + div{padding-left:20px;border-left:1px solid var(--border)}
   .cert-sum b{display:block;font-family:var(--head);font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
   .cert-sum span{display:block;font-size:13.5px;color:var(--muted);margin-top:6px}
   .cert-list{background:#fff;border-radius:var(--r-lg);padding:8px 28px;box-shadow:0 1px 2px rgba(15,31,23,.05),0 24px 48px -32px rgba(15,31,23,.3)}
-  .cert{display:grid;grid-template-columns:52px 1fr auto auto;align-items:center;gap:20px;width:100%;padding:20px 0;text-align:left;border-bottom:1px solid var(--border);transition:background .25s}
+  .cert{display:grid;grid-template-columns:88px 1fr auto auto;align-items:center;gap:20px;width:100%;padding:16px 0;text-align:left;border-bottom:1px solid var(--border)}
   .cert:last-child{border-bottom:0}
-  .badge{width:52px;height:52px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font-family:var(--head);font-size:11px;font-weight:700;line-height:1.05;text-align:center;padding:4px}
+  /* logo tile: wide enough for landscape marks (Sedex, OEKO-TEX) */
+  .badge{width:88px;height:60px;flex:none;align-self:center;overflow:hidden;border-radius:var(--r-sm);background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:7px 10px;transition:border-color .25s}
+  .badge img{display:block;width:auto;height:auto;max-width:68px;max-height:44px;object-fit:contain}
   .cert-name b{display:block;font-family:var(--head);font-size:16.5px;font-weight:600;line-height:1.3;transition:color .25s}
   .cert-name span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
   .cert-val{text-align:right;font-size:13px;color:var(--muted);white-space:nowrap}
@@ -558,10 +559,13 @@
   .cert-val em{font-style:normal;display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;font-weight:600;color:#2F7A4E}
   .cert-val em::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
   .cert-val em.renew{color:#A9741A}
-  .cert-go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--green-700);transition:background .25s,color .25s,border-color .25s}
-  .cert-go svg{width:16px;height:16px}
-  .cert:hover .cert-name b{color:var(--green-600)}
-  .cert:hover .cert-go{background:var(--green-800);border-color:var(--green-800);color:#fff}
+  .cert-go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--green-700);transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+  .cert-go svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  /* hover matches the header's primary button (Get a Quote): green-700 + glow, arrow nudges */
+  .cert:hover .badge{border-color:var(--green-700)}
+  .cert:hover .cert-name b{color:var(--green-700)}
+  .cert:hover .cert-go{background:var(--green-700);border-color:var(--green-700);color:#fff;box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .cert:hover .cert-go svg{transform:translateX(3px)}
   .certs-note{font-size:13px;color:var(--muted)}
   /* viewer */
   .viewer{position:fixed;inset:0;z-index:90;background:rgba(12,42,27,.82);backdrop-filter:blur(6px);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -809,8 +813,9 @@
     .tag-rows li{grid-template-columns:28px 1fr;gap:10px}
     .tag-rows em{grid-column:2;justify-self:start}
     .cert-list{padding:4px 18px}
-    .cert{grid-template-columns:44px 1fr auto;gap:14px}
-    .badge{width:44px;height:44px;font-size:9.5px}
+    .cert{grid-template-columns:64px 1fr auto;gap:14px}
+    .badge{width:64px;height:48px;padding:5px 6px}
+    .badge img{max-width:52px;max-height:36px}
     .cert-go{display:none}
     .viewer{padding:12px}
     .viewer-doc{padding:16px}
@@ -899,9 +904,9 @@
   <span class="leaf l1"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span><span class="leaf l2"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span>
   <div class="wrap">
     <div class="stats">
-      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><div><strong>100,000+</strong><span>Pieces produced every month</span></div></div>
-      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>5 markets</strong><span>US, Canada, UK, EU &amp; Latin America</span></div></div>
-      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-2.5-8-6-8-10.5A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.5c0 4.5-3.5 8-8 10.5z"/></svg></span><div><strong>40+ people</strong><span>Skilled, safe and fairly employed</span></div></div>
+      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><div><strong>100,000</strong><span>Pieces monthly capacity</span></div></div>
+      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>3+ markets</strong><span>Africa, Canada, UAE &amp; more</span></div></div>
+      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-2.5-8-6-8-10.5A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.5c0 4.5-3.5 8-8 10.5z"/></svg></span><div><strong>40 people</strong><span>On our team</span></div></div>
     </div>
   </div>
 </section>
@@ -1209,10 +1214,8 @@
   <div class="wrap cert-layout">
     <div class="cert-intro rv">
       <h2>Compliance you can verify</h2>
-      <p class="lead">Each certification lists its issuer and validity date. Select one to view the full certificate.</p>
+      <p class="lead">Struggle Style is committed to responsible manufacturing and fully compliant with the leading certification bodies. We are transparent with our partners about our social and safety practices, and open to any further certifications or audits your brand requires.</p>
       <div class="cert-sum" id="certSum"></div>
-      <a href="certifications.html" class="btn btn-primary">View all certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <p class="certs-note" style="margin-top:20px">Sample data — to be replaced with the client's verified certificates.</p>
     </div>
     <div class="cert-list rv" style="--d:.1s" id="certs"></div>
   </div>
@@ -1429,18 +1432,13 @@
 
   // Certifications — DEMO DATA. Replace with the client's certificates from the CMS.
   const CERTS = [
-    {name: 'OEKO-TEX® Standard 100', short: 'OEKO-TEX', issuer: 'OEKO-TEX Association', cat: 'Product safety', valid: '14 Mar 2027', c: ['#2F6B5A', '#7FB59E']},
-    {name: 'Global Organic Textile Standard', short: 'GOTS', issuer: 'Global Standard gGmbH', cat: 'Organic materials', valid: '30 Jun 2027', c: ['#3C6B2F', '#9CC48F']},
-    {name: 'Global Recycled Standard', short: 'GRS', issuer: 'Textile Exchange', cat: 'Recycled materials', valid: '21 Jan 2027', c: ['#2E5E6B', '#8EC1CB']},
-    {name: 'Organic Content Standard', short: 'OCS', issuer: 'Textile Exchange', cat: 'Organic materials', valid: '09 Sep 2027', c: ['#4E6B2F', '#B5CE8F']},
-    {name: 'amfori BSCI Audit', short: 'BSCI', issuer: 'amfori', cat: 'Social compliance', valid: '18 Nov 2026', c: ['#1F4A3A', '#6FA38D'], renew: true},
-    {name: 'WRAP Certification', short: 'WRAP', issuer: 'Worldwide Responsible Accredited Production', cat: 'Social compliance', valid: '02 May 2027', c: ['#2D4F6B', '#8FB0CB']},
-    {name: 'Sedex SMETA Audit', short: 'SMETA', issuer: 'Sedex', cat: 'Ethical trade', valid: '27 Feb 2027', c: ['#5A3F6B', '#B9A0CB']},
-    {name: 'ISO 9001:2015', short: 'ISO 9001', issuer: 'Bureau Veritas', cat: 'Quality management', valid: '12 Aug 2028', c: ['#2B3F5C', '#8C9FBF']},
-    {name: 'ISO 14001:2015', short: 'ISO 14001', issuer: 'Bureau Veritas', cat: 'Environment', valid: '05 Apr 2028', c: ['#2F6B4E', '#93C9A9']},
-    {name: 'Higg Facility Environmental Module', short: 'Higg FEM', issuer: 'Cascale', cat: 'Environment', valid: '31 Dec 2026', c: ['#3F6B2F', '#A7CB8F'], renew: true},
-    {name: 'Better Cotton Membership', short: 'Better Cotton', issuer: 'Better Cotton', cat: 'Responsible cotton', valid: '15 Oct 2027', c: ['#6B5A2F', '#CBB98F']},
-    {name: 'RSC Building Safety', short: 'RSC', issuer: 'RMG Sustainability Council', cat: 'Workplace safety', valid: '20 Jul 2027', c: ['#6B3A2F', '#CB9A8F']}
+    {name: 'LEED Gold', short: 'LEED', logo: 'images/certs/leed-gold.png', issuer: 'U.S. Green Building Council', cat: 'Green building', valid: '30 Jun 2028', c: ['#8A6A1F', '#D9BE72']},
+    {name: 'amfori BSCI', short: 'BSCI', logo: 'images/certs/bsci.png', issuer: 'amfori', cat: 'Social compliance', valid: '18 Nov 2026', c: ['#4A4F55', '#A9AEB4'], renew: true},
+    {name: 'Sedex Member (SMETA)', short: 'Sedex', logo: 'images/certs/sedex.png', issuer: 'Sedex', cat: 'Ethical trade', valid: '27 Feb 2027', c: ['#3B3B3B', '#D8175B']},
+    {name: 'RSC Building Safety', short: 'RSC', logo: 'images/certs/rsc.png', issuer: 'RMG Sustainability Council', cat: 'Workplace safety', valid: '20 Jul 2027', c: ['#1E8C45', '#8FD0A6']},
+    {name: 'ISO 9001:2015', short: 'ISO 9001', logo: 'images/certs/iso-9001.png', issuer: 'International Organization for Standardization', cat: 'Quality management', valid: '12 Aug 2028', c: ['#1C4F9C', '#8CA9DB']},
+    {name: 'OEKO-TEX® Standard 100', short: 'OEKO-TEX', logo: 'images/certs/oeko-tex-100.png', issuer: 'OEKO-TEX Association', cat: 'Product safety', valid: '14 Mar 2027', c: ['#2F6B5A', '#E9A23B']},
+    {name: 'WRAP Certification', short: 'WRAP', logo: 'images/certs/wrap.png', issuer: 'Worldwide Responsible Accredited Production', cat: 'Social compliance', valid: '02 May 2027', c: ['#8A6A2F', '#1F4E8C']}
   ];
   // Certificate document (A4 portrait), drawn as SVG. Marked SAMPLE until real scans are supplied.
   const issued = v => { const d = new Date(v); d.setFullYear(d.getFullYear() - 1); return d.toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'}); };
@@ -1453,7 +1451,8 @@
       <rect x="22" y="22" width="556" height="804" fill="none" stroke="${c}" stroke-width="3"/>
       <rect x="32" y="32" width="536" height="784" fill="none" stroke="${c}" stroke-width="1" opacity=".55"/>
       <g stroke="${c}" stroke-width=".6" opacity=".25" fill="none">${Array.from({length: 18}, (_, k) => `<ellipse cx="300" cy="66" rx="${60 + k * 11}" ry="${14 + k * 1.2}"/>`).join('')}</g>
-      <text x="300" y="118" text-anchor="middle" font-family="Inter,Arial" font-size="13" font-weight="600" letter-spacing="2" fill="${c}">${x.issuer}</text>
+      ${x.logo ? `<image href="${x.logo}" x="250" y="44" width="100" height="56" preserveAspectRatio="xMidYMid meet"/>` : ''}
+      <text x="300" y="124" text-anchor="middle" font-family="Inter,Arial" font-size="13" font-weight="600" letter-spacing="2" fill="${c}">${x.issuer}</text>
       <text x="300" y="186" text-anchor="middle" font-family="Georgia,serif" font-size="44" fill="#1E2B22">Certificate</text>
       <text x="300" y="216" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="18" fill="#5A6B5E">of Compliance</text>
       <line x1="230" y1="240" x2="370" y2="240" stroke="${c}" stroke-width="1.5"/>
@@ -1479,13 +1478,13 @@
     </svg>`;
   };
   const go = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  // Compliance register: summary + five featured rows; the viewer browses all
+  // Compliance register: summary + one row per certification; the viewer browses all
   const renewing = CERTS.filter(x => x.renew).length;
   $('#certSum').innerHTML = `<div><b>${CERTS.length}</b><span>Certifications</span></div><div><b>${CERTS.length - renewing}</b><span>Currently valid</span></div><div><b>${renewing}</b><span>Renewal in progress</span></div>`;
   const goIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  $('#certs').innerHTML = CERTS.slice(0, 5).map((x, i) => `
-    <button class="cert" style="--c:${x.c[0]}" data-i="${i}" aria-label="View ${x.name} certificate">
-      <span class="badge">${x.short}</span>
+  $('#certs').innerHTML = CERTS.map((x, i) => `
+    <button class="cert" data-i="${i}" aria-label="View ${x.name} certificate">
+      <span class="badge"><img src="${x.logo}" alt="${x.short} logo" loading="lazy"></span>
       <span class="cert-name"><b>${x.name}</b><span>${x.issuer}</span></span>
       <span class="cert-val">Valid until<strong>${x.valid}</strong><em class="${x.renew ? 'renew' : ''}">${x.renew ? 'Renewal due' : 'Valid'}</em></span>
       <span class="cert-go">${goIco}</span>
