@@ -891,9 +891,10 @@
   .gl-tab{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:56px;padding:0 24px;border-radius:999px;font-family:var(--head);font-size:15.5px;font-weight:600;line-height:1.15;color:var(--green-800);transition:background .25s,color .25s,box-shadow .25s}
   .gl-tab small{font-family:var(--body);font-size:12px;font-weight:500;color:var(--muted);transition:color .25s}
   .gl-tab[aria-selected="true"]{background:var(--green-700);color:#fff}
-  .gl-tab[aria-selected="true"] small,.gl-tab:hover small{color:rgba(255,255,255,.8)}
-  /* Hover matches .btn-primary:hover */
-  .gl-tab:hover{background:var(--green-800);color:#fff;box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .gl-tab[aria-selected="true"] small{color:rgba(255,255,255,.8)}
+  /* Hover matches the scrolled header "Get a Quote" button (green-700, white text) */
+  .gl-tab:hover{background:var(--green-700);color:#fff}
+  .gl-tab:hover small{color:rgba(255,255,255,.8)}
   .gl-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:56px;align-items:start}
   .gl-panel[hidden]{display:none}
   .gl-panel.enter{animation:glIn .5s var(--ease)}
@@ -911,16 +912,22 @@
   .gl-certs b{width:100%;font-size:13.5px;font-weight:600;margin-bottom:2px}
   .gl-certs span{height:30px;display:inline-flex;align-items:center;padding:0 12px;border-radius:999px;background:var(--soft);border:1px solid var(--border);font-size:13px;font-weight:500;color:var(--green-800)}
   .gl-certs .gl-pend{border-style:dashed;color:var(--muted)}
+  /* One row of small logos; wide marks get more room so all read at a similar size */
+  .cert-logos{list-style:none;width:100%;display:flex;align-items:center;gap:10px}
+  .cert-logos li{flex:1 1 0;min-width:0;display:flex;justify-content:center}
+  .cert-logos li.w{flex-grow:1.6}
+  .cert-logos li.xw{flex-grow:2.4}
+  .cert-logos img{max-width:100%;max-height:36px;width:auto;height:auto}
   .gl-panel .glance-grid{grid-template-columns:1fr 1fr}
 
   /* Closing call to action */
-  .po-cta{padding:0 0 112px;background:var(--bg)}
+  .po-cta{padding:112px 0;background:var(--bg)}
   .po-cta-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding:56px;border-radius:var(--r-lg);background:var(--green-800);color:#fff;position:relative;overflow:hidden}
   .po-cta-box::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;border:1px dashed rgba(61,220,132,.35)}
   .po-cta-box h2{color:#fff;font-size:clamp(28px,3vw,40px);margin-bottom:10px}
   .po-cta-box p{color:rgba(255,255,255,.75);max-width:520px}
   .po-cta-box .btn{position:relative;z-index:1;background:var(--leaf);color:var(--green-900)}
-  .po-cta-box .btn:hover{background:#fff}
+  .po-cta-box .btn:hover{background:var(--green-700);color:#fff}
 
   @media (max-width:1100px){
     .po-head{grid-template-columns:1fr;gap:20px}
@@ -957,7 +964,8 @@
     .gl-tab{flex:1;padding:0 16px;font-size:14.5px}
     .gl-card{padding:28px 22px}
     .gl-nums strong{font-size:24px}
-    .po-cta{padding-bottom:80px}
+    .cert-logos{gap:6px}
+    .po-cta{padding:80px 0}
     .po-cta-box{padding:36px 24px}
   }
 </style>
@@ -1251,7 +1259,17 @@
           <div><strong>1,200+</strong><span>Machines</span></div>
           <div><strong>7</strong><span>Certifications</span></div>
         </div>
-        <div class="gl-certs"><b>Certifications</b><span>LEED Gold</span><span>BSCI</span><span>Sedex</span><span>RSC</span><span>ISO 9001:2015</span><span>OEKO-TEX 100</span><span>WRAP</span></div>
+        <div class="gl-certs"><b>Certifications</b>
+          <ul class="cert-logos">
+            <li><img src="images/certs/leed-gold.png" alt="LEED Gold, U.S. Green Building Council" loading="lazy" width="129" height="127"></li>
+            <li><img src="images/certs/bsci.png" alt="Member of BSCI" loading="lazy" width="129" height="127"></li>
+            <li class="xw"><img src="images/certs/sedex.png" alt="Sedex" loading="lazy" width="280" height="78"></li>
+            <li class="w"><img src="images/certs/rsc.png" alt="RSC" loading="lazy" width="206" height="94"></li>
+            <li><img src="images/certs/iso-9001.png" alt="ISO 9001:2015" loading="lazy" width="129" height="129"></li>
+            <li class="xw"><img src="images/certs/oeko-tex-100.png" alt="OEKO-TEX Standard 100" loading="lazy" width="290" height="93"></li>
+            <li><img src="images/certs/wrap.png" alt="WRAP, Worldwide Responsible Accredited Production" loading="lazy" width="129" height="121"></li>
+          </ul>
+        </div>
       </div>
       <dl class="glance-grid">
         <div><dt>Established</dt><dd>July 2018</dd></div>
