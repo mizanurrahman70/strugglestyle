@@ -182,6 +182,27 @@
   .j-badge span{font-size:13px;color:var(--muted)}
   .j-tagline{position:absolute;z-index:2;top:20px;left:20px;padding:8px 14px;border-radius:999px;background:rgba(12,42,27,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff}
 
+  /* Locations: office list + live map */
+  .loc-head{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:48px}
+  .loc-head h2{margin-top:16px}
+  .loc-head .lead{max-width:420px}
+  .loc-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:32px;align-items:stretch}
+  .loc-list{list-style:none;display:grid;gap:14px;align-content:start}
+  .loc-item{width:100%;display:grid;grid-template-columns:44px 1fr;gap:4px 16px;text-align:left;padding:22px;border-radius:var(--r);background:#fff;border:0;transition:background .25s,box-shadow .25s,transform .25s var(--ease)}
+  .loc-item i{grid-row:span 3;width:44px;height:44px;border-radius:12px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;transition:background .25s,color .25s}
+  .loc-item i svg{width:20px;height:20px}
+  .loc-item b{font-family:var(--head);font-size:18px;font-weight:600;letter-spacing:-.01em}
+  .loc-item em{font-style:normal;font-size:13px;font-weight:600;color:var(--green-700)}
+  .loc-item span{font-size:14.5px;line-height:1.55;color:var(--muted)}
+  .loc-item b{position:relative;justify-self:start;padding-bottom:8px}
+  .loc-item b::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;border-radius:2px;background:var(--green-600);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .loc-item:hover b::after,.loc-item[aria-pressed="true"] b::after{transform:scaleX(1)}
+  .loc-map{position:relative;min-height:460px;border-radius:var(--r-lg);overflow:hidden;background:var(--green-100);box-shadow:var(--shadow-lg)}
+  .loc-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .loc-open{position:absolute;z-index:2;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;background:#fff;box-shadow:var(--shadow);font-size:14px;font-weight:600;color:var(--green-800);transition:background .2s,color .2s}
+  .loc-open:hover{background:var(--green-700);color:#fff}
+  .loc-open svg{width:15px;height:15px}
+
   /* 3. Closing call to action (same as the manufacturing page) */
   .po-cta{padding:112px 0;background:var(--bg)}
   .po-cta-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding:56px;border-radius:var(--r-lg);background:var(--green-800);color:#fff;position:relative;overflow:hidden}
@@ -228,6 +249,8 @@
   @media (max-width:960px){
     .journey-grid{grid-template-columns:1fr;gap:64px}
     .team-grid{grid-template-columns:1fr;gap:40px}
+    .loc-grid{grid-template-columns:1fr}
+    .loc-map{min-height:380px}
     .team-intro{position:static}
     .journey-media{max-width:640px}
     .ceo-grid{grid-template-columns:1fr;gap:48px}
@@ -247,6 +270,8 @@
     .ceo-card{grid-template-columns:1fr}
     .ceo-photo{max-width:280px}
     .ceo-quote{padding-top:40px}
+    .loc-item{padding:18px;grid-template-columns:40px 1fr}
+    .loc-map{min-height:320px}
     .team-list{grid-template-columns:1fr}
     .journey{padding:88px 0}
     .j-steps{grid-template-columns:1fr}
@@ -387,6 +412,27 @@
   </div>
 </section>
 
+<!-- ===== Locations ===== -->
+<section class="row soft" aria-labelledby="loc-title">
+  <div class="wrap">
+    <div class="loc-head rv">
+      <div><span class="tag">Locations</span><h2 id="loc-title">Find our offices</h2></div>
+      <p class="lead">Three offices across three countries. Select one to see it on the map.</p>
+    </div>
+    <div class="loc-grid">
+      <ul class="loc-list rv">
+        <li><button type="button" class="loc-item" data-q="2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462" aria-pressed="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Head office</b><em>New York, USA</em><span>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</span></button></li>
+        <li><button type="button" class="loc-item" data-q="Kwong%20Yuen%20Building%2C%204%20Kam%20Lam%20Street%2C%20Kowloon%2C%20Hong%20Kong" aria-pressed="false"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Hong Kong office</b><em>Kowloon, Hong Kong</em><span>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</span></button></li>
+        <li><button type="button" class="loc-item" data-q="Azhar%20Comfort%20Complex%2C%20Progati%20Sharani%2C%20Gulshan%201%2C%20Dhaka%201212" aria-pressed="false"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Bangladesh office</b><em>Dhaka, Bangladesh</em><span>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</span></button></li>
+      </ul>
+      <div class="loc-map rv" style="--d:.1s">
+        <iframe id="loc-map" title="Office location map" src="https://www.google.com/maps?q=2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <a id="loc-open" class="loc-open" href="https://www.google.com/maps/search/?api=1&amp;query=2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462" target="_blank" rel="noopener">Open in Google Maps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== Call to action ===== -->
 <section class="po-cta">
   <div class="wrap">
@@ -443,6 +489,14 @@
   const setMenu = o => { $('#mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('#burger').setAttribute('aria-expanded', o); };
   $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
   $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
+
+
+  // Locations: switch the map between offices
+  $$('.loc-item').forEach(b => b.onclick = () => {
+    $$('.loc-item').forEach(x => x.setAttribute('aria-pressed', x === b));
+    $('#loc-map').src = 'https://www.google.com/maps?q=' + b.dataset.q + '&output=embed';
+    $('#loc-open').href = 'https://www.google.com/maps/search/?api=1&query=' + b.dataset.q;
+  });
 
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
