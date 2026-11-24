@@ -762,9 +762,9 @@
 
   /* ===== Order procurement process (manufacturing page focus) ===== */
   .po-sec{padding:72px 0 112px;background:var(--bg)}
-  .po-head{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
-  .po-head h1{margin:16px 0 0;max-width:620px;text-wrap:balance}
-  .po-head .lead{max-width:none}
+  .po-head{display:grid;grid-template-columns:1fr;gap:18px;justify-items:center;text-align:center;margin-bottom:56px}
+  .po-head h1{margin:16px 0 0;max-width:none;text-wrap:balance}
+  .po-head .lead{max-width:860px;margin:0 auto;text-wrap:balance;line-height:1.7}
   .po-head .lead b{color:var(--text);font-weight:600}
 
   /* Flow diagram: order splits into two team lanes, hands off, then merges into delivery */
@@ -1022,10 +1022,9 @@
   <div class="wrap">
     <div class="po-head rv">
       <div>
-        <span class="tag">Order procurement process</span>
         <h1 id="po-title">From purchase order to shipped cartons</h1>
       </div>
-      <p class="lead">Every order moves through <b>eight stages</b>, run by two teams: our <b>merchandising team</b> prepares the order, then the <b>production floor</b> makes and ships it. You get one point of contact and a clear sign-off at each stage.</p>
+      <p class="lead">Follow your garments through eight clear stages, from costing and sampling to cutting, sewing and shipping. Our merchandising team plans every detail, our production floor builds it, and you approve each step with one dedicated contact.</p>
     </div>
 
     <div class="po-layout">
@@ -1251,7 +1250,7 @@
 <section class="glance" id="factory">
   <div class="wrap">
     <div class="s-head rv">
-      <div><span class="tag">Factory profiles</span><h2 style="margin-top:16px">Our factories at a glance</h2><p class="lead">Two export factories in Gazipur, Bangladesh: one for lingerie and underwear, one for woven bottoms and denim.</p></div>
+      <div><h2>Our factories at a glance</h2><p class="lead">Two export factories in Gazipur, Bangladesh: one for lingerie and underwear, one for woven bottoms and denim.</p></div>
       <div class="gl-switch" role="tablist" aria-label="Choose a factory">
         <button class="gl-tab" role="tab" id="gl-t1" aria-controls="gl-p1" aria-selected="false" tabindex="-1">Holy Intimates<small>Lingerie</small></button>
         <button class="gl-tab" role="tab" id="gl-t2" aria-controls="gl-p2" aria-selected="true">NASA Hitech Style<small>Woven &amp; denim</small></button>
