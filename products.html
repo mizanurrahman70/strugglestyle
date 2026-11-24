@@ -168,6 +168,8 @@
   .note{font-size:13px;color:var(--muted);margin-top:14px}
 
   /* 4. Categories — staggered portrait cards (photo first) */
+  #products .wrap{max-width:none;padding:0}   /* carousel runs edge to edge */
+  #products .cats-head{padding:0 32px}
   .cats-head{text-align:center;max-width:720px;margin:0 auto 64px}
   .cats-head h2{margin:0 0 14px;text-wrap:balance}
   .cats-head .lead{margin:0 auto}
@@ -927,7 +929,9 @@
   const cards = $$('.cat'), N = cards.length;
   cards.forEach(card => {
     if (!card.dataset.clip) { card.clip = {play: () => Promise.reject(), pause() {}}; return; }   // photo-only card
-    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'metadata'});
+    const v = Object.assign(document.createElement('video'), {src: card.dataset.clip, muted: true, loop: true, playsInline: true, preload: 'auto'});
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');   // required for autoplay in Safari / Chrome
+    v.addEventListener('canplay', () => { if (card.classList.contains('active') && inView && v.paused) setActive(); });   // retry once the clip has loaded
     card.querySelector('.media').append(v); card.clip = v;
   });
   let cur = 2, hovered = null, inView = false;   // start on the 3rd category (Sweater) in the middle
@@ -938,7 +942,7 @@
     cards.forEach(c => {
       const on = c === a && inView;
       c.classList.toggle('active', c === a);
-      if (on) c.clip.play().then(() => c.classList.add('playing')).catch(() => {});
+      if (on) c.clip.play().then(() => { if (c.classList.contains('active')) c.classList.add('playing'); }).catch(() => {});
       else { c.classList.remove('playing'); c.clip.pause(); }
     });
   };
@@ -946,7 +950,7 @@
     // fit exactly 5 cards (3 on tablets, 1 on phones) inside the page width, leaving the side margins empty
     const W = track.clientWidth, gap = parseFloat(getComputedStyle(track).getPropertyValue('--gap')) || 16;
     const count = W >= 860 ? 5 : W >= 520 ? 3 : 1;
-    track.style.setProperty('--cw', Math.min(count === 1 ? 300 : 320, (W - (count - 1) * gap) / count) + 'px');
+    track.style.setProperty('--cw', (W - (count - 1) * gap) / count + 'px');   // cards share the full width, no side gaps
     const edge = (count - 1) / 2;
     cards.forEach((c, i) => {
       const x = slot(i), old = +c.style.getPropertyValue('--x');
