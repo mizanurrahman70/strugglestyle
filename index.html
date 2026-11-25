@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/preloader.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Struggle Style | Responsible Apparel Manufacturing</title>
@@ -9,7 +10,7 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,500..800&family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="images/sew-line.jpg">
 <style>
   :root{
@@ -29,8 +30,8 @@
     --border:#DCEBE1;
     --shadow:0 1px 2px rgba(15,31,23,.04),0 8px 24px -12px rgba(15,31,23,.12);
     --shadow-lg:0 2px 4px rgba(15,31,23,.04),0 24px 48px -20px rgba(15,31,23,.25);
-    --head:"Inter Tight",system-ui,sans-serif;
-    --body:"Inter",system-ui,sans-serif;
+    --head:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
+    --body:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
     --r-lg:28px;
     --r:20px;
     --r-sm:14px;
@@ -66,6 +67,8 @@
   .btn-white:hover{background:var(--green-100)}
   .btn-outline{border:1px solid var(--border);background:#fff;color:var(--text)}
   .btn-outline:hover{border-color:var(--green-800)}
+  .btn-outline-fill{border:1px solid var(--border);background:#fff;color:var(--text)}
+  .btn-outline-fill:hover{background:var(--green-800);border-color:var(--green-800);color:#fff;box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
   .btn-glass{border:1px solid rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}
   .btn-glass:hover{background:rgba(255,255,255,.18)}
   .btn-sm{height:44px;padding:0 20px;font-size:14px}
@@ -129,7 +132,10 @@
      whether the header is transparent or turns light on scroll; only a soft extra
      shade sits behind the centred text. */
   .hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px var(--edge) 72px}
-  .hero h1{color:#fff;opacity:.8;text-shadow:0 1px 2px rgba(0,0,0,.75),0 2px 10px rgba(0,0,0,.65),0 4px 24px rgba(0,0,0,.55),0 8px 48px rgba(0,0,0,.45);font-size:clamp(34px,min(4.6vw,8vh),72px);font-weight:700;max-width:1100px;letter-spacing:-.022em;line-height:1.12;text-wrap:balance}
+  /* Plain hero text: no blur or panel, readability comes from the text-shadow only */
+  .hero-glass{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:100%;padding:40px 48px;border-radius:28px;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px)}
+  @media (max-width:640px){.hero-glass{padding:28px 22px;border-radius:22px}}
+  .hero h1{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6),0 3px 16px rgba(0,0,0,.5),0 8px 40px rgba(0,0,0,.4);font-size:clamp(34px,min(4.6vw,8vh),72px);overflow-wrap:break-word;font-weight:500;letter-spacing:-.015em;line-height:1.12;text-wrap:balance}
   @media (max-width:640px){
     .campaign-cap{left:20px;bottom:24px}
     .edit-tabs{gap:16px;overflow-x:auto}
@@ -140,7 +146,7 @@
     .look{width:160px;margin-left:-80px}
     .hint{font-size:0;gap:0}
  .hero h1 br{display:none} }
-  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;opacity:.7;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 8px rgba(0,0,0,.7),0 4px 22px rgba(0,0,0,.6),0 6px 36px rgba(0,0,0,.45);max-width:720px;margin:22px auto 34px;text-wrap:pretty}
+  .hero p{font-size:clamp(16px,1.3vw,19px);color:#fff;font-weight:400;text-shadow:0 1px 3px rgba(0,0,0,.75),0 2px 12px rgba(0,0,0,.6),0 4px 28px rgba(0,0,0,.45);max-width:720px;margin:0 auto;text-wrap:pretty}
   /* Slide text changes with the image */
   .hero h1,.hero p{transition:opacity .45s ease,transform .45s ease}
   .hero-content.swap h1,.hero-content.swap p{opacity:0;transform:translateY(8px)}
@@ -343,9 +349,9 @@
 
   /* ===== Order procurement process (manufacturing page focus) ===== */
   .po-sec{padding:112px 0;background:var(--bg)}
-  .po-head{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
-  .po-head h2{margin:0;max-width:620px;text-wrap:balance}
-  .po-head .lead{max-width:none}
+  .po-head{display:grid;grid-template-columns:1fr;gap:18px;justify-items:center;text-align:center;margin-bottom:56px}
+  .po-head h2{margin:0;max-width:none;text-wrap:balance}
+  .po-head .lead{max-width:860px;margin:0 auto;text-wrap:balance;line-height:1.7}
   .po-head .lead b{color:var(--text);font-weight:600}
 
   /* Flow diagram: order splits into two team lanes, hands off, then merges into delivery */
@@ -423,7 +429,7 @@
   .po-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,42,27,.6) 0%,transparent 45%)}
   .po-media figcaption{position:absolute;left:20px;bottom:20px;z-index:2;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600}
   .po-media figcaption::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--leaf)}
-  .po-big{position:absolute;right:18px;top:6px;z-index:2;font-family:var(--head);font-size:120px;font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
+  .po-big{display:none;position:absolute;right:18px;top:6px;z-index:2;font-family:var(--head);font-size:120px;font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
   .po-body{display:flex;flex-direction:column;padding:48px 48px 40px}
   .po-count{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-600)}
   .po-body h3{font-size:clamp(26px,2.4vw,34px);margin:10px 0 14px}
@@ -508,8 +514,10 @@
 
   /* 7. Markets & brand logos (marquee) */
   .reach{overflow:hidden}
-  .reach .s-head{align-items:flex-end}
-  .market-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;max-width:520px}
+  .reach .s-head{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px}
+  .reach .s-head h2{max-width:none;margin:0 0 14px}
+  .reach .s-head .lead{margin:0 auto}
+  .market-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px}
   .mpill{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px 0 6px;border-radius:999px;background:#fff;border:1px solid var(--border);font-size:14.5px;font-weight:600;box-shadow:var(--shadow);transition:transform .3s var(--ease)}
   .mpill:hover{transform:translateY(-2px)}
   .mpill img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
@@ -524,55 +532,25 @@
   .brand{position:relative;flex:none;width:220px;height:112px;border-radius:var(--r);background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
   .brand:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
   .brand img{max-width:66%;max-height:58%;object-fit:contain}
+  /* Market filter: pills act as toggles; a filtered marquee stops and shows each matching logo once */
+  .mpill{cursor:pointer;color:var(--text);transition:transform .3s var(--ease),background .25s}
+  .mpill:hover,.mpill[aria-pressed="true"]{background:var(--soft)}
+  .mpill[aria-pressed="true"] .flagstack img{border-color:var(--soft)}
+  .marquee.filtered{mask-image:none;-webkit-mask-image:none}
+  .marquee.filtered .mq-row{animation:none;width:auto;flex-wrap:wrap;justify-content:center;padding:0 32px}
+  .marquee.filtered .mq-row.rev,.marquee.filtered [aria-hidden="true"]{display:none !important}
+  .marquee.filtered .brand:not(.match){display:none}
+  .marquee.filtered .brand.match{animation:mqIn .45s var(--ease) both}
+  @keyframes mqIn{from{opacity:0;transform:translateY(8px)}}
+  .mq-empty{text-align:center;color:var(--muted);font-size:15px;margin-top:8px}
   .reach-note{text-align:center;font-size:13px;color:var(--muted);margin-top:28px}
 
-  /* 8. Certifications — wall of certificate documents + viewer */
+  /* 8. Certifications — centered intro + icon-only marquee */
   .certs-sec{background:var(--soft)}
-  .certs-sec .s-head{align-items:flex-end}
-  .cert-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start}
-  .cert-intro h2{margin:0 0 16px}
-  .cert-sum{display:grid;grid-template-columns:repeat(3,1fr);margin:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-  .cert-sum div{padding:20px 0}
-  .cert-sum div + div{padding-left:20px;border-left:1px solid var(--border)}
-  .cert-sum b{display:block;font-family:var(--head);font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
-  .cert-sum span{display:block;font-size:13.5px;color:var(--muted);margin-top:6px}
-  .cert-list{background:#fff;border-radius:var(--r-lg);padding:8px 28px;box-shadow:0 1px 2px rgba(15,31,23,.05),0 24px 48px -32px rgba(15,31,23,.3)}
-  .cert{display:grid;grid-template-columns:52px 1fr auto auto;align-items:center;gap:20px;width:100%;padding:20px 0;text-align:left;border-bottom:1px solid var(--border);transition:background .25s}
-  .cert:last-child{border-bottom:0}
-  .badge{width:52px;height:52px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font-family:var(--head);font-size:11px;font-weight:700;line-height:1.05;text-align:center;padding:4px}
-  .cert-name b{display:block;font-family:var(--head);font-size:16.5px;font-weight:600;line-height:1.3;transition:color .25s}
-  .cert-name span{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
-  .cert-val{text-align:right;font-size:13px;color:var(--muted);white-space:nowrap}
-  .cert-val strong{display:block;font-size:14.5px;font-weight:600;color:var(--text)}
-  .cert-val em{font-style:normal;display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;font-weight:600;color:#2F7A4E}
-  .cert-val em::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-  .cert-val em.renew{color:#A9741A}
-  .cert-go{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--green-700);transition:background .25s,color .25s,border-color .25s}
-  .cert-go svg{width:16px;height:16px}
-  .cert:hover .cert-name b{color:var(--green-600)}
-  .cert:hover .cert-go{background:var(--green-800);border-color:var(--green-800);color:#fff}
-  .certs-note{font-size:13px;color:var(--muted)}
-  /* viewer */
-  .viewer{position:fixed;inset:0;z-index:90;background:rgba(12,42,27,.82);backdrop-filter:blur(6px);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
-  .viewer.open{opacity:1;pointer-events:auto}
-  .viewer-box{display:grid;grid-template-columns:auto 340px;gap:0;max-width:1000px;width:100%;max-height:calc(100vh - 48px);background:var(--bg);border-radius:var(--r-lg);overflow:hidden;transform:translateY(16px) scale(.98);transition:transform .35s var(--ease)}
-  .viewer.open .viewer-box{transform:none}
-  .viewer-doc{background:#E7EEE0;padding:32px;display:grid;place-items:center;overflow:auto}
-  .viewer-doc svg{height:min(78vh,760px);width:auto;max-width:100%;box-shadow:0 24px 48px -24px rgba(12,42,27,.5);background:#fff}
-  .viewer-info{padding:32px 28px;display:flex;flex-direction:column}
-  .viewer-info .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-  .viewer-info .cat{font-size:13px;font-weight:600;color:var(--green-700);background:var(--green-100);padding:5px 12px;border-radius:999px}
-  .viewer-info .x{width:40px;height:40px;border-radius:50%;background:var(--soft);font-size:20px}
-  .viewer-info h3{font-size:26px;line-height:1.2;margin-bottom:22px}
-  .viewer-info dl{display:grid;grid-template-columns:auto 1fr;gap:12px 20px;font-size:14.5px;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-  .viewer-info dt{color:var(--muted)}
-  .viewer-info dd{font-weight:600}
-  .viewer-info .btn{margin-top:24px;align-self:flex-start}
-  .viewer-nav{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:24px;font-size:14px;color:var(--muted)}
-  .viewer-nav div{display:flex;gap:8px}
-  .viewer-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;transition:background .2s,color .2s}
-  .viewer-nav button:hover{background:var(--green-800);color:#fff;border-color:var(--green-800)}
-  .viewer-nav svg{width:16px;height:16px}
+  .cert-intro{max-width:920px;margin:0 auto 48px;text-align:center}
+  .cert-intro h2{margin:0 0 18px}
+  .cert-intro .lead{max-width:900px;margin:0 auto;font-size:17.5px;line-height:1.7;text-wrap:balance}
+  .cert-marquee{margin-top:0}
 
   .t-note{position:relative;text-align:center;font-size:13px;color:var(--muted);margin-top:36px}
 
@@ -605,7 +583,7 @@
 
   /* 12. Footer */
   footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
-  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-grid{display:grid;grid-template-columns:1.3fr .8fr 1.2fr 1.5fr;gap:40px;padding-bottom:48px}
   .f-about p{margin:20px 0 24px;max-width:320px}
   footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
   footer ul{list-style:none;display:grid;gap:11px}
@@ -617,11 +595,11 @@
   .soc svg{width:16px;height:16px}
   .contact li{display:flex;gap:12px;align-items:flex-start}
   .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
-  .f-locrow{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:center;gap:32px;padding:36px 0;border-bottom:1px solid rgba(255,255,255,.1)}
-  .f-locrow h5{font-size:clamp(24px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;margin:0;padding-right:16px}
-  .f-locrow address{font-style:normal;font-size:14px;line-height:1.6;padding-left:18px;border-left:3px solid var(--leaf)}
-  .f-locrow b{display:block;color:#fff;font-weight:600}
-  .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
+  .f-loc{display:grid;gap:18px;align-content:start}
+  .f-loc h5{margin-bottom:0}
+  .f-loc address{font-style:normal;font-size:14px;line-height:1.6;padding-left:0}
+  .f-loc b{display:block;color:#fff;font-weight:600}
+  .f-bot{display:flex;justify-content:center;text-align:center;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
   .f-bot nav{display:flex;gap:24px}
   .f-bot select{font:inherit;font-size:14px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
   .f-bot select option{color:var(--text)}
@@ -770,10 +748,8 @@
     .mfg-split{grid-template-columns:1fr;gap:48px}
     .mfg-visual{max-width:620px}
     .posts{grid-template-columns:1fr 1fr}
-    .market-pills{justify-content:flex-start}
+    .market-pills{justify-content:center}
     .f-grid{grid-template-columns:1fr 1fr}
-    .f-locrow{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .f-locrow h5{grid-column:1/-1}
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
@@ -798,8 +774,9 @@
     .tag-rows li{grid-template-columns:28px 1fr;gap:10px}
     .tag-rows em{grid-column:2;justify-self:start}
     .cert-list{padding:4px 18px}
-    .cert{grid-template-columns:44px 1fr auto;gap:14px}
-    .badge{width:44px;height:44px;font-size:9.5px}
+    .cert{grid-template-columns:64px 1fr auto;gap:14px}
+    .badge{width:64px;height:48px;padding:5px 6px}
+    .badge img{max-width:52px;max-height:36px}
     .cert-go{display:none}
     .viewer{padding:12px}
     .viewer-doc{padding:16px}
@@ -817,7 +794,6 @@
     .mpill img{width:28px;height:28px}
     .rfq{padding:80px 0}
     .f-grid{grid-template-columns:1fr}
-    .f-locrow{grid-template-columns:1fr;gap:22px}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition:none!important;animation:none!important}
@@ -831,7 +807,7 @@
   header .logo-img.on-dark{display:block}
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
-  footer .logo-img{height:56px}  /* footer: the SS mark in its own green, no backdrop */
+  footer .logo-img{height:64px;width:auto}  /* footer: the SS mark in its own green, no backdrop */
   header .logo-img{height:64px;width:auto}
   /* Gold logo: bright gold + soft shadow over the dark hero, deep gold on the white header */
   header .logo-img.on-dark{filter:drop-shadow(0 1px 2px rgba(0,0,0,.45)) drop-shadow(0 2px 10px rgba(0,0,0,.3))}
@@ -850,7 +826,7 @@
         <li><a href="products.html">Products</a></li>
         <li><a href="manufacturing.html">Manufacturing</a></li>
         <li><a href="sustainability.html">Sustainability</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="news.html">News</a></li>
       </ul>
     </nav>
@@ -858,7 +834,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="index.html" aria-current="page">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html">Sustainability</a><a href="#about">About</a><a href="news.html">News</a>
+    <a href="index.html" aria-current="page">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html">Sustainability</a><a href="about.html">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -872,11 +848,13 @@
       <div class="slide" data-label="Raw materials" data-title="Responsible raw materials<br> from the field" data-text="Organic and recycled cotton options for every collection, chosen together with you at the sampling stage before bulk production begins."><img src="images/heros/raw-materials.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Production" data-title="Skilled hands on<br> a fair floor" data-text="Safe, well-lit floors and fair working hours, with careful quality checks at every stage of production, from cutting to packing."><img src="images/heros/production.jpg" alt="" loading="lazy"></div>
       <div class="slide" data-label="Energy" data-title="Working toward cleaner<br> energy and efficiency" data-text="Efficient machinery in use today, with renewable energy planning under way to lower the footprint of every garment we make."><img src="images/heros/clean-energy.jpg" alt="" loading="lazy"></div>
-      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.jpg" alt="" loading="lazy"></div>
+      <div class="slide" data-label="Shipping" data-title="Shipped to brands<br> around the world" data-text="FOB Chattogram or delivered straight to your port, with clear lead times and a detailed quotation within one business day."><img src="images/heros/shipping.png" alt="" loading="lazy"></div>
 
       <div class="hero-content">
+        <div class="hero-glass">
         <h1 id="heroTitle">Finished garments made<br> to your specification</h1>
         <p id="heroText">Lingerie, denim, sweaters, wovens and knits — sampled, graded and produced to your tech pack with transparent costing at every step.</p>
+        </div>
       </div>
 
       <div class="hero-ctrl"><div id="dots" role="tablist" aria-label="Slides"><button role="tab" aria-label="Finished garments" class="on" aria-selected="true"></button><button role="tab" aria-label="Raw materials" aria-selected="false"></button><button role="tab" aria-label="Production" aria-selected="false"></button><button role="tab" aria-label="Energy" aria-selected="false"></button><button role="tab" aria-label="Shipping" aria-selected="false"></button></div><button class="hero-pp" id="heroPP" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx=".6"/><rect x="7.4" y="1.5" width="2.6" height="9" rx=".6"/></svg><svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5z"/></svg></button></div>
@@ -888,11 +866,10 @@
   <span class="leaf l1"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span><span class="leaf l2"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span>
   <div class="wrap">
     <div class="stats">
-      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><div><strong>100,000+</strong><span>Pieces produced every month</span></div></div>
-      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>5 markets</strong><span>US, Canada, UK, EU &amp; Latin America</span></div></div>
-      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-2.5-8-6-8-10.5A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.5c0 4.5-3.5 8-8 10.5z"/></svg></span><div><strong>40+ people</strong><span>Skilled, safe and fairly employed</span></div></div>
+      <div class="stat rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V12"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 4 2.5 6.5 7 5.5z"/></svg></span><div><strong>100,000</strong><span>Pieces monthly capacity</span></div></div>
+      <div class="stat rv" style="--d:.08s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span><div><strong>3+ markets</strong><span>Africa, Canada, UAE &amp; more</span></div></div>
+      <div class="stat rv" style="--d:.16s"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4.5-2.5-8-6-8-10.5A4.5 4.5 0 0112 8a4.5 4.5 0 018 2.5c0 4.5-3.5 8-8 10.5z"/></svg></span><div><strong>40 people</strong><span>On our team</span></div></div>
     </div>
-    <p class="note">Figures based on the current company profile and to be confirmed by Struggle Style before launch.</p>
   </div>
 </section>
 
@@ -1002,7 +979,7 @@
         
         <h2 id="po-title">From purchase order to shipped cartons</h2>
       </div>
-      <p class="lead">Every order moves through <b>eight stages</b>, run by two teams: our <b>merchandising team</b> prepares the order, then the <b>production floor</b> makes and ships it. You get one point of contact and a clear sign-off at each stage.</p>
+      <p class="lead">Follow your garments through eight clear stages, from costing and sampling to cutting, sewing and shipping. Our merchandising team plans every detail, our production floor builds it, and you approve each step with one dedicated contact.</p>
     </div>
 
     <div class="po-layout">
@@ -1033,7 +1010,6 @@
 
       <button class="po-node term end" data-step="7" aria-controls="po-p8"><i class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5 3h15L21 17M5 17V11h14v6M8 11V7h8v4M12 7V4"/><path d="M2 21c1.5 0 1.5-1 3-1s1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1"/></svg></i><span><small>08 · DELIVERY</small><b>Shipping &amp; storage</b><em>Export docs, air or sea freight</em></span></button>
     </div>
-    <p class="po-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11V5a2 2 0 014 0v6l4 1a2 2 0 011.5 2.3L17 20H9l-4-5 1.5-1.5L9 15"/></svg>Click any stage to see what happens and what you approve.</p>
     </div>
 
     <div class="po-side">
@@ -1142,7 +1118,7 @@
       </article>
 
       <article class="po-panel" role="tabpanel" id="po-p8" aria-labelledby="po-t8" tabindex="0">
-        <figure class="po-media"><img src="images/heros/shipping.jpg" alt="Cartons being prepared for shipment" loading="lazy"><span class="po-big" aria-hidden="true">08</span><figcaption>Delivery · Shipping &amp; storage</figcaption></figure>
+        <figure class="po-media"><img src="images/heros/shipping1.jpg" alt="Cartons being prepared for shipment" loading="lazy"><span class="po-big" aria-hidden="true">08</span><figcaption>Delivery · Shipping &amp; storage</figcaption></figure>
         <div class="po-body">
           <span class="po-count">Step 08 of 08</span>
           <h3>Shipping &amp; storage</h3>
@@ -1199,12 +1175,12 @@
   <div class="wrap cert-layout">
     <div class="cert-intro rv">
       <h2>Compliance you can verify</h2>
-      <p class="lead">Each certification lists its issuer and validity date. Select one to view the full certificate.</p>
-      <div class="cert-sum" id="certSum"></div>
-      <a href="certifications.html" class="btn btn-primary">View all certifications <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <p class="certs-note" style="margin-top:20px">Sample data — to be replaced with the client's verified certificates.</p>
+      <p class="lead">Struggle Style is committed to responsible manufacturing and fully compliant with the leading certification bodies. We are transparent about our social and safety practices, and open to any further audits your brand requires.</p>
     </div>
-    <div class="cert-list rv" style="--d:.1s" id="certs"></div>
+  </div>
+  <div class="marquee cert-marquee rv" style="--d:.1s" id="certs" aria-label="Certifications">
+    <div class="mq-row" id="certA"></div>
+    <div class="mq-row rev" id="certB"></div>
   </div>
 </section>
 
@@ -1214,15 +1190,17 @@
   <div class="wrap">
     <div class="s-head rv">
       <div>
-        <h2>Trusted by brands across five markets</h2>
+        <h2>Trusted by brands worldwide</h2>
         <p class="lead">We produce for brands and retailers in North America, Europe and Latin America.</p>
       </div>
       <div class="market-pills">
-        <span class="mpill"><img src="https://flagcdn.com/w80/us.png" alt="">United States</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</span>
-        <span class="mpill"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</span>
-        <span class="mpill"><span class="flagstack" title="Mexico, Brazil, Colombia"><img src="https://flagcdn.com/w80/mx.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""><img src="https://flagcdn.com/w80/co.png" alt=""></span>Latin America</span>
+        <!-- Market filter: All markets is the default (scrolling); click a market to show only its logos, click it again or All markets to reset -->
+        <button class="mpill" data-m="all" aria-pressed="true"><span class="flagstack"><img src="https://flagcdn.com/w80/us.png" alt=""><img src="https://flagcdn.com/w80/ca.png" alt=""><img src="https://flagcdn.com/w80/eu.png" alt=""></span>All markets</button>
+        <button class="mpill" data-m="us" aria-pressed="false"><img src="https://flagcdn.com/w80/us.png" alt="">United States</button>
+        <button class="mpill" data-m="ca" aria-pressed="false"><img src="https://flagcdn.com/w80/ca.png" alt="">Canada</button>
+        <button class="mpill" data-m="gb" aria-pressed="false"><img src="https://flagcdn.com/w80/gb.png" alt="">United Kingdom</button>
+        <button class="mpill" data-m="eu" aria-pressed="false"><img src="https://flagcdn.com/w80/eu.png" alt="">European Union</button>
+        <button class="mpill" data-m="latam" aria-pressed="false"><span class="flagstack" title="Chile, Brazil"><img src="https://flagcdn.com/w80/cl.png" alt=""><img src="https://flagcdn.com/w80/br.png" alt=""></span>Latin America</button>
       </div>
     </div>
   </div>
@@ -1230,6 +1208,7 @@
     <div class="mq-row" id="mqA"></div>
     <div class="mq-row rev" id="mqB"></div>
   </div>
+  <p class="mq-empty" hidden>No logos listed for this market yet.</p>
 </section>
 
 <!-- ===== 16. Quote band ===== -->
@@ -1241,7 +1220,7 @@
       <p>Share a few details about your order. Our team replies with a tailored quotation and sampling plan within one business day.</p>
       <div class="rfq-btns">
         <a href="quote.html" class="btn btn-primary">Get a quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="https://wa.me/12675368321" class="btn btn-outline">Chat on WhatsApp</a>
+        <a href="https://wa.me/12675368321" class="btn btn-outline-fill" target="_blank" rel="noopener">Chat on WhatsApp</a>
       </div>
     </div>
     <div class="rfq-list rv" style="--d:.1s">
@@ -1256,18 +1235,6 @@
     </div>
   </div>
 </section>
-<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vName">
-  <div class="viewer-box">
-    <div class="viewer-doc" id="vDoc"></div>
-    <div class="viewer-info">
-      <div class="top"><span class="cat" id="vCat"></span><button class="x" id="vClose" aria-label="Close">×</button></div>
-      <h3 id="vName"></h3>
-      <dl><dt>Issuer</dt><dd id="vIssuer"></dd><dt>Certificate no.</dt><dd id="vNo"></dd><dt>Issued</dt><dd id="vIssued"></dd><dt>Valid until</dt><dd id="vValid"></dd><dt>Status</dt><dd id="vStatus"></dd></dl>
-      <a href="#" class="btn btn-primary btn-sm">Download PDF</a>
-      <div class="viewer-nav"><span id="vPos"></span><div><button id="vPrev" aria-label="Previous certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="vNext" aria-label="Next certificate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div>
-    </div>
-  </div>
-</div>
 </main>
 
 <!-- ===== 17. Footer ===== -->
@@ -1275,7 +1242,7 @@
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-new-leaf.png" alt="Struggle Style"></a>
+        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
@@ -1293,18 +1260,15 @@
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Holy Intimates, Bangladesh<br><small>Full address to be added</small></span></li>
         </ul>
       </div>
-    </div>
-    <div class="f-locrow">
-      <h5>Location</h5>
-      <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
-      <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
-      <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
+      <div class="f-loc">
+        <h5>Locations</h5>
+        <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
+        <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
+        <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
+      </div>
     </div>
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
-      <div class="f-end">
-        <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
-      </div>
     </div>
   </div>
 </footer>
@@ -1390,104 +1354,52 @@
 
   // Brand logos (from the current site)
   const BRANDS = [
-    ['H&M', 1], ['La Senza', 2], ['Etam', 3], ['Gisela', 4], ['ICA', 5], ["Women'secret", 6],
-    ['HEMA', 7], ['Sielei', 8], ['TenCate', 9], ['Triumph', 10], ['U.S. Polo Assn.', 11], ['Diesel', 12]
+    ['H&M', 1, 'eu'], ['La Senza', 2, 'ca'], ['Etam', 3, 'eu'], ['Gisela', 4, 'eu'], ['ICA', 5, 'eu'], ["Women'secret", 6, 'eu'],
+    ['HEMA', 7, 'eu'], ['Sielei', 8, 'eu'], ['TenCate', 9, 'eu'], ['Triumph', 10, 'eu'], ['U.S. Polo Assn.', 11, 'us'], ['Diesel', 12, 'eu'],
+    // Major buyers (local files): [name, file, market]
+    ['Gémo', 'gemo', 'eu'], ['JD Williams, N Brown Group', 'jd-williams', 'gb'], ['Bluenotes', 'bluenotes', 'ca'], ['Cencosud', 'cencosud', 'latam'],
+    ['Ardene', 'ardene', 'ca'], ['Ben Sherman', 'ben-sherman', 'gb'], ['Renner', 'renner', 'latam'], ['Next', 'next', 'gb']
   ];
-  const brandCard = ([name, n]) => `<div class="brand"><img src="https://www.strugglestyle.net/images/license/img${n}.png" alt="${name}" loading="lazy"></div>`;
+  const brandCard = ([name, n, m]) => `<div class="brand" data-m="${m}"><img src="${typeof n === 'number' ? `https://www.strugglestyle.net/images/license/img${n}.png` : `images/buyers/${n}.png`}" alt="${name}" loading="lazy"></div>`;
   const rowA = BRANDS.map(brandCard).join(''), rowB = [...BRANDS].reverse().map(brandCard).join('');
   // Each row is duplicated so the loop is seamless; the copy is hidden from screen readers
   $('#mqA').innerHTML = rowA + `<div style="display:contents" aria-hidden="true">${rowA}</div>`;
   $('#mqB').innerHTML = rowB + `<div style="display:contents" aria-hidden="true">${rowB}</div>`;
 
+  // Brand logos: filter by market (All markets is the default)
+  (() => {
+    const pills = $$('.mpill[data-m]'), mq = $('.reach .marquee'), empty = $('.mq-empty');
+    const brands = $$('.reach .brand');
+    const set = m => {
+      pills.forEach(p => p.setAttribute('aria-pressed', p.dataset.m === m));
+      mq.classList.toggle('filtered', m !== 'all');
+      let n = 0;
+      brands.forEach(b => { const on = b.dataset.m === m; b.classList.toggle('match', on); if (on && !b.closest('.rev,[aria-hidden]')) n++; });
+      empty.hidden = m === 'all' || n > 0;
+    };
+    pills.forEach(p => p.onclick = () => set(p.getAttribute('aria-pressed') === 'true' && p.dataset.m !== 'all' ? 'all' : p.dataset.m));
+  })();
+
   // Certifications — DEMO DATA. Replace with the client's certificates from the CMS.
   const CERTS = [
-    {name: 'OEKO-TEX® Standard 100', short: 'OEKO-TEX', issuer: 'OEKO-TEX Association', cat: 'Product safety', valid: '14 Mar 2027', c: ['#2F6B5A', '#7FB59E']},
-    {name: 'Global Organic Textile Standard', short: 'GOTS', issuer: 'Global Standard gGmbH', cat: 'Organic materials', valid: '30 Jun 2027', c: ['#3C6B2F', '#9CC48F']},
-    {name: 'Global Recycled Standard', short: 'GRS', issuer: 'Textile Exchange', cat: 'Recycled materials', valid: '21 Jan 2027', c: ['#2E5E6B', '#8EC1CB']},
-    {name: 'Organic Content Standard', short: 'OCS', issuer: 'Textile Exchange', cat: 'Organic materials', valid: '09 Sep 2027', c: ['#4E6B2F', '#B5CE8F']},
-    {name: 'amfori BSCI Audit', short: 'BSCI', issuer: 'amfori', cat: 'Social compliance', valid: '18 Nov 2026', c: ['#1F4A3A', '#6FA38D'], renew: true},
-    {name: 'WRAP Certification', short: 'WRAP', issuer: 'Worldwide Responsible Accredited Production', cat: 'Social compliance', valid: '02 May 2027', c: ['#2D4F6B', '#8FB0CB']},
-    {name: 'Sedex SMETA Audit', short: 'SMETA', issuer: 'Sedex', cat: 'Ethical trade', valid: '27 Feb 2027', c: ['#5A3F6B', '#B9A0CB']},
-    {name: 'ISO 9001:2015', short: 'ISO 9001', issuer: 'Bureau Veritas', cat: 'Quality management', valid: '12 Aug 2028', c: ['#2B3F5C', '#8C9FBF']},
-    {name: 'ISO 14001:2015', short: 'ISO 14001', issuer: 'Bureau Veritas', cat: 'Environment', valid: '05 Apr 2028', c: ['#2F6B4E', '#93C9A9']},
-    {name: 'Higg Facility Environmental Module', short: 'Higg FEM', issuer: 'Cascale', cat: 'Environment', valid: '31 Dec 2026', c: ['#3F6B2F', '#A7CB8F'], renew: true},
-    {name: 'Better Cotton Membership', short: 'Better Cotton', issuer: 'Better Cotton', cat: 'Responsible cotton', valid: '15 Oct 2027', c: ['#6B5A2F', '#CBB98F']},
-    {name: 'RSC Building Safety', short: 'RSC', issuer: 'RMG Sustainability Council', cat: 'Workplace safety', valid: '20 Jul 2027', c: ['#6B3A2F', '#CB9A8F']}
+    {name: 'LEED Gold', short: 'LEED', logo: 'images/certs/leed-gold.png', issuer: 'U.S. Green Building Council', cat: 'Green building', valid: '30 Jun 2028', c: ['#8A6A1F', '#D9BE72']},
+    {name: 'amfori BSCI', short: 'BSCI', logo: 'images/certs/bsci.png', issuer: 'amfori', cat: 'Social compliance', valid: '18 Nov 2026', c: ['#4A4F55', '#A9AEB4'], renew: true},
+    {name: 'Sedex Member (SMETA)', short: 'Sedex', logo: 'images/certs/sedex.png', issuer: 'Sedex', cat: 'Ethical trade', valid: '27 Feb 2027', c: ['#3B3B3B', '#D8175B']},
+    {name: 'RSC Building Safety', short: 'RSC', logo: 'images/certs/rsc.png', issuer: 'RMG Sustainability Council', cat: 'Workplace safety', valid: '20 Jul 2027', c: ['#1E8C45', '#8FD0A6']},
+    {name: 'ISO 9001:2015', short: 'ISO 9001', logo: 'images/certs/iso-9001.png', issuer: 'International Organization for Standardization', cat: 'Quality management', valid: '12 Aug 2028', c: ['#1C4F9C', '#8CA9DB']},
+    {name: 'OEKO-TEX® Standard 100', short: 'OEKO-TEX', logo: 'images/certs/oeko-tex-100.png', issuer: 'OEKO-TEX Association', cat: 'Product safety', valid: '14 Mar 2027', c: ['#2F6B5A', '#E9A23B']},
+    {name: 'WRAP Certification', short: 'WRAP', logo: 'images/certs/wrap.png', issuer: 'Worldwide Responsible Accredited Production', cat: 'Social compliance', valid: '02 May 2027', c: ['#8A6A2F', '#1F4E8C']}
   ];
-  // Certificate document (A4 portrait), drawn as SVG. Marked SAMPLE until real scans are supplied.
-  const issued = v => { const d = new Date(v); d.setFullYear(d.getFullYear() - 1); return d.toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'}); };
-  const certNo = i => `SS-${2026}-${String(i + 1).padStart(3, '0')}`;
-  const certSVG = (x, i) => {
-    const c = x.c[0], wrap = (t, n) => { const w = t.split(' '), out = ['']; w.forEach(s => { if ((out[out.length - 1] + ' ' + s).trim().length > n) out.push(s); else out[out.length - 1] = (out[out.length - 1] + ' ' + s).trim(); }); return out; };
-    const title = wrap(x.name, 22).map((l, k) => `<tspan x="300" dy="${k ? 40 : 0}">${l}</tspan>`).join('');
-    return `<svg viewBox="0 0 600 848" role="img" aria-label="${x.name} certificate (sample)">
-      <rect width="600" height="848" fill="#FDFCF7"/>
-      <rect x="22" y="22" width="556" height="804" fill="none" stroke="${c}" stroke-width="3"/>
-      <rect x="32" y="32" width="536" height="784" fill="none" stroke="${c}" stroke-width="1" opacity=".55"/>
-      <g stroke="${c}" stroke-width=".6" opacity=".25" fill="none">${Array.from({length: 18}, (_, k) => `<ellipse cx="300" cy="66" rx="${60 + k * 11}" ry="${14 + k * 1.2}"/>`).join('')}</g>
-      <text x="300" y="118" text-anchor="middle" font-family="Inter,Arial" font-size="13" font-weight="600" letter-spacing="2" fill="${c}">${x.issuer}</text>
-      <text x="300" y="186" text-anchor="middle" font-family="Georgia,serif" font-size="44" fill="#1E2B22">Certificate</text>
-      <text x="300" y="216" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="18" fill="#5A6B5E">of Compliance</text>
-      <line x1="230" y1="240" x2="370" y2="240" stroke="${c}" stroke-width="1.5"/>
-      <text x="300" y="286" text-anchor="middle" font-family="Inter,Arial" font-size="14" fill="#5A6B5E">This is to certify that</text>
-      <text x="300" y="326" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#1E2B22">Struggle Style Inc.</text>
-      <text x="300" y="352" text-anchor="middle" font-family="Inter,Arial" font-size="13" fill="#5A6B5E">Holy Intimates · Bangladesh</text>
-      <text x="300" y="398" text-anchor="middle" font-family="Inter,Arial" font-size="14" fill="#5A6B5E">has been assessed and found to conform to</text>
-      <text x="300" y="448" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="${c}">${title}</text>
-      <text x="300" y="${wrap(x.name, 22).length > 1 ? 538 : 500}" text-anchor="middle" font-family="Inter,Arial" font-size="13" fill="#5A6B5E">Scope: ${x.cat.toLowerCase()} — apparel manufacturing</text>
-      <g font-family="Inter,Arial" font-size="12" fill="#5A6B5E" text-anchor="middle">
-        <text x="150" y="604">Certificate no.</text><text x="300" y="604">Issued</text><text x="450" y="604">Valid until</text>
-        <text x="150" y="626" font-size="14" font-weight="600" fill="#1E2B22">${certNo(i)}</text><text x="300" y="626" font-size="14" font-weight="600" fill="#1E2B22">${issued(x.valid)}</text><text x="450" y="626" font-size="14" font-weight="600" fill="#1E2B22">${x.valid}</text>
-      </g>
-      <path d="M90 728 q16 -26 32 -4 t30 -6 t26 4" fill="none" stroke="#24382D" stroke-width="1.6"/>
-      <line x1="80" y1="744" x2="220" y2="744" stroke="#9AA89C"/><text x="150" y="764" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#5A6B5E">Authorised signatory</text>
-      <line x1="380" y1="744" x2="520" y2="744" stroke="#9AA89C"/><text x="450" y="764" text-anchor="middle" font-family="Inter,Arial" font-size="11" fill="#5A6B5E">Lead auditor</text>
-      <g transform="translate(300 724)">
-        ${Array.from({length: 16}, (_, k) => `<path d="M0 -44 L7 -34 L-7 -34Z" fill="${c}" transform="rotate(${k * 22.5})"/>`).join('')}
-        <circle r="36" fill="${c}"/><circle r="30" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="2 3"/>
-        <path d="M-10 0l7 7 14-15" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-      <text x="300" y="470" text-anchor="middle" font-family="Inter,Arial" font-size="96" font-weight="800" fill="#B23A3A" opacity=".08" transform="rotate(-32 300 470)">SAMPLE</text>
-    </svg>`;
-  };
-  const go = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  // Compliance register: summary + five featured rows; the viewer browses all
-  const renewing = CERTS.filter(x => x.renew).length;
-  $('#certSum').innerHTML = `<div><b>${CERTS.length}</b><span>Certifications</span></div><div><b>${CERTS.length - renewing}</b><span>Currently valid</span></div><div><b>${renewing}</b><span>Renewal in progress</span></div>`;
-  const goIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  $('#certs').innerHTML = CERTS.slice(0, 5).map((x, i) => `
-    <button class="cert" style="--c:${x.c[0]}" data-i="${i}" aria-label="View ${x.name} certificate">
-      <span class="badge">${x.short}</span>
-      <span class="cert-name"><b>${x.name}</b><span>${x.issuer}</span></span>
-      <span class="cert-val">Valid until<strong>${x.valid}</strong><em class="${x.renew ? 'renew' : ''}">${x.renew ? 'Renewal due' : 'Valid'}</em></span>
-      <span class="cert-go">${goIco}</span>
-    </button>`).join('');
-  $$('#certs .rv').forEach(el => io.observe(el));
+  // Certifications — icon-only marquee (set repeated 4x; animation shifts by 25% for a seamless loop)
+  // Same two-row, opposite-direction marquee as "Trusted by brands worldwide"
+  const certTile = x => `<div class="brand" title="${x.name}"><img src="${x.logo}" alt="${x.name}" loading="lazy"></div>`;
+  // Each half repeats the set so it is always wider than the screen (no gap at either end of the loop)
+  const certSetA = CERTS.map(certTile).join('');
+  const certSetB = CERTS.slice().reverse().map(certTile).join('');
+  const certRowA = certSetA + certSetA, certRowB = certSetB + certSetB;
+  $('#certA').innerHTML = certRowA + `<div style="display:contents" aria-hidden="true">${certRowA}</div>`;
+  $('#certB').innerHTML = certRowB + `<div style="display:contents" aria-hidden="true">${certRowB}</div>`;
 
-  // Viewer — enlarges the selected certificate, with previous/next
-  const viewer = $('#viewer');
-  let vi = 0;
-  const openCert = i => {
-    vi = (i + CERTS.length) % CERTS.length; const x = CERTS[vi];
-    $('#vDoc').innerHTML = certSVG(x, vi);
-    $('#vCat').textContent = x.cat; $('#vName').textContent = x.name; $('#vIssuer').textContent = x.issuer;
-    $('#vNo').textContent = certNo(vi); $('#vIssued').textContent = issued(x.valid); $('#vValid').textContent = x.valid;
-    $('#vStatus').textContent = x.renew ? 'Renewal due' : 'Valid';
-    $('#vPos').textContent = `${vi + 1} of ${CERTS.length}`;
-    viewer.classList.add('open');
-  };
-  $$('.cert').forEach(b => b.onclick = () => { openCert(+b.dataset.i); $('#vClose').focus(); });
-  const close = () => viewer.classList.remove('open');
-  $('#vClose').onclick = close;
-  $('#vPrev').onclick = () => openCert(vi - 1);
-  $('#vNext').onclick = () => openCert(vi + 1);
-  viewer.onclick = e => { if (e.target === viewer) close(); };
-  addEventListener('keydown', e => {
-    if (!viewer.classList.contains('open')) return;
-    if (e.key === 'ArrowLeft') openCert(vi - 1);
-    if (e.key === 'ArrowRight') openCert(vi + 1);
-  });
-  addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
   // Swatch studio — SAMPLE fabric library (confirm specs and colourways with Struggle Style)
   // colors: [name, fabric colour, optional backing colour for lace]

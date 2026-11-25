@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About Us | Struggle Style</title>
+<meta name="description" content="About Struggle Style Inc.: a message from our CEO on bringing together apparel and art, from Bangladesh to New York.">
+<meta name="theme-color" content="#11402A">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Palette from the Struggle Style Inc. logo (same tokens as the other pages) */
+    --green-900:#0C2A1B;
+    --green-800:#11402A;
+    --green-700:#1A7F4B;
+    --green-600:#1F9457;
+    --green-100:#DEF5E7;
+    --leaf:#3DDC84;
+    --orange:#F5A00F;
+    --bg:#FFFFFF;
+    --soft:#F0F8F3;
+    --text:#0F1F17;
+    --muted:#55665C;
+    --border:#DCEBE1;
+    --shadow:0 1px 2px rgba(15,31,23,.04),0 8px 24px -12px rgba(15,31,23,.12);
+    --shadow-lg:0 2px 4px rgba(15,31,23,.04),0 24px 48px -20px rgba(15,31,23,.25);
+    --head:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
+    --body:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
+    --r-lg:28px;--r:20px;--r-sm:14px;
+    --max:1280px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html,body{overflow-x:clip}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  :focus-visible{outline:2px solid var(--green-600);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+  section{padding:112px 0}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  h1,h2,h3,h4{font-family:var(--head);font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--text)}
+  h2{font-size:clamp(32px,3.6vw,48px)}
+  .tag{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 14px;border-radius:999px;background:var(--green-100);color:var(--green-700);font-size:13px;font-weight:600}
+  .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green-600)}
+  .lead{font-size:18px;color:var(--muted);max-width:560px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font-size:15px;font-weight:600;white-space:nowrap;transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+  .btn svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-primary{background:var(--green-700);color:#fff}
+  .btn-primary:hover{background:var(--green-800);box-shadow:0 10px 24px -10px rgba(26,127,75,.6)}
+  .btn-glass{border:1px solid rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}
+  .btn-glass:hover{background:rgba(255,255,255,.18)}
+  .btn-sm{height:44px;padding:0 20px;font-size:14px}
+
+  /* Header: transparent over the hero, solid once scrolled */
+  .logo{display:inline-flex;align-items:center}
+  .logo-img{display:block;height:46px;width:auto}
+  header .logo-img{height:64px;width:auto}
+  /* Gold logo: bright gold + soft shadow over the dark hero, deep gold on the white header */
+  header .logo-img.on-dark{filter:drop-shadow(0 1px 2px rgba(0,0,0,.45)) drop-shadow(0 2px 10px rgba(0,0,0,.3))}
+  .logo-img.on-dark{display:none}
+  header .logo-img.on-light{display:none}
+  header .logo-img.on-dark{display:block}
+  header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
+  header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
+  footer .logo-img{height:64px;width:auto}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s}
+  header::before{content:"";position:absolute;inset:0 0 -40px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.32) 60%,transparent 100%);transition:opacity .35s}
+  header.scrolled::before,header.open::before{opacity:0}
+  header .nav ul a{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);transition:color .35s}
+  header .nav > .btn{background:var(--leaf);color:var(--green-900)}
+  header .nav > .btn:hover{background:#fff}
+  header .burger{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+  header .burger span{background:#fff}
+  header.scrolled,header.open{background:rgba(251,252,248,.92);backdrop-filter:blur(16px) saturate(1.4);border-color:var(--border)}
+  header.scrolled .nav ul a,header.open .nav ul a{color:var(--green-800);text-shadow:none}
+  header.scrolled .nav ul a:hover{color:var(--green-700)}
+  header.scrolled .nav > .btn,header.open .nav > .btn{background:var(--green-700);color:#fff}
+  header.scrolled .burger,header.open .burger{background:#fff;border-color:var(--border)}
+  header.scrolled .burger span,header.open .burger span{background:var(--text)}
+  .nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav ul{display:flex;gap:4px;list-style:none}
+  .nav ul a{position:relative;display:block;padding:10px 16px;font-size:15px;font-weight:500}
+  .nav ul a::after{content:"";position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .nav ul a:hover::after,.nav ul a[aria-current="page"]::after{transform:scaleX(1)}
+  .burger{flex:none;display:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--border)}
+  .burger span{display:block;width:18px;height:2px;margin:4px auto;border-radius:2px}
+  .mnav{display:none;background:rgba(251,252,248,.97)}
+
+  /* 1. Page title */
+  .page-title{padding:136px 0 64px;background:var(--soft);border-bottom:1px solid var(--border)}
+  .page-title{text-align:center}
+  .page-title h1{font-size:clamp(34px,4.4vw,56px);letter-spacing:-.03em;line-height:1.12;margin:0 auto;max-width:22ch;text-wrap:balance}
+  .page-title h1 em{font-style:normal;color:var(--green-700)}
+  .pt-rule{display:block;width:96px;height:6px;border-radius:3px;background:var(--orange);margin:28px auto 0}
+
+  /* 2. Message from the CEO */
+  section[aria-labelledby="ceo-title"]{padding-top:72px}
+  .ceo-grid{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start}
+  .ceo-card{position:sticky;top:116px}
+  .ceo-photo{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:var(--green-100);box-shadow:var(--shadow-lg)}
+  .ceo-photo::before{content:"DM";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-size:64px;font-weight:600;color:var(--green-700)}
+  .ceo-photo img{position:relative;width:100%;height:100%;object-fit:cover}
+  .ceo-id{margin-top:22px;padding-left:16px;border-left:3px solid var(--leaf)}
+  .ceo-id b{display:block;font-family:var(--head);font-size:20px;font-weight:600;letter-spacing:-.01em}
+  .ceo-id span{font-size:14px;color:var(--muted)}
+  /* Milestones: plain year + note, one thin divider */
+  .ceo-facts{list-style:none;display:grid;grid-template-columns:1fr 1fr;margin-top:28px}
+  .ceo-facts li{padding:0 16px 0 0}
+  .ceo-facts li + li{padding:0 0 0 16px;border-left:1px solid var(--border)}
+  .ceo-facts b{display:block;font-family:var(--head);font-size:22px;font-weight:600;color:var(--green-700);line-height:1.1;font-variant-numeric:tabular-nums}
+  .ceo-facts span{display:block;margin-top:6px;font-size:13px;color:var(--muted);line-height:1.45}
+  .ceo-copy h2{font-size:clamp(28px,3vw,40px);margin:0 0 24px}
+  .ceo-copy p{font-size:17px;line-height:1.8;color:var(--muted);max-width:680px}
+  .ceo-copy p + p{margin-top:20px}
+  .ceo-copy .first{font-size:20px;line-height:1.7;color:var(--text)}
+  .ceo-quote{position:relative;margin:40px 0;padding:44px 0 0 0;color:var(--green-800);font-family:var(--head);font-size:clamp(22px,2.2vw,30px);font-weight:500;line-height:1.35;letter-spacing:-.015em;max-width:680px}
+  .ceo-quote::before{content:"“";position:absolute;left:-4px;top:-6px;font-family:Georgia,serif;font-size:96px;line-height:1;color:var(--leaf)}
+  .ceo-quote span{color:var(--green-600)}
+  /* See more: the rest of the letter opens on click (fully open without JS) */
+  .ceo-more{display:grid;grid-template-rows:1fr;transition:grid-template-rows .5s var(--ease)}
+  .js .ceo-more{grid-template-rows:0fr;overflow:hidden}
+  .js .ceo-more.open{grid-template-rows:1fr}
+  .ceo-more-in{min-height:0}
+  .js .ceo-more:not(.open) .ceo-more-in{visibility:hidden;transition:visibility 0s .5s}
+  .ceo-more-in > p:first-child{margin-top:20px}
+  .ceo-toggle{display:none;margin-top:24px;cursor:pointer}
+  .js .ceo-toggle{display:inline-block}
+  .ceo-sign{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);max-width:680px}
+  .ceo-sign b{display:block;font-family:var(--head);font-size:22px;font-weight:600}
+  .ceo-sign span{font-size:15px;color:var(--muted)}
+
+  /* Our team: intro column + portrait cards (quiet, editorial) */
+  .team-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:start}
+  .team-intro{text-align:center;max-width:640px;margin-inline:auto}
+  .team-intro h2{margin:16px 0 20px;text-wrap:balance}
+  .team-intro .lead{font-size:17px}
+  .team-intro .j-link{display:inline-block;margin-top:28px}
+  .team-list{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .member{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 28px 32px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--border);transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+  .member:hover{border-color:var(--green-600);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+  .m-photo{position:relative;width:148px;height:148px;border-radius:50%;overflow:hidden;background:var(--green-100);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--border),var(--shadow);flex:none}
+  .m-photo::before{content:attr(data-initials);position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-size:40px;font-weight:600;color:var(--green-700)}
+  .m-photo img{position:relative;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+  .m-info{display:flex;flex-direction:column;align-items:center;width:100%;padding-top:24px}
+  .m-info h3{font-size:22px;letter-spacing:-.02em}
+  .m-role{display:block;margin-top:6px;font-size:15px;line-height:1.45;color:var(--green-700);font-weight:500;max-width:30ch}
+  .m-contact{list-style:none;display:grid;gap:6px;width:100%;margin-top:20px;padding-top:18px;border-top:1px solid var(--border);font-size:14.5px}
+  .m-contact li{color:var(--text)}
+  .m-contact abbr{display:none}
+  .m-contact a{overflow-wrap:anywhere;color:var(--muted);transition:color .2s}
+  .m-contact a:hover{color:var(--green-700)}
+
+  /* Journey band (dark, premium) */
+  .journey{position:relative;overflow:hidden;background:var(--soft);color:var(--text);padding:112px 0;border-top:1px solid var(--border)}
+  .journey-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.05fr;gap:88px;align-items:center}
+  .journey .eyebrow{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+  .journey .eyebrow::before{content:"";width:36px;height:2px;background:var(--orange)}
+  .journey h2{color:var(--text);font-size:clamp(38px,4.6vw,64px);letter-spacing:-.04em;line-height:1.02;margin:22px 0 26px}
+  .journey h2 em{font-style:normal;color:var(--green-700)}
+  .journey-copy > p{font-size:17px;line-height:1.75;color:var(--muted);max-width:470px}
+
+  .j-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);margin:44px 0 0;border-top:1px solid var(--border)}
+  .j-steps li{padding:20px 18px 0 0;counter-increment:js}
+  .j-steps li + li{padding-left:18px;border-left:1px solid var(--border)}
+  .j-steps i{display:block;font-style:normal;font-family:var(--head);font-size:13px;font-weight:600;color:var(--orange);letter-spacing:.06em}
+  .j-steps b{display:block;margin-top:6px;font-family:var(--head);font-size:17px;font-weight:600;color:var(--text)}
+  .j-steps span{font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+  .j-actions{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:44px}
+  .j-btn{display:inline-flex;align-items:center;gap:16px;height:60px;padding:0 10px 0 30px;border-radius:999px;background:var(--green-700);color:#fff;font-size:15.5px;font-weight:600;transition:background .3s,box-shadow .3s}
+  .j-btn i{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--green-700);display:grid;place-items:center;transition:transform .35s var(--ease),background .3s}
+  .j-btn i svg{width:18px;height:18px}
+  .j-btn:hover{background:var(--green-800);box-shadow:0 14px 34px -12px rgba(26,127,75,.5)}
+  .j-btn:hover i{transform:rotate(-45deg)}
+  .j-link{font-size:15px;font-weight:500;color:var(--green-800);border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .2s,border-color .2s}
+  .j-link:hover{color:var(--green-700);border-color:var(--green-600)}
+
+  .journey-media{position:relative;display:block}
+  .j-frame{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+  .j-frame img{width:100%;aspect-ratio:4/3.4;object-fit:cover;transition:transform 1.2s var(--ease)}
+  .journey-media:hover .j-frame img{transform:scale(1.04)}
+  .j-badge{position:absolute;z-index:2;left:20px;bottom:20px;display:flex;align-items:center;gap:14px;padding:16px 22px 16px 16px;border-radius:var(--r);background:rgba(255,255,255,.96);color:var(--text);box-shadow:var(--shadow-lg);backdrop-filter:blur(8px)}
+  .j-badge i{width:46px;height:46px;border-radius:12px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center}
+  .j-badge i svg{width:22px;height:22px}
+  .j-badge b{display:block;font-family:var(--head);font-size:16px;font-weight:600;line-height:1.2}
+  .j-badge span{font-size:13px;color:var(--muted)}
+  .j-tagline{position:absolute;z-index:2;top:20px;left:20px;padding:8px 14px;border-radius:999px;background:rgba(12,42,27,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff}
+
+  /* Locations: office list + live map */
+  .loc-head{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:16px;margin-bottom:48px}
+  .loc-head h2{margin-top:16px}
+  .loc-head .lead{max-width:520px;margin-inline:auto}
+  .loc-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:32px;align-items:stretch}
+  .loc-list{list-style:none;display:grid;gap:14px;align-content:start}
+  .loc-item{width:100%;display:grid;grid-template-columns:44px 1fr;gap:4px 16px;text-align:left;padding:22px;border-radius:var(--r);background:#fff;border:0;transition:background .25s,box-shadow .25s,transform .25s var(--ease)}
+  .loc-item i{grid-row:span 3;width:44px;height:44px;border-radius:12px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;transition:background .25s,color .25s}
+  .loc-item i svg{width:20px;height:20px}
+  .loc-item b{font-family:var(--head);font-size:18px;font-weight:600;letter-spacing:-.01em}
+  .loc-item em{font-style:normal;font-size:13px;font-weight:600;color:var(--green-700)}
+  .loc-item span{font-size:14.5px;line-height:1.55;color:var(--muted)}
+  .loc-item b{position:relative;justify-self:start;padding-bottom:8px}
+  .loc-item b::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;border-radius:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+  .loc-item:hover b::after,.loc-item[aria-pressed="true"] b::after{transform:scaleX(1)}
+  .loc-map{position:relative;min-height:460px;border-radius:var(--r-lg);overflow:hidden;background:var(--green-100);box-shadow:var(--shadow-lg)}
+  .loc-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .loc-open{position:absolute;z-index:2;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;background:#fff;box-shadow:var(--shadow);font-size:14px;font-weight:600;color:var(--green-800);transition:background .2s,color .2s}
+  .loc-open:hover{background:var(--green-700);color:#fff}
+  .loc-open svg{width:15px;height:15px}
+
+  /* 3. Closing call to action (same as the manufacturing page) */
+  .po-cta{padding:112px 0;background:var(--bg)}
+  .po-cta-box{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding:56px;border-radius:var(--r-lg);background:var(--green-800);color:#fff;position:relative;overflow:hidden}
+  .po-cta-box::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;border:1px dashed rgba(61,220,132,.35)}
+  .po-cta-box h2{color:#fff;font-size:clamp(28px,3vw,40px);margin-bottom:10px}
+  .po-cta-box p{color:rgba(255,255,255,.75);max-width:520px}
+  .po-cta-box .btn{position:relative;z-index:1;background:var(--leaf);color:var(--green-900)}
+  .po-cta-box .btn:hover{background:#fff}
+
+  /* Footer */
+  footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
+  .f-grid{display:grid;grid-template-columns:1.3fr .8fr 1.2fr 1.5fr;gap:40px;padding-bottom:48px}
+  .f-about p{margin:20px 0 24px;max-width:320px}
+  footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
+  footer ul{list-style:none;display:grid;gap:11px}
+  footer a{transition:color .2s}
+  footer a:hover{color:#fff}
+  .soc{display:flex;gap:10px}
+  .soc a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:background .2s,color .2s}
+  .soc a:hover{background:#fff;color:var(--green-900)}
+  .soc svg{width:16px;height:16px}
+  .contact li{display:flex;gap:12px;align-items:flex-start}
+  .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
+  .f-loc{display:grid;gap:18px;align-content:start}
+  .f-loc h5{margin-bottom:0}
+  .f-loc address{font-style:normal;font-size:14px;line-height:1.6;padding-left:0}
+  .f-loc b{display:block;color:#fff;font-weight:600}
+  .f-bot{display:flex;justify-content:center;text-align:center;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
+  .f-credit a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+  /* Reveal */
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+  .rv.in{opacity:1;transform:none}
+
+
+  /* Responsive */
+  @media (max-width:1100px){
+    .nav ul,.nav > .btn{display:none}
+    .burger{display:block}
+    .mnav.open{display:block;padding:8px 32px 24px;border-top:1px solid var(--border)}
+    .mnav a{display:block;padding:14px 0;font-family:var(--head);font-size:22px;font-weight:600;color:var(--green-800);border-bottom:1px solid var(--border)}
+    .mnav .btn{margin-top:18px;width:100%;font-size:15px;border:0;color:#fff}
+  }
+  @media (max-width:960px){
+    .journey-grid{grid-template-columns:1fr;gap:64px}
+    .team-grid{grid-template-columns:1fr;gap:40px}
+    .loc-grid{grid-template-columns:1fr}
+    .loc-map{min-height:380px}
+    .team-intro{position:static}
+    .journey-media{max-width:640px}
+    .ceo-grid{grid-template-columns:1fr;gap:48px}
+    .ceo-card{position:static;display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:end}
+    .ceo-id{margin-top:0}
+    .f-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 16px}
+    section{padding:80px 0}
+    .nav{height:72px}
+    header .logo-img{height:52px}
+    .mnav.open{padding:8px 16px 24px}
+    .page-title{padding:108px 0 48px}
+    section[aria-labelledby="ceo-title"]{padding-top:56px}
+    .ceo-card{grid-template-columns:1fr}
+    .ceo-photo{max-width:280px}
+    .ceo-quote{padding-top:40px}
+    .loc-item{padding:18px;grid-template-columns:40px 1fr}
+    .loc-map{min-height:320px}
+    .team-list{grid-template-columns:1fr}
+    .journey{padding:88px 0}
+    .j-steps{grid-template-columns:1fr}
+    .j-steps li,.j-steps li + li{padding:16px 0;border-left:0;border-bottom:1px solid var(--border)}
+    .j-badge{padding:12px 16px 12px 12px}
+    .po-cta{padding:80px 0}
+    .po-cta-box{padding:36px 24px}
+    .f-grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition:none!important;animation:none!important}
+    .rv{opacity:1;transform:none}
+  }
+  @media print{body::after{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img on-dark" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"><img class="logo-img on-light" src="images/logo-gold.svg" alt="" width="3700" height="1524"></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="manufacturing.html">Manufacturing</a></li>
+        <li><a href="sustainability.html">Sustainability</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </nav>
+    <a href="quote.html" class="btn btn-primary btn-sm">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Mobile">
+    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html">Sustainability</a><a href="about.html" aria-current="page">About</a><a href="news.html">News</a>
+    <a href="quote.html" class="btn btn-primary">Get a Quote</a>
+  </nav>
+</header>
+
+<main>
+<!-- ===== 1. Page title ===== -->
+<section class="page-title">
+  <div class="wrap rv">
+    <h1>We build the bridge between your <em>expectation</em> &amp; reality</h1>
+    <span class="pt-rule" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- ===== 2. Message from the CEO ===== -->
+<section aria-labelledby="ceo-title">
+  <div class="wrap ceo-grid">
+    <aside class="ceo-card rv">
+      <div class="ceo-photo"><img src="images/ceo.jpg" alt="Didarul Maksud, CEO of Struggle Style Inc." width="1360" height="1538" onerror="this.remove()"></div>
+      <div>
+        <div class="ceo-id"><b>Didarul Maksud</b><span>Chief Executive Officer</span></div>
+        <ul class="ceo-facts">
+          <li><b>2020</b><span>Global trading began in Bangladesh</span></li>
+          <li><b>2023</b><span>New York operation opened</span></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="ceo-copy rv" style="--d:.1s">
+      <h2 id="ceo-title">Apparel and art, made for the world</h2>
+      <p class="first">With global economic activity recovering, we have resumed our quest to become the No. 1 brand around the world.</p>
+      <p>In 2020, we started our global trading from Bangladesh with a focus on bringing together apparel and art. Economies and people grew insular during the COVID-19 pandemic, but we have the power to brighten customer mood by conducting our business with energy and enthusiasm. Opened in September 2023, our newly refurbished STRUGGLE Style Inc. started operation from New York, USA, to optimize our idea for our buyers and partners.</p>
+      <div class="ceo-more" id="ceo-more">
+        <div class="ceo-more-in">
+          <p>Our Struggle Style philosophy is to enrich the lives of people everywhere with simple, high-quality clothing. Struggle Style is the concrete expression of our commitment to reduce the environmental impact of our daily business activities, to help achieve sustainable growth for society, and to make the world a better place through our business and products. As society and Struggle Style evolve, affinity and support for Struggle Style is growing everywhere.</p>
+          <blockquote class="ceo-quote">Changing clothes. Changing commercial wisdom. <span>Changing the world.</span></blockquote>
+          <p>The unique concept of Struggle Style is the foundation on which we continue to expand our business internationally as we pursue our corporate commitment. I am keen to join forces with enterprising individuals and companies worldwide to build a framework for sustainable growth.</p>
+        </div>
+      </div>
+      <button type="button" class="ceo-toggle j-link" aria-expanded="false" aria-controls="ceo-more">See more</button>
+      <div class="ceo-sign"><b>Didarul Maksud</b><span>CEO, Struggle Style Inc.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Journey band ===== -->
+<section class="journey" aria-labelledby="journey-title">
+  <div class="wrap journey-grid">
+    <div class="journey-copy rv">
+      <h2 id="journey-title">Let&rsquo;s begin the <em>journey</em> with us</h2>
+      <p>We are committed to providing our customers with the best quality products at competitive prices. We appreciate your promotional orders and look forward to a good business relationship.</p>
+      <ol class="j-steps">
+        <li><i>01</i><b>Sampling</b><span>Fit, fabric and trims approved first</span></li>
+        <li><i>02</i><b>Production</b><span>Planned, lean and quality checked</span></li>
+        <li><i>03</i><b>Delivery</b><span>Packed and shipped on schedule</span></li>
+      </ol>
+      <div class="j-actions">
+        <a href="manufacturing.html" class="j-btn">Explore our concept <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a>
+        <a href="quote.html" class="j-link">Request a quote</a>
+      </div>
+    </div>
+    <a href="manufacturing.html" class="journey-media rv" style="--d:.15s" aria-label="See how we manufacture">
+      <div class="j-frame"><img src="images/heros/finished-garments.jpg" alt="Finished garments ready for buyers" loading="lazy"></div>
+      <span class="j-tagline">Dhaka &middot; Hong Kong &middot; New York</span>
+      <span class="j-badge"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M5 21V9l5 3V9l5 3V5h4v16"/></svg></i><span><b>See our manufacturing</b><span>From raw material to your door</span></span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== Our team ===== -->
+<section class="row" aria-labelledby="team-title">
+  <div class="wrap team-grid">
+    <div class="team-intro rv">
+      <h2 id="team-title">The people behind Struggle Style</h2>
+      <p class="lead">Talk to us directly. Our leadership team works with every buyer and partner, from the first sample to the final shipment.</p>
+      <a href="quote.html" class="j-link">Work with our team</a>
+    </div>
+    <div class="team-list">
+      <article class="member rv">
+        <div class="m-photo" data-initials="DM"><img src="images/ceo.jpg" alt="Didarul Maksud" loading="lazy" onerror="this.remove()"></div>
+        <div class="m-info">
+          <h3>Didarul Maksud</h3>
+          <span class="m-role">Chief Executive Officer</span>
+          <ul class="m-contact">
+            <li><abbr title="Phone">T</abbr><a href="tel:+12675368321">+1 (267) 536-8321</a></li>
+            <li><abbr title="Email">E</abbr><a href="mailto:didar@strugglestyle.net">didar@strugglestyle.net</a></li>
+          </ul>
+        </div>
+      </article>
+      <article class="member rv" style="--d:.1s">
+        <div class="m-photo" data-initials="KH"><img src="images/team-kamrul.jpg" alt="Kamrul Hasan" loading="lazy" onerror="this.remove()"></div>
+        <div class="m-info">
+          <h3>Kamrul Hasan</h3>
+          <span class="m-role">Chief Consultant, Sourcing &amp; Supply Chain Management &middot; USA office</span>
+          <ul class="m-contact">
+            <li><abbr title="Phone">T</abbr><a href="tel:+13479782389">+1 (347) 978-2389</a></li>
+            <li><abbr title="Email">E</abbr><a href="mailto:kamrul@strugglestyle.net">kamrul@strugglestyle.net</a></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Locations ===== -->
+<section class="row soft" aria-labelledby="loc-title">
+  <div class="wrap">
+    <div class="loc-head rv">
+      <div><h2 id="loc-title">Find our offices</h2></div>
+      <p class="lead">Three offices across three countries. Select one to see it on the map.</p>
+    </div>
+    <div class="loc-grid">
+      <ul class="loc-list rv">
+        <li><button type="button" class="loc-item" data-q="2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462" aria-pressed="true"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Head office</b><em>New York, USA</em><span>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</span></button></li>
+        <li><button type="button" class="loc-item" data-q="Kwong%20Yuen%20Building%2C%204%20Kam%20Lam%20Street%2C%20Kowloon%2C%20Hong%20Kong" aria-pressed="false"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Hong Kong office</b><em>Kowloon, Hong Kong</em><span>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</span></button></li>
+        <li><button type="button" class="loc-item" data-q="Azhar%20Comfort%20Complex%2C%20Progati%20Sharani%2C%20Gulshan%201%2C%20Dhaka%201212" aria-pressed="false"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>Bangladesh office</b><em>Dhaka, Bangladesh</em><span>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</span></button></li>
+      </ul>
+      <div class="loc-map rv" style="--d:.1s">
+        <iframe id="loc-map" title="Office location map" src="https://www.google.com/maps?q=2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <a id="loc-open" class="loc-open" href="https://www.google.com/maps/search/?api=1&amp;query=2221%20Powel%20Avenue%2C%20Bronx%2C%20NY%2010462" target="_blank" rel="noopener">Open in Google Maps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Call to action ===== -->
+<section class="po-cta">
+  <div class="wrap">
+    <div class="po-cta-box rv">
+      <div><h2>Let&rsquo;s build something together</h2><p>Tell us about your brand and your next order. Our team replies with a tailored quotation within one business day.</p></div>
+      <a href="quote.html" class="btn">Contact us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-about">
+        <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"></a>
+        <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
+        <div class="soc">
+          <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
+          <a href="https://www.instagram.com/strugglestylewear" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="https://www.facebook.com/share/zWskqrghouEvd4Uw" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+          <a href="https://x.com/struggl86081532" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L.7 3h6.8l4.7 6.2zm-1.2 16h1.8L6.6 4.9H4.7z"/></svg></a>
+        </div>
+      </div>
+      <div><h5>Information</h5><ul><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookies</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div>
+        <h5>Contact</h5>
+        <ul class="contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a href="mailto:info@strugglestyle.net">info@strugglestyle.net</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg><a href="tel:+12675368321">+1 (267) 536-8321</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>2221 Powel Avenue, 1st Floor<br>Bronx, NY 10462</span></li>
+        </ul>
+      </div>
+      <div class="f-loc">
+        <h5>Locations</h5>
+        <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
+        <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
+        <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Struggle Style Inc. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+
+  // Header: transparent over the hero, solid after scrolling; mobile menu
+  const hdr = $('#hdr');
+  hdr.classList.add('scrolled');  // no dark hero here, so the header is always solid
+  const setMenu = o => { $('#mnav').classList.toggle('open', o); hdr.classList.toggle('open', o); $('#burger').setAttribute('aria-expanded', o); };
+  $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
+  $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
+
+
+  // CEO letter: See more / See less
+  document.documentElement.classList.add('js');
+  const ceoBtn = $('.ceo-toggle'), ceoMore = $('#ceo-more');
+  ceoBtn.onclick = () => {
+    const o = !ceoMore.classList.contains('open');
+    ceoMore.classList.toggle('open', o);
+    ceoBtn.setAttribute('aria-expanded', o);
+    ceoBtn.textContent = o ? 'See less' : 'See more';
+    if (!o) ceoBtn.closest('section').scrollIntoView({block: 'start'});
+  };
+
+  // Locations: switch the map between offices
+  $$('.loc-item').forEach(b => b.onclick = () => {
+    $$('.loc-item').forEach(x => x.setAttribute('aria-pressed', x === b));
+    $('#loc-map').src = 'https://www.google.com/maps?q=' + b.dataset.q + '&output=embed';
+    $('#loc-open').href = 'https://www.google.com/maps/search/?api=1&query=' + b.dataset.q;
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
+  $$('.rv').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

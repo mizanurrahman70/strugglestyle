@@ -9,7 +9,7 @@
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     /* Palette from the Struggle Style Inc. logo (same tokens as the other pages) */
@@ -27,8 +27,8 @@
     --border:#DCEBE1;
     --shadow:0 1px 2px rgba(15,31,23,.04),0 8px 24px -12px rgba(15,31,23,.12);
     --shadow-lg:0 2px 4px rgba(15,31,23,.04),0 24px 48px -20px rgba(15,31,23,.25);
-    --head:"Inter Tight",system-ui,sans-serif;
-    --body:"Inter",system-ui,sans-serif;
+    --head:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
+    --body:Futura,"Futura PT","Century Gothic","Jost",system-ui,sans-serif;
     --r-lg:28px;--r:20px;--r-sm:14px;
     --max:1280px;
     --ease:cubic-bezier(.2,.7,.2,1);
@@ -71,7 +71,7 @@
   header .logo-img.on-dark{display:block}
   header.scrolled .logo-img.on-dark,header.open .logo-img.on-dark{display:none}
   header.scrolled .logo-img.on-light,header.open .logo-img.on-light{display:block}
-  footer .logo-img{height:56px}
+  footer .logo-img{height:64px;width:auto}
   header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s}
   header::before{content:"";position:absolute;inset:0 0 -40px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.32) 60%,transparent 100%);transition:opacity .35s}
   header.scrolled::before,header.open::before{opacity:0}
@@ -132,7 +132,7 @@
 
   /* Footer */
   footer{background:var(--green-900);color:rgba(255,255,255,.7);padding:80px 0 32px;font-size:15px}
-  .f-grid{display:grid;grid-template-columns:1.6fr 1fr 1.3fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .f-grid{display:grid;grid-template-columns:1.3fr .8fr 1.2fr 1.5fr;gap:40px;padding-bottom:48px}
   .f-about p{margin:20px 0 24px;max-width:320px}
   footer h5{color:#fff;font-size:15px;font-weight:600;margin-bottom:18px}
   footer ul{list-style:none;display:grid;gap:11px}
@@ -144,11 +144,11 @@
   .soc svg{width:16px;height:16px}
   .contact li{display:flex;gap:12px;align-items:flex-start}
   .contact svg{width:18px;height:18px;margin-top:3px;color:var(--leaf);flex-shrink:0}
-  .f-locrow{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:center;gap:32px;padding:36px 0;border-bottom:1px solid rgba(255,255,255,.1)}
-  .f-locrow h5{font-size:clamp(24px,2.6vw,36px);font-weight:700;letter-spacing:-.02em;margin:0;padding-right:16px}
-  .f-locrow address{font-style:normal;font-size:14px;line-height:1.6;padding-left:18px;border-left:3px solid var(--leaf)}
-  .f-locrow b{display:block;color:#fff;font-weight:600}
-  .f-bot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
+  .f-loc{display:grid;gap:18px;align-content:start}
+  .f-loc h5{margin-bottom:0}
+  .f-loc address{font-style:normal;font-size:14px;line-height:1.6;padding-left:0}
+  .f-loc b{display:block;color:#fff;font-weight:600}
+  .f-bot{display:flex;justify-content:center;text-align:center;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px;font-size:14px}
   .f-credit a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
   /* Reveal */
@@ -171,8 +171,6 @@
     .row.flip .row-media{order:0}
     .row-media{max-width:620px}
     .f-grid{grid-template-columns:1fr 1fr}
-    .f-locrow{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .f-locrow h5{grid-column:1/-1}
   }
   @media (max-width:640px){
     .wrap{padding:0 16px}
@@ -185,7 +183,6 @@
     .po-cta{padding:80px 0}
     .po-cta-box{padding:36px 24px}
     .f-grid{grid-template-columns:1fr}
-    .f-locrow{grid-template-columns:1fr;gap:22px}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition:none!important;animation:none!important}
@@ -206,7 +203,7 @@
         <li><a href="products.html">Products</a></li>
         <li><a href="manufacturing.html">Manufacturing</a></li>
         <li><a href="sustainability.html" aria-current="page">Sustainability</a></li>
-        <li><a href="index.html#about">About</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="news.html">News</a></li>
       </ul>
     </nav>
@@ -214,7 +211,7 @@
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html" aria-current="page">Sustainability</a><a href="index.html#about">About</a><a href="news.html">News</a>
+    <a href="index.html">Home</a><a href="products.html">Products</a><a href="manufacturing.html">Manufacturing</a><a href="sustainability.html" aria-current="page">Sustainability</a><a href="about.html">About</a><a href="news.html">News</a>
     <a href="quote.html" class="btn btn-primary">Get a Quote</a>
   </nav>
 </header>
@@ -225,7 +222,6 @@
   <div class="wrap">
     <div class="pt-head rv">
       <div>
-        <span class="tag">Responsible manufacturing</span>
         <h1>Sustainability</h1>
       </div>
       <p class="lead">From the way we dye our fabrics to the way we make and pack every garment, sustainability and social responsibility always come first.</p>
@@ -243,7 +239,6 @@
 <section class="row" aria-labelledby="commit-title">
   <div class="wrap row-grid">
     <div class="row-copy rv">
-      <span class="tag">Our commitment</span>
       <h2 id="commit-title">We are committed to the environment</h2>
       <p>We use eco-friendly practices across our manufacturing processes, from the energy that powers our floors to the materials we pack your products in.</p>
       <ul class="checks">
@@ -260,7 +255,6 @@
 <section class="row soft flip" id="impact" aria-labelledby="impact-title">
   <div class="wrap row-grid">
     <div class="row-copy rv">
-      <span class="tag">01 · Impact</span>
       <h2 id="impact-title">Environmental impact reduction</h2>
       <p>Fashion is one of the most polluting industries in the world. The first step towards a solution is awareness and the willingness to change, so we look closely at the materials and processes we use.</p>
       <ul class="checks">
@@ -277,7 +271,6 @@
 <section class="row" id="emission" aria-labelledby="emission-title">
   <div class="wrap row-grid">
     <div class="row-copy rv">
-      <span class="tag">02 · Emissions</span>
       <h2 id="emission-title">Lowering emissions</h2>
       <p>Climate change makes cutting carbon urgent, and fashion is a sizeable contributor. We looked at the whole value chain, from farms and factories to brands and retailers, and found three areas to act on.</p>
       <ul class="checks">
@@ -294,7 +287,6 @@
 <section class="row soft flip" id="waste" aria-labelledby="waste-title">
   <div class="wrap row-grid">
     <div class="row-copy rv">
-      <span class="tag">03 · Waste</span>
       <h2 id="waste-title">Minimizing waste</h2>
       <p>Making and using textiles can leave waste and pollution behind. A circular approach and biodegradable materials help keep fabric out of landfill.</p>
       <ul class="checks">
@@ -311,7 +303,6 @@
 <section class="row" id="efficiency" aria-labelledby="efficiency-title">
   <div class="wrap row-grid">
     <div class="row-copy rv">
-      <span class="tag">04 · Efficiency</span>
       <h2 id="efficiency-title">Efficiency using resources</h2>
       <p>Efficient manufacturing means producing the most with the least input: fewer materials, less energy and less time for every order.</p>
       <ul class="checks">
@@ -340,7 +331,7 @@
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-new-leaf.png" alt="Struggle Style"></a>
+        <a href="index.html" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
@@ -358,16 +349,15 @@
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>2221 Powel Avenue, 1st Floor<br>Bronx, NY 10462</span></li>
         </ul>
       </div>
-    </div>
-    <div class="f-locrow">
-      <h5>Location</h5>
-      <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
-      <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
-      <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
+      <div class="f-loc">
+        <h5>Locations</h5>
+        <address><b>Head office</b>2221 Powel Avenue, 1st Floor, Bronx, NY 10462</address>
+        <address><b>Hong Kong office</b>Kwong Yuen Building 2/F, Flat-P, 4 Kam Lam Street, Kowloon, Hong Kong</address>
+        <address><b>Bangladesh office</b>Azhar Comfort Complex, Level 9, GA-130/A, Progati Sharani, Gulshan-1, Dhaka 1212</address>
+      </div>
     </div>
     <div class="f-bot">
       <span>© 2026 Struggle Style Inc. All rights reserved.</span>
-      <span class="f-credit">Developed by <a href="https://traideas.com/" target="_blank" rel="noopener" translate="no" class="notranslate">Traideas</a></span>
     </div>
   </div>
 </footer>

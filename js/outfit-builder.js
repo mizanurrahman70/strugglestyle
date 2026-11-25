@@ -233,7 +233,7 @@
     }
 
     placeholder(label) {
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 500"><g fill="#E3E6E9"><circle cx="150" cy="58" r="30"/><rect x="139" y="86" width="22" height="20" rx="6"/><path d="M98 110h104l20 150h-24l-8 170h-26l-14-150-14 150h-26l-8-170H78z"/></g><text x="150" y="468" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="600" fill="#6B7580">${esc(label)}</text><text x="150" y="490" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#9AA3AC">Render not available yet</text></svg>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 500"><g fill="#E3E6E9"><circle cx="150" cy="58" r="30"/><rect x="139" y="86" width="22" height="20" rx="6"/><path d="M98 110h104l20 150h-24l-8 170h-26l-14-150-14 150h-26l-8-170H78z"/></g><text x="150" y="468" text-anchor="middle" font-family="Futura,Jost,system-ui,sans-serif" font-size="15" font-weight="600" fill="#6B7580">${esc(label)}</text><text x="150" y="490" text-anchor="middle" font-family="Futura,Jost,system-ui,sans-serif" font-size="12" fill="#9AA3AC">Render not available yet</text></svg>`;
       return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     }
 
