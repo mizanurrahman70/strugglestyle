@@ -110,10 +110,12 @@
   .ceo-id{margin-top:22px;padding-left:16px;border-left:3px solid var(--leaf)}
   .ceo-id b{display:block;font-family:var(--head);font-size:20px;font-weight:600;letter-spacing:-.01em}
   .ceo-id span{font-size:14px;color:var(--muted)}
-  .ceo-facts{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
-  .ceo-facts li{padding:16px;border-radius:var(--r-sm);background:var(--soft);border:1px solid var(--border)}
-  .ceo-facts b{display:block;font-family:var(--head);font-size:24px;font-weight:600;color:var(--green-700);line-height:1.1}
-  .ceo-facts span{font-size:13px;color:var(--muted);line-height:1.35}
+  /* Milestones: plain year + note, one thin divider */
+  .ceo-facts{list-style:none;display:grid;grid-template-columns:1fr 1fr;margin-top:28px}
+  .ceo-facts li{padding:0 16px 0 0}
+  .ceo-facts li + li{padding:0 0 0 16px;border-left:1px solid var(--border)}
+  .ceo-facts b{display:block;font-family:var(--head);font-size:22px;font-weight:600;color:var(--green-700);line-height:1.1;font-variant-numeric:tabular-nums}
+  .ceo-facts span{display:block;margin-top:6px;font-size:13px;color:var(--muted);line-height:1.45}
   .ceo-copy h2{margin:16px 0 28px}
   .ceo-copy p{font-size:17px;line-height:1.8;color:var(--muted);max-width:680px}
   .ceo-copy p + p{margin-top:20px}
@@ -121,6 +123,15 @@
   .ceo-quote{position:relative;margin:40px 0;padding:44px 0 0 0;color:var(--green-800);font-family:var(--head);font-size:clamp(22px,2.2vw,30px);font-weight:500;line-height:1.35;letter-spacing:-.015em;max-width:680px}
   .ceo-quote::before{content:"“";position:absolute;left:-4px;top:-6px;font-family:Georgia,serif;font-size:96px;line-height:1;color:var(--leaf)}
   .ceo-quote span{color:var(--green-600)}
+  /* See more: the rest of the letter opens on click (fully open without JS) */
+  .ceo-more{display:grid;grid-template-rows:1fr;transition:grid-template-rows .5s var(--ease)}
+  .js .ceo-more{grid-template-rows:0fr;overflow:hidden}
+  .js .ceo-more.open{grid-template-rows:1fr}
+  .ceo-more-in{min-height:0}
+  .js .ceo-more:not(.open) .ceo-more-in{visibility:hidden;transition:visibility 0s .5s}
+  .ceo-more-in > p:first-child{margin-top:20px}
+  .ceo-toggle{display:none;margin-top:24px;cursor:pointer}
+  .js .ceo-toggle{display:inline-block}
   .ceo-sign{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);max-width:680px}
   .ceo-sign b{display:block;font-family:var(--head);font-size:22px;font-weight:600}
   .ceo-sign span{font-size:15px;color:var(--muted)}
@@ -338,9 +349,14 @@
       <h2 id="ceo-title">Apparel and art, made for the world</h2>
       <p class="first">With global economic activity recovering, we have resumed our quest to become the No. 1 brand around the world.</p>
       <p>In 2020, we started our global trading from Bangladesh with a focus on bringing together apparel and art. Economies and people grew insular during the COVID-19 pandemic, but we have the power to brighten customer mood by conducting our business with energy and enthusiasm. Opened in September 2023, our newly refurbished STRUGGLE Style Inc. started operation from New York, USA, to optimize our idea for our buyers and partners.</p>
-      <p>Our Struggle Style philosophy is to enrich the lives of people everywhere with simple, high-quality clothing. Struggle Style is the concrete expression of our commitment to reduce the environmental impact of our daily business activities, to help achieve sustainable growth for society, and to make the world a better place through our business and products. As society and Struggle Style evolve, affinity and support for Struggle Style is growing everywhere.</p>
-      <blockquote class="ceo-quote">Changing clothes. Changing commercial wisdom. <span>Changing the world.</span></blockquote>
-      <p>The unique concept of Struggle Style is the foundation on which we continue to expand our business internationally as we pursue our corporate commitment. I am keen to join forces with enterprising individuals and companies worldwide to build a framework for sustainable growth.</p>
+      <div class="ceo-more" id="ceo-more">
+        <div class="ceo-more-in">
+          <p>Our Struggle Style philosophy is to enrich the lives of people everywhere with simple, high-quality clothing. Struggle Style is the concrete expression of our commitment to reduce the environmental impact of our daily business activities, to help achieve sustainable growth for society, and to make the world a better place through our business and products. As society and Struggle Style evolve, affinity and support for Struggle Style is growing everywhere.</p>
+          <blockquote class="ceo-quote">Changing clothes. Changing commercial wisdom. <span>Changing the world.</span></blockquote>
+          <p>The unique concept of Struggle Style is the foundation on which we continue to expand our business internationally as we pursue our corporate commitment. I am keen to join forces with enterprising individuals and companies worldwide to build a framework for sustainable growth.</p>
+        </div>
+      </div>
+      <button type="button" class="ceo-toggle j-link" aria-expanded="false" aria-controls="ceo-more">See more</button>
       <div class="ceo-sign"><b>Didarul Maksud</b><span>CEO, Struggle Style Inc.</span></div>
     </div>
   </div>
@@ -482,6 +498,17 @@
   $('#burger').onclick = () => setMenu(!$('#mnav').classList.contains('open'));
   $$('#mnav a').forEach(a => a.onclick = () => setMenu(false));
 
+
+  // CEO letter: See more / See less
+  document.documentElement.classList.add('js');
+  const ceoBtn = $('.ceo-toggle'), ceoMore = $('#ceo-more');
+  ceoBtn.onclick = () => {
+    const o = !ceoMore.classList.contains('open');
+    ceoMore.classList.toggle('open', o);
+    ceoBtn.setAttribute('aria-expanded', o);
+    ceoBtn.textContent = o ? 'See less' : 'See more';
+    if (!o) ceoBtn.closest('section').scrollIntoView({block: 'start'});
+  };
 
   // Locations: switch the map between offices
   $$('.loc-item').forEach(b => b.onclick = () => {
