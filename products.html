@@ -91,7 +91,7 @@
 
   /* 1. Header */
   /* Transparent over the hero, solid once scrolled (or when the mobile menu is open) */
-  header{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
+  header{position:fixed;top:0;left:0;right:0;z-index:1000;background:transparent;border-bottom:1px solid rgba(255,255,255,.14);transition:background .35s,border-color .35s,backdrop-filter .35s}
   header .nav ul a{color:#fff;transition:color .35s}
   header .nav > .btn{background:var(--leaf);color:var(--green-900)}
   header .nav > .btn:hover{background:#fff}
@@ -222,7 +222,7 @@
   /* 4c. Lookbook — full-width turntable stage, drag to rotate */
   .lookbook-sec{padding:112px 0}
   .lb-stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,26vw,460px);height:680px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:radial-gradient(80% 80% at 50% 30%,#FFFFFF 0%,#F1F4F1 60%,#E4EAE5 100%)}
-  .lb-left{position:relative;overflow:hidden;--cx:50%}
+  .lb-left{position:relative;overflow:hidden;isolation:isolate;z-index:0;--cx:50%}
   /* Desktop: the lookbook fills the first screen (viewport minus header) and the looks scale with its height */
   @media (min-width:1181px){
     .lb-stage{height:max(680px,calc(100svh - 84px))}
@@ -260,7 +260,7 @@
   .ring-nav button{width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid var(--border);display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
   .ring-nav button:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
   .ring-nav svg{width:18px;height:18px}
-  .inlook{position:relative;display:flex;flex-direction:column;justify-content:flex-start;padding:40px 40px 32px;background:#fff;border-left:1px solid var(--border);z-index:5;min-width:0}
+  .inlook{position:relative;display:flex;flex-direction:column;justify-content:flex-start;padding:40px 40px 32px;background:#fff;border-left:1px solid var(--border);z-index:1;min-width:0}
   .il-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
   .il-no{font-family:var(--head);font-size:14px;font-weight:600;color:var(--green-700);letter-spacing:.02em}
   .inlook .count{font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--green-100);color:var(--green-700)}
@@ -451,7 +451,7 @@
   .cert:hover .cert-go{background:var(--green-800);border-color:var(--green-800);color:#fff}
   .certs-note{font-size:13px;color:var(--muted)}
   /* viewer */
-  .viewer{position:fixed;inset:0;z-index:90;background:rgba(12,42,27,.82);backdrop-filter:blur(6px);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+  .viewer{position:fixed;inset:0;z-index:1100;background:rgba(12,42,27,.82);backdrop-filter:blur(6px);display:grid;place-items:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
   .viewer.open{opacity:1;pointer-events:auto}
   .viewer-box{display:grid;grid-template-columns:auto 340px;gap:0;max-width:1000px;width:100%;max-height:calc(100vh - 48px);background:var(--bg);border-radius:var(--r-lg);overflow:hidden;transform:translateY(16px) scale(.98);transition:transform .35s var(--ease)}
   .viewer.open .viewer-box{transform:none}
