@@ -911,6 +911,8 @@
   /* Two-factory slider: arrows either side of the slide, dot pager underneath */
   .gl-stage{display:grid;grid-template-columns:48px minmax(0,1fr) 48px;grid-template-areas:"prev slides next" ". dots .";column-gap:28px}
   .gl-slides{grid-area:slides}
+  .gl-panel{transition:opacity .25s ease,transform .25s ease}
+  .gl-panel.leaving{opacity:0;transform:translateX(var(--dx,0px))}
   .gl-arrow{align-self:center;width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:var(--white);border:1px solid var(--border);color:var(--green-800);transition:background .25s,color .25s,border-color .25s}
   .gl-arrow:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
   .gl-arrow svg{width:20px;height:20px}
@@ -927,7 +929,7 @@
   .gl-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:56px;align-items:start}
   .gl-panel[hidden]{display:none}
   .gl-panel.enter{animation:glIn .5s var(--ease)}
-  @keyframes glIn{from{opacity:0;transform:translateY(10px)}}
+  @keyframes glIn{from{opacity:0;transform:translateX(var(--dx,0px))}}
   .gl-card{position:relative;padding:36px;border-radius:var(--r-lg);background:var(--white);border:1px solid var(--border)}
   /* Stitched edge: same dashed thread as the wordmark */
   .gl-card::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(26,127,75,.28);border-radius:calc(var(--r-lg) - 8px);pointer-events:none}
@@ -1416,13 +1418,42 @@
     const dots = $$('.gl-dot'), panels = $$('.gl-panel'), stage = $('.gl-stage');
     if (!dots.length) return;
     let cur = dots.findIndex(d => d.getAttribute('aria-current') === 'true');
+    const slides = $('.gl-slides');
+    let timer = 0;
+    // Hold the stage at the tallest panel so arrows and dots never move
+    const fit = () => {
+      slides.style.minHeight = '';
+      const vis = panels.findIndex(p => !p.hidden);
+      let max = 0;
+      panels.forEach(p => { const h = p.hidden; p.hidden = false; max = Math.max(max, p.offsetHeight); p.hidden = h; });
+      slides.style.minHeight = max + 'px';
+    };
+    fit();
+    addEventListener('resize', fit);
+    addEventListener('load', fit);
     const go = i => {
-      cur = (i + panels.length) % panels.length;
+      const next = (i + panels.length) % panels.length;
+      if (next === cur) return;
+      const dir = (next > cur || (cur === panels.length - 1 && next === 0)) && !(cur === 0 && next === panels.length - 1) ? 1 : -1;
+      const old = panels[cur];
+      cur = next;
       dots.forEach((d, k) => k === cur ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current'));
-      panels.forEach((p, k) => {
-        const was = p.hidden; p.hidden = k !== cur;
-        if (k === cur && was && !reduce) { p.classList.remove('enter'); void p.offsetWidth; p.classList.add('enter'); }
-      });
+      clearTimeout(timer);
+      const fresh = panels[cur];
+      const finish = () => {
+        panels.forEach(p => { p.classList.remove('leaving', 'enter'); p.hidden = p !== fresh; });
+      };
+      if (reduce || !old || old.hidden) { finish(); return; }
+      old.style.setProperty('--dx', (-dir * 28) + 'px');
+      fresh.style.setProperty('--dx', (dir * 28) + 'px');
+      panels.forEach(p => p.classList.remove('enter'));
+      old.classList.add('leaving');
+      timer = setTimeout(() => {
+        old.hidden = true; old.classList.remove('leaving');
+        fresh.hidden = false;
+        fresh.classList.add('enter');
+        timer = setTimeout(() => fresh.classList.remove('enter'), 520);
+      }, 250);
     };
     dots.forEach((d, k) => d.onclick = () => go(k));
     $('.gl-prev').onclick = () => go(cur - 1);
