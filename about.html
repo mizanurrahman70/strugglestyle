@@ -139,8 +139,8 @@
   .ceo-sign span{font-size:15px;color:var(--muted)}
 
   /* Our team: intro column + portrait cards (quiet, editorial) */
-  .team-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:72px;align-items:start}
-  .team-intro{position:sticky;top:116px}
+  .team-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:start}
+  .team-intro{text-align:center;max-width:640px;margin-inline:auto}
   .team-intro h2{margin:16px 0 20px;text-wrap:balance}
   .team-intro .lead{font-size:17px}
   .team-intro .j-link{display:inline-block;margin-top:28px}
@@ -196,9 +196,9 @@
   .j-tagline{position:absolute;z-index:2;top:20px;left:20px;padding:8px 14px;border-radius:999px;background:rgba(12,42,27,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff}
 
   /* Locations: office list + live map */
-  .loc-head{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:48px}
+  .loc-head{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:16px;margin-bottom:48px}
   .loc-head h2{margin-top:16px}
-  .loc-head .lead{max-width:420px}
+  .loc-head .lead{max-width:520px;margin-inline:auto}
   .loc-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:32px;align-items:stretch}
   .loc-list{list-style:none;display:grid;gap:14px;align-content:start}
   .loc-item{width:100%;display:grid;grid-template-columns:44px 1fr;gap:4px 16px;text-align:left;padding:22px;border-radius:var(--r);background:#fff;border:0;transition:background .25s,box-shadow .25s,transform .25s var(--ease)}
