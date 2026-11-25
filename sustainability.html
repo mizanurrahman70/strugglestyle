@@ -97,14 +97,16 @@
 
   /* 1. Page title only (room for the fixed header) */
   .page-title{padding:148px 0 96px;background:var(--soft);border-bottom:1px solid var(--border)}
-  .pt-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end}
+  .pt-head{display:grid;grid-template-columns:1fr;gap:20px;justify-items:center;text-align:center}
   .page-title h1{font-size:clamp(40px,5.4vw,68px);letter-spacing:-.035em;margin-top:16px}
-  .page-title .lead{max-width:none}
+  .page-title .lead{max-width:720px;margin:0 auto;text-wrap:balance}
   /* Four focus areas: numbered links to each section */
   .focus{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
   .focus a{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;height:100%;padding:20px;border-radius:var(--r);background:#fff;border:1px solid var(--border);transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}
   .focus a:hover{border-color:var(--green-600);box-shadow:var(--shadow);transform:translateY(-2px)}
-  .focus i{grid-row:span 2;width:44px;height:44px;border-radius:12px;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;font-style:normal;font-family:var(--head);font-size:15px;font-weight:600}
+  .focus i{grid-row:span 2;width:44px;height:44px;border-radius:50%;background:var(--green-100);color:var(--green-700);display:grid;place-items:center;transition:background .25s,color .25s}
+  .focus i svg{width:22px;height:22px}
+  .focus a:hover i{background:var(--green-700);color:#fff}
   .focus b{font-family:var(--head);font-size:16.5px;font-weight:600;line-height:1.3}
   .focus span{font-size:14px;color:var(--muted);line-height:1.45}
 
@@ -227,10 +229,10 @@
       <p class="lead">From the way we dye our fabrics to the way we make and pack every garment, sustainability and social responsibility always come first.</p>
     </div>
     <ul class="focus rv" style="--d:.1s">
-      <li><a href="#impact"><i>01</i><b>Environmental impact</b><span>Natural, low-water fibres</span></a></li>
-      <li><a href="#emission"><i>02</i><b>Lowering emissions</b><span>Action across the value chain</span></a></li>
-      <li><a href="#waste"><i>03</i><b>Minimizing waste</b><span>Biodegradable materials</span></a></li>
-      <li><a href="#efficiency"><i>04</i><b>Resource efficiency</b><span>Planned, lean production</span></a></li>
+      <li><a href="#impact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c4 3.6 6 6.6 6 9.6A6 6 0 0 1 6 12.6C6 9.6 8 6.6 12 3z"/><path d="M9.5 13.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></i><b>Environmental impact</b><span>Natural, low-water fibres</span></a></li>
+      <li><a href="#emission"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h10a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 13h14a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 17h7"/></svg></i><b>Lowering emissions</b><span>Action across the value chain</span></a></li>
+      <li><a href="#waste"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h8l-2-2.5M15 7l-2 2.5"/><path d="M17 11l3 5h-5M20 16l-1.5 2.5"/><path d="M12 20H5l3-5M5 20l1.5 1.5" transform="translate(0 -2)"/></svg></i><b>Minimizing waste</b><span>Biodegradable materials</span></a></li>
+      <li><a href="#efficiency"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.2"/></svg></i><b>Resource efficiency</b><span>Planned, lean production</span></a></li>
     </ul>
   </div>
 </section>
