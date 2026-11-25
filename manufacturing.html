@@ -903,7 +903,7 @@
   .glance{background:var(--soft)}
   .glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
   .glance-grid div{padding:22px 24px 22px 0;border-bottom:1px solid var(--border)}
-  .glance-grid dt{font-size:13.5px;color:var(--muted)}
+  .glance-grid dt{font-size:13.5px;font-weight:500;color:var(--green-700)}
   .glance-grid dd{font-family:var(--body);font-size:17px;font-weight:400;color:var(--text);margin-top:4px;line-height:1.45}
   .glance .s-head{flex-direction:column;align-items:center;text-align:center;gap:0}
   .glance .s-head h2{max-width:none}
@@ -931,8 +931,7 @@
   .gl-card{position:relative;padding:36px;border-radius:var(--r-lg);background:var(--white);border:1px solid var(--border)}
   /* Stitched edge: same dashed thread as the wordmark */
   .gl-card::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(26,127,75,.28);border-radius:calc(var(--r-lg) - 8px);pointer-events:none}
-  .gl-no{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-600)}
-  .gl-card h3{font-size:clamp(26px,2.4vw,32px);margin:10px 0 12px}
+  .gl-card h3{font-size:clamp(26px,2.4vw,32px);margin:0 0 12px}
   .gl-card p{font-size:15.5px;color:var(--muted)}
   .gl-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;padding:24px 0;border-block:1px solid var(--border)}
   .gl-nums strong{display:block;font-family:var(--head);font-size:36px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--green-800)}
@@ -1266,7 +1265,6 @@
     <div class="gl-slides" aria-live="polite">
     <article class="gl-panel" role="group" aria-roledescription="slide" aria-label="1 of 2: Holy Intimates" id="gl-p1" hidden>
       <div class="gl-card">
-        <span class="gl-no">Factory 01</span>
         <h3>Holy Intimates</h3>
         <p>A lingerie maker founded in 2023, with its own fabric moulding section. Ships to Africa, Canada and the UAE.</p>
         <div class="gl-nums">
@@ -1290,7 +1288,6 @@
 
     <article class="gl-panel rv" role="group" aria-roledescription="slide" aria-label="2 of 2: NASA Hitech Style" id="gl-p2">
       <div class="gl-card">
-        <span class="gl-no">Factory 02</span>
         <h3>NASA Hitech Style Ltd.</h3>
         <p>A privately owned maker of woven bottoms and jackets, running since July 2018 from a LEED Gold building. It has its own training centre and a sister washing plant with an effluent treatment plant.</p>
         <div class="gl-nums">
