@@ -546,6 +546,22 @@
   .reach-note{text-align:center;font-size:13px;color:var(--muted);margin-top:28px}
 
   /* 8. Certifications — centered intro + icon-only marquee */
+  .latest-sec{text-align:center;padding:104px 0}
+  .latest-sec h2{max-width:none;margin:0 0 14px}
+  .latest-sec .lead{margin:0 auto 48px;max-width:640px}
+  .news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:left}
+  .news-card{display:block;padding:8px;border:1px solid var(--border);border-radius:var(--r);background:#fff;color:var(--text);transition:transform .3s var(--ease),box-shadow .3s}
+  .news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .news-img{aspect-ratio:16/10;border-radius:var(--r-sm);overflow:hidden;background:var(--soft)}
+  .news-img img{width:100%;height:100%;object-fit:cover}
+  .news-body{padding:20px 16px 18px}
+  .news-meta{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);margin-bottom:14px}
+  .news-tag{background:#DDF3E6;color:var(--green-700);font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px}
+  .news-body h3{font-size:18px;line-height:1.4;font-weight:600;margin-bottom:18px}
+  .news-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--green-700)}
+  .news-link svg{width:14px;height:14px}
+  @media(max-width:1000px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.news-grid{grid-template-columns:1fr}}
   .certs-sec{background:var(--soft)}
   .cert-intro{max-width:920px;margin:0 auto 48px;text-align:center}
   .cert-intro h2{margin:0 0 18px}
@@ -1211,6 +1227,50 @@
   <p class="mq-empty" hidden>No logos listed for this market yet.</p>
 </section>
 
+<!-- ===== Latest from Struggle Style ===== -->
+<section class="latest-sec" id="latest" aria-labelledby="latest-title">
+  <div class="wrap">
+    <div class="rv">
+      <h2 id="latest-title">Latest from Struggle Style</h2>
+      <p class="lead">Fresh updates from our factory floor: new fabrics, sustainability milestones and stories from the team behind your garments.</p>
+    </div>
+    <div class="news-grid">
+      <a href="#" class="news-card rv" style="--d:0.00s">
+        <div class="news-img"><img src="images/denim-close.jpg" alt="" loading="lazy"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Denim</span><time>12 Oct 2026</time></div>
+          <h3>How low-water washing changes denim finishing</h3>
+          <span class="news-link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="news-card rv" style="--d:0.08s">
+        <div class="news-img"><img src="images/fabric-rolls.jpg" alt="" loading="lazy"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Materials</span><time>28 Sep 2026</time></div>
+          <h3>Choosing between organic, recycled and blended cotton</h3>
+          <span class="news-link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="news-card rv" style="--d:0.16s">
+        <div class="news-img"><img src="images/port.jpg" alt="" loading="lazy"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Buyer Guide</span><time>09 Sep 2026</time></div>
+          <h3>MOQs, lead times and Incoterms explained for new importers</h3>
+          <span class="news-link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a href="#" class="news-card rv" style="--d:0.24s">
+        <div class="news-img"><img src="images/sew-line.jpg" alt="" loading="lazy"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Quality</span><time>21 Aug 2026</time></div>
+          <h3>Inside our inline quality checks, from cutting to packing</h3>
+          <span class="news-link">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 16. Quote band ===== -->
 <section class="rfq" id="quote">
   <span class="leaf"><svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M180 20C80 20 20 70 20 150c0 10 2 20 5 30 10-50 50-90 110-110-50 30-80 70-90 120 90 0 135-70 135-170z"/></svg></span>
@@ -1242,7 +1302,7 @@
   <div class="wrap">
     <div class="f-grid">
       <div class="f-about">
-        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-gold-dark.svg" alt="Struggle Style" width="3700" height="1524"></a>
+        <a href="#" class="logo" aria-label="Struggle Style Inc. home"><img class="logo-img" src="images/logo-gold.svg" alt="Struggle Style" width="3700" height="1524"></a>
         <p>Quality textiles and apparel, manufactured with efficiency and sustainability for brands worldwide.</p>
         <div class="soc">
           <a href="https://www.linkedin.com/in/struggle-style-wear-952125307" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v12H4zM6 3a2 2 0 110 4 2 2 0 010-4zM10 9h4v1.7c.6-1 1.9-2 3.8-2 4 0 4.2 2.6 4.2 6V21h-4v-5.5c0-1.4 0-3.1-2-3.1s-2.2 1.5-2.2 3V21h-4z"/></svg></a>
