@@ -117,6 +117,16 @@
   .row.flip .row-media{order:-1}
   .row-copy h2{margin:16px 0 20px;text-wrap:balance}
   .row-copy > p{font-size:17px;line-height:1.75;color:var(--muted);max-width:560px}
+  /* Read more: short intro first, the longer description opens below it */
+  .more{display:grid;grid-template-rows:0fr;max-width:560px;transition:grid-template-rows .45s var(--ease)}
+  .more > div{overflow:hidden}
+  .more p{font-size:17px;line-height:1.75;color:var(--muted);padding-top:14px;opacity:0;transition:opacity .35s}
+  .more.open{grid-template-rows:1fr}
+  .more.open p{opacity:1}
+  .more-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:4px 0;font-size:15px;font-weight:600;color:var(--green-700);border-bottom:2px solid var(--orange);transition:color .2s}
+  .more-btn:hover{color:var(--green-800)}
+  .more-btn svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+  .more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
   .checks{list-style:none;margin-top:28px;border-top:1px solid var(--border)}
   .checks li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);font-size:16px;color:var(--muted)}
   .checks svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--green-600)}
@@ -243,6 +253,8 @@
     <div class="row-copy rv">
       <h2 id="commit-title">We are committed to the environment</h2>
       <p>We use eco-friendly practices across our manufacturing processes, from the energy that powers our floors to the materials we pack your products in.</p>
+      <div class="more" id="more-commit"><div><p>Looking after the environment is part of how we plan every order, not an extra step at the end. Our teams review how much energy our machines and lighting use, and we keep upgrading to more efficient equipment as we grow.</p><p>We are adding solar power to cover part of our daily electricity needs, and we choose recycled and recyclable cartons, polybags and hangtags wherever a buyer’s requirements allow. If your brand has its own packaging or energy targets, we will work with you to meet them.</p></div></div>
+      <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-commit"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Energy-efficient</b> facilities</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Renewable energy</b> from solar panels</span></li>
@@ -259,6 +271,8 @@
     <div class="row-copy rv">
       <h2 id="impact-title">Environmental impact reduction</h2>
       <p>Fashion is one of the most polluting industries in the world. The first step towards a solution is awareness and the willingness to change, so we look closely at the materials and processes we use.</p>
+      <div class="more" id="more-impact"><div><p>For us that starts with fibre choice. Organic and natural fibres avoid synthetic pesticides and fertilisers, and fibres such as linen and hemp need far less water to grow than conventional cotton. Recycled fibres give materials that already exist a second life.</p><p>We also look at how garments are cared for after they leave our floor. Washing at 30°C saves energy and helps reduce the microfibres that shed into waterways, so we recommend it on care labels wherever the fabric allows.</p></div></div>
+      <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-impact"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Organic and natural fibres</b> that need no chemicals to grow</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Low-water fibres</b> such as linen, hemp and recycled fibres</span></li>
@@ -275,6 +289,8 @@
     <div class="row-copy rv">
       <h2 id="emission-title">Lowering emissions</h2>
       <p>Climate change makes cutting carbon urgent, and fashion is a sizeable contributor. We looked at the whole value chain, from farms and factories to brands and retailers, and found three areas to act on.</p>
+      <div class="more" id="more-emission"><div><p>Most of a garment’s footprint is created before it reaches the sewing line, in growing fibre, spinning yarn and finishing fabric. We work with mills that share our goals and help buyers choose lower-impact materials early, when the choice makes the biggest difference.</p><p>On our own floors we keep machines well maintained, plan production to avoid idle running time and move towards cleaner energy. With brand partners we share what we learn, so together we can cut emissions across the whole order, not just our part of it.</p></div></div>
+      <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-emission"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Upstream operations:</b> fibre, yarn and fabric production</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Our own operations:</b> efficient machinery and cleaner energy</span></li>
@@ -291,6 +307,8 @@
     <div class="row-copy rv">
       <h2 id="waste-title">Minimizing waste</h2>
       <p>Making and using textiles can leave waste and pollution behind. A circular approach and biodegradable materials help keep fabric out of landfill.</p>
+      <div class="more" id="more-waste"><div><p>A circular approach means thinking about the end of a garment’s life when it is designed. Natural, biodegradable materials such as bamboo, hemp and organic cotton break down far more easily than conventional synthetics once a garment is worn out.</p><p>We follow new bio-based fibres made from by-products like citrus rinds and soybeans, and can source them for buyers who want to try them. Producing to confirmed quantities and accurate size ratios also means less unsold stock and fewer garments thrown away.</p></div></div>
+      <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-waste"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Biodegradable materials</b> such as bamboo, hemp and organic cotton</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>New bio-based fibres</b> from citrus rinds and soybeans</span></li>
@@ -307,6 +325,8 @@
     <div class="row-copy rv">
       <h2 id="efficiency-title">Efficiency using resources</h2>
       <p>Efficient manufacturing means producing the most with the least input: fewer materials, less energy and less time for every order.</p>
+      <div class="more" id="more-efficiency"><div><p>Every order starts with a clear plan for each stage, from cutting to packing, so materials and machine time are used where they are needed. Good planning also helps us meet delivery dates without rushing or reworking.</p><p>Automation takes care of repetitive tasks, and lean methods such as careful marker planning help us get more pieces from every metre of fabric. We also follow renewable inputs made from sugar, algae and biomass as alternatives to oil-based materials.</p></div></div>
+      <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-efficiency"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <ul class="checks">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Production planning</b> for every step and deadline</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Automation</b> to streamline repetitive tasks</span></li>
@@ -377,6 +397,14 @@
   // Reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
   $$('.rv').forEach(el => io.observe(el));
+
+  // See more / See less: opens the longer description under each section intro
+  $$('.more-btn').forEach(b => b.onclick = () => {
+    const open = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', open);
+    document.getElementById(b.getAttribute('aria-controls')).classList.toggle('open', open);
+    b.querySelector('span').textContent = open ? 'See less' : 'See more';
+  });
 </script>
 </body>
 </html>
