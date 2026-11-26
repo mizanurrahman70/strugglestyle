@@ -109,7 +109,7 @@
   .ceo-photo{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:var(--green-100);box-shadow:var(--shadow-lg)}
   .ceo-photo::before{content:"DM";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--head);font-size:64px;font-weight:600;color:var(--green-700)}
   .ceo-photo img{position:relative;width:100%;height:100%;object-fit:cover}
-  .ceo-id{margin-top:22px;padding-left:16px;border-left:3px solid var(--leaf)}
+  .ceo-id{margin-top:22px;padding-left:16px;border-left:3px solid var(--orange)}
   .ceo-id b{display:block;font-family:var(--head);font-size:20px;font-weight:600;letter-spacing:-.01em}
   .ceo-id span{font-size:14px;color:var(--muted)}
   /* Milestones: plain year + note, one thin divider */
@@ -132,8 +132,12 @@
   .ceo-more-in{min-height:0}
   .js .ceo-more:not(.open) .ceo-more-in{visibility:hidden;transition:visibility 0s .5s}
   .ceo-more-in > p:first-child{margin-top:20px}
+  /* Same look as the "See more" link on the sustainability page */
   .ceo-toggle{display:none;margin-top:24px;cursor:pointer}
-  .js .ceo-toggle{display:inline-block}
+  .js .ceo-toggle{display:inline-flex;align-items:center;gap:6px;padding:4px 0;font-size:15px;font-weight:600;color:var(--green-700);border-bottom:2px solid var(--orange)}
+  .js .ceo-toggle:hover{color:var(--green-800);border-color:var(--orange)}
+  .ceo-toggle svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+  .ceo-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
   .ceo-sign{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);max-width:680px}
   .ceo-sign b{display:block;font-family:var(--head);font-size:22px;font-weight:600}
   .ceo-sign span{font-size:15px;color:var(--muted)}
@@ -143,7 +147,8 @@
   .team-intro{text-align:center;max-width:640px;margin-inline:auto}
   .team-intro h2{margin:16px 0 20px;text-wrap:balance}
   .team-intro .lead{font-size:17px}
-  .team-intro .j-link{display:inline-block;margin-top:28px}
+  .team-intro .j-link{display:inline-block;margin-top:28px;border-bottom:2px solid var(--orange)}
+  .team-intro .j-link:hover{border-color:var(--orange)}
   .team-list{display:grid;grid-template-columns:1fr 1fr;gap:24px}
   .member{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 28px 32px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--border);transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
   .member:hover{border-color:var(--green-600);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
@@ -181,8 +186,8 @@
   .j-btn i svg{width:18px;height:18px}
   .j-btn:hover{background:var(--green-800);box-shadow:0 14px 34px -12px rgba(26,127,75,.5)}
   .j-btn:hover i{transform:rotate(-45deg)}
-  .j-link{font-size:15px;font-weight:500;color:var(--green-800);border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .2s,border-color .2s}
-  .j-link:hover{color:var(--green-700);border-color:var(--green-600)}
+  .j-link{font-size:15px;font-weight:500;color:var(--green-800);border-bottom:2px solid var(--orange);padding-bottom:3px;transition:color .2s,border-color .2s}
+  .j-link:hover{color:var(--green-700);border-color:var(--orange)}
 
   .journey-media{position:relative;display:block}
   .j-frame{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
@@ -359,7 +364,7 @@
           <p>The unique concept of Struggle Style is the foundation on which we continue to expand our business internationally as we pursue our corporate commitment. I am keen to join forces with enterprising individuals and companies worldwide to build a framework for sustainable growth.</p>
         </div>
       </div>
-      <button type="button" class="ceo-toggle j-link" aria-expanded="false" aria-controls="ceo-more">See more</button>
+      <button type="button" class="ceo-toggle j-link" aria-expanded="false" aria-controls="ceo-more"><span>See more</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="ceo-sign"><b>Didarul Maksud</b><span>CEO, Struggle Style Inc.</span></div>
     </div>
   </div>
@@ -509,7 +514,7 @@
     const o = !ceoMore.classList.contains('open');
     ceoMore.classList.toggle('open', o);
     ceoBtn.setAttribute('aria-expanded', o);
-    ceoBtn.textContent = o ? 'See less' : 'See more';
+    ceoBtn.querySelector('span').textContent = o ? 'See less' : 'See more';
     if (!o) ceoBtn.closest('section').scrollIntoView({block: 'start'});
   };
 
