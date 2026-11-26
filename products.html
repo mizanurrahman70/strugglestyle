@@ -174,6 +174,10 @@
   .cats-head h2{margin:0 0 14px;text-wrap:balance}
   #products .cats-head{max-width:none}
   #products .cats-head h2{white-space:nowrap;font-size:clamp(20px,3.6vw,48px)}
+  @media (max-width:640px){
+    #products .cats-head{padding:0 20px}
+    #products .cats-head h2{white-space:normal;font-size:clamp(26px,7.4vw,32px)}
+  }
   #products .cats-head .lead{max-width:720px}
   .cats-head .lead{margin:0 auto}
   .cats{--cw:220px;--gap:16px;position:relative;overflow:hidden;height:calc(var(--cw) * 1.66 + 130px);touch-action:pan-y;user-select:none}
